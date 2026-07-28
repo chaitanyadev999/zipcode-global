@@ -697,11 +697,11 @@ h1, h2, h3, h4, h5, h6 {
   const COUNTRY = {
     name: "India",
     code: "IN",
-    flag: "🇮🇳",
+    flagCode: "in",
     subtitle: "Bharat · 36 States & UTs · 1,55,000+ PINs",
     lat: 20.5937,
     lon: 78.9629,
-    dataPath: "https://raw.githubusercontent.com/chaitanyadev999/pincode-dataindia/main/",
+    dataPath: "https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/",
     dataPrefix: "",  // "" for india, "usa/" for usa, "world/CODE/" for others
     states: [
       { name: "Andaman & Nicobar Islands", file: "andaman-and-nicobar-islands.json" },
@@ -745,9 +745,9 @@ h1, h2, h3, h4, h5, h6 {
   // ====================================================
 
   // Set page title and meta dynamically
-  document.title = `${COUNTRY.flag} ${COUNTRY.name} — PO ZipCode Global`;
+  document.title = COUNTRY.name + ' PIN Codes — PO ZipCode Global';
   const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.content = `${COUNTRY.flag} ${COUNTRY.name} Postal Codes — PO ZipCode Global`;
+  if (ogTitle) ogTitle.content = COUNTRY.name + ' Postal Codes — PO ZipCode Global';
   const ogDesc = document.querySelector('meta[property="og:description"]');
   if (ogDesc) ogDesc.content = `Find any postal code in ${COUNTRY.name}. ${COUNTRY.states.length} regions. Instant lookup with interactive map.`;
 
@@ -788,7 +788,7 @@ h1, h2, h3, h4, h5, h6 {
   }, { passive: true });
 
   // Init hero
-  $('heroFlag').textContent = COUNTRY.flag;
+  $('heroFlag').innerHTML = '<img src="https://flagcdn.com/w160/' + COUNTRY.flagCode + '.png" alt="' + COUNTRY.name + ' Flag" style="width:120px;height:auto;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:inline-block;" onerror="this.style.display=\'none\'"/>';
   $('heroTitle').textContent = COUNTRY.name;
   $('heroSubtitle').textContent = COUNTRY.subtitle;
   $('statesTitle').textContent = COUNTRY.name + ' — States & Regions';
@@ -796,9 +796,9 @@ h1, h2, h3, h4, h5, h6 {
 
   // Stats
   $('heroStats').innerHTML =
-    '<div class="stat"><span class="stat-num">' + COUNTRY.states.length + '</span><span class="stat-label">Regions</span></div>' +
-    '<div class="stat"><span class="stat-num">' + COUNTRY.code + '</span><span class="stat-label">Code</span></div>' +
-    '<div class="stat"><span class="stat-num">🌍</span><span class="stat-label">Global</span></div>';
+    '<div class="stat"><span class="stat-num">' + COUNTRY.states.length + '</span><span class="stat-label">States & UTs</span></div>' +
+    '<div class="stat"><span class="stat-num">' + COUNTRY.code + '</span><span class="stat-label">Country Code</span></div>' +
+    '<div class="stat"><span class="stat-num">1,55,000+</span><span class="stat-label">PIN Codes</span></div>';
 
   // Render states
   function renderStates() {

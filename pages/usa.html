@@ -542,7 +542,7 @@ h1, h2, h3, h4, h5, h6 {
 <nav class="country-nav" id="countryNav">
 <div class="container">
   <a class="brand" href="/">
-    <span class="brand-mark">&#127482;&#127480;</span>
+    <span class="brand-mark" style="font-size:0.9rem;font-weight:800;letter-spacing:-1px;">US</span>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
@@ -609,7 +609,7 @@ h1, h2, h3, h4, h5, h6 {
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="brand">
-          <span class="brand-mark">&#127482;&#127480;</span>
+          <span class="brand-mark" style="font-size:0.9rem;font-weight:800;letter-spacing:-1px;">US</span>
           <span>PO ZipCode Global</span>
         </div>
         <p>The world's largest ZIP &amp; PIN code finder. 121 countries. Voice search, auto-map. Made with love for the world.</p>
@@ -660,7 +660,7 @@ h1, h2, h3, h4, h5, h6 {
   const COUNTRY = {
     name: "United States",
     code: "US",
-    flag: "USA",
+    flagCode: "us",
     subtitle: "United States of America · 52 States & Territories · Millions of ZIP Codes",
     lat: 39.8283,
     lon: -98.5795,
@@ -766,7 +766,7 @@ h1, h2, h3, h4, h5, h6 {
   }, { passive: true });
 
   // Init hero
-  $('heroFlag').textContent = COUNTRY.flag;
+  $('heroFlag').innerHTML = '<img src="https://flagcdn.com/w160/' + COUNTRY.flagCode + '.png" alt="' + COUNTRY.name + ' Flag" style="width:140px;height:auto;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:inline-block;" onerror="this.style.display=\'none\'"/>';
   $('heroTitle').textContent = COUNTRY.name;
   $('heroSubtitle').textContent = COUNTRY.subtitle;
   $('statesTitle').textContent = COUNTRY.name + ' — States & Territories';
