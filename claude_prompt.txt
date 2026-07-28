@@ -1,0 +1,52 @@
+You are building a Global 121-Country Pincode/Zipcode Website. Project folder: C:\Users\recla\zipcode-global
+
+RULES:
+- Do NOT touch GitHub repo chaitanyadev999/pincode-dataindia (read-only data)
+- Use only Vanilla CSS + plain JavaScript
+- Dark mode glassmorphism design
+- Use jsDelivr CDN for all data fetching
+- No paid APIs
+
+CURRENT STATE:
+- pages/india.html already exists (working example)
+- pages/country-template.html already exists
+- home/main.html` exists (note backtick in name - needs rename)
+
+YOUR TASKS - DO THEM IN ORDER:
+
+TASK 1: Fix filename bug
+Rename C:\Users\recla\zipcode-global\home\main.html` to main.html (remove the backtick)
+
+TASK 2: Build C:\Users\recla\zipcode-global\pages\usa.html
+Copy the style/structure from india.html but change:
+- Title: "USA Zip Codes by State - Complete ZIP Code Directory"
+- Meta description: "Find ZIP codes for all 53 US states and territories. Search by city, county or ZIP code."
+- Dropdown label: "Select State" 
+- Use this USA states list in the dropdown:
+  Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Puerto Rico, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, Washington DC, West Virginia, Wisconsin, Wyoming
+- Fetch URL pattern: https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/usa/${selectedState}.json
+- Column headers in results table: "City", "County", "State", "ZIP Code"
+- Replace all "Pincode" text with "ZIP Code"
+- Replace all "Post Office" text with "City/Office"
+
+TASK 3: Build C:\Users\recla\zipcode-global\pages\uk.html
+- Title: "UK Postal Codes by Region - Complete Postcode Directory"  
+- Fetch URL: https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/GB/${selectedRegion}.json
+- First fetch region list from: https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/GB
+- Build dropdown from those region names
+
+TASK 4: Create folder C:\Users\recla\zipcode-global\blogger-guidance\ and create these 4 files:
+
+FILE: blogger-guidance/website-guidance.md
+Content: Complete guide on hosting this website on Blogger (Blogspot) and GitHub Pages. Include how to embed dynamic JavaScript fetch() in Blogger template widgets, AdSense placement, and custom domain setup.
+
+FILE: blogger-guidance/planning-details.md  
+Content: SEO strategy - target keywords like "USA ZIP Code lookup", "India Pincode search", "UK postcode finder". URL structure, meta tags, JSON-LD schema markup for postal data.
+
+FILE: blogger-guidance/cinematic-elements.md
+Content: Design specifications - glassmorphism CSS variables, animation keyframes, color palette (#0a0a0f background, #00d4ff accent), Google Fonts (Inter, Outfit), hover effects.
+
+FILE: blogger-guidance/blogger-order.md
+Content: Step-by-step publishing order: 1) Setup core layout 2) Add jsDelivr CDN links 3) Create country pages 4) Submit XML sitemap to Google Search Console
+
+After all tasks complete, show me a summary of what was created.

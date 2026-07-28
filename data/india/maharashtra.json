@@ -1,0 +1,38 @@
+[
+  {
+    "pincode": "400001",
+    "officename": "Mumbai GPO",
+    "statename": "Maharashtra",
+    "District": "Mumbai",
+    "BranchName": "Fort",
+    "latitude": 18.9331,
+    "longitude": 72.8352
+  },
+  {
+    "pincode": "400002",
+    "officename": "Mumbai East",
+    "statename": "Maharashtra",
+    "District": "Mumbai",
+    "BranchName": "Mandvi",
+    "latitude": 18.9506,
+    "longitude": 72.8235
+  },
+  {
+    "pincode": "400003",
+    "officename": "Mumbai South",
+    "statename": "Maharashtra",
+    "District": "Mumbai",
+    "BranchName": "Colaba",
+    "latitude": 18.9092,
+    "longitude": 72.8264
+  },
+  {
+    "pincode": "400004",
+    "officename": "Mumbai West",
+    "statename": "Maharashtra",
+    "District": "Mumbai",
+    "BranchName": "Prabhadevi",
+    "latitude": 19.0176,
+    "longitude": 72.8246
+  }
+]

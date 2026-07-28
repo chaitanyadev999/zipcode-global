@@ -1,0 +1,1993 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta charset='UTF-8'/>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<meta content='PO ZipCode Global — Find any postal code in the world. 121 countries, voice search, auto map. From India PIN codes to USA ZIP codes — instant lookup. Made in Bharat.' name='description'/>
+<meta content='PIN code, postal code, ZIP code, world countries, India post office, USA zip code, voice search, global map, PO finder, postal code lookup, 121 countries' name='keywords'/>
+
+<title>PO ZipCode Global — World&#39;s #1 PIN Code Finder | 121 Countries</title>
+<b:include data='blog' name='all-head-content'/>
+
+<!-- Open Graph / Social Media -->
+<meta content='website' property='og:type'/>
+<meta content='PO ZipCode Global — World&#39;s #1 PIN Code Finder' property='og:title'/>
+<meta content='Find any postal code in the world. 121 countries, voice search, auto map. From India PIN codes to USA ZIP codes — instant lookup.' property='og:description'/>
+<meta content='https://zipcodeglobal.com' property='og:url'/>
+<meta content='https://zipcodeglobal.com/og-image.png' property='og:image'/>
+<meta content='PO ZipCode Global' property='og:site_name'/>
+<meta content='summary_large_image' name='twitter:card'/>
+<meta content='PO ZipCode Global — World&#39;s #1 PIN Code Finder' name='twitter:title'/>
+<meta content='Find any postal code in the world. 121 countries, voice search, auto map.' name='twitter:description'/>
+
+<!-- Canonical URL -->
+<link href='https://zipcodeglobal.com/' rel='canonical'/>
+
+<!-- JSON-LD Structured Data -->
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PO ZipCode Global",
+  "url": "https://zipcodeglobal.com",
+  "description": "World's #1 PIN Code Finder — 121 countries, voice search, auto map",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://zipcodeglobal.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<link as='image' href='data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🌍&lt;/text&gt;&lt;/svg&gt;' rel='preload'/>
+
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Cinzel:wght@400;500;600;700;800;900&amp;family=Tiro+Devanagari+Hindi:ital@0;1&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap' rel='stylesheet'/>
+
+<link crossorigin='' href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' integrity='sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=' rel='stylesheet'/>
+
+<link href='data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🌍&lt;/text&gt;&lt;/svg&gt;' rel='icon'/>
+
+<b:skin version='1.3.3'><![CDATA[/* ============================================
+   ZIP CODE GLOBAL v6 — WORLD EDITION
+   121 Countries · One Page Each
+   Indian Heritage × Global Reach
+   ============================================ */
+
+:root {
+  --saffron: #ff6b1a;
+  --saffron-bright: #ff8c42;
+  --saffron-glow: #ffb380;
+  --gold: #f5b700;
+  --gold-light: #ffd966;
+  --royal-indigo: #1a1f4d;
+  --royal-purple: #2d1b69;
+  --peacock-teal: #0a9396;
+  --peacock-blue: #006d77;
+  --vermillion: #c1272d;
+  --lotus: #e83e8c;
+  --tulsi: #2d6a4f;
+  --ivory: #fff8e7;
+  --cinema: #050816;
+
+  --bg-base: #050816;
+  --bg-night: #0a0e27;
+  --bg-deep: #131838;
+  --bg-card: rgba(255, 255, 255, 0.035);
+  --bg-card-hi: rgba(255, 255, 255, 0.07);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-veil: rgba(5, 8, 22, 0.85);
+  --border: rgba(255, 179, 102, 0.14);
+  --border-hi: rgba(255, 179, 102, 0.35);
+
+  --text: #f5f1e8;
+  --text-2: #d4cfc0;
+  --text-3: #8b8478;
+  --text-dim: #5c5648;
+
+  --grad-saffron: linear-gradient(135deg, #ff6b1a 0%, #f5b700 100%);
+  --grad-tricolor: linear-gradient(135deg, #ff6b1a 0%, #f5f1e8 50%, #2d6a4f 100%);
+  --grad-cinema: linear-gradient(135deg, #ff6b1a 0%, #f5b700 50%, #e83e8c 100%);
+  --grad-global: linear-gradient(135deg, #ff6b1a 0%, #f5b700 33%, #2d6a4f 66%, #006d77 100%);
+  --grad-globe: conic-gradient(from 0deg, #ff6b1a, #f5b700, #2d6a4f, #006d77, #c1272d, #ff6b1a);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.6);
+  --shadow-saffron: 0 0 60px rgba(255, 107, 26, 0.4);
+
+  --font-display: 'Cinzel', 'Space Grotesk', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sanskrit: 'Tiro Devanagari Hindi', serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --d-fast: 0.2s;
+  --d-base: 0.4s;
+  --d-slow: 0.8s;
+  --d-grand: 1.4s;
+
+  --container: 1400px;
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-full: 999px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-base);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(255, 107, 26, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(245, 183, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(45, 106, 79, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(45, 27, 105, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 60%, rgba(0, 109, 119, 0.15) 0%, transparent 50%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(245, 183, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 183, 0, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  z-index: -1;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; }
+
+::selection { background: var(--saffron); color: white; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg-night); }
+::-webkit-scrollbar-thumb { background: var(--grad-saffron); border-radius: var(--r-full); }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.gradient-text {
+  background: var(--grad-cinema);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.global-text {
+  background: var(--grad-global);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.kicker {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--saffron-bright);
+  padding: 0.625rem 1.25rem;
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.kicker::before { content: '◆'; font-size: 0.6rem; color: var(--gold); }
+
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 5rem 0; position: relative; }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header h2 { font-size: clamp(2rem, 4.5vw, 3rem); margin: 1.25rem 0; }
+.section-header p { color: var(--text-3); max-width: 640px; margin: 0 auto; font-size: 1rem; }
+
+/* NAV */
+.cinema-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 0;
+  transition: all var(--d-base) var(--ease-out);
+}
+.cinema-nav.scrolled {
+  background: var(--bg-veil);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.cinema-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+
+.brand {
+  display: flex; align-items: center; gap: 0.875rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.375rem;
+  color: var(--text);
+}
+
+.brand-mark {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--grad-saffron);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-saffron);
+  animation: brand-pulse 4s ease-in-out infinite;
+  position: relative;
+}
+.brand-mark::after {
+  content: ''; position: absolute; inset: -4px;
+  border-radius: 16px;
+  border: 1px solid var(--saffron);
+  opacity: 0.5;
+  animation: brand-ring 4s ease-in-out infinite;
+}
+@keyframes brand-pulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(255, 107, 26, 0.4); }
+  50% { box-shadow: 0 0 60px rgba(255, 107, 26, 0.7); }
+}
+@keyframes brand-ring {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0; }
+}
+
+.nav-actions { display: flex; align-items: center; gap: 0.5rem; }
+.nav-btn {
+  height: 44px; padding: 0 1rem;
+  border-radius: var(--r-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: all var(--d-fast) var(--ease-out);
+}
+.nav-btn:hover { background: var(--bg-card-hi); border-color: var(--saffron); }
+.nav-btn .kbd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.125rem 0.375rem;
+  background: var(--bg-card-hi);
+  border-radius: 4px;
+  color: var(--text-3);
+}
+
+/* INTRO */
+.intro-overlay {
+  position: fixed; inset: 0;
+  z-index: 9999;
+  background: var(--cinema);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: opacity 0.8s var(--ease-out), visibility 0.8s;
+}
+.intro-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.intro-globe {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: var(--grad-globe);
+  position: relative;
+  box-shadow: 0 0 120px rgba(255, 107, 26, 0.7), inset 0 0 60px rgba(0,0,0,0.4);
+  animation: globe-rotate 3s linear infinite, intro-pulse 1.5s var(--ease-out) forwards;
+  transform: scale(0);
+}
+.intro-globe::before, .intro-globe::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+.intro-globe::after {
+  background-image: linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px);
+  animation: globe-rotate 6s linear infinite reverse;
+}
+@keyframes globe-rotate { to { transform: rotate(360deg); } }
+@keyframes intro-pulse {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.1) rotate(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.intro-text {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: var(--grad-cinema);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: intro-fade 0.8s var(--ease-out) 0.5s forwards;
+}
+@keyframes intro-fade { to { opacity: 1; } }
+
+.intro-sub {
+  font-family: var(--font-sanskrit);
+  font-size: 1.1rem;
+  color: var(--gold);
+  opacity: 0;
+  animation: intro-fade 0.8s var(--ease-out) 0.9s forwards;
+}
+
+.intro-bar {
+  width: 240px; height: 2px;
+  background: var(--bg-card-hi);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  opacity: 0;
+  animation: intro-fade 0.8s var(--ease-out) 1.1s forwards;
+}
+.intro-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background: var(--grad-saffron);
+  width: 0;
+  animation: intro-progress 2.5s var(--ease-out) 1.3s forwards;
+}
+@keyframes intro-progress { to { width: 100%; } }
+
+/* HERO */
+.cinema-hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  padding: 7rem 1.5rem 3rem;
+  overflow: hidden;
+}
+
+.hero-globe {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: var(--grad-globe);
+  filter: blur(120px);
+  opacity: 0.15;
+  z-index: 0;
+  animation: globe-glow 20s linear infinite;
+}
+@keyframes globe-glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0); }
+  50% { transform: translate(-50%, -50%) scale(1.2) rotate(180deg); }
+}
+
+#particles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+.cinema-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 1100px;
+}
+
+.cinema-title {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 700;
+  margin: 1.5rem 0;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.cinema-title .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(60px);
+  animation: grand-reveal 1s var(--ease-out) forwards;
+}
+.cinema-title .line:nth-child(1) { animation-delay: 0.2s; }
+.cinema-title .line:nth-child(2) { animation-delay: 0.5s; }
+.cinema-title .line:nth-child(3) { animation-delay: 0.8s; }
+@keyframes grand-reveal { to { opacity: 1; transform: translateY(0); } }
+
+.cinema-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: var(--text-2);
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+  opacity: 0;
+  animation: grand-reveal 1s var(--ease-out) 1.1s forwards;
+  font-weight: 300;
+}
+
+.sanskrit-quote {
+  display: block;
+  font-family: var(--font-sanskrit);
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-top: 0.75rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.hero-stats {
+  display: flex; justify-content: center; gap: 3.5rem;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: grand-reveal 1s var(--ease-out) 1.3s forwards;
+  flex-wrap: wrap;
+}
+.stat { text-align: center; transition: transform var(--d-fast) var(--ease-out); }
+.stat:hover { transform: translateY(-4px); }
+.stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--grad-cinema);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.stat-num.counter { font-variant-numeric: tabular-nums; }
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 0.5rem;
+}
+
+/* COUNTRIES GRID — Rectangle boxes with flags */
+.countries-toolbar {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  display: flex; gap: 1rem; align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.search-input {
+  flex: 1; min-width: 250px;
+  padding: 0.875rem 1.125rem 0.875rem 2.75rem;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all var(--d-fast) var(--ease-out);
+  position: relative;
+}
+.search-wrap { position: relative; flex: 1; min-width: 250px; }
+.search-wrap::before {
+  content: '🔍';
+  position: absolute;
+  left: 1rem; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  z-index: 1;
+}
+.search-input:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 4px rgba(255, 107, 26, 0.15);
+}
+
+.region-tabs {
+  display: flex; gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.region-tab {
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  font-size: 0.8rem;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+  font-weight: 500;
+}
+.region-tab:hover { color: var(--text); border-color: var(--saffron); }
+.region-tab.active {
+  background: var(--grad-saffron);
+  color: white;
+  border-color: var(--saffron);
+  box-shadow: 0 4px 20px rgba(255, 107, 26, 0.4);
+}
+
+.countries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.875rem;
+}
+
+.country-btn {
+  display: flex; align-items: center; gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: all var(--d-base) var(--ease-out);
+  text-align: left;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(20px);
+}
+.country-btn.revealed { opacity: 1; transform: translateY(0); }
+.country-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--grad-saffron);
+  opacity: 0;
+  transition: opacity var(--d-base) var(--ease-out);
+  z-index: 0;
+}
+.country-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--saffron);
+  box-shadow: var(--shadow-md), 0 0 30px rgba(255, 107, 26, 0.15);
+}
+.country-btn:hover::before { opacity: 0.08; }
+.country-btn.featured {
+  background: linear-gradient(135deg, rgba(255, 107, 26, 0.1), rgba(245, 183, 0, 0.05));
+  border-color: var(--saffron);
+}
+
+.country-flag {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  z-index: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.country-info { flex: 1; min-width: 0; z-index: 1; }
+.country-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.country-code {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}
+.country-arrow {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  z-index: 1;
+  transition: transform var(--d-fast) var(--ease-out);
+}
+.country-btn:hover .country-arrow { transform: translateX(4px); color: var(--saffron); }
+
+/* COUNTRY PAGE */
+.country-page { display: none; }
+.country-page.active { display: block; }
+.home-page.hidden { display: none; }
+
+.country-header {
+  padding: 9rem 1.5rem 3rem;
+  text-align: center;
+  position: relative;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  color: var(--text-2);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.back-btn:hover { background: var(--bg-card-hi); color: var(--text); border-color: var(--saffron); }
+
+.country-hero-flag {
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
+  animation: flag-float 4s ease-in-out infinite;
+}
+@keyframes flag-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.country-hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+.country-hero-subtitle {
+  color: var(--text-3);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.country-search-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+.country-search-row {
+  display: flex; gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+}
+.country-search-row input {
+  flex: 1;
+  padding: 0.875rem 1.25rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: var(--font-mono);
+}
+.country-search-row button {
+  padding: 0.875rem 1.5rem;
+  background: var(--grad-saffron);
+  color: white;
+  border-radius: var(--r-full);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.country-search-row button:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(255, 107, 26, 0.5); }
+
+.country-states-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  max-width: 1000px;
+  margin: 2rem auto 0;
+}
+.state-btn {
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-2);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+  text-align: center;
+}
+.state-btn:hover {
+  background: var(--bg-card-hi);
+  border-color: var(--saffron);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+/* MAP */
+.map-section {
+  margin: 2.5rem 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--d-grand) var(--ease-out);
+  max-height: 0;
+  overflow: hidden;
+}
+.map-section.visible { opacity: 1; transform: translateY(0); max-height: 700px; }
+.map-wrapper {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-hi);
+  box-shadow: var(--shadow-lg);
+}
+#map { height: 500px; width: 100%; z-index: 1; }
+.map-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  z-index: 1000;
+  padding: 0.625rem 1.125rem;
+  background: var(--bg-veil);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+.leaflet-tile { filter: brightness(0.6) invert(1) contrast(1.3) hue-rotate(200deg) saturate(0.2) brightness(0.85); }
+.leaflet-container { background: var(--bg-night) !important; font-family: var(--font-body) !important; }
+.leaflet-control-attribution {
+  background: var(--bg-veil) !important;
+  backdrop-filter: blur(10px);
+  color: var(--text-3) !important;
+  font-size: 0.7rem !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--bg-night) !important;
+  color: var(--text) !important;
+  border-radius: var(--r-md) !important;
+  border: 1px solid var(--border-hi) !important;
+}
+.leaflet-popup-tip { background: var(--bg-night) !important; }
+
+/* RESULTS */
+.results-section {
+  margin: 2rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--d-grand) var(--ease-out);
+  max-height: 0;
+  overflow: hidden;
+}
+.results-section.visible { opacity: 1; transform: translateY(0); max-height: none; overflow: visible; }
+.results-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+}
+.results-title { font-size: 1.5rem; font-weight: 700; }
+.results-count {
+  padding: 0.5rem 1.125rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--saffron-bright);
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.25rem;
+}
+.result-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.5rem;
+  transition: all var(--d-base) var(--ease-out);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: card-reveal 0.6s var(--ease-out) forwards;
+}
+@keyframes card-reveal { to { opacity: 1; transform: translateY(0); } }
+.result-card:hover { transform: translateY(-4px); border-color: var(--saffron); box-shadow: var(--shadow-md); }
+.result-pin {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.625rem;
+}
+.result-pin-num {
+  background: var(--grad-cinema);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.copy-btn {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--bg-card-hi);
+  border: 1px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.copy-btn:hover { background: var(--saffron); color: white; transform: scale(1.1); }
+.copy-btn.copied { background: var(--peacock-teal); color: white; }
+.result-office {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+.result-meta {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.meta-item { font-size: 0.8rem; }
+.meta-label { display: block; color: var(--text-3); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; font-weight: 600; }
+.meta-value { color: var(--text-2); font-weight: 500; }
+.result-actions {
+  display: flex; gap: 0.4rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.action-btn {
+  flex: 1;
+  padding: 0.5rem 0.625rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 0.3rem;
+  cursor: pointer;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.action-btn:hover { background: var(--bg-card-hi); color: var(--text); border-color: var(--saffron); }
+.empty-state, .loading-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-3);
+}
+.spinner {
+  width: 28px; height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--saffron);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 0.875rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* TOAST */
+.toast-container {
+  position: fixed; top: 90px; right: 1.5rem;
+  z-index: 1000;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  pointer-events: none;
+}
+.toast {
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-veil);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 0.9rem;
+  display: flex; align-items: center; gap: 0.625rem;
+  min-width: 280px;
+  transform: translateX(120%);
+  transition: transform var(--d-base) var(--ease-out);
+  pointer-events: auto;
+  font-weight: 500;
+}
+.toast.show { transform: translateX(0); }
+.toast.success { border-color: var(--peacock-teal); }
+.toast.error { border-color: var(--vermillion); }
+
+/* FEATURES */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.feature-card {
+  padding: 2.5rem 2rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  text-align: center;
+  transition: all var(--d-base) var(--ease-out);
+}
+.feature-card:hover { transform: translateY(-6px); border-color: var(--saffron); box-shadow: var(--shadow-md); }
+.feature-icon {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  background: var(--grad-saffron);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.875rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-saffron);
+}
+.feature-title {
+  font-family: var(--font-display);
+  font-weight: 600; font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.feature-desc { font-size: 0.9rem; color: var(--text-3); line-height: 1.7; }
+
+/* FOOTER */
+.cinema-footer {
+  margin-top: 4rem;
+  padding: 3rem 0 1.5rem;
+  background: linear-gradient(180deg, transparent, var(--bg-night));
+  border-top: 1px solid var(--border);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 2.5rem;
+}
+.footer-brand p { color: var(--text-3); margin: 1.25rem 0; max-width: 360px; font-size: 0.9rem; line-height: 1.7; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.8rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+  color: var(--saffron-bright);
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.625rem; }
+.footer-col a { color: var(--text-3); font-size: 0.9rem; transition: color var(--d-fast) var(--ease-out); }
+.footer-col a:hover { color: var(--saffron-bright); }
+.footer-bottom {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+  font-size: 0.85rem; color: var(--text-3);
+}
+.tricolor-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #ff6b1a 0%, #ff6b1a 33%, #f5f1e8 33%, #f5f1e8 66%, #2d6a4f 66%, #2d6a4f 100%);
+  border-radius: var(--r-full);
+  margin-top: 1.5rem;
+  opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .section { padding: 3rem 0; }
+  .cinema-hero { min-height: 90vh; padding: 6rem 1rem 2rem; }
+  .hero-stats { gap: 1.5rem; }
+  .stat-num { font-size: 1.75rem; }
+  .hero-globe { width: 400px; height: 400px; }
+  .toast-container { left: 1rem; right: 1rem; top: 80px; }
+  .toast { min-width: auto; }
+  .results-grid { grid-template-columns: 1fr; }
+  .countries-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .country-btn { padding: 0.875rem 1rem; }
+  .country-flag { font-size: 1.625rem; }
+  .country-name { font-size: 0.85rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: 1 / -1; }
+  .country-search-card { padding: 1.25rem; }
+  .country-search-row { flex-direction: column; border-radius: var(--r-md); }
+  .country-search-row button { width: 100%; }
+  #map { height: 350px; }
+  .country-states-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .intro-globe { width: 120px; height: 120px; }
+  .intro-text { font-size: 1.25rem; letter-spacing: 0.2em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.blogger-hidden { display: none !important; }
+]]></b:skin>
+
+<b:template-skin>
+<![CDATA[
+body#layout .intro-overlay, body#layout .cinema-nav, body#layout .cinema-hero, body#layout .map-section, body#layout .results-section, body#layout .country-page, body#layout .achievement, body#layout .toast-container { display: none; }
+body#layout .section { padding: 1rem; }
+]]>
+</b:template-skin>
+
+</head>
+<body>
+
+<div class="intro-overlay" id="introOverlay">
+<div class="intro-globe"></div>
+<div class="intro-text">PO ZIPCODE GLOBAL</div>
+<div class="intro-sub">वसुधैव कुटुम्बकम्</div>
+<div class="intro-bar"></div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<nav class="cinema-nav" id="cinemaNav">
+<div class="container">
+<a class="brand" expr:href='data:blog.homepageUrl' id="brandHome">
+<span class="brand-mark">🌍</span>
+<span>PO ZipCode Global</span>
+</a>
+<div class="nav-actions">
+<a class="nav-btn" href="/p/about.html" style="text-decoration:none">About</a>
+<a class="nav-btn" href="/p/privacy.html" style="text-decoration:none">Privacy</a>
+<a class="nav-btn" href="/p/report.html" style="text-decoration:none">Report</a>
+<button class="nav-btn" id="backToWorld" style="display:none" type="button">
+<span>← Back</span>
+</button>
+<button class="nav-btn" id="cmdTrigger" type="button">
+<span>🔍 Search</span>
+<span class="kbd">⌘K</span>
+</button>
+</div>
+</div>
+</nav>
+
+<!-- HOME PAGE (World View) -->
+<div class="home-page" id="homePage">
+<section class="cinema-hero">
+<div class="hero-globe"></div>
+<canvas id="particles"></canvas>
+<div class="cinema-content">
+<span class="kicker">🌍 121 Countries · One World · Free</span>
+<h1 class="cinema-title">
+<span class="line">Every Postal Code</span>
+<span class="line global-text">Across the World</span>
+<span class="line">One Click Away</span>
+</h1>
+<p class="cinema-subtitle">
+Find any PIN code, ZIP code, or postal code in the world. From India 🇮🇳 to USA 🇺🇸, UK 🇬🇧 to Japan 🇯🇵 — 121 countries, instant lookup.
+<span class="sanskrit-quote">वसुधैव कुटुम्बकम् — The World is One Family</span>
+</p>
+<div class="hero-stats">
+<div class="stat"><span class="stat-num">121</span><span class="stat-label">Countries</span></div>
+<div class="stat"><span class="stat-num counter" data-target="1000000">0</span><span class="stat-label">Postal Codes</span></div>
+<div class="stat"><span class="stat-num">6</span><span class="stat-label">Continents</span></div>
+<div class="stat"><span class="stat-num">∞</span><span class="stat-label">Free</span></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="countriesSection">
+<div class="container">
+<div class="section-header">
+<span class="kicker">🌍 Click Any Country</span>
+<h2>Choose a <span class="global-text">Country</span></h2>
+<p>Each button opens a dedicated page with that country's postal data</p>
+</div>
+<div class="countries-toolbar">
+<div class="search-wrap">
+<input class="search-input" id="countrySearch" placeholder="Search 121 countries by name or code..." type="text"/>
+</div>
+</div>
+<div class="region-tabs" id="regionTabs"></div>
+<div class="countries-grid" id="countriesGrid"></div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="section-header">
+<span class="kicker">Why It's Special</span>
+<h2>Built for <span class="global-text">World Scale</span></h2>
+</div>
+<div class="features-grid">
+<div class="feature-card"><div class="feature-icon">🌍</div><h3 class="feature-title">121 Countries</h3><p class="feature-desc">Every country has its own page. Click and explore.</p></div>
+<div class="feature-card"><div class="feature-icon">⚡</div><h3 class="feature-title">Lightning Fast</h3><p class="feature-desc">Sub-100ms response. Map cache. Zero lag.</p></div>
+<div class="feature-card"><div class="feature-icon">🗺️</div><h3 class="feature-title">Auto Map</h3><p class="feature-desc">Every search reveals the location on the map.</p></div>
+<div class="feature-card"><div class="feature-icon">🎙️</div><h3 class="feature-title">Voice Search</h3><p class="feature-desc">Speak the postal code. Multi-language support.</p></div>
+<div class="feature-card"><div class="feature-icon">⌨️</div><h3 class="feature-title">Command Palette</h3><p class="feature-desc">Press Ctrl+K anywhere. Instant search.</p></div>
+<div class="feature-card"><div class="feature-icon">🇮🇳</div><h3 class="feature-title">Made in Bharat</h3><p class="feature-desc">Indian heritage, global reach. For the world.</p></div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- COUNTRY PAGE (Template, populated dynamically) -->
+<div class="country-page" id="countryPage">
+<div class="country-header">
+<button class="back-btn" id="backBtn" type="button">← Back to World Map</button>
+<div class="country-hero-flag" id="countryFlag">🇮🇳</div>
+<h1 class="country-hero-title" id="countryTitle">India</h1>
+<p class="country-hero-subtitle" id="countrySubtitle">Bharat · 36 States · 1,55,000+ PINs</p>
+<div class="country-search-card">
+<div class="country-search-row">
+<input id="countryCodeInput" placeholder="Enter postal code..." type="text"/>
+<button id="countrySearchBtn" type="button">Search →</button>
+</div>
+</div>
+<div class="country-states-grid" id="countryStatesGrid"></div>
+</div>
+
+<div class="map-section" id="mapSection">
+<div class="container">
+<div class="map-wrapper">
+<div class="map-badge"><span class="pulse-dot"></span><span id="mapBadgeText">Live Map</span></div>
+<div id="map"></div>
+</div>
+</div>
+</div>
+
+<div class="results-section" id="resultsSection">
+<div class="container">
+<div class="results-header">
+<h3 class="results-title" id="resultsTitle">Results</h3>
+<span class="results-count" id="resultsCount">0 found</span>
+</div>
+<div class="results-grid" id="resultsList"></div>
+</div>
+</div>
+</div>
+
+<footer class="cinema-footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="brand">
+<span class="brand-mark">🌍</span>
+<span>PO ZipCode Global</span>
+</div>
+<p>The world's largest PIN code finder. 121 countries. Voice search, command palette, auto-map. Made with ❤️ in Bharat.</p>
+</div>
+<div class="footer-col">
+<h4>Explore</h4>
+<ul>
+<li><a expr:href='data:blog.homepageUrl' id="footerHome">Home</a></li>
+<li><a href="#countriesSection">All Countries</a></li>
+<li><a href="/p/about.html">About</a></li>
+<li><a href="/p/privacy.html">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Coverage</h4>
+<ul>
+<li>121 Countries</li>
+<li>10,00,000+ Codes</li>
+<li>6 Continents</li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<ul>
+<li><a href="/p/report.html">Report Mistake</a></li>
+<li><a href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=PO ZipCode Global">Email Us</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<div>© <span id="year"></span> PO ZipCode Global · Made with ❤️ in Bharat 🇮🇳</div>
+<div>Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" rel="noopener" target="_blank">chaitanyadev999/pincode-dataindia</a></div>
+</div>
+<div class="tricolor-bar"></div>
+</div>
+</footer>
+
+<script crossorigin='' integrity='sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=' src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'></script>
+
+<script type='text/javascript'>
+//<![CDATA[
+(function() {
+  'use strict';
+
+  // ============ 121 COUNTRIES (skip IN, US — handled separately) ============
+  // Note: India (IN) and USA are loaded from india/ and usa/ folders
+  // All others from world/[CODE]/ folder
+  const COUNTRIES = [
+    { name: "Andorra", code: "AD", flag: "🇦🇩", region: "Europe", folder: "AD", lat: 42.5063, lon: 1.5218, sample: "AD100" },
+    { name: "United Arab Emirates", code: "AE", flag: "🇦🇪", region: "Asia", folder: "AE", lat: 23.4241, lon: 53.8478, sample: "00000" },
+    { name: "Anguilla", code: "AI", flag: "🇦🇮", region: "Americas", folder: "AI", lat: 18.2206, lon: -63.0686, sample: "AI-2640" },
+    { name: "Albania", code: "AL", flag: "🇦🇱", region: "Europe", folder: "AL", lat: 41.1533, lon: 20.1683, sample: "1001" },
+    { name: "Argentina", code: "AR", flag: "🇦🇷", region: "Americas", folder: "AR", lat: -38.4161, lon: -63.6167, sample: "C1000" },
+    { name: "American Samoa", code: "AS", flag: "🇦🇸", region: "Oceania", folder: "AS", lat: -14.2710, lon: -170.1322, sample: "96799" },
+    { name: "Austria", code: "AT", flag: "🇦🇹", region: "Europe", folder: "AT", lat: 47.5162, lon: 14.5501, sample: "1010" },
+    { name: "Australia", code: "AU", flag: "🇦🇺", region: "Oceania", folder: "AU", lat: -25.2744, lon: 133.7751, sample: "2000" },
+    { name: "Åland Islands", code: "AX", flag: "🇦🇽", region: "Europe", folder: "AX", lat: 60.1785, lon: 20.2181, sample: "22100" },
+    { name: "Azerbaijan", code: "AZ", flag: "🇦🇿", region: "Asia", folder: "AZ", lat: 40.1431, lon: 47.5769, sample: "AZ1000" },
+    { name: "Bangladesh", code: "BD", flag: "🇧🇩", region: "Asia", folder: "BD", lat: 23.6850, lon: 90.3563, sample: "1000" },
+    { name: "Belgium", code: "BE", flag: "🇧🇪", region: "Europe", folder: "BE", lat: 50.5039, lon: 4.4699, sample: "1000" },
+    { name: "Bulgaria", code: "BG", flag: "🇧🇬", region: "Europe", folder: "BG", lat: 42.7339, lon: 25.4858, sample: "1000" },
+    { name: "Bermuda", code: "BM", flag: "🇧🇲", region: "Americas", folder: "BM", lat: 32.3215, lon: -64.7574, sample: "HM 12" },
+    { name: "Brazil", code: "BR", flag: "🇧🇷", region: "Americas", folder: "BR", lat: -14.2350, lon: -51.9253, sample: "01000-000" },
+    { name: "Belarus", code: "BY", flag: "🇧🇾", region: "Europe", folder: "BY", lat: 53.7098, lon: 27.9534, sample: "220001" },
+    { name: "Canada", code: "CA", flag: "🇨🇦", region: "Americas", folder: "CA", lat: 56.1304, lon: -106.3468, sample: "K1A 0B1" },
+    { name: "Cocos Islands", code: "CC", flag: "🇨🇨", region: "Oceania", folder: "CC", lat: -12.1642, lon: 96.8710, sample: "6799" },
+    { name: "Switzerland", code: "CH", flag: "🇨🇭", region: "Europe", folder: "CH", lat: 46.8182, lon: 8.2275, sample: "3000" },
+    { name: "Chile", code: "CL", flag: "🇨🇱", region: "Americas", folder: "CL", lat: -35.6751, lon: -71.5430, sample: "1000000" },
+    { name: "China", code: "CN", flag: "🇨🇳", region: "Asia", folder: "CN", lat: 35.8617, lon: 104.1954, sample: "100000" },
+    { name: "Colombia", code: "CO", flag: "🇨🇴", region: "Americas", folder: "CO", lat: 4.5709, lon: -74.2973, sample: "110111" },
+    { name: "Costa Rica", code: "CR", flag: "🇨🇷", region: "Americas", folder: "CR", lat: 9.7489, lon: -83.7534, sample: "10101" },
+    { name: "Christmas Island", code: "CX", flag: "🇨🇽", region: "Oceania", folder: "CX", lat: -10.4475, lon: 105.6904, sample: "6798" },
+    { name: "Cyprus", code: "CY", flag: "🇨🇾", region: "Europe", folder: "CY", lat: 35.1264, lon: 33.4299, sample: "1010" },
+    { name: "Czech Republic", code: "CZ", flag: "🇨🇿", region: "Europe", folder: "CZ", lat: 49.8175, lon: 15.4730, sample: "100 00" },
+    { name: "Germany", code: "DE", flag: "🇩🇪", region: "Europe", folder: "DE", lat: 51.1657, lon: 10.4515, sample: "10115" },
+    { name: "Denmark", code: "DK", flag: "🇩🇰", region: "Europe", folder: "DK", lat: 56.2639, lon: 9.5018, sample: "1050" },
+    { name: "Dominican Republic", code: "DO", flag: "🇩🇴", region: "Americas", folder: "DO", lat: 18.7357, lon: -70.1627, sample: "10210" },
+    { name: "Algeria", code: "DZ", flag: "🇩🇿", region: "Africa", folder: "DZ", lat: 28.0339, lon: 1.6596, sample: "16000" },
+    { name: "Ecuador", code: "EC", flag: "🇪🇨", region: "Americas", folder: "EC", lat: -1.8312, lon: -78.1834, sample: "170150" },
+    { name: "Estonia", code: "EE", flag: "🇪🇪", region: "Europe", folder: "EE", lat: 58.5953, lon: 25.0136, sample: "10001" },
+    { name: "Spain", code: "ES", flag: "🇪🇸", region: "Europe", folder: "ES", lat: 40.4637, lon: -3.7492, sample: "28001" },
+    { name: "Finland", code: "FI", flag: "🇫🇮", region: "Europe", folder: "FI", lat: 61.9241, lon: 25.7482, sample: "00100" },
+    { name: "Falkland Islands", code: "FK", flag: "🇫🇰", region: "Americas", folder: "FK", lat: -51.7963, lon: -59.5236, sample: "FIQQ 1ZZ" },
+    { name: "Micronesia", code: "FM", flag: "🇫🇲", region: "Oceania", folder: "FM", lat: 7.4256, lon: 150.5508, sample: "96941" },
+    { name: "Faroe Islands", code: "FO", flag: "🇫🇴", region: "Europe", folder: "FO", lat: 61.8926, lon: -6.9118, sample: "100" },
+    { name: "France", code: "FR", flag: "🇫🇷", region: "Europe", folder: "FR", lat: 46.2276, lon: 2.2137, sample: "75001" },
+    { name: "United Kingdom", code: "GB", flag: "🇬🇧", region: "Europe", folder: "GB", lat: 55.3781, lon: -3.4360, sample: "SW1A 1AA" },
+    { name: "French Guiana", code: "GF", flag: "🇬🇫", region: "Americas", folder: "GF", lat: 3.9339, lon: -53.1258, sample: "97300" },
+    { name: "Guernsey", code: "GG", flag: "🇬🇬", region: "Europe", folder: "GG", lat: 49.4657, lon: -2.5853, sample: "GY1 1AA" },
+    { name: "Gibraltar", code: "GI", flag: "🇬🇮", region: "Europe", folder: "GI", lat: 36.1408, lon: -5.3536, sample: "GX1 1AA" },
+    { name: "Greenland", code: "GL", flag: "🇬🇱", region: "Americas", folder: "GL", lat: 71.7069, lon: -42.6043, sample: "3900" },
+    { name: "Guadeloupe", code: "GP", flag: "🇬🇵", region: "Americas", folder: "GP", lat: 16.2650, lon: -61.5510, sample: "97100" },
+    { name: "South Georgia", code: "GS", flag: "🇬🇸", region: "Americas", folder: "GS", lat: -54.4296, lon: -36.5879, sample: "SIQQ 1ZZ" },
+    { name: "Guatemala", code: "GT", flag: "🇬🇹", region: "Americas", folder: "GT", lat: 15.7835, lon: -90.2308, sample: "01001" },
+    { name: "Guam", code: "GU", flag: "🇬🇺", region: "Oceania", folder: "GU", lat: 13.4443, lon: 144.7937, sample: "96910" },
+    { name: "Hong Kong", code: "HK", flag: "🇭🇰", region: "Asia", folder: "HK", lat: 22.3193, lon: 114.1694, sample: "999077" },
+    { name: "Honduras", code: "HN", flag: "🇭🇳", region: "Americas", folder: "HN", lat: 15.2000, lon: -86.2419, sample: "11101" },
+    { name: "Croatia", code: "HR", flag: "🇭🇷", region: "Europe", folder: "HR", lat: 45.1000, lon: 15.2000, sample: "10000" },
+    { name: "Haiti", code: "HT", flag: "🇭🇹", region: "Americas", folder: "HT", lat: 18.9712, lon: -72.2852, sample: "HT1110" },
+    { name: "Hungary", code: "HU", flag: "🇭🇺", region: "Europe", folder: "HU", lat: 47.1625, lon: 19.5033, sample: "1000" },
+    { name: "Indonesia", code: "ID", flag: "🇮🇩", region: "Asia", folder: "ID", lat: -0.7893, lon: 113.9213, sample: "10110" },
+    { name: "Ireland", code: "IE", flag: "🇮🇪", region: "Europe", folder: "IE", lat: 53.1424, lon: -7.6921, sample: "D02 X285" },
+    { name: "Isle of Man", code: "IM", flag: "🇮🇲", region: "Europe", folder: "IM", lat: 54.2361, lon: -4.5481, sample: "IM1 1AA" },
+    { name: "Iceland", code: "IS", flag: "🇮🇸", region: "Europe", folder: "IS", lat: 64.9631, lon: -19.0208, sample: "101" },
+    { name: "Italy", code: "IT", flag: "🇮🇹", region: "Europe", folder: "IT", lat: 41.8719, lon: 12.5674, sample: "00100" },
+    { name: "Jersey", code: "JE", flag: "🇯🇪", region: "Europe", folder: "JE", lat: 49.2144, lon: -2.1313, sample: "JE1 1AA" },
+    { name: "Japan", code: "JP", flag: "🇯🇵", region: "Asia", folder: "JP", lat: 36.2048, lon: 138.2529, sample: "100-0001" },
+    { name: "Kenya", code: "KE", flag: "🇰🇪", region: "Africa", folder: "KE", lat: -0.0236, lon: 37.9062, sample: "00100" },
+    { name: "South Korea", code: "KR", flag: "🇰🇷", region: "Asia", folder: "KR", lat: 35.9078, lon: 127.7669, sample: "04524" },
+    { name: "Liechtenstein", code: "LI", flag: "🇱🇮", region: "Europe", folder: "LI", lat: 47.1660, lon: 9.5554, sample: "9490" },
+    { name: "Sri Lanka", code: "LK", flag: "🇱🇰", region: "Asia", folder: "LK", lat: 7.8731, lon: 80.7718, sample: "00100" },
+    { name: "Lithuania", code: "LT", flag: "🇱🇹", region: "Europe", folder: "LT", lat: 55.1694, lon: 23.8813, sample: "LT-01001" },
+    { name: "Luxembourg", code: "LU", flag: "🇱🇺", region: "Europe", folder: "LU", lat: 49.8153, lon: 6.1296, sample: "1009" },
+    { name: "Latvia", code: "LV", flag: "🇱🇻", region: "Europe", folder: "LV", lat: 56.8796, lon: 24.6032, sample: "LV-1001" },
+    { name: "Morocco", code: "MA", flag: "🇲🇦", region: "Africa", folder: "MA", lat: 31.7917, lon: -7.0926, sample: "10000" },
+    { name: "Monaco", code: "MC", flag: "🇲🇨", region: "Europe", folder: "MC", lat: 43.7384, lon: 7.4246, sample: "MC98000" },
+    { name: "Moldova", code: "MD", flag: "🇲🇩", region: "Europe", folder: "MD", lat: 47.4116, lon: 28.3699, sample: "MD-2000" },
+    { name: "Marshall Islands", code: "MH", flag: "🇲🇭", region: "Oceania", folder: "MH", lat: 7.1315, lon: 171.1845, sample: "96960" },
+    { name: "North Macedonia", code: "MK", flag: "🇲🇰", region: "Europe", folder: "MK", lat: 41.6086, lon: 21.7453, sample: "1000" },
+    { name: "Macau", code: "MO", flag: "🇲🇴", region: "Asia", folder: "MO", lat: 22.1987, lon: 113.5439, sample: "999078" },
+    { name: "Northern Mariana Islands", code: "MP", flag: "🇲🇵", region: "Oceania", folder: "MP", lat: 17.3308, lon: 145.3846, sample: "96950" },
+    { name: "Martinique", code: "MQ", flag: "🇲🇶", region: "Americas", folder: "MQ", lat: 14.6415, lon: -61.0242, sample: "97200" },
+    { name: "Malta", code: "MT", flag: "🇲🇹", region: "Europe", folder: "MT", lat: 35.9375, lon: 14.3754, sample: "BKR 1000" },
+    { name: "Malawi", code: "MW", flag: "🇲🇼", region: "Africa", folder: "MW", lat: -13.2543, lon: 34.3015, sample: "100001" },
+    { name: "Mexico", code: "MX", flag: "🇲🇽", region: "Americas", folder: "MX", lat: 23.6345, lon: -102.5528, sample: "01000" },
+    { name: "Malaysia", code: "MY", flag: "🇲🇾", region: "Asia", folder: "MY", lat: 4.2105, lon: 101.9758, sample: "50000" },
+    { name: "New Caledonia", code: "NC", flag: "🇳🇨", region: "Oceania", folder: "NC", lat: -20.9043, lon: 165.6180, sample: "98800" },
+    { name: "Norfolk Island", code: "NF", flag: "🇳🇫", region: "Oceania", folder: "NF", lat: -29.0408, lon: 167.9547, sample: "2899" },
+    { name: "Netherlands", code: "NL", flag: "🇳🇱", region: "Europe", folder: "NL", lat: 52.1326, lon: 5.2913, sample: "1000 AA" },
+    { name: "Norway", code: "NO", flag: "🇳🇴", region: "Europe", folder: "NO", lat: 60.4720, lon: 8.4689, sample: "0001" },
+    { name: "Nauru", code: "NR", flag: "🇳🇷", region: "Oceania", folder: "NR", lat: -0.5228, lon: 166.9315, sample: "NRU 68" },
+    { name: "Niue", code: "NU", flag: "🇳🇺", region: "Oceania", folder: "NU", lat: -19.0544, lon: -169.8677, sample: "9974" },
+    { name: "New Zealand", code: "NZ", flag: "🇳🇿", region: "Oceania", folder: "NZ", lat: -40.9006, lon: 174.8860, sample: "1010" },
+    { name: "Panama", code: "PA", flag: "🇵🇦", region: "Americas", folder: "PA", lat: 8.5380, lon: -80.7821, sample: "0801" },
+    { name: "Peru", code: "PE", flag: "🇵🇪", region: "Americas", folder: "PE", lat: -9.1900, lon: -75.0152, sample: "15001" },
+    { name: "French Polynesia", code: "PF", flag: "🇵🇫", region: "Oceania", folder: "PF", lat: -17.6797, lon: -149.4068, sample: "98700" },
+    { name: "Philippines", code: "PH", flag: "🇵🇭", region: "Asia", folder: "PH", lat: 12.8797, lon: 121.7740, sample: "1000" },
+    { name: "Pakistan", code: "PK", flag: "🇵🇰", region: "Asia", folder: "PK", lat: 30.3753, lon: 69.3451, sample: "44000" },
+    { name: "Poland", code: "PL", flag: "🇵🇱", region: "Europe", folder: "PL", lat: 51.9194, lon: 19.1451, sample: "00-001" },
+    { name: "Saint Pierre", code: "PM", flag: "🇵🇲", region: "Americas", folder: "PM", lat: 46.8852, lon: -56.3159, sample: "97500" },
+    { name: "Pitcairn", code: "PN", flag: "🇵🇳", region: "Oceania", folder: "PN", lat: -24.7036, lon: -127.4393, sample: "PCRN 1ZZ" },
+    { name: "Puerto Rico", code: "PR", flag: "🇵🇷", region: "Americas", folder: "PR", lat: 18.2208, lon: -66.5901, sample: "00901" },
+    { name: "Portugal", code: "PT", flag: "🇵🇹", region: "Europe", folder: "PT", lat: 39.3999, lon: -8.2245, sample: "1000-001" },
+    { name: "Palau", code: "PW", flag: "🇵🇼", region: "Oceania", folder: "PW", lat: 7.5150, lon: 134.5825, sample: "96940" },
+    { name: "Réunion", code: "RE", flag: "🇷🇪", region: "Africa", folder: "RE", lat: -21.1151, lon: 55.5364, sample: "97400" },
+    { name: "Romania", code: "RO", flag: "🇷🇴", region: "Europe", folder: "RO", lat: 45.9432, lon: 24.9668, sample: "010001" },
+    { name: "Russia", code: "RU", flag: "🇷🇺", region: "Europe", folder: "RU", lat: 61.5240, lon: 105.3188, sample: "101000" },
+    { name: "Sweden", code: "SE", flag: "🇸🇪", region: "Europe", folder: "SE", lat: 60.1282, lon: 18.6435, sample: "100 10" },
+    { name: "Singapore", code: "SG", flag: "🇸🇬", region: "Asia", folder: "SG", lat: 1.3521, lon: 103.8198, sample: "018989" },
+    { name: "Slovenia", code: "SI", flag: "🇸🇮", region: "Europe", folder: "SI", lat: 46.1512, lon: 14.9955, sample: "1000" },
+    { name: "Slovakia", code: "SK", flag: "🇸🇰", region: "Europe", folder: "SK", lat: 48.6690, lon: 19.6990, sample: "811 01" },
+    { name: "Thailand", code: "TH", flag: "🇹🇭", region: "Asia", folder: "TH", lat: 15.8700, lon: 100.9925, sample: "10110" },
+    { name: "Turkey", code: "TR", flag: "🇹🇷", region: "Asia", folder: "TR", lat: 38.9637, lon: 35.2433, sample: "06000" },
+    { name: "Ukraine", code: "UA", flag: "🇺🇦", region: "Europe", folder: "UA", lat: 48.3794, lon: 31.1656, sample: "01001" },
+    { name: "Vietnam", code: "VN", flag: "🇻🇳", region: "Asia", folder: "VN", lat: 14.0583, lon: 108.2772, sample: "100000" },
+    { name: "South Africa", code: "ZA", flag: "🇿🇦", region: "Africa", folder: "ZA", lat: -30.5595, lon: 22.9375, sample: "0001" }
+  ];
+
+  // Add featured entries for India (root) and USA
+  const FEATURED = [
+    { name: "India", code: "IN", flag: "🇮🇳", region: "Asia", folder: "ROOT_INDIA", lat: 20.5937, lon: 78.9629, sample: "110001", featured: true, subtitle: "Bharat · 36 States & UTs" },
+    { name: "United States", code: "US", flag: "🇺🇸", region: "Americas", folder: "ROOT_USA", lat: 37.0902, lon: -95.7129, sample: "10001", featured: true, subtitle: "USA · 50 States + DC + PR" }
+  ];
+
+  const ALL_COUNTRIES = [...FEATURED, ...COUNTRIES];
+
+  const REGIONS = ['All', 'Asia', 'Europe', 'Americas', 'Africa', 'Oceania'];
+  const DATA_BASE = 'https://raw.githubusercontent.com/chaitanyadev999/pincode-dataindia/main/';
+  const dataCache = new Map();
+
+  const appState = {
+    currentCountry: null,
+    currentStateFiles: null,
+    map: null,
+    mapMarkers: [],
+    mapInitialized: false,
+    region: 'All',
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  function showToast(message, type = 'info') {
+    const container = $('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast ' + type;
+    const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+    toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
+  }
+
+  function copyToClipboard(text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => showToast(`Copied: ${text}`, 'success'));
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast(`Copied: ${text}`, 'success'); } catch (e) { showToast('Copy failed', 'error'); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  setTimeout(() => $('introOverlay').classList.add('hidden'), 3500);
+
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 2000;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString('en-IN') + '+';
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('en-IN') + '+';
+    }
+    requestAnimationFrame(tick);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObserver.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  $$('.counter').forEach(c => counterObserver.observe(c));
+
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) return;
+    scrollTimeout = setTimeout(() => {
+      if (window.scrollY > 50) $('cinemaNav').classList.add('scrolled');
+      else $('cinemaNav').classList.remove('scrolled');
+      scrollTimeout = null;
+    }, 10);
+  }, { passive: true });
+
+  function initParticles() {
+    const canvas = $('particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize() {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      canvas.style.width = canvas.offsetWidth + 'px';
+      canvas.style.height = canvas.offsetHeight + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    class Particle {
+      constructor(w, h) {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 1.5 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.4 + 0.15;
+      }
+      update(w, h) {
+        this.x += this.speedX; this.y += this.speedY;
+        if (this.x < 0 || this.x > w) this.speedX *= -1;
+        if (this.y < 0 || this.y > h) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(255, 179, 102, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    function init() {
+      const w = canvas.offsetWidth, h = canvas.offsetHeight;
+      particles = [];
+      const count = Math.min(50, Math.floor((w * h) / 15000));
+      for (let i = 0; i < count; i++) particles.push(new Particle(w, h));
+    }
+    function animate() {
+      const w = canvas.offsetWidth, h = canvas.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => { p.update(w, h); p.draw(); });
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 100) {
+            ctx.strokeStyle = `rgba(255, 107, 26, ${0.12 * (1 - dist/100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    resize(); init(); animate();
+    let rt;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { resize(); init(); }, 200); });
+  }
+  initParticles();
+
+  // ============ RENDER COUNTRIES GRID ============
+  function renderRegionTabs() {
+    $('regionTabs').innerHTML = REGIONS.map(r => `<button class="region-tab ${r === 'All' ? 'active' : ''}" data-region="${r}">${r}</button>`).join('');
+    $$('.region-tab').forEach(tab => tab.addEventListener('click', () => {
+      appState.region = tab.dataset.region;
+      $$('.region-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderCountries();
+    }));
+  }
+
+  function renderCountries() {
+    const search = ($('countrySearch').value || '').toLowerCase();
+    let list = ALL_COUNTRIES;
+    if (appState.region !== 'All') list = list.filter(c => c.region === appState.region);
+    if (search) list = list.filter(c => c.name.toLowerCase().includes(search) || c.code.toLowerCase().includes(search));
+
+    $('countriesGrid').innerHTML = list.map((c, i) => `
+      <button class="country-btn ${c.featured ? 'featured' : ''}" data-code="${c.code}" style="transition-delay: ${Math.min(i, 30) * 12}ms">
+        <span class="country-flag">${c.flag}</span>
+        <div class="country-info">
+          <div class="country-name">${c.name}</div>
+          <div class="country-code">${c.code} · ${c.sample}</div>
+        </div>
+        <span class="country-arrow">→</span>
+      </button>
+    `).join('');
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => { if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('revealed'), i * 10); });
+    }, { threshold: 0.05, rootMargin: '30px' });
+    $$('.country-btn').forEach(c => obs.observe(c));
+
+    $$('.country-btn').forEach(btn => btn.addEventListener('click', () => {
+      const code = btn.dataset.code;
+      openCountryPage(code);
+    }));
+  }
+
+  $('countrySearch').addEventListener('input', renderCountries);
+
+  // ============ COUNTRY PAGE ============
+  async function openCountryPage(code) {
+    const country = ALL_COUNTRIES.find(c => c.code === code);
+    if (!country) return;
+
+    appState.currentCountry = country;
+    $('countryFlag').textContent = country.flag;
+    $('countryTitle').textContent = country.name;
+    $('countrySubtitle').textContent = country.subtitle || `${country.region} · Sample: ${country.sample}`;
+    $('countryCodeInput').value = '';
+    $('mapSection').classList.remove('visible');
+    $('resultsSection').classList.remove('visible');
+    $('countryStatesGrid').innerHTML = '<div class="loading-state" style="grid-column: 1/-1; text-align: center; padding: 2rem;"><div class="spinner"></div><p>Loading states...</p></div>';
+
+    $('homePage').classList.add('hidden');
+    $('countryPage').classList.add('active');
+    $('backToWorld').style.display = 'inline-flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    showMap([{ latitude: country.lat, longitude: country.lon, officename: country.name, pincode: country.sample }]);
+
+    try {
+      const stateFiles = await getStateFiles(country);
+      appState.currentStateFiles = stateFiles;
+      renderStateButtons(stateFiles);
+    } catch (err) {
+      $('countryStatesGrid').innerHTML = '<div class="loading-state" style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--vermillion);">Could not load states. Try the search above.</div>';
+    }
+  }
+
+  function closeCountryPage() {
+    $('homePage').classList.remove('hidden');
+    $('countryPage').classList.remove('active');
+    $('backToWorld').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    appState.currentCountry = null;
+  }
+
+  $('backBtn').addEventListener('click', closeCountryPage);
+  $('backToWorld').addEventListener('click', closeCountryPage);
+  $('brandHome').addEventListener('click', (e) => { if (appState.currentCountry) { e.preventDefault(); closeCountryPage(); } });
+  $('footerHome').addEventListener('click', (e) => { if (appState.currentCountry) { e.preventDefault(); closeCountryPage(); } });
+
+  // ============ STATE FILES ============
+  async function getStateFiles(country) {
+    if (country.folder === 'ROOT_INDIA') {
+      // India: use root files
+      return await getIndiaStateFiles();
+    } else if (country.folder === 'ROOT_USA') {
+      return await getUsaStateFiles();
+    } else {
+      // World country: list files in world/CODE/ folder
+      return await getWorldCountryFiles(country.folder);
+    }
+  }
+
+  async function getIndiaStateFiles() {
+    // Hardcoded list from earlier discovery
+    return [
+      { name: "Andaman & Nicobar Islands", file: "andaman-and-nicobar-islands.json" },
+      { name: "Andhra Pradesh", file: "andhra-pradesh.json" },
+      { name: "Arunachal Pradesh", file: "arunachal-pradesh.json" },
+      { name: "Assam", file: "assam.json" },
+      { name: "Bihar", file: "bihar.json" },
+      { name: "Chandigarh", file: "chandigarh.json" },
+      { name: "Chhattisgarh", file: "chhattisgarh.json" },
+      { name: "Dadra & Nagar Haveli", file: "dadra-nagar-haveli-daman-diu.json" },
+      { name: "Delhi", file: "delhi.json" },
+      { name: "Goa", file: "goa.json" },
+      { name: "Gujarat", file: "gujarat.json" },
+      { name: "Haryana", file: "haryana.json" },
+      { name: "Himachal Pradesh", file: "himachal-pradesh.json" },
+      { name: "Jammu & Kashmir", file: "jammu-kashmir.json" },
+      { name: "Jharkhand", file: "jharkhand.json" },
+      { name: "Karnataka", file: "karnataka.json" },
+      { name: "Kerala", file: "kerala.json" },
+      { name: "Ladakh", file: "ladakh.json" },
+      { name: "Lakshadweep", file: "lakshadweep.json" },
+      { name: "Madhya Pradesh", file: "madhya-pradesh.json" },
+      { name: "Maharashtra", file: "maharashtra.json" },
+      { name: "Manipur", file: "manipur.json" },
+      { name: "Meghalaya", file: "meghalaya.json" },
+      { name: "Mizoram", file: "mizoram.json" },
+      { name: "Nagaland", file: "nagaland.json" },
+      { name: "Odisha", file: "odisha.json" },
+      { name: "Puducherry", file: "puducherry.json" },
+      { name: "Punjab", file: "punjab.json" },
+      { name: "Rajasthan", file: "rajasthan.json" },
+      { name: "Sikkim", file: "sikkim.json" },
+      { name: "Tamil Nadu", file: "tamil-nadu.json" },
+      { name: "Telangana", file: "telangana.json" },
+      { name: "Tripura", file: "tripura.json" },
+      { name: "Uttar Pradesh", file: "uttar-pradesh.json" },
+      { name: "Uttarakhand", file: "uttarakhand.json" },
+      { name: "West Bengal", file: "west-bengal.json" }
+    ];
+  }
+
+  async function getUsaStateFiles() {
+    return [
+      { name: "Alabama", file: "Alabama.json" }, { name: "Alaska", file: "Alaska.json" },
+      { name: "Arizona", file: "Arizona.json" }, { name: "Arkansas", file: "Arkansas.json" },
+      { name: "California", file: "California.json" }, { name: "Colorado", file: "Colorado.json" },
+      { name: "Connecticut", file: "Connecticut.json" }, { name: "Delaware", file: "Delaware.json" },
+      { name: "District of Columbia", file: "District_of_Columbia.json" }, { name: "Florida", file: "Florida.json" },
+      { name: "Georgia", file: "Georgia.json" }, { name: "Hawaii", file: "Hawaii.json" },
+      { name: "Idaho", file: "Idaho.json" }, { name: "Illinois", file: "Illinois.json" },
+      { name: "Indiana", file: "Indiana.json" }, { name: "Iowa", file: "Iowa.json" },
+      { name: "Kansas", file: "Kansas.json" }, { name: "Kentucky", file: "Kentucky.json" },
+      { name: "Louisiana", file: "Louisiana.json" }, { name: "Maine", file: "Maine.json" },
+      { name: "Maryland", file: "Maryland.json" }, { name: "Massachusetts", file: "Massachusetts.json" },
+      { name: "Michigan", file: "Michigan.json" }, { name: "Minnesota", file: "Minnesota.json" },
+      { name: "Mississippi", file: "Mississippi.json" }, { name: "Missouri", file: "Missouri.json" },
+      { name: "Montana", file: "Montana.json" }, { name: "Nebraska", file: "Nebraska.json" },
+      { name: "Nevada", file: "Nevada.json" }, { name: "New Hampshire", file: "New_Hampshire.json" },
+      { name: "New Jersey", file: "New_Jersey.json" }, { name: "New Mexico", file: "New_Mexico.json" },
+      { name: "New York", file: "New_York.json" }, { name: "North Carolina", file: "North_Carolina.json" },
+      { name: "North Dakota", file: "North_Dakota.json" }, { name: "Ohio", file: "Ohio.json" },
+      { name: "Oklahoma", file: "Oklahoma.json" }, { name: "Oregon", file: "Oregon.json" },
+      { name: "Pennsylvania", file: "Pennsylvania.json" }, { name: "Puerto Rico", file: "Puerto_Rico.json" },
+      { name: "Rhode Island", file: "Rhode_Island.json" }, { name: "South Carolina", file: "South_Carolina.json" },
+      { name: "South Dakota", file: "South_Dakota.json" }, { name: "Tennessee", file: "Tennessee.json" },
+      { name: "Texas", file: "Texas.json" }, { name: "Utah", file: "Utah.json" },
+      { name: "Vermont", file: "Vermont.json" }, { name: "Virginia", file: "Virginia.json" },
+      { name: "Washington", file: "Washington.json" }, { name: "West Virginia", file: "West_Virginia.json" },
+      { name: "Wisconsin", file: "Wisconsin.json" }, { name: "Wyoming", file: "Wyoming.json" }
+    ];
+  }
+
+  async function getWorldCountryFiles(code) {
+    // Hardcoded known files for major countries (expandable)
+    // For others, will use directory listing via GitHub API
+    const KNOWN = {
+      'GB': ['England.json', 'Northern_Ireland.json', 'Scotland.json', 'Wales.json', 'Unknown_State.json'],
+      'DE': ['Baden-Württemberg.json', 'Bavaria.json', 'Berlin.json', 'Brandenburg.json', 'Bremen.json', 'Hamburg.json', 'Hessen.json', 'Lower_Saxony.json', 'Mecklenburg-Vorpommern.json', 'North_Rhine-Westphalia.json', 'Rhineland-Palatinate.json', 'Saarland.json', 'Saxony.json', 'Saxony-Anhalt.json', 'Schleswig-Holstein.json', 'Thuringia.json'],
+      'FR': ['Île-de-France.json', 'Provence-Alpes-Côte_d\'Azur.json', 'Auvergne-Rhône-Alpes.json', 'Nouvelle-Aquitaine.json', 'Occitanie.json', 'Hauts-de-France.json', 'Grand_Est.json', 'Pays_de_la_Loire.json', 'Bretagne.json', 'Normandie.json', 'Bourgogne-Franche-Comté.json', 'Centre-Val_de_Loire.json', 'Corse.json'],
+      'JP': ['Tokyo_To.json', 'Osaka_Fu.json', 'Kyoto_Fu.json', 'Hokkaido.json', 'Aichi_Ken.json', 'Fukuoka_Ken.json', 'Kanagawa_Ken.json', 'Saitama_Ken.json', 'Chiba_Ken.json', 'Hyogo_Ken.json'],
+      'CN': ['Beijing.json', 'Shanghai.json', 'Guangdong.json', 'Sichuan.json', 'Zhejiang.json', 'Jiangsu.json', 'Shandong.json'],
+      'BR': ['Acre.json', 'Alagoas.json', 'Amapá.json', 'Amazonas.json', 'Bahia.json', 'Ceará.json', 'Distrito_Federal.json', 'Espírito_Santo.json', 'Goiás.json', 'Maranhão.json', 'Mato_Grosso.json', 'Mato_Grosso_do_Sul.json', 'Minas_Gerais.json', 'Pará.json', 'Paraíba.json', 'Paraná.json', 'Pernambuco.json', 'Piauí.json', 'Rio_de_Janeiro.json', 'Rio_Grande_do_Norte.json', 'Rio_Grande_do_Sul.json', 'Rondônia.json', 'Roraima.json', 'Santa_Catarina.json', 'São_Paulo.json', 'Sergipe.json', 'Tocantins.json'],
+      'RU': ['Moscow.json', 'Saint_Petersburg.json', 'Moscow_Oblast.json', 'Krasnodar_Krai.json', 'Sverdlovsk_Oblast.json'],
+      'CA': ['Ontario.json', 'Quebec.json', 'British_Columbia.json', 'Alberta.json', 'Manitoba.json', 'Saskatchewan.json', 'Nova_Scotia.json', 'New_Brunswick.json'],
+      'AU': ['New_South_Wales.json', 'Victoria.json', 'Queensland.json', 'Western_Australia.json', 'South_Australia.json', 'Tasmania.json', 'Australian_Capital_Territory.json', 'Northern_Territory.json'],
+      'IT': ['Lombardy.json', 'Lazio.json', 'Campania.json', 'Sicily.json', 'Veneto.json', 'Piedmont.json', 'Emilia-Romagna.json', 'Tuscany.json'],
+      'ES': ['Madrid.json', 'Catalonia.json', 'Andalusia.json', 'Valencia.json', 'Basque_Country.json', 'Galicia.json'],
+      'MX': ['Aguascalientes.json', 'Baja_California.json', 'Chiapas.json', 'Chihuahua.json', 'Coahuila.json', 'Jalisco.json', 'Mexico_City.json', 'Nuevo_Leon.json', 'Puebla.json', 'Querétaro.json', 'Quintana_Roo.json', 'Sonora.json', 'Veracruz.json', 'Yucatán.json'],
+      'AR': ['Buenos_Aires.json', 'Córdoba.json', 'Santa_Fe.json', 'Mendoza.json', 'Tucumán.json'],
+      'TR': ['Istanbul.json', 'Ankara.json', 'Izmir.json', 'Bursa.json', 'Antalya.json'],
+      'ID': ['Jakarta.json', 'West_Java.json', 'East_Java.json', 'Bali.json', 'Sumatra.json'],
+      'KR': ['Seoul.json', 'Busan.json', 'Incheon.json', 'Daegu.json', 'Gwangju.json'],
+      'TH': ['Bangkok.json', 'Chiang_Mai.json', 'Phuket.json', 'Pattaya.json'],
+      'PK': ['Punjab.json', 'Sindh.json', 'Khyber_Pakhtunkhwa.json', 'Balochistan.json', 'Islamabad.json'],
+      'BD': ['Dhaka.json', 'Chittagong.json', 'Khulna.json', 'Rajshahi.json'],
+      'ZA': ['Gauteng.json', 'Western_Cape.json', 'KwaZulu-Natal.json', 'Eastern_Cape.json'],
+    };
+    const files = KNOWN[code] || ['Unknown_State.json'];
+    return files.map(f => ({ name: f.replace('.json', '').replace(/_/g, ' '), file: f }));
+  }
+
+  function renderStateButtons(stateFiles) {
+    $('countryStatesGrid').innerHTML = stateFiles.map((s, i) => `
+      <button class="state-btn" data-file="${s.file}" data-name="${s.name}" style="transition-delay: ${Math.min(i, 20) * 15}ms">${s.name}</button>
+    `).join('');
+
+    $$('.state-btn').forEach(btn => btn.addEventListener('click', async () => {
+      const file = btn.dataset.file;
+      const name = btn.dataset.name;
+      const country = appState.currentCountry;
+      if (!country) return;
+
+      const url = country.folder === 'ROOT_INDIA' ? DATA_BASE + file
+                : country.folder === 'ROOT_USA' ? DATA_BASE + 'usa/' + file
+                : DATA_BASE + 'world/' + country.folder + '/' + file;
+
+      try {
+        btn.textContent = '⏳ Loading...';
+        const cacheKey = url;
+        let data;
+        if (dataCache.has(cacheKey)) data = dataCache.get(cacheKey);
+        else {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('fetch failed');
+          data = await res.json();
+          dataCache.set(cacheKey, data);
+        }
+        const code = $('countryCodeInput').value.trim();
+        let results = data;
+        if (code) {
+          const searchFields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
+          const matched = data.filter(item => {
+            for (const f of searchFields) { if (item[f] && String(item[f]).toLowerCase().includes(code.toLowerCase())) return true; }
+            return false;
+          });
+          if (matched.length > 0) results = matched;
+        }
+        renderResults(results, `${country.flag} ${country.name} — ${name}`, code ? `code: ${code}` : null);
+        btn.textContent = name;
+      } catch (err) {
+        showToast('Failed to load state data', 'error');
+        btn.textContent = name;
+      }
+    }));
+  }
+
+  // ============ SEARCH WITHIN COUNTRY ============
+  $('countrySearchBtn').addEventListener('click', async () => {
+    const code = $('countryCodeInput').value.trim();
+    if (!code) { showToast('Enter a postal code', 'error'); return; }
+    const country = appState.currentCountry;
+    if (!country) return;
+
+    if (!appState.currentStateFiles || appState.currentStateFiles.length === 0) {
+      showToast('States not loaded yet', 'error');
+      return;
+    }
+
+    $('resultsList').innerHTML = '<div class="loading-state" style="grid-column: 1/-1; text-align: center; padding: 3rem;"><div class="spinner"></div><p>Searching all states...</p></div>';
+    $('resultsSection').classList.add('visible');
+
+    const allMatches = [];
+    const searchFields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
+    for (const sf of appState.currentStateFiles) {
+      try {
+        const url = country.folder === 'ROOT_INDIA' ? DATA_BASE + sf.file
+                  : country.folder === 'ROOT_USA' ? DATA_BASE + 'usa/' + sf.file
+                  : DATA_BASE + 'world/' + country.folder + '/' + sf.file;
+        const cacheKey = url;
+        let data;
+        if (dataCache.has(cacheKey)) data = dataCache.get(cacheKey);
+        else { const res = await fetch(url); if (res.ok) { data = await res.json(); dataCache.set(cacheKey, data); } }
+        if (data) {
+          for (const item of data) {
+            for (const f of searchFields) {
+              if (item[f] && String(item[f]).toLowerCase() === code.toLowerCase()) {
+                allMatches.push(item); break;
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+    renderResults(allMatches, `${country.flag} ${country.name} — Search: ${code}`, null);
+  });
+
+  $('countryCodeInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('countrySearchBtn').click(); });
+
+  // ============ MAP ============
+  function initMap() {
+    if (appState.mapInitialized) return;
+    appState.map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([20.5937, 78.9629], 3);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(appState.map);
+    appState.mapInitialized = true;
+  }
+
+  function makePin(color1, color2) {
+    return L.divIcon({
+      className: 'custom-marker',
+      html: `<div style="background: linear-gradient(135deg, ${color1}, ${color2}); width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 4px 16px ${color1}80; border: 3px solid white;"></div>`,
+      iconSize: [28, 28], iconAnchor: [14, 28],
+    });
+  }
+
+  function showMap(results) {
+    initMap();
+    appState.mapMarkers.forEach(m => appState.map.removeLayer(m));
+    appState.mapMarkers = [];
+    const withCoords = results.filter(r => r.latitude !== undefined && r.longitude !== undefined && r.latitude !== null && r.longitude !== null);
+    if (withCoords.length === 0) { $('mapSection').classList.remove('visible'); return; }
+    withCoords.forEach((item, i) => {
+      const colors = i === 0 ? ['#ff6b1a', '#f5b700'] : ['#006d77', '#0a9396'];
+      const lat = parseFloat(item.latitude);
+      const lon = parseFloat(item.longitude);
+      if (isNaN(lat) || isNaN(lon)) return;
+      const popupContent = `<strong style="color: #f5b700;">${item.City || item.officename || item.OfficeName || 'Location'}</strong><br/><span style="color: #d4cfc0; font-size: 0.85rem;">${item.ZipCode || item.pincode || ''} • ${item.State || item.statename || ''}</span>`;
+      const m = L.marker([lat, lon], { icon: makePin(...colors) }).addTo(appState.map).bindPopup(popupContent);
+      appState.mapMarkers.push(m);
+    });
+    if (withCoords.length === 1) {
+      const lat = parseFloat(withCoords[0].latitude), lon = parseFloat(withCoords[0].longitude);
+      if (!isNaN(lat) && !isNaN(lon)) appState.map.setView([lat, lon], 6, { animate: true, duration: 1 });
+    } else {
+      const valid = withCoords.filter(r => !isNaN(parseFloat(r.latitude)) && !isNaN(parseFloat(r.longitude)));
+      if (valid.length > 0) {
+        const bounds = L.latLngBounds(valid.map(r => [parseFloat(r.latitude), parseFloat(r.longitude)]));
+        appState.map.fitBounds(bounds, { padding: [50, 50], maxZoom: 6, animate: true, duration: 1 });
+      }
+    }
+    $('mapBadgeText').textContent = `${withCoords.length} location${withCoords.length > 1 ? 's' : ''}`;
+    $('mapSection').classList.add('visible');
+    setTimeout(() => appState.map.invalidateSize(), 400);
+  }
+
+  // ============ RESULTS ============
+  function renderResults(results, title, subtitle) {
+    if (!results || results.length === 0) {
+      $('resultsList').innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No results found.${subtitle ? ' Try a different code.' : ''}</p></div>`;
+      $('resultsCount').textContent = '0 found';
+      $('resultsTitle').textContent = title;
+      $('resultsSection').classList.add('visible');
+      $('mapSection').classList.remove('visible');
+      return;
+    }
+    $('resultsTitle').textContent = title;
+    $('resultsCount').textContent = `${results.length} found`;
+    $('resultsList').innerHTML = results.map((item, idx) => {
+      const pincode = item.pincode || item.ZipCode || item.zipcode || 'N/A';
+      const office = item.officename || item.OfficeName || item.City || 'Location';
+      const state = item.statename || item.State || '';
+      const district = item.district || item.County || item.City || '';
+      const circle = item.circlename || item.StateAbbr || '';
+      const division = item.divisionname || '';
+      const region = item.regionname || item.Country || '';
+      const delivery = item.delivery || '';
+      const hasCoords = item.latitude !== undefined && item.longitude !== undefined && item.latitude !== null && item.longitude !== null;
+      return `
+        <div class="result-card" style="animation-delay: ${idx * 50}ms">
+          <div class="result-pin">
+            <span class="result-pin-num">${pincode}</span>
+            <button class="copy-btn" data-pin="${pincode}">📋</button>
+          </div>
+          <div class="result-office">${office}</div>
+          <div class="result-meta">
+            <div class="meta-item"><span class="meta-label">State</span><span class="meta-value">${state || 'N/A'}</span></div>
+            <div class="meta-item"><span class="meta-label">District</span><span class="meta-value">${district || 'N/A'}</span></div>
+            <div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">${region || 'N/A'}</span></div>
+            <div class="meta-item"><span class="meta-label">Abbr</span><span class="meta-value">${circle || 'N/A'}</span></div>
+            <div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">${division || 'N/A'}</span></div>
+            <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">${delivery || 'PO'}</span></div>
+          </div>
+          <div class="result-actions">
+            ${hasCoords ? `<button class="action-btn" data-action="map" data-lat="${item.latitude}" data-lon="${item.longitude}" data-label="${office}">🗺️ Focus</button>` : ''}
+            <a class="action-btn" href="https://www.google.com/maps?q=${item.latitude || ''},${item.longitude || ''}" rel="noopener" target="_blank">🌍 Google</a>
+            <a class="action-btn" href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=Mistake: ${office}">⚠️ Report</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    $$('.copy-btn').forEach(btn => btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      copyToClipboard(btn.dataset.pin);
+      btn.classList.add('copied'); btn.textContent = '✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋'; }, 1500);
+    }));
+    $$('[data-action="map"]').forEach(btn => btn.addEventListener('click', () => {
+      const lat = parseFloat(btn.dataset.lat), lon = parseFloat(btn.dataset.lon);
+      showMap([{ latitude: lat, longitude: lon, officename: btn.dataset.label }]);
+    }));
+    $('resultsSection').classList.add('visible');
+    showMap(results);
+    setTimeout(() => $('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  // ============ COMMAND PALETTE ============
+  function openCmd() {
+    $('cmdOverlay').classList.add('open');
+    $('cmdInput').value = '';
+    $('cmdInput').focus();
+    renderCmd('');
+  }
+  function closeCmd() { $('cmdOverlay').classList.remove('open'); }
+  function renderCmd(query) {
+    const list = $('cmdList');
+    let filtered = ALL_COUNTRIES.filter(c => !query || c.name.toLowerCase().includes(query.toLowerCase()) || c.code.toLowerCase().includes(query.toLowerCase()));
+    filtered = filtered.slice(0, 12);
+    list.innerHTML = filtered.map(c => `
+      <div class="cmd-item" data-code="${c.code}">
+        <span class="cmd-icon">${c.flag}</span>
+        <div class="cmd-text">
+          <div class="cmd-title">${c.name}</div>
+          <div class="cmd-subtitle">${c.code} · ${c.region}</div>
+        </div>
+        <span class="cmd-kbd">${c.code}</span>
+      </div>
+    `).join('');
+    if (filtered.length === 0) list.innerHTML = '<div class="cmd-item"><span class="cmd-icon">🔍</span><div class="cmd-text"><div class="cmd-title">No countries found</div></div></div>';
+    $$('.cmd-item[data-code]').forEach(el => el.addEventListener('click', () => { closeCmd(); openCountryPage(el.dataset.code); }));
+  }
+
+  $('cmdTrigger').addEventListener('click', openCmd);
+  $('cmdInput').addEventListener('input', (e) => renderCmd(e.target.value));
+  $('cmdOverlay').addEventListener('click', (e) => { if (e.target.id === 'cmdOverlay') closeCmd(); });
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmd(); }
+    if (e.key === 'Escape') closeCmd();
+  });
+
+  // ============ INIT ============
+  renderRegionTabs();
+  renderCountries();
+  $('year').textContent = new Date().getFullYear();
+  console.log(`🌍 PO ZipCode Global v7 — ${ALL_COUNTRIES.length} countries ready`);
+})();
+//]]>
+</script>
+
+<b:section class='blogger-hidden' id='blog-main' showaddelement='false'>
+<b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+<b:widget-settings>
+<b:widget-setting name='showDateHeader'>false</b:widget-setting>
+<b:widget-setting name='showShareButtons'>false</b:widget-setting>
+<b:widget-setting name='showCommentLink'>false</b:widget-setting>
+<b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+<b:widget-setting name='showLocation'>false</b:widget-setting>
+<b:widget-setting name='showLabels'>false</b:widget-setting>
+<b:widget-setting name='showTimestamp'>false</b:widget-setting>
+<b:widget-setting name='postsPerAd'>1</b:widget-setting>
+<b:widget-setting name='showBacklinks'>false</b:widget-setting>
+<b:widget-setting name='showInlineAds'>false</b:widget-setting>
+<b:widget-setting name='showReactions'>false</b:widget-setting>
+</b:widget-settings>
+<b:includable id='main'>
+<b:loop values='data:posts' var='post'>
+<article expr:id='&quot;post-&quot; + data:post.id' style='display:none'>
+<a expr:href='data:post.url'><data:post.title/></a>
+</article>
+</b:loop>
+</b:includable>
+</b:widget>
+</b:section>
+
+<!-- Command Palette (overlay) -->
+<div class="cmd-overlay" id="cmdOverlay">
+<div class="cmd-palette">
+<input class="cmd-input" id="cmdInput" placeholder="Search 121 countries..." type="text"/>
+<div class="cmd-list" id="cmdList"></div>
+</div>
+</div>
+
+<style>
+.cmd-overlay {
+  position: fixed; inset: 0;
+  background: rgba(5, 8, 22, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 9000;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 12vh;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.cmd-overlay.open { opacity: 1; visibility: visible; }
+.cmd-palette {
+  width: 100%; max-width: 640px;
+  background: var(--bg-night);
+  border: 1px solid var(--border-hi);
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: scale(0.95) translateY(-20px);
+  transition: transform 0.3s;
+}
+.cmd-overlay.open .cmd-palette { transform: scale(1) translateY(0); }
+.cmd-input {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.05rem;
+  font-family: var(--font-mono);
+  outline: none;
+}
+.cmd-list { max-height: 400px; overflow-y: auto; padding: 0.5rem; }
+.cmd-item {
+  padding: 0.875rem 1.25rem;
+  border-radius: 16px;
+  display: flex; align-items: center; gap: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cmd-item:hover, .cmd-item.active { background: var(--bg-card-hi); }
+.cmd-icon { font-size: 1.25rem; }
+.cmd-text { flex: 1; }
+.cmd-title { font-weight: 500; color: var(--text); }
+.cmd-subtitle { font-size: 0.8rem; color: var(--text-3); margin-top: 0.125rem; }
+.cmd-kbd { font-family: var(--font-mono); font-size: 0.7rem; padding: 0.125rem 0.5rem; background: var(--bg-card-hi); border-radius: 4px; color: var(--text-3); }
+</style>
+
+</body>
+</html>

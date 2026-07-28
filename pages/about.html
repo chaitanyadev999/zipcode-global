@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About PO ZipCode Global — World's #1 PIN Code Finder</title>
+    <meta name="description" content="Learn about PO ZipCode Global — the world's most comprehensive postal code finder covering 121 countries across 6 continents with 10,00,000+ postal codes.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050816;
+            --bg-secondary: #0a0e27;
+            --bg-card: rgba(15, 20, 50, 0.6);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --saffron: #ff6b1a;
+            --saffron-glow: rgba(255, 107, 26, 0.3);
+            --gold: #f5b700;
+            --gold-glow: rgba(245, 183, 0, 0.25);
+            --text-primary: #e8eaf0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-accent: rgba(255, 107, 26, 0.2);
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Background ambient effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(255, 107, 26, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            right: -15%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(ellipse, rgba(245, 183, 0, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .hero-globe {
+            font-size: 72px;
+            line-height: 1;
+            margin-bottom: 24px;
+            display: block;
+            animation: floatGlobe 4s ease-in-out infinite;
+        }
+
+        @keyframes floatGlobe {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--saffron) 60%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .hero-kicker {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: clamp(0.85rem, 1.8vw, 1rem);
+            font-weight: 500;
+            color: var(--saffron);
+            background: rgba(255, 107, 26, 0.08);
+            border: 1px solid var(--border-accent);
+            border-radius: 40px;
+            padding: 10px 28px;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--saffron), var(--gold));
+            border: none;
+            border-radius: 3px;
+            margin: 50px auto;
+        }
+
+        /* ===== GLASS CARD ===== */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 44px 40px;
+            margin-bottom: 28px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-accent);
+            box-shadow: 0 0 40px rgba(255, 107, 26, 0.05);
+        }
+
+        .glass-card h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 2.8vw, 1.65rem);
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .glass-card h2 .accent {
+            color: var(--saffron);
+        }
+
+        .glass-card p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        /* ===== FEATURES GRID ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 24px 22px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .feature-item:hover {
+            border-color: rgba(255, 107, 26, 0.15);
+            background: rgba(255, 107, 26, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feature-name {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .feature-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ===== MADE IN BHARAT ===== */
+        .bharat-section {
+            text-align: center;
+            padding: 50px 24px 40px;
+        }
+
+        .bharat-flag {
+            font-size: 2.4rem;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .bharat-section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 3vw, 1.7rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .bharat-section h2 .accent {
+            color: var(--saffron);
+        }
+
+        .bharat-section p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== FOOTER ===== */
+        .page-footer {
+            text-align: center;
+            padding: 40px 20px 60px;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 10px;
+        }
+
+        .page-footer a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--saffron);
+            text-decoration: none;
+            padding: 12px 32px;
+            border: 1px solid var(--border-accent);
+            border-radius: 50px;
+            background: rgba(255, 107, 26, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            margin-bottom: 28px;
+        }
+
+        .page-footer a:hover {
+            background: rgba(255, 107, 26, 0.12);
+            border-color: var(--saffron);
+            box-shadow: 0 0 24px rgba(255, 107, 26, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .page-footer .copyright {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .page-footer .copyright .brand {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero { animation: fadeInUp 0.7s ease-out both; }
+        .hero-subtitle { animation: fadeInUp 0.7s ease-out 0.1s both; }
+        .glass-card:nth-child(1) { animation-delay: 0.1s; }
+        .glass-card:nth-child(2) { animation-delay: 0.2s; }
+        .glass-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-item:nth-child(1) { animation-delay: 0.05s; }
+        .feature-item:nth-child(2) { animation-delay: 0.1s; }
+        .feature-item:nth-child(3) { animation-delay: 0.15s; }
+        .feature-item:nth-child(4) { animation-delay: 0.2s; }
+        .feature-item:nth-child(5) { animation-delay: 0.25s; }
+        .feature-item:nth-child(6) { animation-delay: 0.3s; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 107, 26, 0.25);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 107, 26, 0.4); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 60px 16px 40px;
+            }
+
+            .hero-globe {
+                font-size: 56px;
+            }
+
+            .glass-card {
+                padding: 30px 24px;
+                border-radius: 16px;
+                margin-bottom: 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .feature-item {
+                padding: 20px 18px;
+            }
+
+            .section-divider {
+                margin: 36px auto;
+            }
+
+            .bharat-section {
+                padding: 36px 16px 30px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+
+        <!-- ===== HERO ===== -->
+        <section class="hero">
+            <span class="hero-globe" aria-hidden="true">🌍</span>
+            <h1>PO ZipCode Global</h1>
+            <p class="hero-subtitle">World's #1 PIN Code Finder</p>
+            <span class="hero-kicker">वसुधैव कुटुम्बकम् — The World is One Family</span>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== WHAT IS ZIPCODE GLOBAL ===== -->
+        <section class="glass-card" aria-labelledby="what-is-heading">
+            <h2 id="what-is-heading">What is <span class="accent">PO ZipCode Global</span>?</h2>
+            <p>
+                PO ZipCode Global is the world's most comprehensive postal code finder. We cover
+                <strong>121 countries</strong> across <strong>6 continents</strong>, providing instant
+                access to over <strong>10,00,000+ postal codes</strong>. Whether you need an Indian PIN
+                code, a US ZIP code, or a Japanese postal code — we've got you covered.
+            </p>
+        </section>
+
+        <!-- ===== OUR MISSION ===== -->
+        <section class="glass-card" aria-labelledby="mission-heading">
+            <h2 id="mission-heading">Our <span class="accent">Mission</span></h2>
+            <p>
+                To make every postal code in the world accessible to everyone, for free. Built with
+                Indian heritage and global reach, PO ZipCode Global bridges the gap between local postal
+                systems and global users.
+            </p>
+        </section>
+
+        <!-- ===== FEATURES ===== -->
+        <section class="glass-card" aria-labelledby="features-heading">
+            <h2 id="features-heading">Powerful <span class="accent">Features</span></h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">🌍</span>
+                    <div class="feature-name">121 Countries</div>
+                    <div class="feature-desc">Every country has its own dedicated page</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">⚡</span>
+                    <div class="feature-name">Lightning Fast</div>
+                    <div class="feature-desc">Sub-100ms search response</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">🗺️</span>
+                    <div class="feature-name">Auto Map</div>
+                    <div class="feature-desc">Every search reveals the location on an interactive map</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">🎙️</span>
+                    <div class="feature-name">Voice Search</div>
+                    <div class="feature-desc">Speak the postal code in any language</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">⌨️</span>
+                    <div class="feature-name">Command Palette</div>
+                    <div class="feature-desc">Press Ctrl+K for instant search</div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">📱</span>
+                    <div class="feature-name">Mobile First</div>
+                    <div class="feature-desc">Works perfectly on all devices</div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== MADE IN BHARAT ===== -->
+        <section class="bharat-section glass-card" aria-labelledby="bharat-heading">
+            <span class="bharat-flag" aria-hidden="true">🇮🇳</span>
+            <h2 id="bharat-heading">Made in <span class="accent">Bharat</span></h2>
+            <p>
+                Built with love in India, for the world. We believe information should be free and
+                accessible to everyone.
+            </p>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="page-footer">
+            <a href="https://zipcodeglobal.com" title="Back to PO ZipCode Global Home">
+                ← Back to Home
+            </a>
+            <p class="copyright">© 2026 <span class="brand">PO ZipCode Global</span>. All rights reserved.</p>
+        </footer>
+
+    </div>
+</body>
+</html>

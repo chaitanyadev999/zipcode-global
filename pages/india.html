@@ -1,0 +1,1028 @@
+<!--
+  PO ZIPCODE GLOBAL — Country Page Template
+  ==========================================
+  Copy this template for each country page in Blogger.
+  Replace the COUNTRY_DATA section with the specific country's data.
+
+  How to create a country page:
+  1. Go to Blogger → Pages → New Page
+  2. Title: "India — PO ZipCode Global" (or the country name)
+  3. Paste this entire HTML
+  4. Replace the COUNTRY_DATA JSON block with the country's data
+  5. Publish
+
+  Example countries to create first:
+  - /p/india.html
+  - /p/usa.html
+  - /p/united-kingdom.html
+  - /p/japan.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset='UTF-8'/>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<title>🇮🇳 India — PO ZipCode Global</title>
+
+<!-- Open Graph -->
+<meta content='website' property='og:type'/>
+<meta content='https://zipcodeglobal.com/p/india.html' property='og:url'/>
+<meta content='🇮🇳 India Postal Codes — PO ZipCode Global' property='og:title'/>
+<meta content='Find any PIN code in India. 36 States & UTs. Instant lookup with interactive map. Made with ❤️ in Bharat.' property='og:description'/>
+
+<!-- Fonts -->
+<link rel='preconnect' href='https://fonts.googleapis.com'/>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin/>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap' rel='stylesheet'/>
+
+<!-- Leaflet CSS -->
+<link crossorigin='' href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' integrity='sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=' rel='stylesheet'/>
+
+<style>
+:root {
+  --saffron: #ff6b1a;
+  --saffron-bright: #ff8c42;
+  --saffron-glow: #ffb380;
+  --gold: #f5b700;
+  --gold-light: #ffd966;
+  --royal-indigo: #1a1f4d;
+  --peacock-teal: #0a9396;
+  --peacock-blue: #006d77;
+  --vermillion: #c1272d;
+  --lotus: #e83e8c;
+  --tulsi: #2d6a4f;
+  --ivory: #fff8e7;
+  --cinema: #050816;
+
+  --bg-base: #050816;
+  --bg-night: #0a0e27;
+  --bg-deep: #131838;
+  --bg-card: rgba(255, 255, 255, 0.035);
+  --bg-card-hi: rgba(255, 255, 255, 0.07);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-veil: rgba(5, 8, 22, 0.85);
+  --border: rgba(255, 179, 102, 0.14);
+  --border-hi: rgba(255, 179, 102, 0.35);
+
+  --text: #f5f1e8;
+  --text-2: #d4cfc0;
+  --text-3: #8b8478;
+  --text-dim: #5c5648;
+
+  --grad-saffron: linear-gradient(135deg, #ff6b1a 0%, #f5b700 100%);
+  --grad-cinema: linear-gradient(135deg, #ff6b1a 0%, #f5b700 50%, #e83e8c 100%);
+  --grad-global: linear-gradient(135deg, #ff6b1a 0%, #f5b700 33%, #2d6a4f 66%, #006d77 100%);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.6);
+  --shadow-saffron: 0 0 60px rgba(255, 107, 26, 0.4);
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --d-fast: 0.2s;
+  --d-base: 0.4s;
+  --d-slow: 0.8s;
+  --d-grand: 1.4s;
+
+  --container: 1400px;
+  --r-sm: 8px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-full: 999px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-base);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(255, 107, 26, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 10%, rgba(245, 183, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(45, 106, 79, 0.1) 0%, transparent 50%);
+  z-index: -2; pointer-events: none;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; }
+::selection { background: var(--saffron); color: white; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-night); }
+::-webkit-scrollbar-thumb { background: var(--grad-saffron); border-radius: var(--r-full); }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text);
+}
+.gradient-text {
+  background: var(--grad-cinema);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.global-text {
+  background: var(--grad-global);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.kicker {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--saffron-bright);
+  padding: 0.625rem 1.25rem;
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+}
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 4rem 0; position: relative; }
+
+/* NAV */
+.country-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100; padding: 1rem 0;
+  transition: all var(--d-base) var(--ease-out);
+}
+.country-nav.scrolled {
+  background: var(--bg-veil);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.country-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.25rem;
+}
+.brand-mark {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--grad-saffron);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-saffron);
+}
+.nav-links { display: flex; align-items: center; gap: 0.5rem; }
+.nav-link {
+  height: 40px; padding: 0 0.875rem;
+  border-radius: var(--r-full);
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.85rem; color: var(--text-2);
+  transition: all var(--d-fast) var(--ease-out);
+}
+.nav-link:hover { background: var(--bg-card-hi); border-color: var(--saffron); color: var(--text); }
+.nav-link .kbd {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 0.1rem 0.3rem;
+  background: var(--bg-card-hi); border-radius: 3px;
+  color: var(--text-3);
+}
+
+/* HERO */
+.country-hero {
+  padding: 8rem 1.5rem 3rem;
+  text-align: center;
+  position: relative;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  color: var(--text-2); font-size: 0.9rem;
+  margin-bottom: 2rem;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.back-btn:hover { background: var(--bg-card-hi); color: var(--text); border-color: var(--saffron); }
+.hero-flag {
+  font-size: 5rem; line-height: 1;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.4));
+  animation: flag-float 4s ease-in-out infinite;
+}
+@keyframes flag-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700; margin: 0.5rem 0;
+}
+.hero-subtitle {
+  color: var(--text-3); font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+.hero-stats {
+  display: flex; justify-content: center; gap: 2.5rem;
+  margin-top: 2rem; flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.75rem; font-weight: 700;
+  background: var(--grad-cinema);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-label { font-size: 0.8rem; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* SEARCH */
+.search-card {
+  max-width: 700px; margin: 2.5rem auto 0;
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+}
+.search-row {
+  display: flex; gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+}
+.search-row input {
+  flex: 1; padding: 0.875rem 1.25rem;
+  background: transparent; border: none; outline: none;
+  color: var(--text); font-size: 0.95rem;
+  font-family: var(--font-mono);
+}
+.search-row input::placeholder { color: var(--text-dim); }
+.search-btn {
+  padding: 0.875rem 1.5rem;
+  background: var(--grad-saffron);
+  color: white; border-radius: var(--r-full);
+  font-weight: 600; font-size: 0.95rem;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.search-btn:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(255, 107, 26, 0.5); }
+
+/* VOICE */
+.voice-btn {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--bg-card-hi);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  transition: all var(--d-fast) var(--ease-out);
+  flex-shrink: 0;
+}
+.voice-btn:hover { background: var(--saffron); border-color: var(--saffron); }
+.voice-btn.listening {
+  background: var(--vermillion);
+  border-color: var(--vermillion);
+  animation: pulse-voice 1s ease-in-out infinite;
+}
+@keyframes pulse-voice {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(193, 39, 45, 0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(193, 39, 45, 0); }
+}
+
+/* STATES GRID */
+.states-section { margin-top: 3rem; }
+.states-section h2 {
+  font-size: 1.5rem; text-align: center;
+  margin-bottom: 1.5rem;
+}
+.states-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  max-width: 1000px; margin: 0 auto;
+}
+.state-btn {
+  padding: 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text-2);
+  font-size: 0.9rem; font-weight: 500;
+  text-align: center;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.state-btn:hover {
+  background: var(--bg-card-hi);
+  border-color: var(--saffron);
+  color: var(--text);
+  transform: translateY(-2px);
+}
+.state-btn.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* MAP */
+.map-section {
+  margin: 2.5rem 0;
+  opacity: 0; transform: translateY(30px);
+  transition: all var(--d-grand) var(--ease-out);
+  max-height: 0; overflow: hidden;
+}
+.map-section.visible { opacity: 1; transform: translateY(0); max-height: 700px; }
+.map-wrapper {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-hi);
+  box-shadow: var(--shadow-lg);
+}
+#map { height: 500px; width: 100%; z-index: 1; }
+.map-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  z-index: 1000;
+  padding: 0.6rem 1.1rem;
+  background: var(--bg-veil);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: 0.85rem; font-weight: 600;
+  color: var(--text);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.4; }
+}
+.leaflet-tile { filter: brightness(0.6) invert(1) contrast(1.3) hue-rotate(200deg) saturate(0.2) brightness(0.85); }
+.leaflet-container { background: var(--bg-night) !important; font-family: var(--font-body) !important; }
+.leaflet-control-attribution { background: var(--bg-veil) !important; backdrop-filter: blur(10px); color: var(--text-3) !important; font-size: 0.7rem !important; }
+.leaflet-popup-content-wrapper { background: var(--bg-night) !important; color: var(--text) !important; border-radius: var(--r-md) !important; border: 1px solid var(--border-hi) !important; }
+.leaflet-popup-tip { background: var(--bg-night) !important; }
+
+/* RESULTS */
+.results-section {
+  margin: 2rem 0;
+  opacity: 0; transform: translateY(20px);
+  transition: all var(--d-grand) var(--ease-out);
+  max-height: 0; overflow: hidden;
+}
+.results-section.visible { opacity: 1; transform: translateY(0); max-height: none; overflow: visible; }
+.results-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+}
+.results-title { font-size: 1.5rem; font-weight: 700; }
+.results-count {
+  padding: 0.5rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-full);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--saffron-bright);
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+.result-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1.5rem;
+  transition: all var(--d-base) var(--ease-out);
+  animation: card-reveal 0.6s var(--ease-out) forwards;
+  opacity: 0; transform: translateY(20px);
+}
+@keyframes card-reveal { to { opacity: 1; transform: translateY(0); } }
+.result-card:hover { transform: translateY(-4px); border-color: var(--saffron); box-shadow: var(--shadow-md); }
+.result-pin {
+  font-family: var(--font-mono);
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.result-pin-num {
+  background: var(--grad-cinema);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.copy-btn {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--bg-card-hi);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.copy-btn:hover { background: var(--saffron); border-color: var(--saffron); }
+.copy-btn.copied { background: var(--tulsi); border-color: var(--tulsi); }
+.result-office {
+  font-weight: 600; font-size: 1rem;
+  margin-bottom: 0.75rem; color: var(--text);
+}
+.result-meta {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.5rem; margin-bottom: 1rem;
+}
+.meta-item { display: flex; flex-direction: column; }
+.meta-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.meta-value { font-size: 0.85rem; color: var(--text-2); }
+.result-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.action-btn {
+  padding: 0.5rem 0.875rem;
+  background: var(--bg-card-hi);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: 0.8rem; color: var(--text-2);
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  transition: all var(--d-fast) var(--ease-out);
+}
+.action-btn:hover { background: var(--saffron); border-color: var(--saffron); color: white; }
+
+/* LOADING */
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--saffron);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* TOAST */
+.toast-container {
+  position: fixed; bottom: 2rem; right: 2rem;
+  z-index: 9999;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.toast {
+  padding: 0.875rem 1.25rem;
+  background: var(--bg-veil);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 0.9rem;
+  display: flex; align-items: center; gap: 0.5rem;
+  transform: translateX(120%);
+  transition: transform 0.4s var(--ease-out);
+  box-shadow: var(--shadow-md);
+}
+.toast.show { transform: translateX(0); }
+.toast.success { border-color: var(--tulsi); }
+.toast.error { border-color: var(--vermillion); }
+.toast-icon { font-size: 1.1rem; }
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center; padding: 3rem;
+  color: var(--text-3);
+}
+.empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+/* FOOTER */
+.site-footer {
+  margin-top: 4rem;
+  padding: 3rem 0 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand p { color: var(--text-3); font-size: 0.9rem; margin-top: 0.75rem; max-width: 300px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.5rem; }
+.footer-col a { color: var(--text-3); font-size: 0.85rem; transition: color var(--d-fast); }
+.footer-col a:hover { color: var(--saffron); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem; color: var(--text-dim);
+  flex-wrap: wrap; gap: 1rem;
+}
+.tricolor-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #ff6b1a 0%, #f5f1e8 50%, #2d6a4f 100%);
+  margin-top: 1.5rem;
+  border-radius: 2px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .states-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .results-grid { grid-template-columns: 1fr; }
+  .nav-links { gap: 0.25rem; }
+  .nav-link { padding: 0 0.6rem; font-size: 0.75rem; }
+  #map { height: 350px; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .country-hero { padding: 7rem 1rem 2rem; }
+  .hero-flag { font-size: 3.5rem; }
+  .search-card { padding: 1.25rem; }
+}
+</style>
+
+<!-- Dynamic meta tags will be set by JS -->
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<nav class="country-nav" id="countryNav">
+<div class="container">
+  <a class="brand" href="/">
+    <span class="brand-mark">🌍</span>
+    <span>PO ZipCode Global</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">🏠 Home</a>
+    <a class="nav-link" href="/p/about.html">About</a>
+    <a class="nav-link" href="/p/report.html">⚠️ Report</a>
+    <button class="nav-link" id="cmdTrigger" type="button">
+      🔍 <span class="kbd">⌘K</span>
+    </button>
+  </div>
+</div>
+</nav>
+
+<!-- COUNTRY HERO -->
+<section class="country-hero">
+  <a class="back-btn" href="/">← Back to World Map</a>
+  <div class="hero-flag" id="heroFlag"></div>
+  <h1 class="hero-title" id="heroTitle"></h1>
+  <p class="hero-subtitle" id="heroSubtitle"></p>
+  <div class="hero-stats" id="heroStats"></div>
+
+  <!-- SEARCH -->
+  <div class="search-card">
+    <div class="search-row">
+      <input id="searchInput" placeholder="Enter postal code..." type="text"/>
+      <button class="voice-btn" id="voiceBtn" type="button" title="Voice Search">🎙️</button>
+      <button class="search-btn" id="searchBtn" type="button">Search →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STATES -->
+<section class="section states-section" id="statesSection">
+  <div class="container">
+    <h2 id="statesTitle">States &amp; Regions</h2>
+    <div class="states-grid" id="statesGrid">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section" id="mapSection">
+  <div class="container">
+    <div class="map-wrapper">
+      <div class="map-badge"><span class="pulse-dot"></span><span id="mapBadgeText">Live Map</span></div>
+      <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results-section" id="resultsSection">
+  <div class="container">
+    <div class="results-header">
+      <h3 class="results-title" id="resultsTitle">Results</h3>
+      <span class="results-count" id="resultsCount">0 found</span>
+    </div>
+    <div class="results-grid" id="resultsList"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-mark">🌍</span>
+          <span>PO ZipCode Global</span>
+        </div>
+        <p>The world's largest PIN code finder. 121 countries. Voice search, command palette, auto-map. Made with ❤️ in Bharat.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#countriesSection">All Countries</a></li>
+          <li><a href="/p/about.html">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/p/privacy.html">Privacy Policy</a></li>
+          <li><a href="/p/report.html">Report Mistake</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=PO ZipCode Global">Email Us</a></li>
+          <li><a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">GitHub Data</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span id="year"></span> PO ZipCode Global · Made with ❤️ in Bharat 🇮🇳</div>
+      <div>Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></div>
+    </div>
+    <div class="tricolor-bar"></div>
+  </div>
+</footer>
+
+<!-- Leaflet JS -->
+<script crossorigin='' integrity='sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=' src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'></script>
+
+<script>
+//<![CDATA[
+(function() {
+  'use strict';
+
+  // ====================================================
+  // REPLACE THIS SECTION WITH COUNTRY-SPECIFIC DATA
+  // ====================================================
+  const COUNTRY = {
+    name: "India",
+    code: "IN",
+    flag: "🇮🇳",
+    subtitle: "Bharat · 36 States & UTs · 1,55,000+ PINs",
+    lat: 20.5937,
+    lon: 78.9629,
+    dataPath: "https://raw.githubusercontent.com/chaitanyadev999/pincode-dataindia/main/",
+    dataPrefix: "",  // "" for india, "usa/" for usa, "world/CODE/" for others
+    states: [
+      { name: "Andaman & Nicobar Islands", file: "andaman-and-nicobar-islands.json" },
+      { name: "Andhra Pradesh", file: "andhra-pradesh.json" },
+      { name: "Arunachal Pradesh", file: "arunachal-pradesh.json" },
+      { name: "Assam", file: "assam.json" },
+      { name: "Bihar", file: "bihar.json" },
+      { name: "Chandigarh", file: "chandigarh.json" },
+      { name: "Chhattisgarh", file: "chhattisgarh.json" },
+      { name: "Dadra & Nagar Haveli", file: "dadra-nagar-haveli-daman-diu.json" },
+      { name: "Delhi", file: "delhi.json" },
+      { name: "Goa", file: "goa.json" },
+      { name: "Gujarat", file: "gujarat.json" },
+      { name: "Haryana", file: "haryana.json" },
+      { name: "Himachal Pradesh", file: "himachal-pradesh.json" },
+      { name: "Jammu & Kashmir", file: "jammu-kashmir.json" },
+      { name: "Jharkhand", file: "jharkhand.json" },
+      { name: "Karnataka", file: "karnataka.json" },
+      { name: "Kerala", file: "kerala.json" },
+      { name: "Ladakh", file: "ladakh.json" },
+      { name: "Lakshadweep", file: "lakshadweep.json" },
+      { name: "Madhya Pradesh", file: "madhya-pradesh.json" },
+      { name: "Maharashtra", file: "maharashtra.json" },
+      { name: "Manipur", file: "manipur.json" },
+      { name: "Meghalaya", file: "meghalaya.json" },
+      { name: "Mizoram", file: "mizoram.json" },
+      { name: "Nagaland", file: "nagaland.json" },
+      { name: "Odisha", file: "odisha.json" },
+      { name: "Puducherry", file: "puducherry.json" },
+      { name: "Punjab", file: "punjab.json" },
+      { name: "Rajasthan", file: "rajasthan.json" },
+      { name: "Sikkim", file: "sikkim.json" },
+      { name: "Tamil Nadu", file: "tamil-nadu.json" },
+      { name: "Telangana", file: "telangana.json" },
+      { name: "Tripura", file: "tripura.json" },
+      { name: "Uttar Pradesh", file: "uttar-pradesh.json" },
+      { name: "Uttarakhand", file: "uttarakhand.json" },
+      { name: "West Bengal", file: "west-bengal.json" }
+    ]
+  };
+  // ====================================================
+
+  // Set page title and meta dynamically
+  document.title = `${COUNTRY.flag} ${COUNTRY.name} — PO ZipCode Global`;
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.content = `${COUNTRY.flag} ${COUNTRY.name} Postal Codes — PO ZipCode Global`;
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.content = `Find any postal code in ${COUNTRY.name}. ${COUNTRY.states.length} regions. Instant lookup with interactive map.`;
+
+  const $ = (id) => document.getElementById(id);
+  const dataCache = new Map();
+
+  let map = null;
+  let mapMarkers = [];
+  let mapInitialized = false;
+
+  // Toast
+  function showToast(msg, type) {
+    const c = $('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast ' + (type || 'info');
+    const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+    t.innerHTML = '<span class="toast-icon">' + icon + '</span><span>' + msg + '</span>';
+    c.appendChild(t);
+    setTimeout(() => t.classList.add('show'), 10);
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3500);
+  }
+
+  // Copy
+  function copyPin(text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => showToast('Copied: ' + text, 'success'));
+    }
+  }
+
+  // Scroll nav
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) return;
+    scrollTimeout = setTimeout(() => {
+      $('countryNav').classList.toggle('scrolled', window.scrollY > 50);
+      scrollTimeout = null;
+    }, 10);
+  }, { passive: true });
+
+  // Init hero
+  $('heroFlag').textContent = COUNTRY.flag;
+  $('heroTitle').textContent = COUNTRY.name;
+  $('heroSubtitle').textContent = COUNTRY.subtitle;
+  $('statesTitle').textContent = COUNTRY.name + ' — States & Regions';
+  $('year').textContent = new Date().getFullYear();
+
+  // Stats
+  $('heroStats').innerHTML =
+    '<div class="stat"><span class="stat-num">' + COUNTRY.states.length + '</span><span class="stat-label">Regions</span></div>' +
+    '<div class="stat"><span class="stat-num">' + COUNTRY.code + '</span><span class="stat-label">Code</span></div>' +
+    '<div class="stat"><span class="stat-num">🌍</span><span class="stat-label">Global</span></div>';
+
+  // Render states
+  function renderStates() {
+    $('statesGrid').innerHTML = COUNTRY.states.map((s, i) =>
+      '<button class="state-btn" data-file="' + s.file + '" data-name="' + s.name + '" style="transition-delay:' + Math.min(i, 20) * 15 + 'ms">' + s.name + '</button>'
+    ).join('');
+
+    document.querySelectorAll('.state-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const file = btn.dataset.file;
+        const name = btn.dataset.name;
+        const url = COUNTRY.dataPath + COUNTRY.dataPrefix + file;
+
+        btn.classList.add('loading');
+        btn.textContent = '⏳ Loading...';
+
+        try {
+          let data;
+          if (dataCache.has(url)) {
+            data = dataCache.get(url);
+          } else {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Failed');
+            data = await res.json();
+            dataCache.set(url, data);
+          }
+
+          const query = $('searchInput').value.trim();
+          let results = data;
+          if (query) {
+            results = data.filter(item => {
+              const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
+              return fields.some(f => item[f] && String(item[f]).toLowerCase().includes(query.toLowerCase()));
+            });
+          }
+
+          renderResults(results, COUNTRY.flag + ' ' + COUNTRY.name + ' — ' + name, query ? 'code: ' + query : null);
+          btn.textContent = name;
+          btn.classList.remove('loading');
+        } catch (err) {
+          showToast('Failed to load ' + name, 'error');
+          btn.textContent = name;
+          btn.classList.remove('loading');
+        }
+      });
+    });
+  }
+
+  // Search across all states
+  async function searchAll(query) {
+    if (!query) { showToast('Enter a postal code', 'error'); return; }
+
+    $('resultsList').innerHTML = '<div class="spinner"></div>';
+    $('resultsTitle').textContent = 'Searching...';
+    $('resultsCount').textContent = '';
+    $('resultsSection').classList.add('visible');
+
+    const allMatches = [];
+    const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
+
+    for (const state of COUNTRY.states) {
+      try {
+        const url = COUNTRY.dataPath + COUNTRY.dataPrefix + state.file;
+        let data;
+        if (dataCache.has(url)) data = dataCache.get(url);
+        else {
+          const res = await fetch(url);
+          if (res.ok) { data = await res.json(); dataCache.set(url, data); }
+        }
+        if (data) {
+          for (const item of data) {
+            for (const f of fields) {
+              if (item[f] && String(item[f]).toLowerCase() === query.toLowerCase()) {
+                allMatches.push(item);
+                break;
+              }
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    renderResults(allMatches, COUNTRY.flag + ' ' + COUNTRY.name + ' — Search: ' + query, null);
+  }
+
+  // Voice search
+  function startVoice() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      showToast('Voice search not supported in this browser', 'error');
+      return;
+    }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SR();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    const btn = $('voiceBtn');
+    btn.classList.add('listening');
+    showToast('Listening...', 'info');
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      $('searchInput').value = transcript;
+      btn.classList.remove('listening');
+      searchAll(transcript);
+    };
+    recognition.onerror = () => { btn.classList.remove('listening'); showToast('Voice error — try again', 'error'); };
+    recognition.onend = () => { btn.classList.remove('listening'); };
+    recognition.start();
+  }
+
+  // Map
+  function initMap() {
+    if (mapInitialized) return;
+    map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([COUNTRY.lat, COUNTRY.lon], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(map);
+    mapInitialized = true;
+  }
+
+  function makePin(c1, c2) {
+    return L.divIcon({
+      className: 'custom-marker',
+      html: '<div style="background:linear-gradient(135deg,' + c1 + ',' + c2 + ');width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 16px ' + c1 + '80;border:3px solid white;"></div>',
+      iconSize: [28, 28], iconAnchor: [14, 28]
+    });
+  }
+
+  function showMap(results) {
+    initMap();
+    mapMarkers.forEach(m => map.removeLayer(m));
+    mapMarkers = [];
+    const withCoords = results.filter(r => r.latitude != null && r.longitude != null);
+    if (withCoords.length === 0) { $('mapSection').classList.remove('visible'); return; }
+
+    withCoords.forEach((item, i) => {
+      const lat = parseFloat(item.latitude), lon = parseFloat(item.longitude);
+      if (isNaN(lat) || isNaN(lon)) return;
+      const colors = i === 0 ? ['#ff6b1a', '#f5b700'] : ['#006d77', '#0a9396'];
+      const popup = '<strong style="color:#f5b700;">' + (item.officename || item.OfficeName || 'Location') + '</strong><br/><span style="color:#d4cfc0;font-size:0.85rem;">' + (item.pincode || '') + ' • ' + (item.statename || '') + '</span>';
+      const m = L.marker([lat, lon], { icon: makePin(...colors) }).addTo(map).bindPopup(popup);
+      mapMarkers.push(m);
+    });
+
+    if (withCoords.length === 1) {
+      const lat = parseFloat(withCoords[0].latitude), lon = parseFloat(withCoords[0].longitude);
+      if (!isNaN(lat) && !isNaN(lon)) map.setView([lat, lon], 6, { animate: true });
+    } else {
+      const valid = withCoords.filter(r => !isNaN(parseFloat(r.latitude)) && !isNaN(parseFloat(r.longitude)));
+      if (valid.length > 0) {
+        map.fitBounds(valid.map(r => [parseFloat(r.latitude), parseFloat(r.longitude)]), { padding: [50, 50], maxZoom: 6 });
+      }
+    }
+    $('mapBadgeText').textContent = withCoords.length + ' location' + (withCoords.length > 1 ? 's' : '');
+    $('mapSection').classList.add('visible');
+    setTimeout(() => map.invalidateSize(), 400);
+  }
+
+  // Results
+  function renderResults(results, title, subtitle) {
+    if (!results || results.length === 0) {
+      $('resultsList').innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><p>No results found.' + (subtitle ? ' Try a different code.' : '') + '</p></div>';
+      $('resultsCount').textContent = '0 found';
+      $('resultsTitle').textContent = title;
+      $('resultsSection').classList.add('visible');
+      $('mapSection').classList.remove('visible');
+      return;
+    }
+    $('resultsTitle').textContent = title;
+    $('resultsCount').textContent = results.length + ' found';
+    $('resultsList').innerHTML = results.map((item, idx) => {
+      const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
+      const office = item.officename || item.OfficeName || item.City || 'Location';
+      const state = item.statename || item.State || '';
+      const district = item.district || item.County || item.City || '';
+      const region = item.regionname || item.Country || '';
+      const division = item.divisionname || '';
+      const delivery = item.delivery || '';
+      const hasCoords = item.latitude != null && item.longitude != null;
+      return '<div class="result-card" style="animation-delay:' + idx * 50 + 'ms">' +
+        '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
+        '<div class="result-office">' + office + '</div>' +
+        '<div class="result-meta">' +
+          '<div class="meta-item"><span class="meta-label">State</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
+          '<div class="meta-item"><span class="meta-label">District</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
+          '<div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">' + (region || 'N/A') + '</span></div>' +
+          '<div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">' + (division || 'N/A') + '</span></div>' +
+        '</div>' +
+        '<div class="result-actions">' +
+          (hasCoords ? '<button class="action-btn" data-lat="' + item.latitude + '" data-lon="' + item.longitude + '" data-label="' + office + '">🗺️ Focus</button>' : '') +
+          '<a class="action-btn" href="https://www.google.com/maps?q=' + (item.latitude || '') + ',' + (item.longitude || '') + '" target="_blank" rel="noopener">🌍 Google</a>' +
+          '<a class="action-btn" href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=Mistake: ' + office + '">⚠️ Report</a>' +
+        '</div></div>';
+    }).join('');
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        copyPin(btn.dataset.pin);
+        btn.classList.add('copied'); btn.textContent = '✓';
+        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋'; }, 1500);
+      });
+    });
+    document.querySelectorAll('.action-btn[data-lat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showMap([{ latitude: btn.dataset.lat, longitude: btn.dataset.lon, officename: btn.dataset.label }]);
+      });
+    });
+    $('resultsSection').classList.add('visible');
+    showMap(results);
+    setTimeout(() => $('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  // Event listeners
+  $('searchBtn').addEventListener('click', () => searchAll($('searchInput').value.trim()));
+  $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
+  $('voiceBtn').addEventListener('click', startVoice);
+
+  // Init
+  renderStates();
+  console.log('🌍 PO ZipCode Global — ' + COUNTRY.name + ' (' + COUNTRY.code + ') — ' + COUNTRY.states.length + ' regions loaded');
+})();
+//]]>
+</script>
+
+</body>
+</html>

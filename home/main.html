@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 ZipCode Global — Discover the World's Postal Codes</title>
+    <meta name="description" content="Find postal and zip codes for 121+ countries globally. Fast, accurate, and easy to use. Made with love for the earth.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #050816;
+            --bg-accent: #0a0e27;
+            --saffron: #ff6b1a;
+            --gold: #f5b700;
+            --earth-green: #2d6a4f;
+            --text-main: #f5f1e8;
+            --text-dim: #a0a0a0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --grad-earth: linear-gradient(135deg, #ff6b1a, #f5b700, #2d6a4f, #006d77);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Cinematic Background Animation */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 26, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(45, 106, 79, 0.15) 0%, transparent 40%);
+            filter: blur(80px);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(5, 8, 22, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--grad-earth);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .nav-links a:hover { color: var(--saffron); }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 5% 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+        .hero .grad-text {
+            background: var(--grad-earth);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 5rem;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            outline: none;
+            box-shadow: var(--shadow-lg);
+        }
+        .search-bar:focus {
+            border-color: var(--saffron);
+            box-shadow: 0 0 20px rgba(255, 107, 26, 0.2);
+        }
+
+        /* Globe Section (Animation) */
+        .world-viewport {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+        .globe-animation {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #1e293b, #020617);
+            box-shadow: inset -20px -20px 50px rgba(0,0,0,0.8), 0 0 60px rgba(255, 107, 26, 0.2);
+            position: relative;
+            animation: rotateGlobe 20s linear infinite;
+            overflow: hidden;
+        }
+        .globe-grid {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 10s linear infinite;
+        }
+        @keyframes rotateGlobe {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes gridMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-40px); }
+        }
+
+        /* Country Grid */
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1.5rem;
+            padding: 0 5% 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .country-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            backdrop-filter: blur(5px);
+        }
+        .country-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--saffron);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .flag-img {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            background: #eee;
+        }
+        .country-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            transition: 0.3s;
+        }
+        .country-card:hover .country-name {
+            color: var(--text-main);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 5%;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        .footer-heart {
+            color: var(--saffron);
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .country-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav>
+        <a href="/" class="logo">ZipCode Global</a>
+        <ul class="nav-links">
+            <li><a href="/p/about.html">About</a></li>
+            <li><a href="/p/privacy.html">Privacy</a></li>
+            <li><a href="/p/report.html">Report/Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>Explore the World <br><span class="grad-text">One Code at a Time</span></h1>
+            <p>Instant access to postal and zip codes for 121+ countries. Precision tools for a connected planet.</p>
+
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search for a country (e.g. India, USA, UK)..." id="countrySearch">
+            </div>
+        </section>
+
+        <section class="world-viewport">
+            <div class="globe-animation">
+                <div class="globe-grid"></div>
+            </div>
+        </section>
+
+        <div class="country-grid" id="countryGrid">
+            <!-- Country Buttons will be generated by JS -->
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with <span class="footer-heart">❤️</span> Love for the Earth</p>
+        <p style="margin-top: 10px; opacity: 0.6; font-size: 0.8rem;">© 2026 ZipCode Global. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Data for 121 countries (simplified for implementation, can be expanded)
+        const countries = [
+            { name: "India", code: "IN", flag: "https://flagcdn.com/w80/in.png" },
+            { name: "USA", code: "US", flag: "https://flagcdn.com/w80/us.png" },
+            { name: "UK", code: "GB", flag: "https://flagcdn.com/w80/gb.png" },
+            { name: "Canada", code: "CA", flag: "https://flagcdn.com/w80/ca.png" },
+            { name: "Australia", code: "AU", flag: "https://flagcdn.com/w80/au.png" },
+            { name: "Germany", code: "DE", flag: "https://flagcdn.com/w80/de.png" },
+            { name: "France", code: "FR", flag: "https://flagcdn.com/w80/fr.png" },
+            { name: "Japan", code: "JP", flag: "https://flagcdn.com/w80/jp.png" },
+            { name: "Brazil", code: "BR", flag: "https://flagcdn.com/w80/br.png" },
+            { name: "China", code: "CN", flag: "https://flagcdn.com/w80/cn.png" },
+            { name: "Russia", code: "RU", flag: "https://flagcdn.com/w80/ru.png" },
+            { name: "Italy", code: "IT", flag: "https://flagcdn.com/w80/it.png" },
+            { name: "Spain", code: "ES", flag: "https://flagcdn.com/w80/es.png" },
+            { name: "Mexico", code: "MX", flag: "https://flagcdn.com/w80/mx.png" },
+            { name: "South Korea", code: "KR", flag: "https://flagcdn.com/w80/kr.png" },
+            { name: "South Africa", code: "ZA", flag: "https://flagcdn.com/w80/za.png" },
+            { name: "Egypt", code: "EG", flag: "https://flagcdn.com/w80/eg.png" },
+            { name: "Turkey", code: "TR", flag: "https://flagcdn.com/w80/tr.png" },
+            { name: "Saudi Arabia", code: "SA", flag: "https://flagcdn.com/w80/sa.png" },
+            { name: "Netherlands", code: "NL", flag: "https://flagcdn.com/w80/nl.png" },
+            // ... add other countries here to reach 121
+        ];
+
+        // Generating dummy data to fill up to 121 for visual demo
+        const totalCountries = 121;
+        const realCountries = [...countries];
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for(let i = realCountries.length; i < totalCountries; i++) {
+            realCountries.push({
+                name: `Country ${i + 1}`,
+                code: `C${i}`,
+                flag: `https://flagcdn.com/w80/un.png` // Generic UN flag for filler
+            });
+        }
+
+        const grid = document.getElementById('countryGrid');
+        const searchInput = document.getElementById('countrySearch');
+
+        function renderCountries(filter = "") {
+            grid.innerHTML = "";
+            const filtered = realCountries.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()));
+
+            filtered.forEach(c => {
+                const card = document.createElement('a');
+                card.className = 'country-card';
+                card.href = `/p/${c.code.toLowerCase()}.html`;
+                card.innerHTML = `
+                    <img src="${c.flag}" class="flag-img" alt="${c.name} Flag" loading="lazy">
+                    <span class="country-name">${c.name}</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            renderCountries(e.target.value);
+        });
+
+        // Initial render
+        renderCountries();
+    </script>
+</body>
+</html>
