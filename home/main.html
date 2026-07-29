@@ -13,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 :root{
   --bg:#050816;--bg2:#0a0e27;
@@ -33,30 +32,30 @@
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 body{font-family:var(--f);background:var(--bg);color:var(--t);overflow-x:hidden;min-height:100vh}
 
-/* ── CINEMATIC BG ── */
+/* ── CINEMATIC VISUAL BACKGROUND ── */
 body::before{
   content:'';position:fixed;inset:0;z-index:-1;
   background:
-    radial-gradient(ellipse 80% 60% at 10% -10%,rgba(0,212,255,0.09) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 50% at 95% 5%,rgba(124,58,237,0.09) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 40% at 50% 100%,rgba(245,158,11,0.06) 0%,transparent 50%);
+    radial-gradient(ellipse 80% 60% at 10% -10%,rgba(0,212,255,0.12) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 95% 5%,rgba(124,58,237,0.12) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%,rgba(245,158,11,0.08) 0%,transparent 50%);
 }
 /* star particles */
 body::after{
   content:'';position:fixed;inset:0;z-index:-1;
   background-image:
-    radial-gradient(1px 1px at 20% 15%,rgba(255,255,255,0.4) 0%,transparent 100%),
-    radial-gradient(1px 1px at 80% 25%,rgba(255,255,255,0.3) 0%,transparent 100%),
-    radial-gradient(1px 1px at 45% 60%,rgba(255,255,255,0.2) 0%,transparent 100%),
-    radial-gradient(1px 1px at 70% 80%,rgba(255,255,255,0.3) 0%,transparent 100%),
-    radial-gradient(1px 1px at 30% 85%,rgba(255,255,255,0.2) 0%,transparent 100%),
-    radial-gradient(1px 1px at 90% 55%,rgba(255,255,255,0.25) 0%,transparent 100%),
-    radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,0.2) 0%,transparent 100%);
+    radial-gradient(1px 1px at 20% 15%,rgba(255,255,255,0.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 80% 25%,rgba(255,255,255,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 45% 60%,rgba(255,255,255,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 80%,rgba(255,255,255,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 30% 85%,rgba(255,255,255,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 55%,rgba(255,255,255,0.35) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,0.3) 0%,transparent 100%);
 }
 
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--grad);border-radius:999px}
 ::selection{background:rgba(0,212,255,0.3);color:#fff}
 
@@ -175,9 +174,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   border-radius:24px;background:rgba(10,14,39,0.7);backdrop-filter:blur(24px);
   border:1px solid rgba(0,212,255,0.25);
   box-shadow:var(--glow),0 20px 60px rgba(0,0,0,0.6);
-  min-height:480px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  min-height:500px;display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-#globeMount{width:100%;height:480px;cursor:grab}
+#globeMount{width:100%;height:500px;min-height:500px;display:block;cursor:grab}
 #globeMount:active{cursor:grabbing}
 #globeTooltip{
   position:absolute;pointer-events:none;z-index:100;
@@ -365,7 +364,7 @@ footer{
 <!-- 3D GLOBE -->
 <div class="globe-section">
   <div class="section-head">
-    <h2>🌍 Interactive 3D World Map</h2>
+    <h2>🌍 Interactive 3D World Globe</h2>
     <p>Drag to rotate globe · Scroll to zoom · Click any glowing dot to open that country directory</p>
   </div>
   <div class="globe-shell">
@@ -444,10 +443,8 @@ footer{
   <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
 </footer>
 
-<!-- DEPENDENCIES FOR 3D GLOBE & LEAFLET MAP FALLBACK -->
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<!-- GLOBE.GL STANDALONE CDN BUNDLE (includes three.js internally) -->
 <script src="https://unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function(){
 'use strict';
@@ -590,71 +587,55 @@ function fImg(code,cls,w){
   return '<img src="'+fSrc(code,w||80)+'" class="'+cls+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
 }
 
-// ── 3D GLOBE INITIALIZATION WITH AUTOMATIC LEAFLET FALLBACK ──
+// ── 3D GLOBE INITIALIZATION ──
 let globe, navigating=false;
 function initGlobe(){
   const el=document.getElementById('globeMount');
-  if(!el) return;
+  if(!el || typeof Globe==='undefined'){ console.warn('globe.gl loading...'); return; }
   
-  // Try 3D Globe with Globe.gl
-  if(typeof Globe !== 'undefined'){
-    try {
-      const W=Math.min(720, el.clientWidth||720);
-      const H=480;
-      el.style.width='100%'; el.style.height=H+'px';
-      
-      const pts=ALL.map(c=>({...c,
-        size:PRIORITY.includes(c.code)?0.55:0.35,
-        col:PRIORITY.includes(c.code)?'#00d4ff':'#7c3aed'
-      }));
+  const W=Math.min(760, window.innerWidth>760?760:window.innerWidth-32);
+  const H=500;
+  el.style.width=W+'px'; el.style.height=H+'px';
 
-      globe = Globe()(el)
-        .width(W).height(H)
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-        .backgroundColor('rgba(0,0,0,0)')
-        .showAtmosphere(true).atmosphereColor('#00d4ff').atmosphereAltitude(0.18)
-        .showGraticules(true)
-        .pointsData(pts)
-        .pointAltitude(0.03).pointColor(d=>d.col).pointRadius(d=>d.size)
-        .pointsMerge(false).pointResolution(12)
-        .onPointHover(pt=>{
-          el.style.cursor=pt?'pointer':'default';
-          const tt=document.getElementById('globeTooltip');
-          if(pt){
-            document.getElementById('ttFlag').src=fSrc(pt.code,40);
-            document.getElementById('ttName').textContent=pt.name+' — '+pt.term;
-            tt.classList.add('vis');
-          }else tt.classList.remove('vis');
-        })
-        .onPointClick(pt=>globeNav(pt));
+  const pts=ALL.map(c=>({...c,
+    size:PRIORITY.includes(c.code)?0.55:0.32,
+    col:PRIORITY.includes(c.code)?'rgba(0,212,255,0.95)':'rgba(124,58,237,0.75)'
+  }));
 
-      const c=globe.controls();
-      c.autoRotate=true; c.autoRotateSpeed=0.45;
-      c.enableZoom=true; c.minDistance=180; c.maxDistance=550;
-      
-      let t;
-      el.addEventListener('mousedown',()=>c.autoRotate=false);
-      el.addEventListener('touchstart',()=>c.autoRotate=false,{passive:true});
-      el.addEventListener('mouseup',()=>{clearTimeout(t);t=setTimeout(()=>c.autoRotate=true,3500)});
+  try {
+    globe = Globe()(el);
+    globe.width(W).height(H)
+      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+      .backgroundColor('rgba(0,0,0,0)')
+      .showAtmosphere(true).atmosphereColor('#00d4ff').atmosphereAltitude(0.18)
+      .showGraticules(true)
+      .pointsData(pts)
+      .pointAltitude(0.025).pointColor(d=>d.col).pointRadius(d=>d.size)
+      .pointsMerge(false).pointResolution(8)
+      .onPointHover(pt=>{
+        el.style.cursor=pt?'pointer':'default';
+        const tt=document.getElementById('globeTooltip');
+        if(pt){
+          document.getElementById('ttFlag').src=fSrc(pt.code,40);
+          document.getElementById('ttName').textContent=pt.name+' — '+pt.term;
+          tt.classList.add('vis');
+        }else tt.classList.remove('vis');
+      })
+      .onPointClick(pt=>globeNav(pt));
 
-      globe.pointOfView({lat:20,lng:78,altitude:2.3},0);
-      return;
-    } catch(err) {
-      console.warn('3D Globe fallback to Leaflet:', err);
-    }
-  }
+    const c=globe.controls();
+    c.autoRotate=true; c.autoRotateSpeed=0.38;
+    c.enableZoom=true; c.minDistance=190; c.maxDistance=580;
 
-  // Fallback to Interactive Leaflet World Map
-  if(typeof L !== 'undefined'){
-    el.style.width='100%'; el.style.height='480px';
-    const map = L.map(el, {zoomControl:true, attributionControl:false}).setView([20, 10], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
-    ALL.forEach(c => {
-      L.circleMarker([c.lat, c.lon], {
-        radius:6, fillColor:'#00d4ff', color:'#fff', weight:1.5, opacity:1, fillOpacity:0.8
-      }).addTo(map).bindPopup(`<b>${c.name}</b><br>${c.term}<br><a href="${pageUrl(c.code)}" style="color:#00d4ff;font-weight:bold;">Open Directory →</a>`);
-    });
+    let t;
+    el.addEventListener('mousedown',()=>c.autoRotate=false);
+    el.addEventListener('touchstart',()=>c.autoRotate=false,{passive:true});
+    el.addEventListener('mouseup',()=>{clearTimeout(t);t=setTimeout(()=>c.autoRotate=true,4000)});
+
+    globe.pointOfView({lat:20,lng:72,altitude:2.4},0);
+  } catch(e) {
+    console.error('Globe init error:', e);
   }
 }
 
@@ -666,8 +647,8 @@ function globeNav(c){
   document.getElementById('navName').textContent=c.name;
   document.getElementById('navSub').textContent=c.term+' Directory';
   ov.classList.add('show');
-  if(globe){globe.controls().autoRotate=false;globe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.6},1400);}
-  setTimeout(()=>window.location.href=pageUrl(c.code),1800);
+  if(globe){globe.controls().autoRotate=false;globe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.8},1400);}
+  setTimeout(()=>window.location.href=pageUrl(c.code),1900);
 }
 
 function cardNav(c){
@@ -786,11 +767,15 @@ renderPriority();
 renderAll();
 renderPopular();
 
-if(document.readyState==='complete'){
-  setTimeout(initGlobe,50);
-}else{
-  window.addEventListener('load',()=>setTimeout(initGlobe,50));
+// Globe initialization with retry
+function startGlobe(){
+  if(typeof Globe !== 'undefined'){
+    initGlobe();
+  } else {
+    setTimeout(startGlobe, 200);
+  }
 }
+startGlobe();
 })();
 </script>
 </body>
