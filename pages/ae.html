@@ -860,7 +860,6 @@ function showDetail(idx){
   const itemsHtml = keys.map(key => {
     let value = r[key];
     if(value === null || value === undefined || value === '') value = '—';
-    // Format label cleanly
     let label = key.replace(/_/g, ' ').replace(/([A-Z])/g, ' $1').trim();
     label = label.charAt(0).toUpperCase() + label.slice(1);
     return `<div class="di-item">
@@ -873,7 +872,6 @@ function showDetail(idx){
 
   // Actions
   const mapQ = encodeURIComponent(place + ' ' + pin + ' ' + C.name);
-  const textToCopy = encodeURIComponent(JSON.stringify(r, null, 2));
   $('diActions').innerHTML =
     (lat&&lon ? '<a class="da-btn prim" href="https://maps.google.com/?q='+lat+','+lon+'" target="_blank">🗺️ Open in Google Maps</a>' : '')+
     '<a class="da-btn sec" href="https://maps.google.com/maps?q='+mapQ+'" target="_blank">🔍 Search Location</a>';

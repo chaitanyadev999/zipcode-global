@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-PO ZipCode Global — 119 Country Pages Generator
+PO ZipCode Global — 121 Country Pages Generator (Including India & USA)
 Custom 121-Country Flag Themes + Persistent Interactive Map + Full Attribute Details Table + 60-item Batch Pagination.
 Run: python generate_pages.py
 """
 import os
 
 COUNTRIES = [
+    ("IN","India",20.5937,78.9629,"PIN Code","Asia","Asia · 28 States & 8 UTs · PIN Codes"),
+    ("US","United States",37.0902,-95.7129,"ZIP Code","Americas","North America · 50 States · 5-digit ZIPs"),
     ("AD","Andorra",42.5063,1.5218,"Postal Code","Europe","Europe · 7 Parishes · Postal Codes"),
     ("AE","United Arab Emirates",23.4241,53.8478,"Postal Code","Asia","Asia · 7 Emirates · Postal Codes"),
     ("AI","Anguilla",18.2206,-63.0686,"Postal Code","Americas","Caribbean · British Overseas Territory"),
@@ -990,7 +992,6 @@ function showDetail(idx){
   const itemsHtml = keys.map(key => {
     let value = r[key];
     if(value === null || value === undefined || value === '') value = '—';
-    // Format label cleanly
     let label = key.replace(/_/g, ' ').replace(/([A-Z])/g, ' $1').trim();
     label = label.charAt(0).toUpperCase() + label.slice(1);
     return `<div class="di-item">
@@ -1003,7 +1004,6 @@ function showDetail(idx){
 
   // Actions
   const mapQ = encodeURIComponent(place + ' ' + pin + ' ' + C.name);
-  const textToCopy = encodeURIComponent(JSON.stringify(r, null, 2));
   $('diActions').innerHTML =
     (lat&&lon ? '<a class="da-btn prim" href="https://maps.google.com/?q='+lat+','+lon+'" target="_blank">🗺️ Open in Google Maps</a>' : '')+
     '<a class="da-btn sec" href="https://maps.google.com/maps?q='+mapQ+'" target="_blank">🔍 Search Location</a>';
@@ -1094,10 +1094,6 @@ def generate():
     generated, skipped = [], []
 
     for code, name, lat, lon, term, region, subtitle in COUNTRIES:
-        filename = os.path.join(output_dir, f"{code.lower()}.html")
-        if code in ("IN", "US"):
-            skipped.append(code); continue
-
         content = HTML_TEMPLATE
         content = content.replace("{{NAME}}", name)
         content = content.replace("{{NAME_LOWER}}", name.lower())
@@ -1110,19 +1106,30 @@ def generate():
         content = content.replace("{{LON}}", str(lon))
         content = content.replace("{{REGION}}", region)
 
+        # Write code.lower().html (e.g. in.html, us.html, pk.html)
+        filename = os.path.join(output_dir, f"{code.lower()}.html")
         with open(filename, "w", encoding="utf-8") as f:
             f.write(content)
         generated.append(f"{code.lower()}.html ({name})")
 
+        # Also write custom aliases if applicable (e.g. india.html, usa.html)
+        if code == "IN":
+            with open(os.path.join(output_dir, "india.html"), "w", encoding="utf-8") as f:
+                f.write(content)
+            generated.append("india.html (India)")
+        elif code == "US":
+            with open(os.path.join(output_dir, "usa.html"), "w", encoding="utf-8") as f:
+                f.write(content)
+            generated.append("usa.html (United States)")
+
     print(f"\n{'='*60}")
     print(f"PO ZipCode Global — Multi-Step Navigation & Full Attribute Details Generator")
     print(f"{'='*60}")
-    print(f"✅ Generated: {len(generated)} pages with persistent map & full JSON attribute cards")
-    print(f"⏭  Skipped:   {len(skipped)} (IN, US have special pages)")
+    print(f"✅ Generated: {len(generated)} files (including india.html & usa.html)")
     print(f"\nSample pages:")
-    for p in generated[:5]:
+    for p in generated[:7]:
         print(f"  → pages/{p}")
-    print(f"... and {len(generated)-5} more")
+    print(f"... and {len(generated)-7} more")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
