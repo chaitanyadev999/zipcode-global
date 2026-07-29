@@ -177,19 +177,29 @@ h1{
 .section-label h2{font-family:var(--fd);font-size:1.5rem;font-weight:700;margin-bottom:.4rem}
 .section-label p{font-size:.85rem;color:var(--t3)}
 .globe-shell{
-  position:relative;border-radius:24px;overflow:hidden;
+  position:relative;
   border:1px solid rgba(0,212,255,0.2);
+  border-radius:24px;
   background:radial-gradient(ellipse at center,#0c1230 0%,#050816 75%);
   box-shadow:var(--glow),inset 0 0 100px rgba(0,0,0,0.5);
   display:flex;align-items:center;justify-content:center;
-  padding:2rem 0;
+  flex-direction:column;
+  padding:0;
+  min-height:540px;
 }
 .globe-shell::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--grad);opacity:.6;
+  background:var(--grad);opacity:.6;border-radius:24px 24px 0 0;
+  z-index:1;
 }
-#globeMount{width:100%;max-width:680px;height:500px;cursor:grab}
+/* globe.gl renders into a canvas — NO overflow:hidden, NO border-radius on canvas */
+#globeMount{
+  width:680px;height:500px;
+  cursor:grab;flex-shrink:0;
+  position:relative;
+}
 #globeMount:active{cursor:grabbing}
+@media(max-width:720px){#globeMount{width:100%;max-width:100vw;height:380px}}
 
 /* Nav Overlay */
 #navOverlay{
@@ -599,12 +609,17 @@ function fImg(code,cls,w){
 let globe, navigating=false;
 function initGlobe(){
   const el=document.getElementById('globeMount');
+  if(!el || typeof Globe==='undefined'){ console.warn('globe.gl not ready'); return; }
+  // Explicit pixel dimensions — globe.gl needs exact numbers
+  const W=Math.min(680, window.innerWidth>720?680:window.innerWidth-32);
+  const H=window.innerWidth<720?380:500;
+  el.style.width=W+'px'; el.style.height=H+'px';
   const pts=ALL.map(c=>({...c,
     size:PRIORITY.includes(c.code)?0.55:0.3,
     col:PRIORITY.includes(c.code)?'rgba(0,212,255,0.95)':'rgba(124,58,237,0.7)'
   }));
   globe=Globe()(el);
-  globe
+  globe.width(W).height(H)
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
     .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundColor('rgba(0,0,0,0)')
@@ -723,10 +738,17 @@ document.getElementById('yr').textContent=new Date().getFullYear();
 // Make ALL accessible globally
 window.ALL=ALL;
 
+// Render grids immediately (no heavy libs needed)
 renderPriority();
 renderAll();
 renderPopular();
-initGlobe();
+
+// Globe needs globe.gl fully loaded — use window.onload
+if(document.readyState==='complete'){
+  setTimeout(initGlobe,50);
+}else{
+  window.addEventListener('load',()=>setTimeout(initGlobe,50));
+}
 })();
 </script>
 </body>
