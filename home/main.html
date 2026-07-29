@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- globe.gl loaded in body -->
 <style>
 /* ─── TOKENS ─── */
 :root{
@@ -130,45 +130,64 @@ h1{font-family:var(--fd);font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;line
 }
 .sbtn:hover{transform:scale(1.04);box-shadow:0 0 24px rgba(0,212,255,0.4)}
 
-/* ─── GLOBE MAP ─── */
-.globe-section{padding:0 1.5rem 2rem;max-width:1200px;margin:0 auto}
-.globe-hdr{text-align:center;margin-bottom:1.25rem}
+/* ─── 3D GLOBE ─── */
+.globe-section{padding:0 1.5rem 2.5rem;max-width:1200px;margin:0 auto}
+.globe-hdr{text-align:center;margin-bottom:1.5rem}
 .globe-title{font-family:var(--fd);font-size:1.3rem;font-weight:700;margin-bottom:.4rem}
 .globe-sub{font-size:.82rem;color:var(--t3)}
-.globe-wrap{
-  position:relative;border-radius:20px;overflow:hidden;
-  border:1px solid var(--bhi);box-shadow:var(--glow);
-  height:420px;
+.globe-outer{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at center,#0d1535 0%,#050816 70%);
+  border:1px solid var(--bhi);
+  border-radius:24px;
+  overflow:hidden;
+  padding:1.5rem 0;
+  box-shadow:var(--glow),inset 0 0 80px rgba(0,0,0,.6);
 }
-#globeMap{width:100%;height:100%;background:var(--bg2)}
-.leaflet-tile{filter:brightness(.45) saturate(.4) hue-rotate(200deg) contrast(1.1) brightness(.85)!important}
-.leaflet-container{background:#070c1f!important}
-.leaflet-control-attribution{display:none!important}
-.leaflet-control-zoom a{background:#0a0e27!important;color:var(--cyan)!important;border-color:var(--b)!important}
+.globe-outer::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.06) 0%,transparent 60%);
+  pointer-events:none;
+}
+#globeMount{width:100%;max-width:700px;height:500px;cursor:grab}
+#globeMount:active{cursor:grabbing}
+#globeMount canvas{border-radius:50%!important}
 
-/* Navigation overlay on globe */
+/* Navigation overlay */
 #navOverlay{
   position:absolute;inset:0;z-index:500;pointer-events:none;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;transition:opacity .3s;
-  background:rgba(5,8,22,.75);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .4s;
+  background:rgba(5,8,22,.82);backdrop-filter:blur(12px);
+  border-radius:24px;
 }
-#navOverlay.show{opacity:1}
-.nav-country-flag{width:80px;height:auto;border-radius:8px;margin-bottom:.75rem;box-shadow:0 8px 32px rgba(0,0,0,.6)}
-.nav-country-name{font-family:var(--fd);font-size:1.6rem;font-weight:700;margin-bottom:.4rem}
-.nav-country-sub{font-size:.82rem;color:var(--t2);margin-bottom:1rem;font-family:var(--fm)}
-.nav-rocket{font-size:1.5rem;animation:rocket 1s ease-in-out infinite}
-@keyframes rocket{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+#navOverlay.show{opacity:1;pointer-events:auto}
+.nav-country-flag{
+  width:90px;height:auto;border-radius:10px;margin-bottom:.875rem;
+  box-shadow:0 12px 40px rgba(0,0,0,.7),var(--glow);
+  animation:flag-in .4s var(--ease);
+}
+@keyframes flag-in{from{transform:scale(.6) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.nav-country-name{font-family:var(--fd);font-size:1.8rem;font-weight:700;margin-bottom:.35rem}
+.nav-country-sub{font-size:.82rem;color:var(--t2);margin-bottom:1.25rem;font-family:var(--fm);letter-spacing:.05em}
+.nav-rocket{font-size:2rem;animation:rocket 1s ease-in-out infinite}
+@keyframes rocket{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.1)}}
+.nav-hint{font-size:.72rem;color:var(--t3);font-family:var(--fm);margin-top:.5rem}
 
-/* Globe tooltip custom */
-.leaflet-tooltip{
-  background:var(--veil)!important;backdrop-filter:blur(12px);
-  border:1px solid var(--bhi)!important;color:var(--t)!important;
-  font-family:var(--fm);font-size:.72rem;border-radius:6px!important;
-  box-shadow:0 4px 20px rgba(0,0,0,.5)!important;
-  padding:.3rem .7rem!important;
+/* Globe tooltip */
+#globeTooltip{
+  position:absolute;pointer-events:none;z-index:200;
+  background:var(--veil);backdrop-filter:blur(16px);
+  border:1px solid var(--bhi);border-radius:10px;
+  padding:.5rem .9rem;font-size:.8rem;
+  display:none;align-items:center;gap:.5rem;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  transform:translate(-50%,-120%);
+  white-space:nowrap;
 }
-.leaflet-tooltip::before{display:none!important}
+#globeTooltip.show{display:flex}
+#globeTooltip img{width:24px;height:17px;border-radius:2px;object-fit:cover}
 
 /* ─── LABELS (Blogger Style) ─── */
 .labels-section{padding:0 1.5rem 2.5rem;max-width:1200px;margin:0 auto}
@@ -325,20 +344,26 @@ footer a{color:var(--cyan)}
   </div>
 </section>
 
-<!-- ─── GLOBE MAP ─── -->
+<!-- ─── 3D GLOBE ─── -->
 <div class="globe-section">
   <div class="globe-hdr">
     <div class="globe-title">🌍 Interactive Globe — Click Any Country</div>
-    <div class="globe-sub">Click a country marker on the map to navigate to its postal code directory</div>
+    <div class="globe-sub">Drag to rotate · Scroll to zoom · Click a glowing dot to open that country</div>
   </div>
-  <div class="globe-wrap">
-    <div id="globeMap"></div>
+  <div class="globe-outer">
+    <div id="globeMount"></div>
+    <!-- Custom tooltip -->
+    <div id="globeTooltip">
+      <img id="ttFlag" src="" alt=""/>
+      <span id="ttName"></span>
+    </div>
     <!-- Navigation overlay -->
     <div id="navOverlay">
       <img id="navFlag" class="nav-country-flag" src="" alt=""/>
       <div id="navName" class="nav-country-name"></div>
       <div id="navSub" class="nav-country-sub"></div>
       <div class="nav-rocket">🚀</div>
+      <div class="nav-hint">Navigating...</div>
     </div>
   </div>
 </div>
@@ -403,7 +428,7 @@ footer a{color:var(--cyan)}
   <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
 <script>
 (function(){
 'use strict';
@@ -548,36 +573,71 @@ function flagImg(code,cls,w){
   return '<img src="'+flagSrc(code,w||80)+'" class="'+cls+'" alt="'+code+' flag" onerror="this.outerHTML=\'<div class=\\\''+c2+'\\\'>'+code+'</div>\'">';
 }
 
-// ─── GLOBE MAP ───
-let globeMap, navigating=false;
+// ─── 3D GLOBE (globe.gl) ───
+let myGlobe, navigating=false;
+
 function initGlobe(){
-  globeMap = L.map('globeMap',{
-    center:[20,10],zoom:2,
-    zoomControl:true,attributionControl:false,
-    minZoom:2,maxBoundsViscosity:1
-  });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-    maxZoom:18,subdomains:'abcd'
-  }).addTo(globeMap);
+  const mount = document.getElementById('globeMount');
 
-  // Add markers for all countries
-  COUNTRIES.forEach(c=>{
-    const m = L.circleMarker([c.lat,c.lon],{
-      radius:5,
-      fillColor:'#00d4ff',color:'#00d4ff',
-      weight:1.5,opacity:.9,fillOpacity:.5,
-      className:'country-dot'
-    }).addTo(globeMap);
+  // Prepare points data — priority countries bigger + brighter
+  const pts = COUNTRIES.map(c=>({
+    ...c,
+    size: PRIORITY.includes(c.code) ? 0.55 : 0.32,
+    col:  PRIORITY.includes(c.code) ? 'rgba(0,212,255,0.95)' : 'rgba(124,58,237,0.75)'
+  }));
 
-    m.bindTooltip(
-      '<img src="'+flagSrc(c.code,40)+'" style="width:24px;height:17px;border-radius:2px;vertical-align:middle;margin-right:5px;">'+c.name,
-      {direction:'top',className:''}
-    );
+  myGlobe = Globe()(mount);
+  myGlobe
+    // Earth textures
+    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+    // Background
+    .backgroundColor('rgba(0,0,0,0)')
+    // Atmosphere
+    .showAtmosphere(true)
+    .atmosphereColor('#00d4ff')
+    .atmosphereAltitude(0.2)
+    // Graticule (lat/lon lines)
+    .showGraticules(true)
+    // Country dots
+    .pointsData(pts)
+    .pointAltitude(0.025)
+    .pointColor(d=>d.col)
+    .pointRadius(d=>d.size)
+    .pointsMerge(false)
+    .pointResolution(8)
+    // Hover
+    .onPointHover(pt=>{
+      mount.style.cursor = pt ? 'pointer' : 'default';
+      const tt = document.getElementById('globeTooltip');
+      if(pt){
+        document.getElementById('ttFlag').src = flagSrc(pt.code,40);
+        document.getElementById('ttName').textContent = pt.name+' — '+pt.term;
+        tt.classList.add('show');
+      } else {
+        tt.classList.remove('show');
+      }
+    })
+    // Click
+    .onPointClick(pt=>globeNavigate(pt));
 
-    m.on('click',()=>globeNavigate(c));
-    m.on('mouseover',()=>m.setStyle({radius:8,fillOpacity:.9,color:'#fff'}));
-    m.on('mouseout',()=>m.setStyle({radius:5,fillOpacity:.5,color:'#00d4ff'}));
-  });
+  // Controls
+  const ctrl = myGlobe.controls();
+  ctrl.autoRotate = true;
+  ctrl.autoRotateSpeed = 0.4;
+  ctrl.enableZoom = true;
+  ctrl.minDistance = 200;
+  ctrl.maxDistance = 600;
+
+  // Stop auto-rotate on drag
+  mount.addEventListener('mousedown',()=>{ ctrl.autoRotate=false; });
+  mount.addEventListener('touchstart',()=>{ ctrl.autoRotate=false; },{passive:true});
+  // Resume after 4s idle
+  let rotTimer;
+  mount.addEventListener('mouseup',()=>{ clearTimeout(rotTimer); rotTimer=setTimeout(()=>ctrl.autoRotate=true,4000); });
+
+  // Initial view — show India/Asia
+  myGlobe.pointOfView({lat:20,lng:78,altitude:2.5},0);
 }
 
 function globeNavigate(c){
@@ -585,30 +645,28 @@ function globeNavigate(c){
   navigating = true;
 
   // Show overlay
-  const ov = document.getElementById('navOverlay');
+  const ov   = document.getElementById('navOverlay');
   const flag = document.getElementById('navFlag');
-  const name = document.getElementById('navName');
-  const sub  = document.getElementById('navSub');
+  document.getElementById('navName').textContent = c.name;
+  document.getElementById('navSub').textContent  = c.term+' Directory';
   flag.src = flagSrc(c.code,160);
-  name.textContent = c.name;
-  sub.textContent  = c.term+' Directory · Loading...';
   ov.classList.add('show');
 
-  // Fly to country
-  globeMap.flyTo([c.lat,c.lon],5,{duration:1.4,easeLinearity:.3});
+  // Stop auto-rotate, fly globe to country
+  if(myGlobe){
+    myGlobe.controls().autoRotate = false;
+    myGlobe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.8}, 1400);
+  }
 
-  // Navigate after animation
-  setTimeout(()=>{
-    window.location.href = pageUrl(c.code);
-  },1800);
+  // Navigate after fly animation
+  setTimeout(()=>{ window.location.href = pageUrl(c.code); }, 1900);
 }
 
-// Also navigate from card clicks
+// Navigate from card / label click
 function cardNavigate(c){
   showToast('Flying to '+c.name+'...','info');
-  // Scroll globe into view + animate
-  document.getElementById('globeMap').scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>globeNavigate(c), 500);
+  document.getElementById('globeMount').scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>globeNavigate(c), 600);
 }
 
 // ─── RENDER PRIORITY ───
