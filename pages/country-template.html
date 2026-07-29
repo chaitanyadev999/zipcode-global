@@ -915,6 +915,7 @@ h1, h2, h3, h4, h5, h6 {
       '<div class="stat"><span class="stat-num">' + META.region + '</span><span class="stat-label">Continent</span></div>';
 
     renderStates();
+  }
 
   // Render states
   function renderStates() {
@@ -951,7 +952,7 @@ h1, h2, h3, h4, h5, h6 {
             });
           }
 
-          renderResults(results, COUNTRY.flag + ' ' + COUNTRY.name + ' — ' + name, query ? 'code: ' + query : null);
+          renderResults(results, COUNTRY.name + ' — ' + name, query ? 'code: ' + query : null);
           btn.textContent = name;
           btn.classList.remove('loading');
         } catch (err) {
@@ -997,7 +998,7 @@ h1, h2, h3, h4, h5, h6 {
       } catch (e) {}
     }
 
-    renderResults(allMatches, COUNTRY.flag + ' ' + COUNTRY.name + ' — Search: ' + query, null);
+    renderResults(allMatches, COUNTRY.name + ' — Search: ' + query, null);
   }
 
   // Voice search
@@ -1133,9 +1134,8 @@ h1, h2, h3, h4, h5, h6 {
   $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
   $('voiceBtn').addEventListener('click', startVoice);
 
-  // Init
-  renderStates();
-  console.log('🌍 PO ZipCode Global — ' + COUNTRY.name + ' (' + COUNTRY.code + ') — ' + COUNTRY.states.length + ' regions loaded');
+  // Init — kick off async country load
+  loadStates();
 })();
 //]]>
 </script>
