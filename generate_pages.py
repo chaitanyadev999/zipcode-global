@@ -745,8 +745,8 @@ function initMainMap(){
   if(mainMap) return;
   const mapEl = $('mainMap');
   if(!mapEl || typeof L === 'undefined') return;
-  mainMap = L.map('mainMap',{zoomControl:true,attributionControl:false}).setView([C.lat, C.lon], 5);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(mainMap);
+  mainMap = L.map('mainMap', {zoomControl:true, attributionControl:false}).setView([C.lat, C.lon], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, noWrap:true}).addTo(mainMap);
   mapMarkersGroup = L.layerGroup().addTo(mainMap);
   
   L.circleMarker([C.lat, C.lon],{

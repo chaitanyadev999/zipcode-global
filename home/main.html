@@ -680,7 +680,7 @@ function initGlobe(){
   if(typeof L !== 'undefined'){
     el.style.width='100%'; el.style.height='480px';
     const map = L.map(el, {zoomControl:true, attributionControl:false}).setView([20, 10], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, noWrap:true}).addTo(map);
     ALL.forEach(c => {
       L.circleMarker([c.lat, c.lon], {
         radius:6, fillColor:'#00d4ff', color:'#fff', weight:1.5, opacity:1, fillOpacity:0.8
