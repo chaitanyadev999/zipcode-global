@@ -278,10 +278,9 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;b
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
-    <a class="nav-link" href="/home/main.html">&#8592; Home</a>
-    <a class="nav-link" href="/pages/india.html">India</a>
-    <a class="nav-link" href="/pages/usa.html">USA</a>
+    <a class="nav-link" href="/home/main.html">&#8592; All Countries</a>
     <a class="nav-link" href="/pages/report.html">Report</a>
+    <a class="nav-link" href="/pages/about.html">About</a>
   </div>
 </nav>
 
@@ -335,8 +334,6 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;b
 <footer class="footer">
   <div class="footer-links">
     <a href="/home/main.html">&#127760; All 121 Countries</a>
-    <a href="/pages/india.html">India PIN Codes</a>
-    <a href="/pages/usa.html">USA ZIP Codes</a>
     <a href="/pages/about.html">About</a>
     <a href="/pages/privacy.html">Privacy Policy</a>
     <a href="/pages/report.html">Report Mistake</a>

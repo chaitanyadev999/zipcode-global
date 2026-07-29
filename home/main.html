@@ -3,314 +3,334 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>PO ZipCode Global — World Postal Code & ZIP Code Finder | 121 Countries</title>
-<meta name="description" content="Find postal codes, PIN codes and ZIP codes for 121 countries. India Pincode, USA ZIP Code, UK Postcode. Free instant lookup with interactive globe map."/>
+<title>PO ZipCode Global — Find Postal Codes for 121 Countries</title>
+<meta name="description" content="Find postal codes, PIN codes and ZIP codes for 121 countries. India Pincode, USA ZIP Code, UK Postcode. Free instant lookup with interactive 3D globe."/>
 <meta name="keywords" content="postal code finder, zip code lookup, pincode search, india pincode, usa zip code, uk postcode, world postal codes"/>
 <meta property="og:title" content="PO ZipCode Global — 121 Countries Postal Code Directory"/>
-<meta property="og:description" content="Find postal codes for 121 countries. Interactive globe. Voice search. Free."/>
+<meta property="og:description" content="Find postal codes for 121 countries. Interactive 3D globe. Free."/>
 <meta property="og:type" content="website"/>
 <link rel="canonical" href="https://zipcodeglobal.github.io/"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
-<!-- globe.gl loaded in body -->
 <style>
-/* ─── TOKENS ─── */
 :root{
-  --bg:#050816;--bg2:#0a0e27;--card:rgba(255,255,255,0.04);--card-hi:rgba(255,255,255,0.08);
+  --bg:#050816;--bg2:#0a0e27;
+  --card:rgba(255,255,255,0.04);--card-hi:rgba(255,255,255,0.08);
   --glass:rgba(255,255,255,0.05);--veil:rgba(5,8,22,0.92);
-  --b:rgba(0,212,255,0.12);--bhi:rgba(0,212,255,0.32);
+  --b:rgba(0,212,255,0.12);--bhi:rgba(0,212,255,0.3);
   --t:#f0f2f8;--t2:#94a3b8;--t3:#475569;--tdim:#2a3550;
-  --cyan:#00d4ff;--purple:#7c3aed;--gold:#f59e0b;--green:#10b981;--red:#ef4444;
+  --cyan:#00d4ff;--purple:#7c3aed;--gold:#f59e0b;--green:#10b981;
   --grad:linear-gradient(135deg,#00d4ff 0%,#7c3aed 100%);
-  --glow:0 0 60px rgba(0,212,255,0.2);
-  --f:'Inter',system-ui,sans-serif;--fd:'Space Grotesk',sans-serif;--fm:'JetBrains Mono',monospace;
+  --glow:0 0 60px rgba(0,212,255,0.18);
+  --f:'Inter',system-ui,sans-serif;
+  --fd:'Space Grotesk',sans-serif;
+  --fm:'JetBrains Mono',monospace;
   --ease:cubic-bezier(0.16,1,0.3,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 body{font-family:var(--f);background:var(--bg);color:var(--t);overflow-x:hidden;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;
-  background:radial-gradient(ellipse at 10% 10%,rgba(0,212,255,0.07) 0%,transparent 50%),
-             radial-gradient(ellipse at 90% 5%,rgba(124,58,237,0.07) 0%,transparent 50%),
-             radial-gradient(ellipse at 50% 95%,rgba(245,158,11,0.05) 0%,transparent 50%);
-  z-index:-1;pointer-events:none}
+
+/* ── CINEMATIC BG ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% -10%,rgba(0,212,255,0.09) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 95% 5%,rgba(124,58,237,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%,rgba(245,158,11,0.06) 0%,transparent 50%);
+}
+/* star particles */
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background-image:
+    radial-gradient(1px 1px at 20% 15%,rgba(255,255,255,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 80% 25%,rgba(255,255,255,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 45% 60%,rgba(255,255,255,0.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 80%,rgba(255,255,255,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 30% 85%,rgba(255,255,255,0.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 55%,rgba(255,255,255,0.25) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,0.2) 0%,transparent 100%);
+}
+
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--grad);border-radius:999px}
+::selection{background:rgba(0,212,255,0.3);color:#fff}
 
-/* ─── PAGE LOADER ─── */
-#loader{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--bg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
-  transition:opacity .6s var(--ease),visibility .6s;
-}
-#loader.done{opacity:0;visibility:hidden;pointer-events:none}
-.loader-globe{
-  position:relative;width:90px;height:90px;
-}
-.loader-globe .ring{
-  position:absolute;inset:0;border-radius:50%;
-  border:3px solid transparent;
-  animation:ring-spin 1.4s linear infinite;
-}
-.loader-globe .ring:nth-child(1){border-top-color:var(--cyan);animation-duration:1.2s}
-.loader-globe .ring:nth-child(2){border-right-color:var(--purple);animation-duration:1.8s;animation-direction:reverse;inset:8px}
-.loader-globe .ring:nth-child(3){border-bottom-color:var(--gold);animation-duration:2.4s;inset:18px}
-.loader-globe .core{
-  position:absolute;inset:28px;border-radius:50%;
-  background:var(--grad);
-  box-shadow:0 0 30px rgba(0,212,255,0.6),0 0 60px rgba(124,58,237,0.4);
-  animation:core-pulse 2s ease-in-out infinite;
-}
-@keyframes ring-spin{to{transform:rotate(360deg)}}
-@keyframes core-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.8}}
-.loader-brand{font-family:var(--fd);font-size:1.4rem;font-weight:800;
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.loader-sub{font-family:var(--fm);font-size:.75rem;color:var(--t3);letter-spacing:.15em;text-transform:uppercase}
-.loader-bar{width:200px;height:3px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;margin-top:.5rem}
-.loader-fill{height:100%;background:var(--grad);border-radius:999px;width:0;animation:bar-fill 1.6s var(--ease) forwards}
-@keyframes bar-fill{to{width:100%}}
-
-/* ─── NAV ─── */
+/* ── NAV ── */
 .nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;
-  transition:all .3s var(--ease);
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s var(--ease);
 }
-.nav.scrolled{background:var(--veil);backdrop-filter:blur(24px);border-bottom:1px solid var(--b)}
-.brand{display:flex;align-items:center;gap:.65rem;font-family:var(--fd);font-weight:700;font-size:1.1rem}
+.nav.scrolled{
+  background:rgba(5,8,22,0.88);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--b);
+}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--fd);font-weight:700;font-size:1.08rem}
 .brand-icon{
-  width:34px;height:34px;border-radius:9px;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:800;color:#000;box-shadow:var(--glow);
+  width:34px;height:34px;border-radius:9px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:900;color:#000;
+  box-shadow:0 0 20px rgba(0,212,255,0.4);
 }
-.nav-links{display:flex;gap:.4rem;align-items:center}
+.nav-links{display:flex;gap:.35rem;align-items:center}
 .nl{
-  padding:.4rem .875rem;border-radius:999px;background:var(--glass);border:1px solid var(--b);
+  padding:.38rem .85rem;border-radius:999px;
+  background:var(--glass);border:1px solid var(--b);
   font-size:.78rem;color:var(--t2);transition:all .2s var(--ease);
 }
-.nl:hover,.nl.on{background:var(--card-hi);border-color:var(--cyan);color:var(--t)}
+.nl:hover{background:var(--card-hi);border-color:var(--cyan);color:var(--t)}
+.nl.on{background:rgba(0,212,255,0.1);border-color:var(--cyan);color:var(--cyan)}
 
-/* ─── HERO ─── */
-.hero{padding:7rem 1.5rem 2.5rem;text-align:center}
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:6rem 2rem 3rem;text-align:center;
+  position:relative;
+}
+@keyframes fade-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 .kicker{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--fm);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--cyan);padding:.45rem 1.2rem;border:1px solid rgba(0,212,255,0.3);
-  border-radius:999px;background:rgba(0,212,255,0.06);margin-bottom:1.5rem;
+  font-family:var(--fm);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cyan);padding:.4rem 1.1rem;border:1px solid rgba(0,212,255,0.28);
+  border-radius:999px;background:rgba(0,212,255,0.05);margin-bottom:1.75rem;
+  animation:fade-up .8s var(--ease) both;
 }
-.kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:blink 1.5s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-h1{font-family:var(--fd);font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;line-height:1.08;margin-bottom:1rem}
+.kicker-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1{
+  font-family:var(--fd);font-size:clamp(2.4rem,6vw,4.5rem);
+  font-weight:800;line-height:1.06;margin-bottom:1.25rem;
+  animation:fade-up .8s .15s var(--ease) both;
+}
 .gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:var(--t2);font-size:1.05rem;max-width:560px;margin:0 auto 2rem;line-height:1.65}
-.hero-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-bottom:2.5rem}
-.hstat-n{font-family:var(--fd);font-size:1.8rem;font-weight:700;display:block;color:var(--cyan)}
-.hstat-l{font-size:.72rem;color:var(--t3);text-transform:uppercase;letter-spacing:.1em}
+.hero-desc{
+  color:var(--t2);font-size:1.05rem;max-width:540px;line-height:1.7;
+  margin:0 auto 2.25rem;animation:fade-up .8s .25s var(--ease) both;
+}
+.hero-cta{
+  display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem;
+  animation:fade-up .8s .35s var(--ease) both;
+}
+.btn-prim{
+  padding:.85rem 2rem;background:var(--grad);color:#000;
+  border-radius:999px;font-weight:700;font-size:.9rem;
+  box-shadow:0 0 32px rgba(0,212,255,0.35);transition:all .25s var(--ease);
+}
+.btn-prim:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 48px rgba(0,212,255,0.5)}
+.btn-sec{
+  padding:.85rem 2rem;background:var(--glass);backdrop-filter:blur(12px);
+  color:var(--t);border:1px solid var(--bhi);border-radius:999px;
+  font-weight:600;font-size:.9rem;transition:all .25s var(--ease);
+}
+.btn-sec:hover{background:var(--card-hi);border-color:var(--cyan);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;
+  animation:fade-up .8s .45s var(--ease) both;
+}
+.hstat{text-align:center}
+.hstat-n{
+  font-family:var(--fd);font-size:2rem;font-weight:800;display:block;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hstat-l{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-top:.1rem;display:block}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  color:var(--t3);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  animation:fade-up 1s .8s var(--ease) both;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:scroll-drop 2s ease-in-out infinite}
+@keyframes scroll-drop{0%{opacity:0;transform:scaleY(0);transform-origin:top}40%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
 
-/* ─── SEARCH ─── */
-.search-section{max-width:620px;margin:0 auto 2.5rem;padding:0 1.5rem}
-.sbox{
-  display:flex;gap:.5rem;padding:.45rem;
-  background:var(--glass);backdrop-filter:blur(20px);
-  border:1px solid var(--bhi);border-radius:999px;box-shadow:var(--glow);
+/* ── SEARCH ── */
+.search-wrap{
+  max-width:640px;margin:0 auto 1rem;
+  background:rgba(10,14,39,0.7);backdrop-filter:blur(20px);
+  border:1px solid var(--bhi);border-radius:999px;
+  padding:.45rem;display:flex;gap:.4rem;
+  box-shadow:var(--glow);
+  animation:fade-up .8s .3s var(--ease) both;
 }
-.sbox input{
-  flex:1;padding:.7rem 1.1rem;background:transparent;border:none;outline:none;
-  color:var(--t);font-size:.9rem;font-family:var(--fm);
+.search-wrap input{
+  flex:1;padding:.7rem 1.2rem;background:transparent;
+  border:none;outline:none;color:var(--t);font-size:.9rem;font-family:var(--fm);
+  min-width:0;
 }
-.sbox input::placeholder{color:var(--tdim)}
-.sbtn{
-  padding:.7rem 1.4rem;background:var(--grad);color:#000;
-  border-radius:999px;font-weight:700;font-size:.85rem;transition:all .2s var(--ease);white-space:nowrap;
+.search-wrap input::placeholder{color:var(--tdim)}
+.search-btn{
+  padding:.7rem 1.5rem;background:var(--grad);color:#000;
+  border-radius:999px;font-weight:700;font-size:.84rem;
+  white-space:nowrap;flex-shrink:0;transition:all .2s var(--ease);
 }
-.sbtn:hover{transform:scale(1.04);box-shadow:0 0 24px rgba(0,212,255,0.4)}
+.search-btn:hover{transform:scale(1.04)}
 
-/* ─── 3D GLOBE ─── */
-.globe-section{padding:0 1.5rem 2.5rem;max-width:1200px;margin:0 auto}
-.globe-hdr{text-align:center;margin-bottom:1.5rem}
-.globe-title{font-family:var(--fd);font-size:1.3rem;font-weight:700;margin-bottom:.4rem}
-.globe-sub{font-size:.82rem;color:var(--t3)}
-.globe-outer{
-  position:relative;
+/* ── GLOBE ── */
+.globe-section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
+.section-label{
+  text-align:center;margin-bottom:1.5rem;
+}
+.section-label h2{font-family:var(--fd);font-size:1.5rem;font-weight:700;margin-bottom:.4rem}
+.section-label p{font-size:.85rem;color:var(--t3)}
+.globe-shell{
+  position:relative;border-radius:24px;overflow:hidden;
+  border:1px solid rgba(0,212,255,0.2);
+  background:radial-gradient(ellipse at center,#0c1230 0%,#050816 75%);
+  box-shadow:var(--glow),inset 0 0 100px rgba(0,0,0,0.5);
   display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at center,#0d1535 0%,#050816 70%);
-  border:1px solid var(--bhi);
-  border-radius:24px;
-  overflow:hidden;
-  padding:1.5rem 0;
-  box-shadow:var(--glow),inset 0 0 80px rgba(0,0,0,.6);
+  padding:2rem 0;
 }
-.globe-outer::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.06) 0%,transparent 60%);
-  pointer-events:none;
+.globe-shell::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad);opacity:.6;
 }
-#globeMount{width:100%;max-width:700px;height:500px;cursor:grab}
+#globeMount{width:100%;max-width:680px;height:500px;cursor:grab}
 #globeMount:active{cursor:grabbing}
-#globeMount canvas{border-radius:50%!important}
 
-/* Navigation overlay */
+/* Nav Overlay */
 #navOverlay{
-  position:absolute;inset:0;z-index:500;pointer-events:none;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;transition:opacity .4s;
-  background:rgba(5,8,22,.82);backdrop-filter:blur(12px);
-  border-radius:24px;
+  position:absolute;inset:0;z-index:10;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;
+  opacity:0;transition:opacity .4s var(--ease);
+  background:rgba(5,8,22,0.88);backdrop-filter:blur(16px);border-radius:24px;
 }
 #navOverlay.show{opacity:1;pointer-events:auto}
-.nav-country-flag{
-  width:90px;height:auto;border-radius:10px;margin-bottom:.875rem;
-  box-shadow:0 12px 40px rgba(0,0,0,.7),var(--glow);
-  animation:flag-in .4s var(--ease);
+#navFlag{
+  width:100px;height:auto;border-radius:12px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.7),var(--glow);
+  animation:pop-in .4s var(--ease);
 }
-@keyframes flag-in{from{transform:scale(.6) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
-.nav-country-name{font-family:var(--fd);font-size:1.8rem;font-weight:700;margin-bottom:.35rem}
-.nav-country-sub{font-size:.82rem;color:var(--t2);margin-bottom:1.25rem;font-family:var(--fm);letter-spacing:.05em}
-.nav-rocket{font-size:2rem;animation:rocket 1s ease-in-out infinite}
-@keyframes rocket{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.1)}}
-.nav-hint{font-size:.72rem;color:var(--t3);font-family:var(--fm);margin-top:.5rem}
+@keyframes pop-in{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+#navName{font-family:var(--fd);font-size:2rem;font-weight:800}
+#navSub{font-family:var(--fm);font-size:.8rem;color:var(--cyan);letter-spacing:.05em}
+.nav-rocket{font-size:2.5rem;animation:rocket 1s ease-in-out infinite}
+@keyframes rocket{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.nav-hint{font-size:.72rem;color:var(--t3);font-family:var(--fm)}
 
 /* Globe tooltip */
 #globeTooltip{
-  position:absolute;pointer-events:none;z-index:200;
-  background:var(--veil);backdrop-filter:blur(16px);
+  position:absolute;pointer-events:none;z-index:5;
+  background:rgba(5,8,22,0.92);backdrop-filter:blur(20px);
   border:1px solid var(--bhi);border-radius:10px;
   padding:.5rem .9rem;font-size:.8rem;
   display:none;align-items:center;gap:.5rem;
-  box-shadow:0 8px 32px rgba(0,0,0,.5);
-  transform:translate(-50%,-120%);
-  white-space:nowrap;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  transform:translate(-50%,-120%);white-space:nowrap;top:50%;left:50%;
 }
-#globeTooltip.show{display:flex}
-#globeTooltip img{width:24px;height:17px;border-radius:2px;object-fit:cover}
+#globeTooltip.vis{display:flex}
+#globeTooltip img{width:22px;height:15px;border-radius:2px;object-fit:cover}
 
-/* ─── LABELS (Blogger Style) ─── */
-.labels-section{padding:0 1.5rem 2.5rem;max-width:1200px;margin:0 auto}
-.labels-hdr{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;
+/* ── LABELS (Blogger) ── */
+.labels-section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
+.labels-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+.labels-title{font-family:var(--fd);font-size:1.1rem;font-weight:700}
+.blogger-tag{
+  font-family:var(--fm);font-size:.65rem;padding:.22rem .65rem;
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
+  color:var(--gold);border-radius:999px;letter-spacing:.1em;text-transform:uppercase;
 }
-.labels-title{font-family:var(--fd);font-size:1.1rem;font-weight:600}
-.blogger-badge{
-  font-family:var(--fm);font-size:.68rem;padding:.25rem .7rem;
-  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);
-  color:var(--gold);border-radius:999px;
-}
-.label-group{margin-bottom:1rem}
-.label-group-title{font-size:.72rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem}
-.label-chips{display:flex;flex-wrap:wrap;gap:.5rem}
-.label-chip{
-  display:flex;align-items:center;gap:.4rem;
-  padding:.35rem .85rem;border-radius:999px;
+.label-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
+.label-row-title{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem}
+.lchip{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.32rem .8rem;border-radius:999px;
   background:var(--card);border:1px solid var(--b);
-  font-size:.78rem;color:var(--t2);transition:all .2s var(--ease);cursor:pointer;
+  font-size:.78rem;color:var(--t2);cursor:pointer;transition:all .2s var(--ease);
 }
-.label-chip img{width:18px;height:13px;border-radius:2px;object-fit:cover}
-.label-chip:hover,.label-chip.on{
-  background:var(--card-hi);border-color:var(--bhi);color:var(--t);
-  transform:translateY(-1px);
-}
-.label-chip .count{
-  font-family:var(--fm);font-size:.65rem;color:var(--t3);
-  background:rgba(255,255,255,.06);padding:.1rem .4rem;border-radius:999px;
-}
+.lchip img{width:16px;height:11px;border-radius:2px;object-fit:cover;flex-shrink:0}
+.lchip:hover,.lchip.on{background:rgba(0,212,255,0.08);border-color:var(--bhi);color:var(--t)}
+.lchip .cnt{font-family:var(--fm);font-size:.62rem;color:var(--t3);margin-left:.2rem}
 
-/* ─── FILTER BAR ─── */
-.filter-bar{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.75rem;justify-content:center}
+/* ── FILTER ── */
+.filter-strip{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.75rem}
 .fb{
-  padding:.38rem .95rem;border-radius:999px;background:var(--card);border:1px solid var(--b);
-  font-size:.78rem;color:var(--t3);transition:all .2s var(--ease);
+  padding:.35rem .9rem;border-radius:999px;background:var(--card);border:1px solid var(--b);
+  font-size:.76rem;color:var(--t3);transition:all .2s var(--ease);
 }
-.fb:hover,.fb.on{background:var(--card-hi);border-color:var(--cyan);color:var(--cyan)}
+.fb:hover,.fb.on{background:rgba(0,212,255,0.08);border-color:var(--cyan);color:var(--cyan)}
 
-/* ─── PRIORITY GRID ─── */
-.section{padding:0 1.5rem 2.5rem;max-width:1200px;margin:0 auto}
-.sec-title{font-family:var(--fd);font-size:1.2rem;font-weight:700;margin-bottom:.4rem}
-.sec-sub{font-size:.82rem;color:var(--t3);margin-bottom:1.5rem}
-.priority-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.875rem;margin-bottom:2.5rem}
+/* ── PRIORITY GRID ── */
+.section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
+.sec-hdr{margin-bottom:1.5rem}
+.sec-hdr h2{font-family:var(--fd);font-size:1.3rem;font-weight:700;margin-bottom:.3rem}
+.sec-hdr p{font-size:.82rem;color:var(--t3)}
+.priority-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.85rem;margin-bottom:2.75rem}
 .pcard{
-  background:linear-gradient(135deg,rgba(0,212,255,.1) 0%,rgba(124,58,237,.08) 100%);
-  border:1px solid var(--bhi);border-radius:14px;
-  padding:1.1rem 1.25rem;display:flex;align-items:center;gap:.875rem;
-  transition:all .25s var(--ease);cursor:pointer;position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:.9rem;
+  padding:1rem 1.2rem;border-radius:14px;cursor:pointer;
+  background:linear-gradient(135deg,rgba(0,212,255,0.07),rgba(124,58,237,0.05));
+  border:1px solid rgba(0,212,255,0.15);transition:all .25s var(--ease);
+  position:relative;overflow:hidden;
 }
-.pcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.06),transparent);opacity:0;transition:.25s}
-.pcard:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 12px 40px rgba(0,212,255,.12)}
-.pcard:hover::before{opacity:1}
-.pflag{width:50px;height:36px;border-radius:6px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,.4);flex-shrink:0}
-.pinfo{flex:1;min-width:0}
-.pname{font-weight:600;font-size:.92rem}
-.pterm{font-family:var(--fm);font-size:.7rem;color:var(--cyan);margin-top:.1rem}
-.parr{color:var(--t3);transition:transform .2s var(--ease);flex-shrink:0;font-size:1.1rem}
+.pcard::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,212,255,0.06),transparent);
+  opacity:0;transition:.25s;
+}
+.pcard:hover{transform:translateY(-3px);border-color:rgba(0,212,255,0.4);box-shadow:0 12px 36px rgba(0,0,0,0.35)}
+.pcard:hover::after{opacity:1}
+.pflag{width:48px;height:34px;border-radius:6px;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.5);flex-shrink:0;z-index:1}
+.pinfo{flex:1;min-width:0;z-index:1}
+.pname{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pterm{font-family:var(--fm);font-size:.68rem;color:var(--cyan);margin-top:.15rem}
+.parr{color:rgba(0,212,255,0.5);font-size:1rem;z-index:1;transition:transform .2s;flex-shrink:0}
 .pcard:hover .parr{transform:translateX(4px);color:var(--cyan)}
 
-/* ─── ALL COUNTRIES GRID ─── */
-.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.65rem}
+/* ── ALL COUNTRIES ── */
+.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem}
 .ccard{
-  background:var(--card);border:1px solid var(--b);border-radius:12px;
-  padding:.8rem .875rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;
-  transition:all .2s var(--ease);cursor:pointer;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  padding:.85rem .75rem;border-radius:12px;cursor:pointer;text-align:center;
+  background:var(--card);border:1px solid var(--b);transition:all .2s var(--ease);
 }
-.ccard:hover{background:var(--card-hi);border-color:var(--bhi);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.cflag{width:42px;height:30px;border-radius:4px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.4)}
-.cname{font-size:.77rem;font-weight:500;color:var(--t2);line-height:1.2}
-.ccode{font-family:var(--fm);font-size:.68rem;color:var(--t3)}
+.ccard:hover{background:var(--card-hi);border-color:var(--bhi);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.cflag{width:40px;height:28px;border-radius:4px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.cname{font-size:.75rem;font-weight:500;color:var(--t2);line-height:1.2}
+.ccode{font-family:var(--fm);font-size:.65rem;color:var(--t3)}
 
-/* ─── TOAST ─── */
-.toast-wrap{position:fixed;bottom:1.75rem;right:1.75rem;z-index:9998;display:flex;flex-direction:column;gap:.5rem}
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:1.75rem;right:1.75rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem}
 .toast{
-  padding:.7rem 1.1rem;background:var(--veil);backdrop-filter:blur(20px);
-  border:1px solid var(--bhi);border-radius:10px;font-size:.82rem;
-  transform:translateX(120%);transition:transform .4s var(--ease);
-  box-shadow:0 8px 32px rgba(0,0,0,.4);display:flex;align-items:center;gap:.5rem;
+  padding:.65rem 1.1rem;background:rgba(5,8,22,0.95);backdrop-filter:blur(20px);
+  border:1px solid var(--bhi);border-radius:10px;font-size:.8rem;
+  transform:translateX(110%);transition:transform .4s var(--ease);
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
 }
 .toast.show{transform:translateX(0)}
 .toast.info{border-left:3px solid var(--cyan)}
 .toast.ok{border-left:3px solid var(--green)}
 
-/* ─── FOOTER ─── */
-footer{border-top:1px solid var(--b);padding:2rem 1.5rem 1.25rem;text-align:center;color:var(--t3);font-size:.8rem;margin-top:2rem}
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--b);padding:2rem 2rem 1.5rem;text-align:center;color:var(--t3);font-size:.8rem}
 footer a{color:var(--cyan)}
-.footer-links{display:flex;gap:1.5rem;justify-content:center;margin-bottom:.875rem;flex-wrap:wrap}
+.flinks{display:flex;gap:1.5rem;justify-content:center;margin-bottom:.875rem;flex-wrap:wrap}
 
-/* ─── RESPONSIVE ─── */
+/* ── RESPONSIVE ── */
 @media(max-width:768px){
+  .hero{padding:5rem 1.25rem 2.5rem;min-height:auto}
+  h1{font-size:2.2rem}
+  .hero-stats{gap:1.75rem}
   .priority-grid{grid-template-columns:1fr 1fr}
-  .countries-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
-  .hero-stats{gap:1.5rem}
-  .nav-links{gap:.25rem}.nl{padding:.35rem .6rem;font-size:.72rem}
-  .globe-wrap{height:300px}
+  .countries-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+  #globeMount{height:360px}
+  .section,.labels-section,.globe-section{padding-left:1.25rem;padding-right:1.25rem}
+  .nav{padding:.8rem 1.25rem}
 }
 @media(max-width:480px){
-  .hero{padding:6rem 1rem 2rem}
-  .sbox{flex-wrap:wrap;border-radius:14px}
   .priority-grid{grid-template-columns:1fr}
+  .search-wrap{border-radius:14px;flex-wrap:wrap}
+  h1{font-size:1.9rem}
 }
 </style>
 </head>
 <body>
-
-<!-- ─── PAGE LOADER ─── -->
-<div id="loader">
-  <div class="loader-globe">
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="core"></div>
-  </div>
-  <div class="loader-brand">PO ZipCode Global</div>
-  <div class="loader-sub">Loading 121 countries...</div>
-  <div class="loader-bar"><div class="loader-fill"></div></div>
-</div>
-
 <div class="toast-wrap" id="toastWrap"></div>
 
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <nav class="nav" id="mainNav">
   <a class="brand" href="#">
     <div class="brand-icon">PZ</div>
@@ -320,89 +340,93 @@ footer a{color:var(--cyan)}
     <a class="nl on" href="#">Home</a>
     <a class="nl" href="pages/india.html">India</a>
     <a class="nl" href="pages/usa.html">USA</a>
+    <a class="nl" href="pages/gb.html">UK</a>
     <a class="nl" href="pages/about.html">About</a>
-    <a class="nl" href="pages/report.html">Report</a>
   </div>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- HERO -->
 <section class="hero">
   <div class="kicker"><span class="kicker-dot"></span>World Postal Code Directory</div>
-  <h1>Find Any <span class="gt">Postal Code</span><br/>Anywhere in the World</h1>
-  <p>India PIN codes, USA ZIP codes, UK Postcodes & 118 more countries — all free, instant, with interactive globe.</p>
-  <div class="hero-stats">
-    <div><span class="hstat-n">121</span><span class="hstat-l">Countries</span></div>
-    <div><span class="hstat-n">2M+</span><span class="hstat-l">Postal Codes</span></div>
-    <div><span class="hstat-n">Free</span><span class="hstat-l">Forever</span></div>
-    <div><span class="hstat-n">Fast</span><span class="hstat-l">Instant Lookup</span></div>
+  <h1>Find Any <span class="gt">Postal Code</span><br/>on Earth — Instantly</h1>
+  <p class="hero-desc">India PIN codes · USA ZIP codes · UK Postcodes · and 118 more countries. Free, fast, with an interactive 3D globe.</p>
+
+  <div class="hero-cta">
+    <button class="btn-prim" onclick="document.getElementById('globeMount').scrollIntoView({behavior:'smooth',block:'center'})">🌍 Explore Globe</button>
+    <button class="btn-sec" onclick="document.getElementById('allSec').scrollIntoView({behavior:'smooth'})">Browse All 121 Countries</button>
   </div>
-  <div class="search-section">
-    <div class="sbox">
-      <input id="heroSearch" type="text" placeholder="Search country name or code (e.g. Japan, DE, 🇦🇺...)"/>
-      <button class="sbtn" onclick="doSearch()">Search</button>
-    </div>
+
+  <!-- Inline search -->
+  <div class="search-wrap" style="width:100%;max-width:560px">
+    <input id="heroSearch" type="text" placeholder="Search country name or code (e.g. Japan, PK, GB)..." autocomplete="off"/>
+    <button class="search-btn" onclick="doSearch()">Search</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat"><span class="hstat-n">121</span><span class="hstat-l">Countries</span></div>
+    <div class="hstat"><span class="hstat-n">2M+</span><span class="hstat-l">Postal Codes</span></div>
+    <div class="hstat"><span class="hstat-n">Free</span><span class="hstat-l">Forever</span></div>
+    <div class="hstat"><span class="hstat-n">Instant</span><span class="hstat-l">Results</span></div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ─── 3D GLOBE ─── -->
+<!-- 3D GLOBE -->
 <div class="globe-section">
-  <div class="globe-hdr">
-    <div class="globe-title">🌍 Interactive Globe — Click Any Country</div>
-    <div class="globe-sub">Drag to rotate · Scroll to zoom · Click a glowing dot to open that country</div>
+  <div class="section-label">
+    <h2>🌍 Interactive Globe</h2>
+    <p>Drag to rotate · Scroll to zoom · Click any glowing dot to open that country's directory</p>
   </div>
-  <div class="globe-outer">
+  <div class="globe-shell">
     <div id="globeMount"></div>
-    <!-- Custom tooltip -->
-    <div id="globeTooltip">
-      <img id="ttFlag" src="" alt=""/>
-      <span id="ttName"></span>
-    </div>
-    <!-- Navigation overlay -->
+    <div id="globeTooltip"><img id="ttFlag" src="" alt=""/><span id="ttName"></span></div>
     <div id="navOverlay">
-      <img id="navFlag" class="nav-country-flag" src="" alt=""/>
-      <div id="navName" class="nav-country-name"></div>
-      <div id="navSub" class="nav-country-sub"></div>
+      <img id="navFlag" src="" alt=""/>
+      <div id="navName"></div>
+      <div id="navSub"></div>
       <div class="nav-rocket">🚀</div>
       <div class="nav-hint">Navigating...</div>
     </div>
   </div>
 </div>
 
-<!-- ─── BLOGGER LABELS ─── -->
+<!-- BLOGGER LABELS -->
 <div class="labels-section">
   <div class="labels-hdr">
-    <div class="labels-title">📌 Labels — Browse by Category</div>
-    <div class="blogger-badge">Blogger Labels</div>
+    <div class="labels-title">📌 Browse by Label</div>
+    <div class="blogger-tag">Blogger Labels</div>
   </div>
-
-  <div class="label-group">
-    <div class="label-group-title">By Region</div>
-    <div class="label-chips">
-      <div class="label-chip on" onclick="filterLabel('all',this)">🌐 All Countries <span class="count">121</span></div>
-      <div class="label-chip" onclick="filterLabel('asia',this)">🌏 Asia <span class="count">21</span></div>
-      <div class="label-chip" onclick="filterLabel('europe',this)">🌍 Europe <span class="count">52</span></div>
-      <div class="label-chip" onclick="filterLabel('americas',this)">🌎 Americas <span class="count">28</span></div>
-      <div class="label-chip" onclick="filterLabel('oceania',this)">🏝️ Oceania <span class="count">17</span></div>
-      <div class="label-chip" onclick="filterLabel('africa',this)">🌍 Africa <span class="count">8</span></div>
-    </div>
+  <div class="label-row-title">By Region</div>
+  <div class="label-row" id="regionChips">
+    <div class="lchip on" onclick="filterLabel('all',this)">🌐 All <span class="cnt">121</span></div>
+    <div class="lchip" onclick="filterLabel('asia',this)">🌏 Asia <span class="cnt">21</span></div>
+    <div class="lchip" onclick="filterLabel('europe',this)">🌍 Europe <span class="cnt">52</span></div>
+    <div class="lchip" onclick="filterLabel('americas',this)">🌎 Americas <span class="cnt">28</span></div>
+    <div class="lchip" onclick="filterLabel('oceania',this)">🏝 Oceania <span class="cnt">17</span></div>
+    <div class="lchip" onclick="filterLabel('africa',this)">Africa <span class="cnt">8</span></div>
   </div>
-
-  <div class="label-group" style="margin-top:1rem">
-    <div class="label-group-title">Popular Countries</div>
-    <div class="label-chips" id="popularChips"></div>
-  </div>
+  <div class="label-row-title" style="margin-top:.75rem">Popular Countries</div>
+  <div class="label-row" id="popularChips"></div>
 </div>
 
-<!-- ─── MOST SEARCHED ─── -->
+<!-- MOST SEARCHED -->
 <div class="section">
-  <div class="sec-title">⭐ Most Searched Countries</div>
-  <div class="sec-sub">Highest traffic postal code directories — updated regularly</div>
+  <div class="sec-hdr">
+    <h2>⭐ Most Searched</h2>
+    <p>Top postal code directories by global traffic</p>
+  </div>
   <div class="priority-grid" id="priorityGrid"></div>
 
   <!-- ALL COUNTRIES -->
-  <div class="sec-title" id="allSec" style="margin-top:1rem">All 121 Countries</div>
-  <div class="sec-sub">Complete global postal code coverage</div>
-  <div class="filter-bar" id="filterBar">
+  <div class="sec-hdr" id="allSec">
+    <h2>All 121 Countries</h2>
+    <p>Complete global postal code coverage</p>
+  </div>
+  <div class="filter-strip">
     <button class="fb on" onclick="filterBy('all',this)">All (121)</button>
     <button class="fb" onclick="filterBy('asia',this)">Asia</button>
     <button class="fb" onclick="filterBy('europe',this)">Europe</button>
@@ -413,16 +437,16 @@ footer a{color:var(--cyan)}
   <div class="countries-grid" id="allGrid"></div>
 </div>
 
-<!-- ─── FOOTER ─── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-links">
+  <div class="flinks">
     <a href="pages/india.html">India PIN Codes</a>
     <a href="pages/usa.html">USA ZIP Codes</a>
     <a href="pages/gb.html">UK Postcodes</a>
     <a href="pages/au.html">Australia Postcodes</a>
+    <a href="pages/pk.html">Pakistan Postal</a>
     <a href="pages/about.html">About</a>
     <a href="pages/privacy.html">Privacy</a>
-    <a href="pages/report.html">Report</a>
     <a href="sitemap.xml">Sitemap</a>
   </div>
   <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
@@ -433,7 +457,6 @@ footer a{color:var(--cyan)}
 (function(){
 'use strict';
 
-// ─── ALL 121 COUNTRIES with lat/lon ───
 const COUNTRIES = [
   {code:'IN',name:'India',region:'asia',term:'PIN Code',lat:20.5937,lon:78.9629},
   {code:'US',name:'United States',region:'americas',term:'ZIP Code',lat:39.8283,lon:-98.5795},
@@ -443,7 +466,7 @@ const COUNTRIES = [
   {code:'DE',name:'Germany',region:'europe',term:'Postal Code',lat:51.1657,lon:10.4515},
   {code:'FR',name:'France',region:'europe',term:'Code Postal',lat:46.2276,lon:2.2137},
   {code:'JP',name:'Japan',region:'asia',term:'Postal Code',lat:36.2048,lon:138.2529},
-  {code:'AE',name:'United Arab Emirates',region:'asia',term:'Postal Code',lat:23.4241,lon:53.8478},
+  {code:'AE',name:'UAE',region:'asia',term:'Postal Code',lat:23.4241,lon:53.8478},
   {code:'SG',name:'Singapore',region:'asia',term:'Postal Code',lat:1.3521,lon:103.8198},
   {code:'BR',name:'Brazil',region:'americas',term:'CEP',lat:-14.2350,lon:-51.9253},
   {code:'CN',name:'China',region:'asia',term:'Postal Code',lat:35.8617,lon:104.1954},
@@ -458,13 +481,13 @@ const COUNTRIES = [
   {code:'PH',name:'Philippines',region:'asia',term:'Postal Code',lat:12.8797,lon:121.7740},
   {code:'RU',name:'Russia',region:'europe',term:'Postal Code',lat:61.5240,lon:105.3188},
   {code:'IT',name:'Italy',region:'europe',term:'CAP',lat:41.8719,lon:12.5674},
-  {code:'ES',name:'Spain',region:'europe',term:'Código Postal',lat:40.4637,lon:-3.7492},
+  {code:'ES',name:'Spain',region:'europe',term:'Postal Code',lat:40.4637,lon:-3.7492},
   {code:'NL',name:'Netherlands',region:'europe',term:'Postal Code',lat:52.1326,lon:5.2913},
-  {code:'PT',name:'Portugal',region:'europe',term:'Código Postal',lat:39.3999,lon:-8.2245},
+  {code:'PT',name:'Portugal',region:'europe',term:'Postal Code',lat:39.3999,lon:-8.2245},
   {code:'PL',name:'Poland',region:'europe',term:'Postal Code',lat:51.9194,lon:19.1451},
   {code:'ZA',name:'South Africa',region:'africa',term:'Postal Code',lat:-30.5595,lon:22.9375},
   {code:'TR',name:'Turkey',region:'asia',term:'Postal Code',lat:38.9637,lon:35.2433},
-  {code:'AR',name:'Argentina',region:'americas',term:'Código Postal',lat:-38.4161,lon:-63.6167},
+  {code:'AR',name:'Argentina',region:'americas',term:'Postal Code',lat:-38.4161,lon:-63.6167},
   {code:'AD',name:'Andorra',region:'europe',term:'Postal Code',lat:42.5063,lon:1.5218},
   {code:'AI',name:'Anguilla',region:'americas',term:'Postal Code',lat:18.2206,lon:-63.0686},
   {code:'AL',name:'Albania',region:'europe',term:'Postal Code',lat:41.1533,lon:20.1683},
@@ -510,9 +533,8 @@ const COUNTRIES = [
   {code:'ID',name:'Indonesia',region:'asia',term:'Postal Code',lat:-0.7893,lon:113.9213},
   {code:'IE',name:'Ireland',region:'europe',term:'Eircode',lat:53.1424,lon:-7.6921},
   {code:'IM',name:'Isle of Man',region:'europe',term:'Postcode',lat:54.2361,lon:-4.5481},
-  {code:'IO',name:'British Indian Ocean Territory',region:'asia',term:'Postal Code',lat:-6.3432,lon:71.8765},
+  {code:'IO',name:'British Indian Ocean',region:'asia',term:'Postal Code',lat:-6.3432,lon:71.8765},
   {code:'IS',name:'Iceland',region:'europe',term:'Postal Code',lat:64.9631,lon:-19.0208},
-  {code:'IT',name:'Italy',region:'europe',term:'CAP',lat:41.8719,lon:12.5674},
   {code:'JE',name:'Jersey',region:'europe',term:'Postcode',lat:49.2144,lon:-2.1313},
   {code:'KE',name:'Kenya',region:'africa',term:'Postal Code',lat:-0.0236,lon:37.9062},
   {code:'LI',name:'Liechtenstein',region:'europe',term:'Postal Code',lat:47.1660,lon:9.5554},
@@ -525,7 +547,7 @@ const COUNTRIES = [
   {code:'MH',name:'Marshall Islands',region:'oceania',term:'ZIP Code',lat:7.1315,lon:171.1845},
   {code:'MK',name:'North Macedonia',region:'europe',term:'Postal Code',lat:41.6086,lon:21.7453},
   {code:'MO',name:'Macao',region:'asia',term:'Postal Code',lat:22.1987,lon:113.5439},
-  {code:'MP',name:'Northern Mariana Islands',region:'oceania',term:'ZIP Code',lat:17.3308,lon:145.3847},
+  {code:'MP',name:'N. Mariana Islands',region:'oceania',term:'ZIP Code',lat:17.3308,lon:145.3847},
   {code:'MQ',name:'Martinique',region:'americas',term:'Code Postal',lat:14.6415,lon:-61.0242},
   {code:'MT',name:'Malta',region:'europe',term:'Postal Code',lat:35.9375,lon:14.3754},
   {code:'MW',name:'Malawi',region:'africa',term:'Postal Code',lat:-13.2543,lon:34.3015},
@@ -535,9 +557,9 @@ const COUNTRIES = [
   {code:'NR',name:'Nauru',region:'oceania',term:'Postal Code',lat:-0.5228,lon:166.9315},
   {code:'NU',name:'Niue',region:'oceania',term:'Postal Code',lat:-19.0544,lon:-169.8672},
   {code:'PA',name:'Panama',region:'americas',term:'Postal Code',lat:8.5380,lon:-80.7821},
-  {code:'PE',name:'Peru',region:'americas',term:'Código Postal',lat:-9.1900,lon:-75.0152},
+  {code:'PE',name:'Peru',region:'americas',term:'Postal Code',lat:-9.1900,lon:-75.0152},
   {code:'PF',name:'French Polynesia',region:'oceania',term:'Code Postal',lat:-17.6797,lon:-149.4068},
-  {code:'PM',name:'Saint Pierre and Miquelon',region:'americas',term:'Code Postal',lat:46.8852,lon:-56.3159},
+  {code:'PM',name:'St Pierre & Miquelon',region:'americas',term:'Code Postal',lat:46.8852,lon:-56.3159},
   {code:'PN',name:'Pitcairn',region:'oceania',term:'Postal Code',lat:-24.7036,lon:-127.4393},
   {code:'PR',name:'Puerto Rico',region:'americas',term:'ZIP Code',lat:18.2208,lon:-66.5901},
   {code:'PW',name:'Palau',region:'oceania',term:'ZIP Code',lat:7.5150,lon:134.5825},
@@ -546,233 +568,165 @@ const COUNTRIES = [
   {code:'RS',name:'Serbia',region:'europe',term:'Postal Code',lat:44.0165,lon:21.0059},
   {code:'SE',name:'Sweden',region:'europe',term:'Postal Code',lat:60.1282,lon:18.6435},
   {code:'SI',name:'Slovenia',region:'europe',term:'Postal Code',lat:46.1512,lon:14.9955},
-  {code:'SJ',name:'Svalbard and Jan Mayen',region:'europe',term:'Postal Code',lat:77.5536,lon:23.6703},
+  {code:'SJ',name:'Svalbard & Jan Mayen',region:'europe',term:'Postal Code',lat:77.5536,lon:23.6703},
   {code:'SK',name:'Slovakia',region:'europe',term:'Postal Code',lat:48.6690,lon:19.6990},
   {code:'SM',name:'San Marino',region:'europe',term:'Postal Code',lat:43.9424,lon:12.4578},
-  {code:'TC',name:'Turks and Caicos Islands',region:'americas',term:'Postal Code',lat:21.6940,lon:-71.7979},
+  {code:'TC',name:'Turks & Caicos',region:'americas',term:'Postal Code',lat:21.6940,lon:-71.7979},
   {code:'UA',name:'Ukraine',region:'europe',term:'Postal Code',lat:48.3794,lon:31.1656},
-  {code:'UY',name:'Uruguay',region:'americas',term:'Código Postal',lat:-32.5228,lon:-55.7658},
+  {code:'UY',name:'Uruguay',region:'americas',term:'Postal Code',lat:-32.5228,lon:-55.7658},
   {code:'VA',name:'Vatican City',region:'europe',term:'Postal Code',lat:41.9029,lon:12.4534},
   {code:'VI',name:'US Virgin Islands',region:'americas',term:'ZIP Code',lat:18.3358,lon:-64.8963},
-  {code:'WF',name:'Wallis and Futuna',region:'oceania',term:'Code Postal',lat:-13.7687,lon:-177.1561},
+  {code:'WF',name:'Wallis & Futuna',region:'oceania',term:'Code Postal',lat:-13.7687,lon:-177.1561},
   {code:'WS',name:'Samoa',region:'oceania',term:'Postal Code',lat:-13.7590,lon:-172.1046},
   {code:'YT',name:'Mayotte',region:'africa',term:'Code Postal',lat:-12.8275,lon:45.1662},
+  {code:'IT',name:'Italy',region:'europe',term:'CAP',lat:41.8719,lon:12.5674},
 ];
 
-const PRIORITY = ['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','PK','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
-const SPECIAL = {IN:'/pages/india.html', US:'/pages/usa.html'};
+// deduplicate
+const seen=new Set(), ALL=[];
+COUNTRIES.forEach(c=>{ if(!seen.has(c.code)){seen.add(c.code);ALL.push(c);} });
 
-function pageUrl(code){
-  return SPECIAL[code] || ('/pages/'+code.toLowerCase()+'.html');
-}
-function flagSrc(code,w){
-  return 'https://flagcdn.com/w'+(w||80)+'/'+code.toLowerCase()+'.png';
-}
-function flagImg(code,cls,w){
-  const c2=cls.replace(/-flag$/,'-flag-err');
-  return '<img src="'+flagSrc(code,w||80)+'" class="'+cls+'" alt="'+code+' flag" onerror="this.outerHTML=\'<div class=\\\''+c2+'\\\'>'+code+'</div>\'">';
+const PRIORITY=['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','PK','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
+const SPECIAL={IN:'/pages/india.html',US:'/pages/usa.html'};
+
+function pageUrl(code){ return SPECIAL[code]||('/pages/'+code.toLowerCase()+'.html'); }
+function fSrc(code,w){ return 'https://flagcdn.com/w'+(w||80)+'/'+code.toLowerCase()+'.png'; }
+function fImg(code,cls,w){
+  return '<img src="'+fSrc(code,w||80)+'" class="'+cls+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
 }
 
-// ─── 3D GLOBE (globe.gl) ───
-let myGlobe, navigating=false;
-
+// ── GLOBE ──
+let globe, navigating=false;
 function initGlobe(){
-  const mount = document.getElementById('globeMount');
-
-  // Prepare points data — priority countries bigger + brighter
-  const pts = COUNTRIES.map(c=>({
-    ...c,
-    size: PRIORITY.includes(c.code) ? 0.55 : 0.32,
-    col:  PRIORITY.includes(c.code) ? 'rgba(0,212,255,0.95)' : 'rgba(124,58,237,0.75)'
+  const el=document.getElementById('globeMount');
+  const pts=ALL.map(c=>({...c,
+    size:PRIORITY.includes(c.code)?0.55:0.3,
+    col:PRIORITY.includes(c.code)?'rgba(0,212,255,0.95)':'rgba(124,58,237,0.7)'
   }));
-
-  myGlobe = Globe()(mount);
-  myGlobe
-    // Earth textures
+  globe=Globe()(el);
+  globe
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
     .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-    // Background
     .backgroundColor('rgba(0,0,0,0)')
-    // Atmosphere
-    .showAtmosphere(true)
-    .atmosphereColor('#00d4ff')
-    .atmosphereAltitude(0.2)
-    // Graticule (lat/lon lines)
+    .showAtmosphere(true).atmosphereColor('#00d4ff').atmosphereAltitude(0.18)
     .showGraticules(true)
-    // Country dots
     .pointsData(pts)
-    .pointAltitude(0.025)
-    .pointColor(d=>d.col)
-    .pointRadius(d=>d.size)
-    .pointsMerge(false)
-    .pointResolution(8)
-    // Hover
+    .pointAltitude(0.025).pointColor(d=>d.col).pointRadius(d=>d.size)
+    .pointsMerge(false).pointResolution(8)
     .onPointHover(pt=>{
-      mount.style.cursor = pt ? 'pointer' : 'default';
-      const tt = document.getElementById('globeTooltip');
+      el.style.cursor=pt?'pointer':'default';
+      const tt=document.getElementById('globeTooltip');
       if(pt){
-        document.getElementById('ttFlag').src = flagSrc(pt.code,40);
-        document.getElementById('ttName').textContent = pt.name+' — '+pt.term;
-        tt.classList.add('show');
-      } else {
-        tt.classList.remove('show');
-      }
+        document.getElementById('ttFlag').src=fSrc(pt.code,40);
+        document.getElementById('ttName').textContent=pt.name+' — '+pt.term;
+        tt.classList.add('vis');
+      }else tt.classList.remove('vis');
     })
-    // Click
-    .onPointClick(pt=>globeNavigate(pt));
-
-  // Controls
-  const ctrl = myGlobe.controls();
-  ctrl.autoRotate = true;
-  ctrl.autoRotateSpeed = 0.4;
-  ctrl.enableZoom = true;
-  ctrl.minDistance = 200;
-  ctrl.maxDistance = 600;
-
-  // Stop auto-rotate on drag
-  mount.addEventListener('mousedown',()=>{ ctrl.autoRotate=false; });
-  mount.addEventListener('touchstart',()=>{ ctrl.autoRotate=false; },{passive:true});
-  // Resume after 4s idle
-  let rotTimer;
-  mount.addEventListener('mouseup',()=>{ clearTimeout(rotTimer); rotTimer=setTimeout(()=>ctrl.autoRotate=true,4000); });
-
-  // Initial view — show India/Asia
-  myGlobe.pointOfView({lat:20,lng:78,altitude:2.5},0);
+    .onPointClick(pt=>globeNav(pt));
+  const c=globe.controls();
+  c.autoRotate=true; c.autoRotateSpeed=0.38;
+  c.enableZoom=true; c.minDistance=190; c.maxDistance=580;
+  let t;
+  el.addEventListener('mousedown',()=>c.autoRotate=false);
+  el.addEventListener('touchstart',()=>c.autoRotate=false,{passive:true});
+  el.addEventListener('mouseup',()=>{clearTimeout(t);t=setTimeout(()=>c.autoRotate=true,4000)});
+  globe.pointOfView({lat:20,lng:72,altitude:2.4},0);
 }
 
-function globeNavigate(c){
-  if(navigating) return;
-  navigating = true;
-
-  // Show overlay
-  const ov   = document.getElementById('navOverlay');
-  const flag = document.getElementById('navFlag');
-  document.getElementById('navName').textContent = c.name;
-  document.getElementById('navSub').textContent  = c.term+' Directory';
-  flag.src = flagSrc(c.code,160);
+function globeNav(c){
+  if(navigating)return;
+  navigating=true;
+  const ov=document.getElementById('navOverlay');
+  document.getElementById('navFlag').src=fSrc(c.code,160);
+  document.getElementById('navName').textContent=c.name;
+  document.getElementById('navSub').textContent=c.term+' Directory';
   ov.classList.add('show');
-
-  // Stop auto-rotate, fly globe to country
-  if(myGlobe){
-    myGlobe.controls().autoRotate = false;
-    myGlobe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.8}, 1400);
-  }
-
-  // Navigate after fly animation
-  setTimeout(()=>{ window.location.href = pageUrl(c.code); }, 1900);
+  if(globe){globe.controls().autoRotate=false;globe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.8},1400);}
+  setTimeout(()=>window.location.href=pageUrl(c.code),1900);
 }
 
-// Navigate from card / label click
-function cardNavigate(c){
+function cardNav(c){
   showToast('Flying to '+c.name+'...','info');
   document.getElementById('globeMount').scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>globeNavigate(c), 600);
+  setTimeout(()=>globeNav(c),600);
 }
 
-// ─── RENDER PRIORITY ───
+// ── RENDER ──
+const POPULAR=['IN','US','GB','AU','CA','DE','JP','SG','AE','NZ','PK','BR','KR','FR'];
+
 function renderPriority(){
-  const g = document.getElementById('priorityGrid');
-  g.innerHTML = PRIORITY.map(code=>{
-    const c = COUNTRIES.find(x=>x.code===code);
-    if(!c) return '';
-    return '<div class="pcard" onclick="cardNavigate(COUNTRIES.find(x=>x.code===\''+code+'\'))">'+
-      flagImg(code,'pflag',80)+
+  document.getElementById('priorityGrid').innerHTML=PRIORITY.map(code=>{
+    const c=ALL.find(x=>x.code===code); if(!c)return'';
+    return '<div class="pcard" onclick="cardNav(ALL.find(x=>x.code===\''+code+'\'))">'+
+      fImg(code,'pflag',80)+
       '<div class="pinfo"><div class="pname">'+c.name+'</div><div class="pterm">'+c.term+'</div></div>'+
-      '<span class="parr">&#8594;</span>'+
-    '</div>';
+      '<span class="parr">&#8594;</span></div>';
   }).join('');
 }
 
-// ─── RENDER ALL ───
-let currentFilter='all', currentSearch='';
+let curFilter='all',curSearch='';
 function renderAll(){
-  const g = document.getElementById('allGrid');
-  const list = COUNTRIES.filter(c=>{
-    const mr = currentFilter==='all' || c.region===currentFilter;
-    const ms = !currentSearch || c.name.toLowerCase().includes(currentSearch.toLowerCase()) || c.code.toLowerCase().includes(currentSearch.toLowerCase());
-    return mr && ms;
+  const list=ALL.filter(c=>{
+    const rOk=curFilter==='all'||c.region===curFilter;
+    const sOk=!curSearch||c.name.toLowerCase().includes(curSearch.toLowerCase())||c.code.toLowerCase().includes(curSearch.toLowerCase());
+    return rOk&&sOk;
   });
-  g.innerHTML = list.length ? list.map(c=>
-    '<div class="ccard" onclick="cardNavigate(COUNTRIES.find(x=>x.code===\''+c.code+'\'))">'+
-      flagImg(c.code,'cflag',80)+
-      '<div class="cname">'+c.name+'</div>'+
-      '<div class="ccode">'+c.code+'</div>'+
-    '</div>'
-  ).join('') : '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--t3)">No countries found</div>';
+  document.getElementById('allGrid').innerHTML=list.length
+    ?list.map(c=>'<div class="ccard" onclick="cardNav(ALL.find(x=>x.code===\''+c.code+'\'))">'+fImg(c.code,'cflag',80)+'<div class="cname">'+c.name+'</div><div class="ccode">'+c.code+'</div></div>').join('')
+    :'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--t3)">No countries found</div>';
 }
 
-// ─── FILTER FUNCTIONS ───
-window.filterBy = function(r,btn){
-  currentFilter=r;
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+function renderPopular(){
+  document.getElementById('popularChips').innerHTML=POPULAR.map(code=>{
+    const c=ALL.find(x=>x.code===code);if(!c)return'';
+    return '<div class="lchip" onclick="cardNav(ALL.find(x=>x.code===\''+code+'\'))">'+
+      '<img src="'+fSrc(code,40)+'" onerror="this.style.display=\'none\'">'+c.name+'</div>';
+  }).join('');
+}
+
+window.filterBy=function(r,btn){
+  curFilter=r;
+  document.querySelectorAll('.filter-strip .fb').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   renderAll();
 };
-window.filterLabel = function(r,chip){
-  currentFilter=r;
-  document.querySelectorAll('.label-chip').forEach(b=>b.classList.remove('on'));
+window.filterLabel=function(r,chip){
+  curFilter=r;
+  document.querySelectorAll('#regionChips .lchip').forEach(b=>b.classList.remove('on'));
   chip.classList.add('on');
-  // Sync filter bar
-  document.querySelectorAll('.fb').forEach(b=>{
-    if(b.textContent.toLowerCase().startsWith(r)) b.classList.add('on');
-    else b.classList.remove('on');
+  document.querySelectorAll('.filter-strip .fb').forEach(b=>{
+    b.classList.toggle('on',b.textContent.toLowerCase().startsWith(r)||r==='all');
   });
   renderAll();
   document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
-window.doSearch = function(){
-  currentSearch=document.getElementById('heroSearch').value.trim();
+window.doSearch=function(){
+  curSearch=document.getElementById('heroSearch').value.trim();
   renderAll();
-  if(currentSearch) document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
+  if(curSearch)document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
-document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch()});
-document.getElementById('heroSearch').addEventListener('input',e=>{currentSearch=e.target.value.trim();renderAll()});
+document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch();});
+document.getElementById('heroSearch').addEventListener('input',e=>{curSearch=e.target.value.trim();renderAll();});
 
-// ─── POPULAR CHIPS ───
-function renderPopularChips(){
-  const pop=['IN','US','GB','AU','CA','DE','JP','SG','AE','NZ','BR','KR','FR','IT'];
-  document.getElementById('popularChips').innerHTML = pop.map(code=>{
-    const c=COUNTRIES.find(x=>x.code===code);
-    if(!c) return '';
-    return '<div class="label-chip" onclick="cardNavigate(COUNTRIES.find(x=>x.code===\''+code+'\'))">'+
-      '<img src="'+flagSrc(code,40)+'" onerror="this.style.display=\'none\'">'+
-      c.name+
-    '</div>';
-  }).join('');
-}
-
-// ─── TOAST ───
 function showToast(msg,type){
   const w=document.getElementById('toastWrap');
   const t=document.createElement('div');
-  t.className='toast '+(type||'info');
-  t.textContent=msg;
+  t.className='toast '+(type||'info');t.textContent=msg;
   w.appendChild(t);
   requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
-  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400)},2500);
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},2500);
 }
-window.showToast=showToast;
 
-// ─── SCROLL NAV ───
-window.addEventListener('scroll',()=>{
-  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40);
-},{passive:true});
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40),{passive:true});
+document.getElementById('yr').textContent=new Date().getFullYear();
 
-// ─── YEAR ───
-document.getElementById('yr').textContent = new Date().getFullYear();
+// Make ALL accessible globally
+window.ALL=ALL;
 
-// ─── INIT ───
 renderPriority();
 renderAll();
-renderPopularChips();
+renderPopular();
 initGlobe();
-
-// Hide loader
-window.addEventListener('load',()=>{
-  setTimeout(()=>document.getElementById('loader').classList.add('done'),1600);
-});
-setTimeout(()=>document.getElementById('loader').classList.add('done'),2200);
-
 })();
 </script>
 </body>
