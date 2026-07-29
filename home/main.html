@@ -255,23 +255,57 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ── ALL COUNTRIES COMPACT GRID ── */
 .all-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;
 }
 .citem{
-  padding:.8rem 1rem;border-radius:12px;background:var(--card);
-  border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:.75rem;
-  transition:all .25s var(--ease);
+  position:relative;border-radius:16px;background:rgba(10,14,39,0.6);
+  backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);text-decoration:none;
+}
+.citem::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  box-shadow:inset 0 0 0 1px rgba(0,212,255,0);transition:all 0.4s ease;pointer-events:none;z-index:10;
 }
 .citem:hover{
-  background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.3);
-  transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  transform:translateY(-8px) scale(1.02);background:rgba(10,14,39,0.85);
+  box-shadow:0 20px 40px rgba(0,0,0,0.6),0 0 20px rgba(0,212,255,0.2);
 }
-.citem-flag{width:28px;height:20px;border-radius:3px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.4)}
-.citem-info{flex:1;min-width:0}
-.citem-name{font-weight:600;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--t)}
-.citem-term{font-family:var(--fm);font-size:.68rem;color:var(--t3)}
-.citem-arr{color:var(--cyan);font-size:.9rem;opacity:0;transition:opacity .2s var(--ease)}
-.citem:hover .citem-arr{opacity:1}
+.citem:hover::before{
+  box-shadow:inset 0 0 0 1px rgba(0,212,255,0.5);
+}
+.citem-flag-wrap{
+  width:100%;height:140px;position:relative;overflow:hidden;
+}
+.citem-flag-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 40%, rgba(10,14,39,1) 100%);
+}
+.citem-flag{
+  width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;
+}
+.citem:hover .citem-flag{
+  transform:scale(1.1);
+}
+.citem-info{
+  padding:1.2rem;display:flex;flex-direction:column;gap:0.2rem;
+  position:relative;z-index:2;margin-top:-35px;
+}
+.citem-name{
+  font-family:var(--fd);font-weight:800;font-size:1.2rem;color:#fff;
+  text-shadow:0 2px 4px rgba(0,0,0,0.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.citem-term{
+  font-family:var(--fm);font-size:0.72rem;color:var(--cyan);
+  text-transform:uppercase;letter-spacing:0.1em;
+}
+.citem-arr{
+  position:absolute;right:1.2rem;bottom:1.2rem;color:var(--cyan);
+  font-size:1.2rem;opacity:0;transform:translateX(-10px);transition:all 0.3s ease;z-index:5;
+}
+.citem:hover .citem-arr{
+  opacity:1;transform:translateX(0);
+}
 
 /* ── FILTER STRIP ── */
 .filter-strip{
@@ -719,10 +753,12 @@ function renderAll(){
   }
   grid.innerHTML = list.map(c=>`
     <a class="citem" href="${pageUrl(c.code)}">
-      ${fImg(c.code,'citem-flag',60)}
+      <div class="citem-flag-wrap">
+        ${fImg(c.code,'citem-flag',320)}
+      </div>
       <div class="citem-info">
         <div class="citem-name">${c.name}</div>
-        <div class="citem-term">${c.term}</div>
+        <div class="citem-term">${c.term} Directory</div>
       </div>
       <span class="citem-arr">&#8594;</span>
     </a>
