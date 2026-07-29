@@ -1,4 +1,4 @@
-<!--
+﻿<!--
   PO ZIPCODE GLOBAL — Country Page Template
   ==========================================
   Copy this template for each country page in Blogger.
@@ -689,64 +689,173 @@ h1, h2, h3, h4, h5, h6 {
   'use strict';
 
   // ====================================================
-  // REPLACE THIS SECTION WITH COUNTRY-SPECIFIC DATA
+  // DYNAMIC COUNTRY LOADER - reads ?code=XX from URL
   // ====================================================
-  const COUNTRY = {
-    name: "India",
-    code: "IN",
-    flag: "🇮🇳",
-    subtitle: "Bharat · 36 States & UTs · 1,55,000+ PINs",
-    lat: 20.5937,
-    lon: 78.9629,
-    dataPath: "https://raw.githubusercontent.com/chaitanyadev999/pincode-dataindia/main/",
-    dataPrefix: "",  // "" for india, "usa/" for usa, "world/CODE/" for others
-    states: [
-      { name: "Andaman & Nicobar Islands", file: "andaman-and-nicobar-islands.json" },
-      { name: "Andhra Pradesh", file: "andhra-pradesh.json" },
-      { name: "Arunachal Pradesh", file: "arunachal-pradesh.json" },
-      { name: "Assam", file: "assam.json" },
-      { name: "Bihar", file: "bihar.json" },
-      { name: "Chandigarh", file: "chandigarh.json" },
-      { name: "Chhattisgarh", file: "chhattisgarh.json" },
-      { name: "Dadra & Nagar Haveli", file: "dadra-nagar-haveli-daman-diu.json" },
-      { name: "Delhi", file: "delhi.json" },
-      { name: "Goa", file: "goa.json" },
-      { name: "Gujarat", file: "gujarat.json" },
-      { name: "Haryana", file: "haryana.json" },
-      { name: "Himachal Pradesh", file: "himachal-pradesh.json" },
-      { name: "Jammu & Kashmir", file: "jammu-kashmir.json" },
-      { name: "Jharkhand", file: "jharkhand.json" },
-      { name: "Karnataka", file: "karnataka.json" },
-      { name: "Kerala", file: "kerala.json" },
-      { name: "Ladakh", file: "ladakh.json" },
-      { name: "Lakshadweep", file: "lakshadweep.json" },
-      { name: "Madhya Pradesh", file: "madhya-pradesh.json" },
-      { name: "Maharashtra", file: "maharashtra.json" },
-      { name: "Manipur", file: "manipur.json" },
-      { name: "Meghalaya", file: "meghalaya.json" },
-      { name: "Mizoram", file: "mizoram.json" },
-      { name: "Nagaland", file: "nagaland.json" },
-      { name: "Odisha", file: "odisha.json" },
-      { name: "Puducherry", file: "puducherry.json" },
-      { name: "Punjab", file: "punjab.json" },
-      { name: "Rajasthan", file: "rajasthan.json" },
-      { name: "Sikkim", file: "sikkim.json" },
-      { name: "Tamil Nadu", file: "tamil-nadu.json" },
-      { name: "Telangana", file: "telangana.json" },
-      { name: "Tripura", file: "tripura.json" },
-      { name: "Uttar Pradesh", file: "uttar-pradesh.json" },
-      { name: "Uttarakhand", file: "uttarakhand.json" },
-      { name: "West Bengal", file: "west-bengal.json" }
-    ]
+  const COUNTRY_DB = {
+    'AD':{name:'Andorra',lat:42.5063,lon:1.5218,region:'Europe'},
+    'AE':{name:'United Arab Emirates',lat:23.4241,lon:53.8478,region:'Asia'},
+    'AI':{name:'Anguilla',lat:18.2206,lon:-63.0686,region:'Americas'},
+    'AL':{name:'Albania',lat:41.1533,lon:20.1683,region:'Europe'},
+    'AR':{name:'Argentina',lat:-38.4161,lon:-63.6167,region:'Americas'},
+    'AS':{name:'American Samoa',lat:-14.2710,lon:-170.1322,region:'Oceania'},
+    'AT':{name:'Austria',lat:47.5162,lon:14.5501,region:'Europe'},
+    'AU':{name:'Australia',lat:-25.2744,lon:133.7751,region:'Oceania'},
+    'AX':{name:'Aland Islands',lat:60.1785,lon:19.9156,region:'Europe'},
+    'AZ':{name:'Azerbaijan',lat:40.1431,lon:47.5769,region:'Asia'},
+    'BD':{name:'Bangladesh',lat:23.6850,lon:90.3563,region:'Asia'},
+    'BE':{name:'Belgium',lat:50.5039,lon:4.4699,region:'Europe'},
+    'BG':{name:'Bulgaria',lat:42.7339,lon:25.4858,region:'Europe'},
+    'BM':{name:'Bermuda',lat:32.3078,lon:-64.7505,region:'Americas'},
+    'BR':{name:'Brazil',lat:-14.2350,lon:-51.9253,region:'Americas'},
+    'BY':{name:'Belarus',lat:53.7098,lon:27.9534,region:'Europe'},
+    'CA':{name:'Canada',lat:56.1304,lon:-106.3468,region:'Americas'},
+    'CC':{name:'Cocos Islands',lat:-12.1642,lon:96.8710,region:'Oceania'},
+    'CH':{name:'Switzerland',lat:46.8182,lon:8.2275,region:'Europe'},
+    'CL':{name:'Chile',lat:-35.6751,lon:-71.5430,region:'Americas'},
+    'CN':{name:'China',lat:35.8617,lon:104.1954,region:'Asia'},
+    'CO':{name:'Colombia',lat:4.5709,lon:-74.2973,region:'Americas'},
+    'CR':{name:'Costa Rica',lat:9.7489,lon:-83.7534,region:'Americas'},
+    'CX':{name:'Christmas Island',lat:-10.4475,lon:105.6904,region:'Oceania'},
+    'CY':{name:'Cyprus',lat:35.1264,lon:33.4299,region:'Europe'},
+    'CZ':{name:'Czech Republic',lat:49.8175,lon:15.4730,region:'Europe'},
+    'DE':{name:'Germany',lat:51.1657,lon:10.4515,region:'Europe'},
+    'DK':{name:'Denmark',lat:56.2639,lon:9.5018,region:'Europe'},
+    'DO':{name:'Dominican Republic',lat:18.7357,lon:-70.1627,region:'Americas'},
+    'DZ':{name:'Algeria',lat:28.0339,lon:1.6596,region:'Africa'},
+    'EC':{name:'Ecuador',lat:-1.8312,lon:-78.1834,region:'Americas'},
+    'EE':{name:'Estonia',lat:58.5953,lon:25.0136,region:'Europe'},
+    'ES':{name:'Spain',lat:40.4637,lon:-3.7492,region:'Europe'},
+    'FI':{name:'Finland',lat:61.9241,lon:25.7482,region:'Europe'},
+    'FK':{name:'Falkland Islands',lat:-51.7963,lon:-59.5236,region:'Americas'},
+    'FM':{name:'Micronesia',lat:7.4256,lon:150.5508,region:'Oceania'},
+    'FO':{name:'Faroe Islands',lat:61.8926,lon:-6.9118,region:'Europe'},
+    'FR':{name:'France',lat:46.2276,lon:2.2137,region:'Europe'},
+    'GB':{name:'United Kingdom',lat:55.3781,lon:-3.4360,region:'Europe'},
+    'GF':{name:'French Guiana',lat:3.9339,lon:-53.1258,region:'Americas'},
+    'GG':{name:'Guernsey',lat:49.4657,lon:-2.5853,region:'Europe'},
+    'GI':{name:'Gibraltar',lat:36.1408,lon:-5.3536,region:'Europe'},
+    'GL':{name:'Greenland',lat:71.7069,lon:-42.6043,region:'Americas'},
+    'GP':{name:'Guadeloupe',lat:16.2650,lon:-61.5510,region:'Americas'},
+    'GS':{name:'South Georgia',lat:-54.4296,lon:-36.5879,region:'Americas'},
+    'GT':{name:'Guatemala',lat:15.7835,lon:-90.2308,region:'Americas'},
+    'GU':{name:'Guam',lat:13.4443,lon:144.7937,region:'Oceania'},
+    'HK':{name:'Hong Kong',lat:22.3193,lon:114.1694,region:'Asia'},
+    'HM':{name:'Heard Island',lat:-53.0818,lon:73.5042,region:'Oceania'},
+    'HN':{name:'Honduras',lat:15.2000,lon:-86.2419,region:'Americas'},
+    'HR':{name:'Croatia',lat:45.1000,lon:15.2000,region:'Europe'},
+    'HT':{name:'Haiti',lat:18.9712,lon:-72.2852,region:'Americas'},
+    'HU':{name:'Hungary',lat:47.1625,lon:19.5033,region:'Europe'},
+    'ID':{name:'Indonesia',lat:-0.7893,lon:113.9213,region:'Asia'},
+    'IE':{name:'Ireland',lat:53.1424,lon:-7.6921,region:'Europe'},
+    'IM':{name:'Isle of Man',lat:54.2361,lon:-4.5481,region:'Europe'},
+    'IO':{name:'British Indian Ocean Territory',lat:-6.3432,lon:71.8765,region:'Asia'},
+    'IS':{name:'Iceland',lat:64.9631,lon:-19.0208,region:'Europe'},
+    'IT':{name:'Italy',lat:41.8719,lon:12.5674,region:'Europe'},
+    'JE':{name:'Jersey',lat:49.2144,lon:-2.1313,region:'Europe'},
+    'JP':{name:'Japan',lat:36.2048,lon:138.2529,region:'Asia'},
+    'KE':{name:'Kenya',lat:-0.0236,lon:37.9062,region:'Africa'},
+    'KR':{name:'South Korea',lat:35.9078,lon:127.7669,region:'Asia'},
+    'LI':{name:'Liechtenstein',lat:47.1660,lon:9.5554,region:'Europe'},
+    'LK':{name:'Sri Lanka',lat:7.8731,lon:80.7718,region:'Asia'},
+    'LT':{name:'Lithuania',lat:55.1694,lon:23.8813,region:'Europe'},
+    'LU':{name:'Luxembourg',lat:49.8153,lon:6.1296,region:'Europe'},
+    'LV':{name:'Latvia',lat:56.8796,lon:24.6032,region:'Europe'},
+    'MA':{name:'Morocco',lat:31.7917,lon:-7.0926,region:'Africa'},
+    'MC':{name:'Monaco',lat:43.7384,lon:7.4246,region:'Europe'},
+    'MD':{name:'Moldova',lat:47.4116,lon:28.3699,region:'Europe'},
+    'MH':{name:'Marshall Islands',lat:7.1315,lon:171.1845,region:'Oceania'},
+    'MK':{name:'North Macedonia',lat:41.6086,lon:21.7453,region:'Europe'},
+    'MO':{name:'Macao',lat:22.1987,lon:113.5439,region:'Asia'},
+    'MP':{name:'Northern Mariana Islands',lat:17.3308,lon:145.3847,region:'Oceania'},
+    'MQ':{name:'Martinique',lat:14.6415,lon:-61.0242,region:'Americas'},
+    'MT':{name:'Malta',lat:35.9375,lon:14.3754,region:'Europe'},
+    'MW':{name:'Malawi',lat:-13.2543,lon:34.3015,region:'Africa'},
+    'MX':{name:'Mexico',lat:23.6345,lon:-102.5528,region:'Americas'},
+    'MY':{name:'Malaysia',lat:4.2105,lon:101.9758,region:'Asia'},
+    'NC':{name:'New Caledonia',lat:-20.9043,lon:165.6180,region:'Oceania'},
+    'NF':{name:'Norfolk Island',lat:-29.0408,lon:167.9547,region:'Oceania'},
+    'NL':{name:'Netherlands',lat:52.1326,lon:5.2913,region:'Europe'},
+    'NO':{name:'Norway',lat:60.4720,lon:8.4689,region:'Europe'},
+    'NR':{name:'Nauru',lat:-0.5228,lon:166.9315,region:'Oceania'},
+    'NU':{name:'Niue',lat:-19.0544,lon:-169.8672,region:'Oceania'},
+    'NZ':{name:'New Zealand',lat:-40.9006,lon:174.8860,region:'Oceania'},
+    'PA':{name:'Panama',lat:8.5380,lon:-80.7821,region:'Americas'},
+    'PE':{name:'Peru',lat:-9.1900,lon:-75.0152,region:'Americas'},
+    'PF':{name:'French Polynesia',lat:-17.6797,lon:-149.4068,region:'Oceania'},
+    'PH':{name:'Philippines',lat:12.8797,lon:121.7740,region:'Asia'},
+    'PK':{name:'Pakistan',lat:30.3753,lon:69.3451,region:'Asia'},
+    'PL':{name:'Poland',lat:51.9194,lon:19.1451,region:'Europe'},
+    'PM':{name:'Saint Pierre and Miquelon',lat:46.8852,lon:-56.3159,region:'Americas'},
+    'PN':{name:'Pitcairn',lat:-24.7036,lon:-127.4393,region:'Oceania'},
+    'PR':{name:'Puerto Rico',lat:18.2208,lon:-66.5901,region:'Americas'},
+    'PT':{name:'Portugal',lat:39.3999,lon:-8.2245,region:'Europe'},
+    'PW':{name:'Palau',lat:7.5150,lon:134.5825,region:'Oceania'},
+    'RE':{name:'Reunion',lat:-21.1151,lon:55.5364,region:'Africa'},
+    'RO':{name:'Romania',lat:45.9432,lon:24.9668,region:'Europe'},
+    'RS':{name:'Serbia',lat:44.0165,lon:21.0059,region:'Europe'},
+    'RU':{name:'Russia',lat:61.5240,lon:105.3188,region:'Europe'},
+    'SE':{name:'Sweden',lat:60.1282,lon:18.6435,region:'Europe'},
+    'SG':{name:'Singapore',lat:1.3521,lon:103.8198,region:'Asia'},
+    'SI':{name:'Slovenia',lat:46.1512,lon:14.9955,region:'Europe'},
+    'SJ':{name:'Svalbard and Jan Mayen',lat:77.5536,lon:23.6703,region:'Europe'},
+    'SK':{name:'Slovakia',lat:48.6690,lon:19.6990,region:'Europe'},
+    'SM':{name:'San Marino',lat:43.9424,lon:12.4578,region:'Europe'},
+    'TC':{name:'Turks and Caicos Islands',lat:21.6940,lon:-71.7979,region:'Americas'},
+    'TH':{name:'Thailand',lat:15.8700,lon:100.9925,region:'Asia'},
+    'TR':{name:'Turkey',lat:38.9637,lon:35.2433,region:'Asia'},
+    'UA':{name:'Ukraine',lat:48.3794,lon:31.1656,region:'Europe'},
+    'UY':{name:'Uruguay',lat:-32.5228,lon:-55.7658,region:'Americas'},
+    'VA':{name:'Vatican City',lat:41.9029,lon:12.4534,region:'Europe'},
+    'VI':{name:'US Virgin Islands',lat:18.3358,lon:-64.8963,region:'Americas'},
+    'WF':{name:'Wallis and Futuna',lat:-13.7687,lon:-177.1561,region:'Oceania'},
+    'WS':{name:'Samoa',lat:-13.7590,lon:-172.1046,region:'Oceania'},
+    'YT':{name:'Mayotte',lat:-12.8275,lon:45.1662,region:'Africa'},
+    'ZA':{name:'South Africa',lat:-30.5595,lon:22.9375,region:'Africa'}
   };
-  // ====================================================
 
-  // Set page title and meta dynamically
-  document.title = `${COUNTRY.flag} ${COUNTRY.name} — PO ZipCode Global`;
-  const ogTitle = document.querySelector('meta[property="og:title"]');
-  if (ogTitle) ogTitle.content = `${COUNTRY.flag} ${COUNTRY.name} Postal Codes — PO ZipCode Global`;
-  const ogDesc = document.querySelector('meta[property="og:description"]');
-  if (ogDesc) ogDesc.content = `Find any postal code in ${COUNTRY.name}. ${COUNTRY.states.length} regions. Instant lookup with interactive map.`;
+  // Read URL param - special redirect for IN and US
+  const urlCode = (new URLSearchParams(window.location.search)).get('code') || 'GB';
+  if (urlCode.toUpperCase() === 'IN') { window.location.href = '/home/india.html'; throw new Error('redirect'); }
+  if (urlCode.toUpperCase() === 'US') { window.location.href = '/home/usa.html'; throw new Error('redirect'); }
+
+  const META = COUNTRY_DB[urlCode.toUpperCase()];
+  if (!META) {
+    document.body.innerHTML = '<div style="color:#fff;padding:4rem;text-align:center"><h1>Country not found</h1><a href="/home/main.html" style="color:#00d4ff">&larr; Go Home</a></div>';
+    throw new Error('Unknown country');
+  }
+
+  // Build COUNTRY object skeleton (states filled async)
+  const CDN_RAW = 'https://raw.githubusercontent.com/chaitanyadev999/pincode-dataindia/main/';
+  const COUNTRY = {
+    name: META.name,
+    code: urlCode.toUpperCase(),
+    flagCode: urlCode.toLowerCase(),
+    subtitle: META.region + ' \u00b7 Postal Code Directory \u00b7 PO ZipCode Global',
+    lat: META.lat,
+    lon: META.lon,
+    dataPath: CDN_RAW,
+    dataPrefix: 'world/' + urlCode.toUpperCase() + '/',
+    states: []
+  };
+
+  // Async load states from GitHub Contents API
+  async function loadStates() {
+    try {
+      const resp = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/' + COUNTRY.code);
+      const files = await resp.json();
+      if (Array.isArray(files)) {
+        COUNTRY.states = files
+          .filter(f => f.name.endsWith('.json'))
+          .map(f => ({ name: f.name.replace('.json', '').replace(/-/g, ' '), file: f.name }));
+      }
+    } catch (e) {
+      COUNTRY.states = [{ name: 'All Regions', file: 'data.json' }];
+    }
+    if (COUNTRY.states.length === 0) {
+      COUNTRY.states = [{ name: 'Coming Soon', file: '' }];
+    }
+    initPage();
+  }
 
   const $ = (id) => document.getElementById(id);
   const dataCache = new Map();
@@ -760,7 +869,7 @@ h1, h2, h3, h4, h5, h6 {
     const c = $('toastContainer');
     const t = document.createElement('div');
     t.className = 'toast ' + (type || 'info');
-    const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+    const icon = type === 'success' ? '\u2713' : type === 'error' ? '\u2715' : '\u2139';
     t.innerHTML = '<span class="toast-icon">' + icon + '</span><span>' + msg + '</span>';
     c.appendChild(t);
     setTimeout(() => t.classList.add('show'), 10);
@@ -784,18 +893,28 @@ h1, h2, h3, h4, h5, h6 {
     }, 10);
   }, { passive: true });
 
-  // Init hero
-  $('heroFlag').textContent = COUNTRY.flag;
-  $('heroTitle').textContent = COUNTRY.name;
-  $('heroSubtitle').textContent = COUNTRY.subtitle;
-  $('statesTitle').textContent = COUNTRY.name + ' — States & Regions';
-  $('year').textContent = new Date().getFullYear();
+  function initPage() {
+    // Set page title and meta dynamically
+    document.title = COUNTRY.name + ' Postal Codes \u2014 PO ZipCode Global';
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = COUNTRY.name + ' Postal Codes \u2014 PO ZipCode Global';
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.content = 'Find any postal code in ' + COUNTRY.name + '. ' + COUNTRY.states.length + ' regions. Instant lookup with interactive map.';
 
-  // Stats
-  $('heroStats').innerHTML =
-    '<div class="stat"><span class="stat-num">' + COUNTRY.states.length + '</span><span class="stat-label">Regions</span></div>' +
-    '<div class="stat"><span class="stat-num">' + COUNTRY.code + '</span><span class="stat-label">Code</span></div>' +
-    '<div class="stat"><span class="stat-num">🌍</span><span class="stat-label">Global</span></div>';
+    // Init hero with flagcdn.com image
+    $('heroFlag').innerHTML = '<img src="https://flagcdn.com/w160/' + COUNTRY.flagCode + '.png" alt="' + COUNTRY.name + ' Flag" style="width:120px;height:auto;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:inline-block;"/>';
+    $('heroTitle').textContent = COUNTRY.name;
+    $('heroSubtitle').textContent = COUNTRY.subtitle;
+    $('statesTitle').textContent = COUNTRY.name + ' \u2014 States & Regions';
+    $('year').textContent = new Date().getFullYear();
+
+    // Stats
+    $('heroStats').innerHTML =
+      '<div class="stat"><span class="stat-num">' + COUNTRY.states.length + '</span><span class="stat-label">Regions</span></div>' +
+      '<div class="stat"><span class="stat-num">' + COUNTRY.code + '</span><span class="stat-label">Country Code</span></div>' +
+      '<div class="stat"><span class="stat-num">' + META.region + '</span><span class="stat-label">Continent</span></div>';
+
+    renderStates();
 
   // Render states
   function renderStates() {

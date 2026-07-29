@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Luxembourg Postal Code Directory — Find Postal Code by Region | PO ZipCode Global</title>
+<meta name="description" content="Find any Postal Code in Luxembourg. Europe · 12 Cantons · 4-digit Codes. Free instant lookup with interactive map and voice search."/>
+<meta name="keywords" content="luxembourg postal code, lu postal code, luxembourg postcode finder, postal code lookup"/>
+<meta property="og:title" content="Luxembourg Postal Code Directory — PO ZipCode Global"/>
+<meta property="og:description" content="Find any Postal Code in Luxembourg. Europe · 12 Cantons · 4-digit Codes. Free instant lookup."/>
+<meta property="og:type" content="website"/>
+<link rel="canonical" href="https://zipcodeglobal.github.io/pages/lu.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#00d4ff;--primary-dark:#0099bb;--primary-glow:rgba(0,212,255,0.3);
+  --accent:#7c3aed;--gold:#f59e0b;
+  --bg:#050816;--bg-night:#0a0e27;--bg-card:rgba(255,255,255,0.035);
+  --bg-card-hi:rgba(255,255,255,0.07);--bg-glass:rgba(255,255,255,0.05);
+  --bg-veil:rgba(5,8,22,0.88);
+  --border:rgba(0,212,255,0.12);--border-hi:rgba(0,212,255,0.3);
+  --text:#f0f2f8;--text-2:#b0bcd4;--text-3:#606880;--text-dim:#384060;
+  --grad-main:linear-gradient(135deg,#00d4ff 0%,#7c3aed 100%);
+  --grad-card:linear-gradient(135deg,rgba(0,212,255,0.12) 0%,rgba(124,58,237,0.08) 100%);
+  --shadow-glow:0 0 60px rgba(0,212,255,0.2);
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse at 10% 15%,rgba(0,212,255,0.07) 0%,transparent 50%),
+  radial-gradient(ellipse at 90% 10%,rgba(124,58,237,0.07) 0%,transparent 50%),
+  radial-gradient(ellipse at 50% 90%,rgba(245,158,11,0.05) 0%,transparent 50%);
+  z-index:-1;pointer-events:none}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--grad-main);border-radius:999px}
+::selection{background:var(--primary);color:#000}
+
+/* NAV */
+.country-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:all .3s var(--ease)}
+.country-nav.scrolled{background:var(--bg-veil);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:700;font-size:1.05rem}
+.brand-mark{width:32px;height:32px;border-radius:8px;background:var(--grad-main);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:#000}
+.nav-links{display:flex;gap:.4rem;align-items:center}
+.nav-link{padding:.4rem .875rem;border-radius:999px;background:var(--bg-glass);border:1px solid var(--border);font-size:.8rem;color:var(--text-2);transition:all .2s var(--ease)}
+.nav-link:hover{background:var(--bg-card-hi);border-color:var(--primary);color:var(--text)}
+.nav-link.active{background:rgba(0,212,255,0.1);border-color:var(--primary);color:var(--primary)}
+
+/* HERO */
+.hero{padding:7rem 1.5rem 3.5rem;text-align:center;position:relative}
+@keyframes flag-float{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-8px) rotate(1deg)}66%{transform:translateY(-4px) rotate(-1deg)}}
+.hero-flag{margin-bottom:1.25rem;animation:flag-float 4s ease-in-out infinite}
+.hero-flag img{border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,0.6),var(--shadow-glow)}
+.hero-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.1;margin-bottom:.5rem}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-subtitle{color:var(--text-2);font-size:.95rem;margin-bottom:1.5rem}
+.hero-stats{display:flex;justify-content:center;gap:2rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.stat{text-align:center}.stat-num{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--primary);display:block}
+.stat-label{font-size:.72rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em}
+
+/* SEARCH */
+.search-section{max-width:700px;margin:0 auto 2rem;padding:0 1.5rem}
+.search-wrap{display:flex;gap:.5rem;padding:.5rem;background:var(--bg-glass);backdrop-filter:blur(20px);border:1px solid var(--border-hi);border-radius:999px;box-shadow:var(--shadow-glow)}
+.search-wrap input{flex:1;padding:.75rem 1.25rem;background:transparent;border:none;outline:none;color:var(--text);font-size:.9rem;font-family:var(--font-mono)}
+.search-wrap input::placeholder{color:var(--text-dim)}
+.voice-btn{width:40px;height:40px;border-radius:50%;background:var(--bg-card-hi);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s;flex-shrink:0}
+.voice-btn:hover{border-color:var(--primary);color:var(--primary)}
+.voice-btn.listening{background:rgba(239,68,68,0.15);border-color:#ef4444;animation:pulse .8s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.4)}50%{box-shadow:0 0 0 8px rgba(239,68,68,0)}}
+.search-btn{padding:.75rem 1.5rem;background:var(--grad-main);color:#000;border-radius:999px;font-weight:700;font-size:.85rem;transition:all .2s var(--ease);white-space:nowrap;flex-shrink:0}
+.search-btn:hover{transform:scale(1.04);box-shadow:0 0 24px rgba(0,212,255,0.4)}
+
+/* STATES SECTION */
+.states-section{max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:gap}
+.section-title{font-family:var(--font-display);font-size:1.2rem;font-weight:600}
+.states-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem}
+@keyframes card-reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.state-btn{padding:.75rem 1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;font-size:.82rem;color:var(--text-2);text-align:left;transition:all .2s var(--ease);animation:card-reveal .5s var(--ease) both}
+.state-btn:hover,.state-btn.active{background:var(--bg-card-hi);border-color:var(--primary);color:var(--text);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+.loading-states{text-align:center;padding:2rem;color:var(--text-3);font-size:.9rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .75rem}
+
+/* RESULTS */
+.results-section{max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem;display:none}
+.results-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.results-title{font-size:1rem;font-weight:600}
+.results-count{font-family:var(--font-mono);font-size:.8rem;color:var(--primary);background:rgba(0,212,255,0.08);padding:.2rem .6rem;border-radius:999px}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.75rem}
+.result-card{background:var(--grad-card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem;animation:card-reveal .4s var(--ease) both;display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
+.result-card:hover{border-color:var(--primary);box-shadow:0 6px 24px rgba(0,0,0,0.3)}
+.result-pin{font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--primary);letter-spacing:.05em}
+.result-place{font-size:.85rem;font-weight:500;margin:.2rem 0}
+.result-region{font-size:.75rem;color:var(--text-3)}
+.copy-btn{padding:.3rem .6rem;border-radius:6px;background:var(--bg-card-hi);border:1px solid var(--border);font-size:.72rem;color:var(--text-3);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.copy-btn:hover{border-color:var(--primary);color:var(--primary)}
+.no-results{grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-3)}
+
+/* MAP */
+.map-section{max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem}
+.map-container{border-radius:16px;overflow:hidden;border:1px solid var(--border);height:360px;position:relative;display:none}
+.map-container.visible{display:block}
+#map{width:100%;height:100%}
+.leaflet-tile{filter:brightness(.55) invert(1) contrast(1.3) hue-rotate(200deg) saturate(.25) brightness(.85)}
+.leaflet-container{background:#0a0e27!important}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem}
+.toast{padding:.75rem 1.25rem;background:var(--bg-veil);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:10px;font-size:.85rem;transform:translateX(120%);transition:transform .4s var(--ease);box-shadow:0 8px 32px rgba(0,0,0,0.4);display:flex;align-items:center;gap:.5rem}
+.toast.show{transform:translateX(0)}
+.toast.success{border-left:3px solid #10b981}
+.toast.error{border-left:3px solid #ef4444}
+.toast.info{border-left:3px solid var(--primary)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:2rem 1.5rem 1.25rem;text-align:center;color:var(--text-3);font-size:.82rem;margin-top:3rem}
+.footer a{color:var(--primary)}
+.footer-links{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
+
+@media(max-width:600px){.hero{padding:6rem 1rem 2.5rem}.search-wrap{border-radius:14px;flex-wrap:wrap}.nav-links{gap:.25rem}.nav-link{padding:.35rem .6rem;font-size:.72rem}.states-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.results-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<nav class="country-nav" id="countryNav">
+  <a class="brand" href="/home/main.html">
+    <div class="brand-mark">PZ</div>
+    <span>PO ZipCode Global</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/home/main.html">&#8592; Home</a>
+    <a class="nav-link" href="/pages/india.html">India</a>
+    <a class="nav-link" href="/pages/usa.html">USA</a>
+    <a class="nav-link" href="/pages/report.html">Report</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-flag" id="heroFlag"></div>
+  <h1 class="hero-title" id="heroTitle">Loading...</h1>
+  <p class="hero-subtitle" id="heroSubtitle"></p>
+  <div class="hero-stats" id="heroStats"></div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-wrap">
+    <input type="text" id="pinSearch" placeholder="Search Postal Code or place name..." autocomplete="off"/>
+    <button class="voice-btn" id="voiceBtn" title="Voice Search">&#127908;</button>
+    <button class="search-btn" onclick="searchPin()">Search</button>
+  </div>
+</div>
+
+<!-- STATES -->
+<div class="states-section">
+  <div class="section-hdr">
+    <div class="section-title" id="statesTitle">Regions &amp; States</div>
+  </div>
+  <div class="states-grid" id="statesGrid">
+    <div class="loading-states">
+      <div class="spinner"></div>
+      Loading regions from database...
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-section" id="resultsSection">
+  <div class="results-hdr">
+    <div class="results-title" id="resultsTitle">Results</div>
+    <div class="results-count" id="resultsCount"></div>
+  </div>
+  <div class="results-grid" id="resultsGrid"></div>
+</div>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-container" id="mapContainer">
+    <div id="map"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="/home/main.html">&#127760; All 121 Countries</a>
+    <a href="/pages/india.html">India PIN Codes</a>
+    <a href="/pages/usa.html">USA ZIP Codes</a>
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/privacy.html">Privacy Policy</a>
+    <a href="/pages/report.html">Report Mistake</a>
+  </div>
+  <p>&copy; <span id="year"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN2GqnU=" crossorigin=""></script>
+<script>
+(function(){
+'use strict';
+
+const COUNTRY = {
+  name: "Luxembourg",
+  code: "LU",
+  flagCode: "lu",
+  term: "Postal Code",
+  subtitle: "Europe · 12 Cantons · 4-digit Codes",
+  lat: 49.8153,
+  lon: 6.1296,
+  dataPath: "https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/",
+  dataPrefix: "world/LU/",
+  states: []
+};
+
+const $ = id => document.getElementById(id);
+const dataCache = new Map();
+let map = null, mapMarkers = [], mapInitialized = false;
+let currentStateData = null;
+
+// --- INIT ---
+document.title = COUNTRY.name + ' ' + COUNTRY.term + ' Directory — PO ZipCode Global';
+$('heroFlag').innerHTML = '<img src="https://flagcdn.com/w160/'+COUNTRY.flagCode+'.png" alt="'+COUNTRY.name+' Flag" style="width:120px;height:auto;border-radius:10px;" onerror="this.style.display=\'none\'"/>';
+$('heroTitle').innerHTML = '<span class="grad-text">'+COUNTRY.name+'</span>';
+$('heroSubtitle').textContent = COUNTRY.subtitle;
+$('statesTitle').textContent = COUNTRY.name + ' — Regions & States';
+$('year').textContent = new Date().getFullYear();
+
+// --- LOAD STATES FROM GITHUB API ---
+async function loadStates() {
+  try {
+    const r = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+COUNTRY.code);
+    if (!r.ok) throw new Error('API error '+r.status);
+    const files = await r.json();
+    COUNTRY.states = files
+      .filter(f => f.name.endsWith('.json'))
+      .map(f => ({
+        name: f.name.replace('.json','').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),
+        file: f.name
+      }));
+    updateStats();
+    renderStates();
+  } catch(e) {
+    $('statesGrid').innerHTML = '<div class="loading-states" style="color:#ef4444">&#9888; Could not load regions. <button onclick="loadStates()" style="color:var(--primary);margin-left:.5rem">Retry</button></div>';
+  }
+}
+
+function updateStats() {
+  $('heroStats').innerHTML =
+    '<div class="stat"><span class="stat-num">'+COUNTRY.states.length+'</span><span class="stat-label">Regions</span></div>' +
+    '<div class="stat"><span class="stat-num">'+COUNTRY.code+'</span><span class="stat-label">Country Code</span></div>' +
+    '<div class="stat"><span class="stat-num">'+COUNTRY.term+'</span><span class="stat-label">Code Type</span></div>';
+}
+
+// --- RENDER STATES ---
+function renderStates() {
+  $('statesGrid').innerHTML = COUNTRY.states.map((s,i) =>
+    '<button class="state-btn" data-file="'+s.file+'" data-name="'+s.name+'" style="animation-delay:'+Math.min(i,25)*25+'ms">'+s.name+'</button>'
+  ).join('');
+  document.querySelectorAll('.state-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      await loadRegionData(btn.dataset.file, btn.dataset.name);
+    });
+  });
+}
+
+// --- LOAD REGION DATA ---
+async function loadRegionData(file, name) {
+  const url = COUNTRY.dataPath + COUNTRY.dataPrefix + file;
+  showToast('Loading '+name+'...', 'info');
+  $('resultsSection').style.display = 'none';
+  try {
+    let data;
+    if (dataCache.has(url)) {
+      data = dataCache.get(url);
+    } else {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('HTTP '+r.status);
+      data = await r.json();
+      dataCache.set(url, data);
+    }
+    currentStateData = data;
+    renderResults(data, name);
+    showToast(name+' loaded — '+data.length+' '+COUNTRY.term+'s', 'success');
+  } catch(e) {
+    showToast('Error loading '+name+': '+e.message, 'error');
+  }
+}
+
+// --- RENDER RESULTS ---
+function renderResults(data, regionName) {
+  if (!data || !data.length) {
+    $('resultsSection').style.display = 'block';
+    $('resultsGrid').innerHTML = '<div class="no-results">No data found for '+regionName+'</div>';
+    return;
+  }
+  $('resultsSection').style.display = 'block';
+  $('resultsTitle').textContent = regionName + ' — ' + COUNTRY.term + 's';
+  $('resultsCount').textContent = data.length.toLocaleString() + ' records';
+
+  const fields = data[0] ? Object.keys(data[0]) : [];
+  const pinField = fields.find(f => /pin|zip|post|code/i.test(f)) || fields[0];
+  const placeField = fields.find(f => /place|city|district|area|office|taluk/i.test(f)) || fields[1];
+  const regionField = fields.find(f => /state|region|county|province|div/i.test(f)) || fields[2];
+
+  $('resultsGrid').innerHTML = data.slice(0, 100).map((row, i) =>
+    '<div class="result-card" style="animation-delay:'+Math.min(i,15)*20+'ms" onclick="showOnMap('+
+      (row.Latitude||row.lat||COUNTRY.lat)+','+
+      (row.Longitude||row.lng||row.lon||COUNTRY.lon)+',\''+
+      (row[pinField]||'')+'\')" style="cursor:pointer">'+
+      '<div>'+
+        '<div class="result-pin">'+(row[pinField]||'—')+'</div>'+
+        '<div class="result-place">'+(row[placeField]||regionName)+'</div>'+
+        (row[regionField] ? '<div class="result-region">'+row[regionField]+'</div>' : '')+
+      '</div>'+
+      '<button class="copy-btn" onclick="event.stopPropagation();copyPin(\''+(row[pinField]||'')+'\')" title="Copy">Copy</button>'+
+    '</div>'
+  ).join('') + (data.length > 100 ? '<div class="no-results">Showing 100 of '+data.length+' results. Use search to find specific '+COUNTRY.term+'s.</div>' : '');
+
+  // Init map
+  if (!mapInitialized) initMap();
+  $('mapContainer').classList.add('visible');
+  if (map) map.setView([COUNTRY.lat, COUNTRY.lon], 5);
+}
+
+// --- SEARCH ---
+function searchPin() {
+  const q = $('pinSearch').value.trim();
+  if (!q) { showToast('Enter a '+COUNTRY.term+' or place name', 'info'); return; }
+  if (currentStateData) {
+    const fields = currentStateData[0] ? Object.keys(currentStateData[0]) : [];
+    const filtered = currentStateData.filter(r =>
+      Object.values(r).some(v => String(v).toLowerCase().includes(q.toLowerCase()))
+    );
+    if (filtered.length) {
+      renderResults(filtered, 'Search: "'+q+'"');
+    } else {
+      showToast('No results for "'+q+'"', 'error');
+    }
+  } else {
+    showToast('Select a region first', 'info');
+  }
+}
+$('pinSearch').addEventListener('keypress', e => { if(e.key==='Enter') searchPin(); });
+
+window.searchPin = searchPin;
+
+// --- MAP ---
+function initMap() {
+  map = L.map('map', {zoomControl:true, attributionControl:false}).setView([COUNTRY.lat, COUNTRY.lon], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:18}).addTo(map);
+  mapInitialized = true;
+}
+
+window.showOnMap = function(lat, lon, pin) {
+  if (!map || !lat || !lon) return;
+  map.flyTo([lat, lon], 12, {duration: 1.2});
+  L.marker([lat, lon]).addTo(map).bindPopup('<b>'+pin+'</b>').openPopup();
+};
+
+// --- VOICE SEARCH ---
+const voiceBtn = $('voiceBtn');
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const rec = new SR();
+  rec.lang = 'en-US'; rec.continuous = false; rec.interimResults = false;
+  rec.onresult = e => { $('pinSearch').value = e.results[0][0].transcript; searchPin(); };
+  rec.onend = () => voiceBtn.classList.remove('listening');
+  rec.onerror = () => { voiceBtn.classList.remove('listening'); showToast('Voice error', 'error'); };
+  voiceBtn.addEventListener('click', () => { voiceBtn.classList.add('listening'); rec.start(); });
+} else {
+  voiceBtn.style.display = 'none';
+}
+
+// --- COPY ---
+window.copyPin = function(text) {
+  if (!text) return;
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => showToast('Copied: '+text, 'success'));
+};
+
+// --- TOAST ---
+function showToast(msg, type) {
+  const c = $('toastContainer');
+  const t = document.createElement('div');
+  t.className = 'toast '+(type||'info');
+  const icons = {success:'&#10003;', error:'&#10005;', info:'&#8505;'};
+  t.innerHTML = (icons[type]||'&#8505;')+' '+msg;
+  c.appendChild(t);
+  requestAnimationFrame(() => { requestAnimationFrame(() => t.classList.add('show')); });
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3500);
+}
+
+// --- SCROLL NAV ---
+window.addEventListener('scroll', () => {
+  $('countryNav').classList.toggle('scrolled', window.scrollY > 50);
+}, {passive:true});
+
+// --- START ---
+loadStates();
+
+})();
+</script>
+</body>
+</html>
