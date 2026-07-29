@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 :root{
   --bg:#050816;--bg2:#0a0e27;
@@ -73,267 +74,248 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .brand-icon{
   width:34px;height:34px;border-radius:9px;background:var(--grad);
   display:flex;align-items:center;justify-content:center;
-  font-size:.72rem;font-weight:900;color:#000;
-  box-shadow:0 0 20px rgba(0,212,255,0.4);
+  font-size:.7rem;font-weight:900;color:#000;box-shadow:0 0 20px rgba(0,212,255,0.4);
 }
-.nav-links{display:flex;gap:.35rem;align-items:center}
-.nl{
-  padding:.38rem .85rem;border-radius:999px;
-  background:var(--glass);border:1px solid var(--b);
-  font-size:.78rem;color:var(--t2);transition:all .2s var(--ease);
+.nav-links{display:flex;align-items:center;gap:.5rem}
+.nav-btn{
+  padding:.4rem .9rem;border-radius:999px;font-size:.8rem;font-weight:600;
+  background:var(--glass);border:1px solid var(--b);color:var(--t2);
+  transition:all .25s var(--ease);
 }
-.nl:hover{background:var(--card-hi);border-color:var(--cyan);color:var(--t)}
-.nl.on{background:rgba(0,212,255,0.1);border-color:var(--cyan);color:var(--cyan)}
+.nav-btn:hover{background:var(--card-hi);border-color:var(--cyan);color:var(--t);transform:translateY(-1px)}
+.nav-btn.primary{background:var(--grad);color:#000;border:none;box-shadow:0 4px 16px rgba(0,212,255,0.3)}
 
 /* ── HERO ── */
 .hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:6rem 2rem 3rem;text-align:center;
-  position:relative;
+  min-height:100vh;padding:7rem 1.5rem 4rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;
 }
-@keyframes fade-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
-.kicker{
+.hero-badge{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--fm);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--cyan);padding:.4rem 1.1rem;border:1px solid rgba(0,212,255,0.28);
-  border-radius:999px;background:rgba(0,212,255,0.05);margin-bottom:1.75rem;
-  animation:fade-up .8s var(--ease) both;
+  padding:.35rem 1.1rem;border-radius:999px;
+  background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);
+  font-family:var(--fm);font-size:.76rem;color:var(--cyan);
+  margin-bottom:1.5rem;box-shadow:0 0 30px rgba(0,212,255,0.15);
+  animation:pulse-badge 3s ease-in-out infinite;
 }
-.kicker-dot{width:5px;height:5px;border-radius:50%;background:var(--cyan);animation:blink 1.6s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-h1{
-  font-family:var(--fd);font-size:clamp(2.4rem,6vw,4.5rem);
-  font-weight:800;line-height:1.06;margin-bottom:1.25rem;
-  animation:fade-up .8s .15s var(--ease) both;
+@keyframes pulse-badge{0%,100%{border-color:rgba(0,212,255,0.25)}50%{border-color:rgba(0,212,255,0.65)}}
+
+.hero h1{
+  font-family:var(--fd);font-size:clamp(2.4rem,6vw,4.5rem);font-weight:900;
+  line-height:1.06;letter-spacing:-0.02em;margin-bottom:1.2rem;max-width:900px;
 }
-.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero-desc{
-  color:var(--t2);font-size:1.05rem;max-width:540px;line-height:1.7;
-  margin:0 auto 2.25rem;animation:fade-up .8s .25s var(--ease) both;
+.grad-text{
+  background:linear-gradient(135deg,#00d4ff 0%,#a855f7 50%,#f59e0b 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
-.hero-cta{
-  display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem;
-  animation:fade-up .8s .35s var(--ease) both;
+.hero p{
+  font-size:clamp(.98rem,2.2vw,1.2rem);color:var(--t2);max-width:640px;
+  line-height:1.65;margin-bottom:2.2rem;
 }
-.btn-prim{
-  padding:.85rem 2rem;background:var(--grad);color:#000;
-  border-radius:999px;font-weight:700;font-size:.9rem;
-  box-shadow:0 0 32px rgba(0,212,255,0.35);transition:all .25s var(--ease);
+
+/* SEARCH BAR */
+.search-wrapper{
+  width:100%;max-width:620px;position:relative;margin-bottom:2.5rem;
 }
-.btn-prim:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 48px rgba(0,212,255,0.5)}
-.btn-sec{
-  padding:.85rem 2rem;background:var(--glass);backdrop-filter:blur(12px);
-  color:var(--t);border:1px solid var(--bhi);border-radius:999px;
-  font-weight:600;font-size:.9rem;transition:all .25s var(--ease);
+.search-box{
+  display:flex;align-items:center;gap:.5rem;padding:.45rem .5rem .45rem 1.3rem;
+  background:rgba(10,14,39,0.85);backdrop-filter:blur(24px);
+  border:1px solid rgba(0,212,255,0.3);border-radius:999px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 40px rgba(0,212,255,0.15);
+  transition:all .3s var(--ease);
 }
-.btn-sec:hover{background:var(--card-hi);border-color:var(--cyan);transform:translateY(-2px)}
+.search-box:focus-within{
+  border-color:var(--cyan);box-shadow:0 12px 50px rgba(0,0,0,0.6),var(--glow);
+  transform:scale(1.01);
+}
+.search-box input{
+  flex:1;background:transparent;border:none;outline:none;
+  color:var(--t);font-size:.95rem;font-family:var(--fm);min-width:0;
+}
+.search-box input::placeholder{color:var(--t3)}
+.search-box button{
+  padding:.75rem 1.6rem;border-radius:999px;background:var(--grad);
+  color:#000;font-weight:700;font-size:.88rem;white-space:nowrap;
+  transition:all .25s var(--ease);box-shadow:0 4px 20px rgba(0,212,255,0.3);
+}
+.search-box button:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(0,212,255,0.5)}
+
+/* STATS */
 .hero-stats{
-  display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;
-  animation:fade-up .8s .45s var(--ease) both;
+  display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:center;
 }
-.hstat{text-align:center}
-.hstat-n{
-  font-family:var(--fd);font-size:2rem;font-weight:800;display:block;
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+.stat-item{text-align:center}
+.stat-num{
+  font-family:var(--fd);font-size:1.8rem;font-weight:800;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;display:block;line-height:1.2;
 }
-.hstat-l{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-top:.1rem;display:block}
+.stat-label{font-size:.75rem;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;font-family:var(--fm)}
+.stat-divider{width:1px;height:32px;background:rgba(255,255,255,0.08)}
+
+/* HERO SCROLL */
 .hero-scroll{
-  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:.4rem;
-  color:var(--t3);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
-  animation:fade-up 1s .8s var(--ease) both;
+  position:absolute;bottom:1.5rem;display:flex;flex-direction:column;align-items:center;
+  gap:.4rem;font-family:var(--fm);font-size:.7rem;color:var(--t3);letter-spacing:.15em;
+  text-transform:uppercase;opacity:.6;animation:scroll-bounce 2s ease-in-out infinite;
 }
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:scroll-drop 2s ease-in-out infinite}
-@keyframes scroll-drop{0%{opacity:0;transform:scaleY(0);transform-origin:top}40%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1);transform-origin:bottom}}
+@keyframes scroll-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.scroll-line{width:1px;height:24px;background:linear-gradient(to bottom,var(--cyan),transparent)}
 
-/* ── SEARCH ── */
-.search-wrap{
-  max-width:640px;margin:0 auto 1rem;
-  background:rgba(10,14,39,0.7);backdrop-filter:blur(20px);
-  border:1px solid var(--bhi);border-radius:999px;
-  padding:.45rem;display:flex;gap:.4rem;
-  box-shadow:var(--glow);
-  animation:fade-up .8s .3s var(--ease) both;
+/* ── 3D GLOBE SECTION ── */
+.globe-section{
+  padding:4rem 2rem;max-width:1200px;margin:0 auto;text-align:center;
 }
-.search-wrap input{
-  flex:1;padding:.7rem 1.2rem;background:transparent;
-  border:none;outline:none;color:var(--t);font-size:.9rem;font-family:var(--fm);
-  min-width:0;
-}
-.search-wrap input::placeholder{color:var(--tdim)}
-.search-btn{
-  padding:.7rem 1.5rem;background:var(--grad);color:#000;
-  border-radius:999px;font-weight:700;font-size:.84rem;
-  white-space:nowrap;flex-shrink:0;transition:all .2s var(--ease);
-}
-.search-btn:hover{transform:scale(1.04)}
-
-/* ── GLOBE ── */
-.globe-section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
-.section-label{
-  text-align:center;margin-bottom:1.5rem;
-}
-.section-label h2{font-family:var(--fd);font-size:1.5rem;font-weight:700;margin-bottom:.4rem}
-.section-label p{font-size:.85rem;color:var(--t3)}
+.section-head{margin-bottom:2.5rem}
+.section-head h2{font-family:var(--fd);font-size:1.8rem;font-weight:800;margin-bottom:.4rem}
+.section-head p{font-size:.88rem;color:var(--t2)}
 .globe-shell{
-  position:relative;
-  border:1px solid rgba(0,212,255,0.2);
-  border-radius:24px;
-  background:radial-gradient(ellipse at center,#0c1230 0%,#050816 75%);
-  box-shadow:var(--glow),inset 0 0 100px rgba(0,0,0,0.5);
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;
-  padding:0;
-  min-height:540px;
+  position:relative;width:100%;max-width:760px;margin:0 auto;
+  border-radius:24px;background:rgba(10,14,39,0.7);backdrop-filter:blur(24px);
+  border:1px solid rgba(0,212,255,0.25);
+  box-shadow:var(--glow),0 20px 60px rgba(0,0,0,0.6);
+  min-height:480px;display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-.globe-shell::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--grad);opacity:.6;border-radius:24px 24px 0 0;
-  z-index:1;
-}
-/* globe.gl renders into a canvas — NO overflow:hidden, NO border-radius on canvas */
-#globeMount{
-  width:680px;height:500px;
-  cursor:grab;flex-shrink:0;
-  position:relative;
-}
+#globeMount{width:100%;height:480px;cursor:grab}
 #globeMount:active{cursor:grabbing}
-@media(max-width:720px){#globeMount{width:100%;max-width:100vw;height:380px}}
+#globeTooltip{
+  position:absolute;pointer-events:none;z-index:100;
+  padding:.45rem .9rem;border-radius:10px;background:rgba(5,8,22,0.92);
+  border:1px solid var(--cyan);backdrop-filter:blur(12px);
+  font-family:var(--fm);font-size:.78rem;color:var(--t);
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transition:opacity .2s ease;
+  display:flex;align-items:center;gap:.5rem;
+}
+#globeTooltip.vis{opacity:1}
+#globeTooltip img{width:22px;height:auto;border-radius:3px}
 
-/* Nav Overlay */
+/* GLOBE OVERLAY ANIMATION ON CLICK */
 #navOverlay{
-  position:absolute;inset:0;z-index:10;pointer-events:none;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;
-  opacity:0;transition:opacity .4s var(--ease);
-  background:rgba(5,8,22,0.88);backdrop-filter:blur(16px);border-radius:24px;
+  position:absolute;inset:0;z-index:150;background:rgba(5,8,22,0.95);
+  backdrop-filter:blur(30px);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1rem;opacity:0;
+  pointer-events:none;transition:opacity .4s var(--ease);
 }
 #navOverlay.show{opacity:1;pointer-events:auto}
-#navFlag{
-  width:100px;height:auto;border-radius:12px;
-  box-shadow:0 16px 48px rgba(0,0,0,0.7),var(--glow);
-  animation:pop-in .4s var(--ease);
-}
-@keyframes pop-in{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-#navName{font-family:var(--fd);font-size:2rem;font-weight:800}
-#navSub{font-family:var(--fm);font-size:.8rem;color:var(--cyan);letter-spacing:.05em}
-.nav-rocket{font-size:2.5rem;animation:rocket 1s ease-in-out infinite}
-@keyframes rocket{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.nav-hint{font-size:.72rem;color:var(--t3);font-family:var(--fm)}
+#navOverlay img{width:80px;height:auto;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+#navOverlay #navName{font-family:var(--fd);font-size:1.8rem;font-weight:800}
+#navOverlay #navSub{font-family:var(--fm);font-size:.85rem;color:var(--cyan)}
+.nav-rocket{font-size:2.5rem;animation:rocket-fly 1.2s ease-in-out infinite}
+@keyframes rocket-fly{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.1)}}
+.nav-hint{font-family:var(--fm);font-size:.75rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
 
-/* Globe tooltip */
-#globeTooltip{
-  position:absolute;pointer-events:none;z-index:5;
-  background:rgba(5,8,22,0.92);backdrop-filter:blur(20px);
-  border:1px solid var(--bhi);border-radius:10px;
-  padding:.5rem .9rem;font-size:.8rem;
-  display:none;align-items:center;gap:.5rem;
-  box-shadow:0 8px 32px rgba(0,0,0,0.5);
-  transform:translate(-50%,-120%);white-space:nowrap;top:50%;left:50%;
-}
-#globeTooltip.vis{display:flex}
-#globeTooltip img{width:22px;height:15px;border-radius:2px;object-fit:cover}
-
-/* ── LABELS (Blogger) ── */
+/* ── REGIONS / POPULAR SECTION ── */
 .labels-section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
 .labels-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
-.labels-title{font-family:var(--fd);font-size:1.1rem;font-weight:700}
-.blogger-tag{
-  font-family:var(--fm);font-size:.65rem;padding:.22rem .65rem;
-  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
-  color:var(--gold);border-radius:999px;letter-spacing:.1em;text-transform:uppercase;
-}
-.label-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem}
-.label-row-title{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem}
+.labels-title{font-family:var(--fd);font-size:1.15rem;font-weight:700}
+.label-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.label-row-title{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem;font-family:var(--fm)}
 .lchip{
-  display:inline-flex;align-items:center;gap:.35rem;
-  padding:.32rem .8rem;border-radius:999px;
-  background:var(--card);border:1px solid var(--b);
-  font-size:.78rem;color:var(--t2);cursor:pointer;transition:all .2s var(--ease);
+  padding:.42rem .95rem;border-radius:999px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.08);font-size:.8rem;color:var(--t2);
+  cursor:pointer;transition:all .2s var(--ease);display:inline-flex;align-items:center;gap:.4rem;
 }
-.lchip img{width:16px;height:11px;border-radius:2px;object-fit:cover;flex-shrink:0}
-.lchip:hover,.lchip.on{background:rgba(0,212,255,0.08);border-color:var(--bhi);color:var(--t)}
-.lchip .cnt{font-family:var(--fm);font-size:.62rem;color:var(--t3);margin-left:.2rem}
+.lchip:hover,.lchip.on{background:rgba(0,212,255,0.14);border-color:var(--cyan);color:var(--t);transform:translateY(-1px)}
+.lchip.on{box-shadow:0 0 20px rgba(0,212,255,0.2)}
+.lchip .cnt{font-family:var(--fm);font-size:.68rem;color:var(--t3)}
 
-/* ── FILTER ── */
-.filter-strip{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:1.75rem}
-.fb{
-  padding:.35rem .9rem;border-radius:999px;background:var(--card);border:1px solid var(--b);
-  font-size:.76rem;color:var(--t3);transition:all .2s var(--ease);
+/* ── PRIORITY QUICK-ACCESS CARDS ── */
+.section{padding:0 2rem 4rem;max-width:1200px;margin:0 auto}
+.cards-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;
 }
-.fb:hover,.fb.on{background:rgba(0,212,255,0.08);border-color:var(--cyan);color:var(--cyan)}
-
-/* ── PRIORITY GRID ── */
-.section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
-.sec-hdr{margin-bottom:1.5rem}
-.sec-hdr h2{font-family:var(--fd);font-size:1.3rem;font-weight:700;margin-bottom:.3rem}
-.sec-hdr p{font-size:.82rem;color:var(--t3)}
-.priority-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.85rem;margin-bottom:2.75rem}
 .pcard{
-  display:flex;align-items:center;gap:.9rem;
-  padding:1rem 1.2rem;border-radius:14px;cursor:pointer;
-  background:linear-gradient(135deg,rgba(0,212,255,0.07),rgba(124,58,237,0.05));
-  border:1px solid rgba(0,212,255,0.15);transition:all .25s var(--ease);
-  position:relative;overflow:hidden;
+  position:relative;border-radius:18px;background:rgba(10,14,39,0.7);
+  backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);
+  padding:1.4rem;transition:all .3s var(--ease);display:flex;flex-direction:column;
+  justify-content:space-between;gap:1rem;overflow:hidden;
 }
-.pcard::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(0,212,255,0.06),transparent);
-  opacity:0;transition:.25s;
+.pcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--grad);opacity:0;transition:opacity .3s var(--ease);
 }
-.pcard:hover{transform:translateY(-3px);border-color:rgba(0,212,255,0.4);box-shadow:0 12px 36px rgba(0,0,0,0.35)}
-.pcard:hover::after{opacity:1}
-.pflag{width:48px;height:34px;border-radius:6px;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.5);flex-shrink:0;z-index:1}
-.pinfo{flex:1;min-width:0;z-index:1}
-.pname{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pterm{font-family:var(--fm);font-size:.68rem;color:var(--cyan);margin-top:.15rem}
-.parr{color:rgba(0,212,255,0.5);font-size:1rem;z-index:1;transition:transform .2s;flex-shrink:0}
-.pcard:hover .parr{transform:translateX(4px);color:var(--cyan)}
+.pcard:hover{
+  transform:translateY(-6px);border-color:rgba(0,212,255,0.35);
+  box-shadow:0 16px 40px rgba(0,0,0,0.4),var(--glow);background:rgba(10,14,39,0.9);
+}
+.pcard:hover::before{opacity:1}
+.pcard-top{display:flex;align-items:center;gap:1rem}
+.pcard-flag{
+  width:52px;height:36px;border-radius:6px;object-fit:cover;
+  box-shadow:0 4px 12px rgba(0,0,0,0.5);flex-shrink:0;border:1px solid rgba(255,255,255,0.1);
+}
+.pcard-name{font-family:var(--fd);font-weight:700;font-size:1.1rem;line-height:1.2}
+.pcard-term{font-family:var(--fm);font-size:.72rem;color:var(--cyan);margin-top:.2rem}
+.pcard-meta{font-size:.8rem;color:var(--t3)}
+.pcard-btn{
+  width:100%;padding:.6rem;border-radius:10px;background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-weight:600;
+  font-size:.8rem;text-align:center;transition:all .2s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+}
+.pcard:hover .pcard-btn{background:var(--grad);color:#000;border-color:transparent;box-shadow:0 4px 16px rgba(0,212,255,0.3)}
 
-/* ── ALL COUNTRIES ── */
-.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem}
-.ccard{
-  display:flex;flex-direction:column;align-items:center;gap:.5rem;
-  padding:.85rem .75rem;border-radius:12px;cursor:pointer;text-align:center;
-  background:var(--card);border:1px solid var(--b);transition:all .2s var(--ease);
+/* ── ALL COUNTRIES COMPACT GRID ── */
+.all-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem;
 }
-.ccard:hover{background:var(--card-hi);border-color:var(--bhi);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
-.cflag{width:40px;height:28px;border-radius:4px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-.cname{font-size:.75rem;font-weight:500;color:var(--t2);line-height:1.2}
-.ccode{font-family:var(--fm);font-size:.65rem;color:var(--t3)}
+.citem{
+  padding:.8rem 1rem;border-radius:12px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:.75rem;
+  transition:all .25s var(--ease);
+}
+.citem:hover{
+  background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.3);
+  transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3);
+}
+.citem-flag{width:28px;height:20px;border-radius:3px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.4)}
+.citem-info{flex:1;min-width:0}
+.citem-name{font-weight:600;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--t)}
+.citem-term{font-family:var(--fm);font-size:.68rem;color:var(--t3)}
+.citem-arr{color:var(--cyan);font-size:.9rem;opacity:0;transition:opacity .2s var(--ease)}
+.citem:hover .citem-arr{opacity:1}
 
-/* ── TOAST ── */
-.toast-wrap{position:fixed;bottom:1.75rem;right:1.75rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem}
+/* ── FILTER STRIP ── */
+.filter-strip{
+  display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;
+}
+.fb{
+  padding:.35rem .85rem;border-radius:999px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.06);font-size:.78rem;color:var(--t2);
+  cursor:pointer;transition:all .2s var(--ease);font-family:var(--fm);
+}
+.fb:hover,.fb.on{background:rgba(0,212,255,0.12);border-color:var(--cyan);color:var(--t)}
+.fb.on{box-shadow:0 0 16px rgba(0,212,255,0.2)}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,0.06);padding:3rem 2rem 2rem;
+  text-align:center;color:var(--t3);font-size:.82rem;
+}
+.flinks{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1.2rem;flex-wrap:wrap}
+.flinks a{color:var(--t2);transition:color .2s var(--ease)}
+.flinks a:hover{color:var(--cyan)}
+
+/* TOAST NOTIFICATION */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;gap:.5rem}
 .toast{
-  padding:.65rem 1.1rem;background:rgba(5,8,22,0.95);backdrop-filter:blur(20px);
-  border:1px solid var(--bhi);border-radius:10px;font-size:.8rem;
-  transform:translateX(110%);transition:transform .4s var(--ease);
-  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  padding:.7rem 1.2rem;border-radius:10px;background:rgba(10,14,39,0.95);
+  backdrop-filter:blur(20px);border:1px solid rgba(0,212,255,0.3);
+  font-size:.82rem;color:var(--t);box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  transform:translateX(120%);transition:transform .4s var(--ease);
 }
 .toast.show{transform:translateX(0)}
 .toast.info{border-left:3px solid var(--cyan)}
-.toast.ok{border-left:3px solid var(--green)}
 
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--b);padding:2rem 2rem 1.5rem;text-align:center;color:var(--t3);font-size:.8rem}
-footer a{color:var(--cyan)}
-.flinks{display:flex;gap:1.5rem;justify-content:center;margin-bottom:.875rem;flex-wrap:wrap}
-
-/* ── RESPONSIVE ── */
 @media(max-width:768px){
-  .hero{padding:5rem 1.25rem 2.5rem;min-height:auto}
-  h1{font-size:2.2rem}
-  .hero-stats{gap:1.75rem}
-  .priority-grid{grid-template-columns:1fr 1fr}
-  .countries-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
-  #globeMount{height:360px}
-  .section,.labels-section,.globe-section{padding-left:1.25rem;padding-right:1.25rem}
   .nav{padding:.8rem 1.25rem}
-}
-@media(max-width:480px){
-  .priority-grid{grid-template-columns:1fr}
-  .search-wrap{border-radius:14px;flex-wrap:wrap}
-  h1{font-size:1.9rem}
+  .hero{padding:6rem 1.25rem 3rem}
+  .hero h1{font-size:2.2rem}
+  .hero-stats{gap:1.2rem}
+  .globe-section,.section,.labels-section{padding-left:1.25rem;padding-right:1.25rem}
+  .cards-grid{grid-template-columns:1fr}
+  .all-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
 }
 </style>
 </head>
@@ -342,41 +324,36 @@ footer a{color:var(--cyan)}
 
 <!-- NAV -->
 <nav class="nav" id="mainNav">
-  <a class="brand" href="#">
+  <a class="brand" href="/home/main.html">
     <div class="brand-icon">PZ</div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
-    <a class="nl on" href="#">Home</a>
-    <a class="nl" href="pages/india.html">India</a>
-    <a class="nl" href="pages/usa.html">USA</a>
-    <a class="nl" href="pages/gb.html">UK</a>
-    <a class="nl" href="pages/about.html">About</a>
+    <a class="nav-btn" href="#allSec">121 Countries</a>
+    <a class="nav-btn" href="/pages/about.html">About</a>
+    <a class="nav-btn primary" href="/pages/india.html">🇮🇳 India PIN</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="kicker"><span class="kicker-dot"></span>World Postal Code Directory</div>
-  <h1>Find Any <span class="gt">Postal Code</span><br/>on Earth — Instantly</h1>
-  <p class="hero-desc">India PIN codes · USA ZIP codes · UK Postcodes · and 118 more countries. Free, fast, with an interactive 3D globe.</p>
-
-  <div class="hero-cta">
-    <button class="btn-prim" onclick="document.getElementById('globeMount').scrollIntoView({behavior:'smooth',block:'center'})">🌍 Explore Globe</button>
-    <button class="btn-sec" onclick="document.getElementById('allSec').scrollIntoView({behavior:'smooth'})">Browse All 121 Countries</button>
-  </div>
-
-  <!-- Inline search -->
-  <div class="search-wrap" style="width:100%;max-width:560px">
-    <input id="heroSearch" type="text" placeholder="Search country name or code (e.g. Japan, PK, GB)..." autocomplete="off"/>
-    <button class="search-btn" onclick="doSearch()">Search</button>
+  <div class="hero-badge">🌐 Instant Global Postal Directory</div>
+  <h1>Find <span class="grad-text">Postal & ZIP Codes</span> for 121+ Countries</h1>
+  <p>Search instant PIN codes, ZIP codes and Postcodes worldwide. Includes complete states, cities, districts, interactive maps & full location details.</p>
+  
+  <div class="search-wrapper">
+    <div class="search-box">
+      <input id="heroSearch" type="text" placeholder="Search country, PIN code, state, city..." autocomplete="off"/>
+      <button onclick="doSearch()">Search Global</button>
+    </div>
   </div>
 
   <div class="hero-stats">
-    <div class="hstat"><span class="hstat-n">121</span><span class="hstat-l">Countries</span></div>
-    <div class="hstat"><span class="hstat-n">2M+</span><span class="hstat-l">Postal Codes</span></div>
-    <div class="hstat"><span class="hstat-n">Free</span><span class="hstat-l">Forever</span></div>
-    <div class="hstat"><span class="hstat-n">Instant</span><span class="hstat-l">Results</span></div>
+    <div class="stat-item"><span class="stat-num">121</span><span class="stat-label">Countries</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-num">50M+</span><span class="stat-label">Postal Codes</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Free Access</span></div>
   </div>
 
   <div class="hero-scroll">
@@ -387,9 +364,9 @@ footer a{color:var(--cyan)}
 
 <!-- 3D GLOBE -->
 <div class="globe-section">
-  <div class="section-label">
-    <h2>🌍 Interactive Globe</h2>
-    <p>Drag to rotate · Scroll to zoom · Click any glowing dot to open that country's directory</p>
+  <div class="section-head">
+    <h2>🌍 Interactive 3D World Map</h2>
+    <p>Drag to rotate globe · Scroll to zoom · Click any glowing dot to open that country directory</p>
   </div>
   <div class="globe-shell">
     <div id="globeMount"></div>
@@ -404,65 +381,73 @@ footer a{color:var(--cyan)}
   </div>
 </div>
 
-<!-- BLOGGER LABELS -->
+<!-- REGIONS FILTER -->
 <div class="labels-section">
   <div class="labels-hdr">
-    <div class="labels-title">📌 Browse by Label</div>
-    <div class="blogger-tag">Blogger Labels</div>
+    <div class="labels-title">🌍 Browse Countries by Region</div>
   </div>
-  <div class="label-row-title">By Region</div>
+  <div class="label-row-title">By Continent</div>
   <div class="label-row" id="regionChips">
-    <div class="lchip on" onclick="filterLabel('all',this)">🌐 All <span class="cnt">121</span></div>
-    <div class="lchip" onclick="filterLabel('asia',this)">🌏 Asia <span class="cnt">21</span></div>
-    <div class="lchip" onclick="filterLabel('europe',this)">🌍 Europe <span class="cnt">52</span></div>
-    <div class="lchip" onclick="filterLabel('americas',this)">🌎 Americas <span class="cnt">28</span></div>
-    <div class="lchip" onclick="filterLabel('oceania',this)">🏝 Oceania <span class="cnt">17</span></div>
-    <div class="lchip" onclick="filterLabel('africa',this)">Africa <span class="cnt">8</span></div>
+    <div class="lchip on" onclick="filterRegion('all',this)">🌐 All <span class="cnt">121</span></div>
+    <div class="lchip" onclick="filterRegion('asia',this)">🌏 Asia <span class="cnt">21</span></div>
+    <div class="lchip" onclick="filterRegion('europe',this)">🌍 Europe <span class="cnt">52</span></div>
+    <div class="lchip" onclick="filterRegion('americas',this)">🌎 Americas <span class="cnt">28</span></div>
+    <div class="lchip" onclick="filterRegion('oceania',this)">🏝 Oceania <span class="cnt">17</span></div>
+    <div class="lchip" onclick="filterRegion('africa',this)">🌍 Africa <span class="cnt">8</span></div>
   </div>
+
   <div class="label-row-title" style="margin-top:.75rem">Popular Countries</div>
   <div class="label-row" id="popularChips"></div>
 </div>
 
-<!-- MOST SEARCHED -->
-<div class="section">
-  <div class="sec-hdr">
-    <h2>⭐ Most Searched</h2>
-    <p>Top postal code directories by global traffic</p>
+<!-- FEATURED TOP COUNTRIES -->
+<section class="section">
+  <div class="section-head" style="text-align:left">
+    <h2>🔥 Top Featured Countries</h2>
+    <p>Most requested postal code directories with high-speed multi-step navigation</p>
   </div>
-  <div class="priority-grid" id="priorityGrid"></div>
+  <div class="cards-grid" id="priorityGrid"></div>
+</section>
 
-  <!-- ALL COUNTRIES -->
-  <div class="sec-hdr" id="allSec">
-    <h2>All 121 Countries</h2>
-    <p>Complete global postal code coverage</p>
+<!-- ALL 121 COUNTRIES -->
+<section class="section" id="allSec">
+  <div class="section-head" style="text-align:left">
+    <h2>🌐 All 121 Countries Directory</h2>
+    <p>Select any country below to explore states, districts and postal codes</p>
   </div>
+
   <div class="filter-strip">
+    <span style="font-family:var(--fm);font-size:.78rem;color:var(--t3);margin-right:.5rem">Filter:</span>
     <button class="fb on" onclick="filterBy('all',this)">All (121)</button>
-    <button class="fb" onclick="filterBy('asia',this)">Asia</button>
-    <button class="fb" onclick="filterBy('europe',this)">Europe</button>
-    <button class="fb" onclick="filterBy('americas',this)">Americas</button>
-    <button class="fb" onclick="filterBy('oceania',this)">Oceania</button>
-    <button class="fb" onclick="filterBy('africa',this)">Africa</button>
+    <button class="fb" onclick="filterBy('asia',this)">Asia (21)</button>
+    <button class="fb" onclick="filterBy('europe',this)">Europe (52)</button>
+    <button class="fb" onclick="filterBy('americas',this)">Americas (28)</button>
+    <button class="fb" onclick="filterBy('oceania',this)">Oceania (17)</button>
+    <button class="fb" onclick="filterBy('africa',this)">Africa (8)</button>
   </div>
-  <div class="countries-grid" id="allGrid"></div>
-</div>
+
+  <div class="all-grid" id="allGrid"></div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="flinks">
-    <a href="pages/india.html">India PIN Codes</a>
-    <a href="pages/usa.html">USA ZIP Codes</a>
-    <a href="pages/gb.html">UK Postcodes</a>
-    <a href="pages/au.html">Australia Postcodes</a>
-    <a href="pages/pk.html">Pakistan Postal</a>
-    <a href="pages/about.html">About</a>
-    <a href="pages/privacy.html">Privacy</a>
-    <a href="sitemap.xml">Sitemap</a>
+    <a href="/pages/india.html">India PIN Codes</a>
+    <a href="/pages/usa.html">USA ZIP Codes</a>
+    <a href="/pages/gb.html">UK Postcodes</a>
+    <a href="/pages/au.html">Australia Postcodes</a>
+    <a href="/pages/pk.html">Pakistan Postal</a>
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/privacy.html">Privacy</a>
+    <a href="/sitemap.xml">Sitemap</a>
   </div>
   <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
 </footer>
 
+<!-- DEPENDENCIES FOR 3D GLOBE & LEAFLET MAP FALLBACK -->
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl@2.31.1/dist/globe.gl.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function(){
 'use strict';
@@ -605,47 +590,72 @@ function fImg(code,cls,w){
   return '<img src="'+fSrc(code,w||80)+'" class="'+cls+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
 }
 
-// ── GLOBE ──
+// ── 3D GLOBE INITIALIZATION WITH AUTOMATIC LEAFLET FALLBACK ──
 let globe, navigating=false;
 function initGlobe(){
   const el=document.getElementById('globeMount');
-  if(!el || typeof Globe==='undefined'){ console.warn('globe.gl not ready'); return; }
-  // Explicit pixel dimensions — globe.gl needs exact numbers
-  const W=Math.min(680, window.innerWidth>720?680:window.innerWidth-32);
-  const H=window.innerWidth<720?380:500;
-  el.style.width=W+'px'; el.style.height=H+'px';
-  const pts=ALL.map(c=>({...c,
-    size:PRIORITY.includes(c.code)?0.55:0.3,
-    col:PRIORITY.includes(c.code)?'rgba(0,212,255,0.95)':'rgba(124,58,237,0.7)'
-  }));
-  globe=Globe()(el);
-  globe.width(W).height(H)
-    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundColor('rgba(0,0,0,0)')
-    .showAtmosphere(true).atmosphereColor('#00d4ff').atmosphereAltitude(0.18)
-    .showGraticules(true)
-    .pointsData(pts)
-    .pointAltitude(0.025).pointColor(d=>d.col).pointRadius(d=>d.size)
-    .pointsMerge(false).pointResolution(8)
-    .onPointHover(pt=>{
-      el.style.cursor=pt?'pointer':'default';
-      const tt=document.getElementById('globeTooltip');
-      if(pt){
-        document.getElementById('ttFlag').src=fSrc(pt.code,40);
-        document.getElementById('ttName').textContent=pt.name+' — '+pt.term;
-        tt.classList.add('vis');
-      }else tt.classList.remove('vis');
-    })
-    .onPointClick(pt=>globeNav(pt));
-  const c=globe.controls();
-  c.autoRotate=true; c.autoRotateSpeed=0.38;
-  c.enableZoom=true; c.minDistance=190; c.maxDistance=580;
-  let t;
-  el.addEventListener('mousedown',()=>c.autoRotate=false);
-  el.addEventListener('touchstart',()=>c.autoRotate=false,{passive:true});
-  el.addEventListener('mouseup',()=>{clearTimeout(t);t=setTimeout(()=>c.autoRotate=true,4000)});
-  globe.pointOfView({lat:20,lng:72,altitude:2.4},0);
+  if(!el) return;
+  
+  // Try 3D Globe with Globe.gl
+  if(typeof Globe !== 'undefined'){
+    try {
+      const W=Math.min(720, el.clientWidth||720);
+      const H=480;
+      el.style.width='100%'; el.style.height=H+'px';
+      
+      const pts=ALL.map(c=>({...c,
+        size:PRIORITY.includes(c.code)?0.55:0.35,
+        col:PRIORITY.includes(c.code)?'#00d4ff':'#7c3aed'
+      }));
+
+      globe = Globe()(el)
+        .width(W).height(H)
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+        .backgroundColor('rgba(0,0,0,0)')
+        .showAtmosphere(true).atmosphereColor('#00d4ff').atmosphereAltitude(0.18)
+        .showGraticules(true)
+        .pointsData(pts)
+        .pointAltitude(0.03).pointColor(d=>d.col).pointRadius(d=>d.size)
+        .pointsMerge(false).pointResolution(12)
+        .onPointHover(pt=>{
+          el.style.cursor=pt?'pointer':'default';
+          const tt=document.getElementById('globeTooltip');
+          if(pt){
+            document.getElementById('ttFlag').src=fSrc(pt.code,40);
+            document.getElementById('ttName').textContent=pt.name+' — '+pt.term;
+            tt.classList.add('vis');
+          }else tt.classList.remove('vis');
+        })
+        .onPointClick(pt=>globeNav(pt));
+
+      const c=globe.controls();
+      c.autoRotate=true; c.autoRotateSpeed=0.45;
+      c.enableZoom=true; c.minDistance=180; c.maxDistance=550;
+      
+      let t;
+      el.addEventListener('mousedown',()=>c.autoRotate=false);
+      el.addEventListener('touchstart',()=>c.autoRotate=false,{passive:true});
+      el.addEventListener('mouseup',()=>{clearTimeout(t);t=setTimeout(()=>c.autoRotate=true,3500)});
+
+      globe.pointOfView({lat:20,lng:78,altitude:2.3},0);
+      return;
+    } catch(err) {
+      console.warn('3D Globe fallback to Leaflet:', err);
+    }
+  }
+
+  // Fallback to Interactive Leaflet World Map
+  if(typeof L !== 'undefined'){
+    el.style.width='100%'; el.style.height='480px';
+    const map = L.map(el, {zoomControl:true, attributionControl:false}).setView([20, 10], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(map);
+    ALL.forEach(c => {
+      L.circleMarker([c.lat, c.lon], {
+        radius:6, fillColor:'#00d4ff', color:'#fff', weight:1.5, opacity:1, fillOpacity:0.8
+      }).addTo(map).bindPopup(`<b>${c.name}</b><br>${c.term}<br><a href="${pageUrl(c.code)}" style="color:#00d4ff;font-weight:bold;">Open Directory →</a>`);
+    });
+  }
 }
 
 function globeNav(c){
@@ -656,47 +666,79 @@ function globeNav(c){
   document.getElementById('navName').textContent=c.name;
   document.getElementById('navSub').textContent=c.term+' Directory';
   ov.classList.add('show');
-  if(globe){globe.controls().autoRotate=false;globe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.8},1400);}
-  setTimeout(()=>window.location.href=pageUrl(c.code),1900);
+  if(globe){globe.controls().autoRotate=false;globe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.6},1400);}
+  setTimeout(()=>window.location.href=pageUrl(c.code),1800);
 }
 
 function cardNav(c){
-  showToast('Flying to '+c.name+'...','info');
+  showToast('Opening '+c.name+'...','info');
   document.getElementById('globeMount').scrollIntoView({behavior:'smooth',block:'center'});
-  setTimeout(()=>globeNav(c),600);
+  if(globe){
+    globe.pointOfView({lat:c.lat,lng:c.lon,altitude:1.8},1200);
+    setTimeout(()=>globeNav(c),1300);
+  } else {
+    window.location.href=pageUrl(c.code);
+  }
 }
 
-// ── RENDER ──
-const POPULAR=['IN','US','GB','AU','CA','DE','JP','SG','AE','NZ','PK','BR','KR','FR'];
+// ── RENDER CARDS ──
+let curFilter='all', curSearch='';
+
+function filterCountries(){
+  return ALL.filter(c=>{
+    const matchReg = curFilter==='all' || c.region===curFilter;
+    const matchSearch = !curSearch ||
+      c.name.toLowerCase().includes(curSearch.toLowerCase()) ||
+      c.code.toLowerCase().includes(curSearch.toLowerCase()) ||
+      c.term.toLowerCase().includes(curSearch.toLowerCase());
+    return matchReg && matchSearch;
+  });
+}
 
 function renderPriority(){
-  document.getElementById('priorityGrid').innerHTML=PRIORITY.map(code=>{
-    const c=ALL.find(x=>x.code===code); if(!c)return'';
-    return '<div class="pcard" onclick="cardNav(ALL.find(x=>x.code===\''+code+'\'))">'+
-      fImg(code,'pflag',80)+
-      '<div class="pinfo"><div class="pname">'+c.name+'</div><div class="pterm">'+c.term+'</div></div>'+
-      '<span class="parr">&#8594;</span></div>';
-  }).join('');
+  const pList = ALL.filter(c=>PRIORITY.includes(c.code)).slice(0,12);
+  const grid = document.getElementById('priorityGrid');
+  grid.innerHTML = pList.map(c=>`
+    <div class="pcard" onclick="cardNav({code:'${c.code}',name:'${c.name.replace(/'/g,"\\'")} ',lat:${c.lat},lon:${c.lon},term:'${c.term}'})">
+      <div class="pcard-top">
+        ${fImg(c.code,'pcard-flag',100)}
+        <div>
+          <div class="pcard-name">${c.name}</div>
+          <div class="pcard-term">${c.term}</div>
+        </div>
+      </div>
+      <div class="pcard-meta">Explore states, cities & postal codes</div>
+      <div class="pcard-btn">Browse ${c.name} &#8594;</div>
+    </div>
+  `).join('');
 }
 
-let curFilter='all',curSearch='';
 function renderAll(){
-  const list=ALL.filter(c=>{
-    const rOk=curFilter==='all'||c.region===curFilter;
-    const sOk=!curSearch||c.name.toLowerCase().includes(curSearch.toLowerCase())||c.code.toLowerCase().includes(curSearch.toLowerCase());
-    return rOk&&sOk;
-  });
-  document.getElementById('allGrid').innerHTML=list.length
-    ?list.map(c=>'<div class="ccard" onclick="cardNav(ALL.find(x=>x.code===\''+c.code+'\'))">'+fImg(c.code,'cflag',80)+'<div class="cname">'+c.name+'</div><div class="ccode">'+c.code+'</div></div>').join('')
-    :'<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--t3)">No countries found</div>';
+  const list = filterCountries();
+  const grid = document.getElementById('allGrid');
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--t3)">No countries match your search.</div>';
+    return;
+  }
+  grid.innerHTML = list.map(c=>`
+    <a class="citem" href="${pageUrl(c.code)}">
+      ${fImg(c.code,'citem-flag',60)}
+      <div class="citem-info">
+        <div class="citem-name">${c.name}</div>
+        <div class="citem-term">${c.term}</div>
+      </div>
+      <span class="citem-arr">&#8594;</span>
+    </a>
+  `).join('');
 }
 
 function renderPopular(){
-  document.getElementById('popularChips').innerHTML=POPULAR.map(code=>{
-    const c=ALL.find(x=>x.code===code);if(!c)return'';
-    return '<div class="lchip" onclick="cardNav(ALL.find(x=>x.code===\''+code+'\'))">'+
-      '<img src="'+fSrc(code,40)+'" onerror="this.style.display=\'none\'">'+c.name+'</div>';
-  }).join('');
+  const pop = PRIORITY.slice(0,10).map(code=>ALL.find(c=>c.code===code)).filter(Boolean);
+  document.getElementById('popularChips').innerHTML = pop.map(c=>`
+    <div class="lchip" onclick="cardNav({code:'${c.code}',name:'${c.name.replace(/'/g,"\\'")} ',lat:${c.lat},lon:${c.lon},term:'${c.term}'})">
+      ${fImg(c.code,'',40)} ${c.name}
+    </div>
+  `).join('');
 }
 
 window.filterBy=function(r,btn){
@@ -705,7 +747,8 @@ window.filterBy=function(r,btn){
   btn.classList.add('on');
   renderAll();
 };
-window.filterLabel=function(r,chip){
+
+window.filterRegion=function(r,chip){
   curFilter=r;
   document.querySelectorAll('#regionChips .lchip').forEach(b=>b.classList.remove('on'));
   chip.classList.add('on');
@@ -715,11 +758,13 @@ window.filterLabel=function(r,chip){
   renderAll();
   document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
+
 window.doSearch=function(){
   curSearch=document.getElementById('heroSearch').value.trim();
   renderAll();
   if(curSearch)document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
+
 document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch();});
 document.getElementById('heroSearch').addEventListener('input',e=>{curSearch=e.target.value.trim();renderAll();});
 
@@ -735,15 +780,12 @@ function showToast(msg,type){
 window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40),{passive:true});
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-// Make ALL accessible globally
 window.ALL=ALL;
 
-// Render grids immediately (no heavy libs needed)
 renderPriority();
 renderAll();
 renderPopular();
 
-// Globe needs globe.gl fully loaded — use window.onload
 if(document.readyState==='complete'){
   setTimeout(initGlobe,50);
 }else{
