@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 PO ZipCode Global — 121 Country Pages Generator (Including India & USA)
-Custom 121-Country Flag Themes + Persistent Interactive Map + Full Attribute Details Table + 60-item Batch Pagination.
+Custom 121-Country Flag Themes + Persistent Interactive Map + Side-by-Side Glowing Attribute Cards + 60-item Batch Pagination.
 Run: python generate_pages.py
 """
 import os
@@ -293,7 +293,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .city-card:hover{background:rgba(var(--p2),.14);border-color:var(--p);transform:translateY(-2px);box-shadow:var(--glow)}
 
 /* ── PINCODES BOX GRID ── */
-.pin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.75rem}
+.pin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
 .pin-card{
   padding:1rem 1.25rem;border-radius:14px;background:var(--card);
   border:1px solid rgba(var(--p2),.16);cursor:pointer;transition:all .25s var(--ease);
@@ -316,24 +316,49 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .load-more-btn:hover{transform:translateY(-2px) scale(1.03);background:linear-gradient(135deg,var(--p),var(--a));color:#000}
 .load-cnt-tag{font-size:.75rem;color:var(--t3);margin-top:.5rem;font-family:var(--fm)}
 
-/* ── FULL ATTRIBUTE DETAILS CARD ── */
+/* ── FULL ATTRIBUTE DETAILS SIDE-BY-SIDE GLOWING BOX GRID CARDS ── */
 .detail-card-shell{
   background:rgba(8,12,32,.9);backdrop-filter:blur(24px);
   border:1px solid rgba(var(--p2),.25);border-radius:20px;padding:2rem;
   box-shadow:var(--glow),0 12px 48px rgba(0,0,0,0.6);
 }
-.di-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:1rem}
+.di-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.75rem;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:1.25rem}
 .di-pin{font-family:var(--fd);font-size:2.8rem;font-weight:900;
   background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;
   background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
 .di-place{font-size:1.2rem;font-weight:700;color:var(--t);margin-top:.3rem}
-.di-badge{display:inline-block;padding:.3rem .75rem;border-radius:999px;font-family:var(--fm);font-size:.72rem;font-weight:700;background:rgba(var(--p2),0.15);border:1px solid var(--p);color:var(--p)}
+.di-badge{display:inline-block;padding:.35rem .85rem;border-radius:999px;font-family:var(--fm);font-size:.75rem;font-weight:700;background:rgba(var(--p2),0.15);border:1px solid var(--p);color:var(--p)}
 .di-badge.delivery{background:rgba(16,185,129,0.15);border-color:#10b981;color:#10b981}
 
-.di-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.5rem}
-.di-item{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:.8rem 1rem}
-.di-item-lbl{font-family:var(--fm);font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem}
-.di-item-val{font-size:.92rem;font-weight:600;color:var(--t);word-break:break-word}
+/* Side-by-side Box Grid for attributes */
+.di-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:.9rem;
+  margin-bottom:1.75rem;
+}
+.di-item{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(var(--p2),0.2);
+  border-radius:14px;
+  padding:1rem 1.15rem;
+  box-shadow:0 4px 16px rgba(0,0,0,0.25);
+  transition:all .2s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.di-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2.5px;
+  background:linear-gradient(90deg,var(--p),var(--a));opacity:.8;
+}
+.di-item:hover{
+  background:rgba(var(--p2),0.14);
+  border-color:var(--p);
+  transform:translateY(-3px);
+  box-shadow:var(--glow);
+}
+.di-item-lbl{font-family:var(--fm);font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem}
+.di-item-val{font-size:.95rem;font-weight:700;color:var(--t);word-break:break-word}
 
 .detail-actions{display:flex;gap:.75rem;flex-wrap:wrap}
 .da-btn{flex:1;padding:.75rem 1.2rem;border-radius:999px;font-size:.82rem;font-weight:700;
@@ -385,6 +410,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
   .states-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
   .city-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
   .pin-grid{grid-template-columns:1fr 1fr}
+  .di-grid{grid-template-columns:1fr 1fr}
   .blog-grid{grid-template-columns:1fr}
   .nav{padding:.75rem 1.25rem}
   .hero h1{font-size:1.9rem}
@@ -987,7 +1013,7 @@ function showDetail(idx){
   }
   $('diBadges').innerHTML = badgesHtml;
 
-  // Render ALL Attributes present in the JSON record cleanly
+  // Render ALL Attributes present in the JSON record cleanly into SIDE-BY-SIDE BOX CARDS
   const keys = Object.keys(r);
   const itemsHtml = keys.map(key => {
     let value = r[key];
@@ -1106,13 +1132,11 @@ def generate():
         content = content.replace("{{LON}}", str(lon))
         content = content.replace("{{REGION}}", region)
 
-        # Write code.lower().html (e.g. in.html, us.html, pk.html)
         filename = os.path.join(output_dir, f"{code.lower()}.html")
         with open(filename, "w", encoding="utf-8") as f:
             f.write(content)
         generated.append(f"{code.lower()}.html ({name})")
 
-        # Also write custom aliases if applicable (e.g. india.html, usa.html)
         if code == "IN":
             with open(os.path.join(output_dir, "india.html"), "w", encoding="utf-8") as f:
                 f.write(content)
@@ -1123,13 +1147,9 @@ def generate():
             generated.append("usa.html (United States)")
 
     print(f"\n{'='*60}")
-    print(f"PO ZipCode Global — Multi-Step Navigation & Full Attribute Details Generator")
+    print(f"PO ZipCode Global — Side-by-Side Glowing Attribute Cards Generator")
     print(f"{'='*60}")
-    print(f"✅ Generated: {len(generated)} files (including india.html & usa.html)")
-    print(f"\nSample pages:")
-    for p in generated[:7]:
-        print(f"  → pages/{p}")
-    print(f"... and {len(generated)-7} more")
+    print(f"✅ Generated: {len(generated)} files with side-by-side attribute card grids")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
