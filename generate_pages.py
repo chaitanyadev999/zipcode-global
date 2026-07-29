@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 PO ZipCode Global — 121 Country Pages Generator (Including India & USA)
-Custom 121-Country Flag Themes + Persistent Interactive Map + Side-by-Side Glowing Attribute Cards + 60-item Batch Pagination.
+Custom 121-Country Flag Themes + Persistent Interactive Map + Side-by-Side Attribute Cards with Icons + 60-item Batch Pagination.
 Run: python generate_pages.py
 """
 import os
@@ -252,8 +252,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @keyframes slide-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .anim{animation:slide-in .4s var(--ease) both}
 
-/* ── STATES BOX GRID ── */
-.states-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.75rem}
+/* ── STATES BOX GRID (SIDE-BY-SIDE) ── */
+.states-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem}
 .state-card{
   padding:1.1rem 1.25rem;border-radius:14px;background:var(--card);
   border:1px solid rgba(var(--p2),.18);cursor:pointer;transition:all .25s var(--ease);
@@ -333,7 +333,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* Side-by-side Box Grid for attributes */
 .di-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
   gap:.9rem;
   margin-bottom:1.75rem;
 }
@@ -357,7 +357,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   transform:translateY(-3px);
   box-shadow:var(--glow);
 }
-.di-item-lbl{font-family:var(--fm);font-size:.68rem;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem}
+.di-item-lbl{font-family:var(--fm);font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem;display:flex;align-items:center;gap:.35rem}
 .di-item-val{font-size:.95rem;font-weight:700;color:var(--t);word-break:break-word}
 
 .detail-actions{display:flex;gap:.75rem;flex-wrap:wrap}
@@ -407,7 +407,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 
 @media(max-width:680px){
   .hero{padding:5.5rem 1.25rem 2rem}
-  .states-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .states-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
   .city-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
   .pin-grid{grid-template-columns:1fr 1fr}
   .di-grid{grid-template-columns:1fr 1fr}
@@ -458,7 +458,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 <!-- PERSISTENT MAP SECTION FOR ALL PAGES -->
 <section class="interactive-map-sec">
   <div class="map-card-shell">
-    <div class="map-badge" id="mapBadge">🗺️ {{NAME}} Interactive Map</div>
+    <div class="map-badge" id="mapBadge">MAP: {{NAME}} Interactive Map</div>
     <div id="mainMap"></div>
   </div>
 </section>
@@ -469,7 +469,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
     <div class="sec-title">🗺️ Select Region / State</div>
     <div class="sec-count" id="s0cnt"></div>
   </div>
-  <div id="stGrid"><div class="loading-box"><div class="spin"></div>Loading regions...</div></div>
+  <div class="states-grid" id="stGrid"><div class="loading-box"><div class="spin"></div>Loading regions...</div></div>
 </div>
 
 <!-- CITIES -->
@@ -752,6 +752,27 @@ function toast(msg, type='info'){
 function uniq(arr){ return [...new Set(arr.filter(x=>x&&x.trim()))].sort(); }
 function val(r,f){ return f ? (r[f]||'').toString().trim() : ''; }
 
+// ── EMOJI ICON MAPPER FOR ATTRIBUTES ─────────────────────────────
+const ICON_MAP = {
+  'circlename': '🏢', 'circle': '🏢',
+  'regionname': '📍', 'region': '📍',
+  'divisionname': '📮', 'division': '📮',
+  'officename': '🏢', 'office': '🏢',
+  'pincode': '🔢', 'postcode': '🔢', 'zipcode': '🔢', 'code': '🔢',
+  'officetype': '🏷️', 'type': '🏷️',
+  'delivery': '🚚', 'deliverystatus': '🚚',
+  'district': '🏙️', 'county': '🏙️',
+  'statename': '🏛️', 'state': '🏛️', 'province': '🏛️',
+  'latitude': '🌐', 'lat': '🌐',
+  'longitude': '🌐', 'lon': '🌐', 'lng': '🌐',
+  'country': '🚩', 'countrycode': '🚩'
+};
+
+function getAttrIcon(key){
+  const clean = key.toLowerCase().replace(/[^a-z]/g, '');
+  return ICON_MAP[clean] || '📌';
+}
+
 // ── INITIALIZE MAIN PERSISTENT MAP ───────────────────────────────
 function initMainMap(){
   if(mainMap) return;
@@ -761,7 +782,6 @@ function initMainMap(){
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18}).addTo(mainMap);
   mapMarkersGroup = L.layerGroup().addTo(mainMap);
   
-  // Default country center marker
   L.circleMarker([C.lat, C.lon],{
     radius:12,fillColor:T.p,color:'#fff',weight:2.5,opacity:1,fillOpacity:.85
   }).addTo(mapMarkersGroup).bindPopup('<b>'+C.name+'</b><br>'+C.subtitle).openPopup();
@@ -797,10 +817,10 @@ function updateMapMarkers(records, focusLocationName){
       const bounds = L.latLngBounds(validPoints);
       mainMap.fitBounds(bounds, {padding: [30, 30], maxZoom: 14});
     }
-    $('mapBadge').textContent = '🗺️ Map: ' + (focusLocationName || C.name) + ' (' + validPoints.length + ' mapped points)';
+    $('mapBadge').textContent = 'MAP: ' + (focusLocationName || C.name) + ' (' + validPoints.length + ' mapped points)';
   } else {
     mainMap.flyTo([C.lat, C.lon], 5, {duration: 1.2});
-    $('mapBadge').textContent = '🗺️ ' + C.name + ' Interactive Map';
+    $('mapBadge').textContent = 'MAP: ' + C.name + ' Interactive Map';
   }
 }
 
@@ -990,7 +1010,7 @@ window.morePins = function(){
   renderPinBatch();
 };
 
-// ── STEP 4: FULL ATTRIBUTES DETAIL + MAP FLYTO ────────────────────
+// ── STEP 4: FULL ATTRIBUTES DETAIL WITH ICONS ─────────────────────
 function showDetail(idx){
   const r = NAV.pinsList[idx];
   if(!r) return;
@@ -1004,31 +1024,30 @@ function showDetail(idx){
   $('diPlace').textContent = place;
   $('s4title').textContent = '📍 ' + C.term + ' Details: ' + pin;
 
-  // Render Badges (e.g. Office Type, Delivery Status)
   let badgesHtml = '';
-  if(r['officetype']) badgesHtml += '<span class="di-badge">Type: '+r['officetype']+'</span> ';
+  if(r['officetype']) badgesHtml += '<span class="di-badge">🏷️ Type: '+r['officetype']+'</span> ';
   if(r['delivery']) {
     const isDel = String(r['delivery']).toLowerCase().includes('delivery');
-    badgesHtml += '<span class="di-badge '+(isDel?'delivery':'')+'">'+r['delivery']+'</span>';
+    badgesHtml += '<span class="di-badge '+(isDel?'delivery':'')+'">🚚 '+r['delivery']+'</span>';
   }
   $('diBadges').innerHTML = badgesHtml;
 
-  // Render ALL Attributes present in the JSON record cleanly into SIDE-BY-SIDE BOX CARDS
+  // Render ALL Attributes into SIDE-BY-SIDE BOX CARDS WITH SPECIFIC EMOJI ICONS
   const keys = Object.keys(r);
   const itemsHtml = keys.map(key => {
     let value = r[key];
     if(value === null || value === undefined || value === '') value = '—';
     let label = key.replace(/_/g, ' ').replace(/([A-Z])/g, ' $1').trim();
     label = label.charAt(0).toUpperCase() + label.slice(1);
+    const icon = getAttrIcon(key);
     return `<div class="di-item">
-      <div class="di-item-lbl">${label}</div>
+      <div class="di-item-lbl"><span>${icon}</span> ${label}</div>
       <div class="di-item-val">${value}</div>
     </div>`;
   }).join('');
 
   $('diGrid').innerHTML = itemsHtml;
 
-  // Actions
   const mapQ = encodeURIComponent(place + ' ' + pin + ' ' + C.name);
   $('diActions').innerHTML =
     (lat&&lon ? '<a class="da-btn prim" href="https://maps.google.com/?q='+lat+','+lon+'" target="_blank">🗺️ Open in Google Maps</a>' : '')+
@@ -1037,7 +1056,6 @@ function showDetail(idx){
   show('s4'); updateBC();
   $('s4').scrollIntoView({behavior:'smooth',block:'start'});
 
-  // Update map focus and add marker
   if(lat && lon && !isNaN(lat) && !isNaN(lon)){
     updateMapMarkers([r], place + ' - ' + pin);
   }
@@ -1147,9 +1165,9 @@ def generate():
             generated.append("usa.html (United States)")
 
     print(f"\n{'='*60}")
-    print(f"PO ZipCode Global — Side-by-Side Glowing Attribute Cards Generator")
+    print(f"PO ZipCode Global — Side-by-Side Emoji Attribute Cards Generator")
     print(f"{'='*60}")
-    print(f"✅ Generated: {len(generated)} files with side-by-side attribute card grids")
+    print(f"✅ Generated: {len(generated)} files with side-by-side attribute card grids & icons")
     print(f"{'='*60}\n")
 
 if __name__ == "__main__":
