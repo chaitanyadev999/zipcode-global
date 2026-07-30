@@ -713,45 +713,6 @@ async function selectState(file, label){
     const r = await fetch(C.dataBase+file);
     if(!r.ok) throw new Error(r.status);
     NAV.data = await r.json();
-    
-    // Apply Andhra Pradesh 26 Districts Mapping
-    if (C.code === 'IN' && file === 'Andhra-Pradesh.json') {
-      const apMap = {
-        "Srikakulam": "Srikakulam", "Tekkali": "Srikakulam", "Palasa": "Srikakulam",
-        "Bobbili": "Vizianagaram", "Vizianagaram": "Vizianagaram", "Cheepurupalle": "Vizianagaram",
-        "Parvathipuram": "Parvathipuram Manyam", "Palakonda": "Parvathipuram Manyam",
-        "Rampachodavaram": "Alluri Sitharama Raju", "Paderu": "Alluri Sitharama Raju",
-        "Bheemunipatnam": "Visakhapatnam", "Visakhapatnam": "Visakhapatnam",
-        "Anakapalli": "Anakapalli", "Narasipatnam": "Anakapalli",
-        "Kakinada": "Kakinada", "Peddapuram": "Kakinada",
-        "Kothapeta": "Dr. B. R. Ambedkar Konaseema", "Amalapuram": "Dr. B. R. Ambedkar Konaseema", "Ramachandrapuram": "Dr. B. R. Ambedkar Konaseema",
-        "Rajahmundry": "East Godavari", "Kovvur": "East Godavari",
-        "Narasapuram": "West Godavari", "Bhimavaram": "West Godavari",
-        "Eluru": "Eluru", "Jangareddigudem": "Eluru", "Nuzvid": "Eluru",
-        "Machilipatnam": "Krishna", "Gudivada": "Krishna", "Vuyyuru": "Krishna",
-        "Tiruvuru": "NTR District", "Vijayawada": "NTR District", "Nandigama": "NTR District",
-        "Guntur": "Guntur", "Tenali": "Guntur",
-        "Bapatla": "Bapatla", "Repalle": "Bapatla", "Chirala": "Bapatla",
-        "Settenapalli": "Palnadu", "Narasaraopet": "Palnadu", "Gurazala": "Palnadu",
-        "Markapur": "Prakasam", "Kanigiri": "Prakasam", "Ongole": "Prakasam",
-        "Nellore": "SPS Nellore", "Kandukur": "SPS Nellore", "Kavali": "SPS Nellore",
-        "Kurnool": "Kurnool", "Pattikonda": "Kurnool", "Adoni": "Kurnool",
-        "Nandyal": "Nandyal", "Atmakur": "Nandyal", "Dhone": "Nandyal",
-        "Anantapur": "Ananthapuram", "Guntakal": "Ananthapuram", "Kalyanadurg": "Ananthapuram",
-        "Penukonda": "Sri Sathya Sai", "Dharmavaram": "Sri Sathya Sai", "Kadiri": "Sri Sathya Sai", "Puttaparthi": "Sri Sathya Sai",
-        "Kadapa": "YSR Kadapa", "Badvel": "YSR Kadapa", "Jammalamadugu": "YSR Kadapa", "Pulivendula": "YSR Kadapa",
-        "Rayachoti": "Annamayya", "Madanapalle": "Annamayya", "Rajampeta": "Annamayya",
-        "Chittoor": "Chittoor", "Nagari": "Chittoor", "Palamaner": "Chittoor", "Kuppam": "Chittoor",
-        "Tirupati": "Tirupati District", "Srikalahasti": "Tirupati District", "Gundur": "Tirupati District", "Sullurpeta": "Tirupati District"
-      };
-      NAV.data.forEach(r => {
-        if (r.divisionname) {
-          let div = r.divisionname.replace(' Division', '').trim();
-          if (apMap[div]) r.district = apMap[div];
-        }
-      });
-    }
-
     NAV.fields = detectFields(NAV.data);
     updateMapMarkers(NAV.data, label);
     showCities();
