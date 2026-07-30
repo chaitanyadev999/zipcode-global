@@ -530,7 +530,7 @@ const C = {
   name:'{{NAME}}', code:'{{CODE}}', flag:'{{CODE_LOWER}}',
   term:'{{TERM}}', subtitle:'{{SUBTITLE}}',
   lat:{{LAT}}, lon:{{LON}}, region:'{{REGION}}',
-  dataBase:'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/{{CODE}}/'
+  dataBase: '{{CODE}}' === 'IN' ? 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' : 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/{{CODE}}/'
 };
 
 // ── HAND-CRAFTED UNIQUE FLAG THEME COLORS FOR ALL 121 COUNTRIES ──────────────────────────
@@ -816,7 +816,8 @@ function updateBC(){
 // ── STEP 0: LOAD STATES ─────────────────────────────────────────
 async function loadStates(){
   try{
-    const r = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code);
+    const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+      const r = await fetch(apiUrl);
     if(!r.ok) throw new Error(r.status);
     const files = await r.json();
     const states = files.filter(f=>f.name.endsWith('.json'));

@@ -398,7 +398,7 @@ const C = {
   name:'New Caledonia', code:'NC', flag:'{{CODE_LOWER}}',
   term:'Code Postal', subtitle:'Oceania · French Special Collectivity',
   lat:-20.9043, lon:165.618, region:'Oceania',
-  dataBase:'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/NC/'
+  dataBase: 'NC' === 'IN' ? 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' : 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/NC/'
 };
 
 // ── HAND-CRAFTED UNIQUE FLAG THEME COLORS FOR ALL 121 COUNTRIES ──────────────────────────
@@ -684,7 +684,8 @@ function updateBC(){
 // ── STEP 0: LOAD STATES ─────────────────────────────────────────
 async function loadStates(){
   try{
-    const r = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code);
+    const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+      const r = await fetch(apiUrl);
     if(!r.ok) throw new Error(r.status);
     const files = await r.json();
     const states = files.filter(f=>f.name.endsWith('.json'));

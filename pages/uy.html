@@ -398,7 +398,7 @@ const C = {
   name:'Uruguay', code:'UY', flag:'{{CODE_LOWER}}',
   term:'Código Postal', subtitle:'South America · 19 Departments',
   lat:-32.5228, lon:-55.7658, region:'Americas',
-  dataBase:'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/UY/'
+  dataBase: 'UY' === 'IN' ? 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' : 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/UY/'
 };
 
 // ── HAND-CRAFTED UNIQUE FLAG THEME COLORS FOR ALL 121 COUNTRIES ──────────────────────────
@@ -684,7 +684,8 @@ function updateBC(){
 // ── STEP 0: LOAD STATES ─────────────────────────────────────────
 async function loadStates(){
   try{
-    const r = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code);
+    const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+      const r = await fetch(apiUrl);
     if(!r.ok) throw new Error(r.status);
     const files = await r.json();
     const states = files.filter(f=>f.name.endsWith('.json'));

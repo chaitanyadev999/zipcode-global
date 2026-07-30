@@ -398,7 +398,7 @@ const C = {
   name:'Spain', code:'ES', flag:'{{CODE_LOWER}}',
   term:'Postal Code', subtitle:'Europe · 17 Communities · CPs (5-digit)',
   lat:40.4637, lon:-3.7492, region:'Europe',
-  dataBase:'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/ES/'
+  dataBase: 'ES' === 'IN' ? 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' : 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/ES/'
 };
 
 // ── HAND-CRAFTED UNIQUE FLAG THEME COLORS FOR ALL 121 COUNTRIES ──────────────────────────
@@ -684,7 +684,8 @@ function updateBC(){
 // ── STEP 0: LOAD STATES ─────────────────────────────────────────
 async function loadStates(){
   try{
-    const r = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code);
+    const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+      const r = await fetch(apiUrl);
     if(!r.ok) throw new Error(r.status);
     const files = await r.json();
     const states = files.filter(f=>f.name.endsWith('.json'));

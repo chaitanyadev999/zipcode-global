@@ -398,7 +398,7 @@ const C = {
   name:'Panama', code:'PA', flag:'{{CODE_LOWER}}',
   term:'Postal Code', subtitle:'Central America · 10 Provinces',
   lat:8.538, lon:-80.7821, region:'Americas',
-  dataBase:'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/PA/'
+  dataBase: 'PA' === 'IN' ? 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' : 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/PA/'
 };
 
 // ── HAND-CRAFTED UNIQUE FLAG THEME COLORS FOR ALL 121 COUNTRIES ──────────────────────────
@@ -684,7 +684,8 @@ function updateBC(){
 // ── STEP 0: LOAD STATES ─────────────────────────────────────────
 async function loadStates(){
   try{
-    const r = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code);
+    const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+      const r = await fetch(apiUrl);
     if(!r.ok) throw new Error(r.status);
     const files = await r.json();
     const states = files.filter(f=>f.name.endsWith('.json'));
