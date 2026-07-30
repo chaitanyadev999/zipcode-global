@@ -175,9 +175,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   display:flex;align-items:center;justify-content:space-between;transition:all .35s var(--ease)}
 .nav.sc{background:rgba(5,8,22,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(var(--p2),.18)}
 .brand{display:flex;align-items:center;gap:.65rem;font-family:var(--fd);font-weight:700;font-size:1rem}
-.bmark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--a));
-  display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;color:#000;
+.bmark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--p),var(--a));
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
   box-shadow:0 0 20px rgba(var(--p2),.4)}
+.bmark img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
 .nav-links{display:flex;gap:.3rem}
 .nl{padding:.32rem .78rem;border-radius:999px;background:var(--glass);border:1px solid rgba(var(--p2),.18);
   font-size:.76rem;color:var(--t2);transition:all .2s var(--ease)}
@@ -401,12 +402,13 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 
 <nav class="nav" id="nav">
   <a class="brand" href="/home/main.html">
-    <div class="bmark">PZ</div>
+    <div class="bmark"><img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
     <a class="nl" href="/home/main.html">&#8592; All Countries</a>
     <a class="nl" href="/pages/about.html">About</a>
+    <a class="nl" href="/pages/privacy.html">Privacy</a>
     <a class="nl" href="/pages/report.html">Report</a>
   </div>
 </nav>
@@ -420,6 +422,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
   <p class="hero-sub">{{SUBTITLE}}</p>
   <div class="hero-stats" id="hStats">
     <div><span class="hs-n" id="statRegions">—</span><span class="hs-l">Regions</span></div>
+    <div><span class="hs-n">{{PHONE}}</span><span class="hs-l">Calling Code</span></div>
     <div><span class="hs-n">{{CODE}}</span><span class="hs-l">Country Code</span></div>
     <div><span class="hs-n">{{TERM}}</span><span class="hs-l">Code Type</span></div>
   </div>
@@ -462,10 +465,10 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
   <div id="cityLoadWrap"></div>
 </div>
 
-<!-- DISTRICTS -->
+<!-- DISTRICTS (NOW CITIES) -->
 <div class="sec" id="s2" style="display:none">
   <div class="sec-hdr">
-    <button class="back-btn" onclick="goBack(2)">&#8592; Back to Cities</button>
+    <button class="back-btn" onclick="goBack(2)">&#8592; Back to Districts</button>
     <div class="sec-title" id="s2title">Districts</div>
     <div class="sec-count" id="s2cnt"></div>
   </div>
@@ -476,7 +479,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 <!-- PINCODES -->
 <div class="sec" id="s3" style="display:none">
   <div class="sec-hdr">
-    <button class="back-btn" onclick="goBack(3)">&#8592; Back to Districts</button>
+    <button class="back-btn" onclick="goBack(3)">&#8592; Back to Cities</button>
     <div class="sec-title" id="s3title">{{TERM}}s</div>
     <div class="sec-count" id="s3cnt"></div>
   </div>
@@ -797,8 +800,8 @@ function updateMapMarkers(records, focusLocationName){
 function updateBC(){
   const items = [['&#127760; '+C.name, ()=>goBack(0)]];
   if(NAV.stateFile) items.push([NAV.stateFile.replace('.json','').replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase()), ()=>goBack(1)]);
-  if(NAV.city)      items.push([NAV.city, ()=>goBack(2)]);
-  if(NAV.district)  items.push([NAV.district, ()=>goBack(3)]);
+  if(NAV.district)  items.push([NAV.district, ()=>goBack(2)]);
+  if(NAV.city && !NAV.usingCitiesS1) items.push([NAV.city, ()=>goBack(3)]);
   const bc=$('bc');
   bc.innerHTML = items.map((it,i)=>{
     const isLast = i===items.length-1;
@@ -848,6 +851,30 @@ async function selectState(file, label){
   }catch(e){ console.warn('Places unavailable'); }
 }
 
+// ── LATEST UPDATES (BLOG) ──
+function loadBlogPosts() {
+  const codeLower = C.code.toLowerCase();
+  fetch(`https://www.blogger.com/feeds/7898864703908862562/posts/default/-/${codeLower}?alt=json&max-results=3`)
+    .then(r => r.json())
+    .then(data => {
+      const feed = data.feed;
+      if(feed && feed.entry && feed.entry.length > 0) {
+        let html = '<div class="sec-hdr" style="margin-top:3rem;"><h2 class="sec-title">Latest Updates</h2></div><div class="city-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">';
+        feed.entry.forEach(p => {
+           let title = p.title.$t;
+           let link = p.link.find(l => l.rel === 'alternate').href;
+           html += `<a href="${link}" target="_blank" class="city-card" style="text-align:left;display:block;"><h3 style="font-size:.95rem;margin:0 0 .5rem 0;color:var(--t);">${title}</h3><p style="font-size:.8rem;color:var(--p);margin:0;">Read more &rarr;</p></a>`;
+        });
+        html += '</div>';
+        const d = document.createElement('div');
+        d.className = 'sec';
+        d.innerHTML = html;
+        document.getElementById('s0').appendChild(d);
+      }
+    }).catch(e => console.log('No posts found.'));
+}
+loadBlogPosts();
+
 // ── EXTRACT DYNAMIC THEME COLOR ──
 $('hFlag').addEventListener('load', function() {
   try {
@@ -873,14 +900,24 @@ $('hFlag').addEventListener('load', function() {
 });
 
 // ── INITIALIZE ──
-// ── STEP 1: CITIES (BATCH PAGINATION - 60 AT A TIME) ─────────────
+// ── STEP 1: DISTRICTS (BATCH PAGINATION - 60 AT A TIME) ─────────────
 function showCities(){
-  NAV.citiesList = uniq(NAV.data.map(r=>val(r,NAV.fields.city)));
-  NAV.cityLimit = 60;
+  NAV.distsList = uniq(NAV.data.map(r=>val(r,NAV.fields.dist)));
+  NAV.distLimit = 60;
   const stLabel = (NAV.stateFile||'').replace('.json','').replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase());
-  $('s1title').textContent = stLabel + ' — Cities';
-  setCount('s1cnt', NAV.citiesList.length, 'City');
-  if(!NAV.citiesList.length){
+  
+  if(!NAV.distsList.length || (NAV.distsList.length===1 && !NAV.distsList[0])){
+    NAV.distsList = uniq(NAV.data.map(r=>val(r,NAV.fields.city)));
+    $('s1title').textContent = stLabel + ' — Cities';
+    setCount('s1cnt', NAV.distsList.length, 'City');
+    NAV.usingCitiesS1 = true;
+  } else {
+    $('s1title').textContent = stLabel + ' — Districts';
+    setCount('s1cnt', NAV.distsList.length, 'District');
+    NAV.usingCitiesS1 = false;
+  }
+
+  if(!NAV.distsList.length){
     NAV.city = 'All'; NAV.district = 'All';
     showPins(NAV.data);
     return;
@@ -892,13 +929,14 @@ function showCities(){
 }
 
 function renderCityBatch(){
-  const batch = NAV.citiesList.slice(0, NAV.cityLimit);
-  $('cityGrid').innerHTML = batch.map(c=>'<div class="city-card" onclick="selectCity(\''+escQ(c)+'\')">'+c+'</div>').join('');
-  if (NAV.citiesList.length > NAV.cityLimit) {
+  const batch = NAV.distsList.slice(0, NAV.distLimit);
+  $('cityGrid').innerHTML = batch.map(d=>'<div class="city-card" onclick="selectCity(\''+escQ(d)+'\')">'+d+'</div>').join('');
+  if (NAV.distsList.length > NAV.distLimit) {
+    const lbl = NAV.usingCitiesS1 ? 'cities' : 'districts';
     $('cityLoadWrap').innerHTML = `
       <div class="load-more-wrap">
         <button class="load-more-btn" onclick="moreCities()">Load More (+60) &#8594;</button>
-        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.citiesList.length} cities</div>
+        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.distsList.length} ${lbl}</div>
       </div>`;
   } else {
     $('cityLoadWrap').innerHTML = '';
@@ -906,27 +944,35 @@ function renderCityBatch(){
 }
 
 window.moreCities = function(){
-  NAV.cityLimit += 60;
+  NAV.distLimit += 60;
   renderCityBatch();
 };
 
-// ── SELECT CITY → SHOW DISTRICTS (BATCH PAGINATION - 60 AT A TIME) ─────
-function selectCity(city){
-  NAV.city = city; NAV.district = null;
-  const filtered = NAV.data.filter(r=>val(r,NAV.fields.city)===city);
-  NAV.distsList = uniq(filtered.map(r=>val(r,NAV.fields.dist)));
-  NAV.distLimit = 60;
-  NAV.filteredCityData = filtered;
-
-  updateMapMarkers(filtered, city);
-
-  if(!NAV.distsList.length || (NAV.distsList.length===1 && !NAV.distsList[0])){
-    NAV.district = city;
+// ── SELECT DISTRICT → SHOW CITIES (BATCH PAGINATION - 60 AT A TIME) ─────
+function selectCity(dist){
+  if(NAV.usingCitiesS1){
+    NAV.city = dist; NAV.district = dist;
+    const filtered = NAV.data.filter(r=>val(r,NAV.fields.city)===dist);
+    updateMapMarkers(filtered, dist);
     showPins(filtered);
     return;
   }
-  $('s2title').textContent = city + ' — Districts';
-  setCount('s2cnt', NAV.distsList.length, 'District');
+
+  NAV.district = dist; NAV.city = null;
+  const filtered = NAV.data.filter(r=>val(r,NAV.fields.dist)===dist);
+  NAV.citiesList = uniq(filtered.map(r=>val(r,NAV.fields.city)));
+  NAV.cityLimit = 60;
+  NAV.filteredDistData = filtered;
+
+  updateMapMarkers(filtered, dist);
+
+  if(!NAV.citiesList.length || (NAV.citiesList.length===1 && !NAV.citiesList[0])){
+    NAV.city = dist;
+    showPins(filtered);
+    return;
+  }
+  $('s2title').textContent = dist + ' — Cities';
+  setCount('s2cnt', NAV.citiesList.length, 'City');
   renderDistBatch();
   show('s2'); hide('s3','s4');
   updateBC();
@@ -934,13 +980,13 @@ function selectCity(city){
 }
 
 function renderDistBatch(){
-  const batch = NAV.distsList.slice(0, NAV.distLimit);
-  $('distGrid').innerHTML = batch.map(d=>'<div class="city-card" onclick="selectDist(\''+escQ(NAV.city)+'\',\''+escQ(d)+'\')">'+d+'</div>').join('');
-  if (NAV.distsList.length > NAV.distLimit) {
+  const batch = NAV.citiesList.slice(0, NAV.cityLimit);
+  $('distGrid').innerHTML = batch.map(c=>'<div class="city-card" onclick="selectDist(\''+escQ(NAV.district)+'\',\''+escQ(c)+'\')">'+c+'</div>').join('');
+  if (NAV.citiesList.length > NAV.cityLimit) {
     $('distLoadWrap').innerHTML = `
       <div class="load-more-wrap">
         <button class="load-more-btn" onclick="moreDists()">Load More (+60) &#8594;</button>
-        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.distsList.length} districts</div>
+        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.citiesList.length} cities</div>
       </div>`;
   } else {
     $('distLoadWrap').innerHTML = '';
@@ -948,15 +994,15 @@ function renderDistBatch(){
 }
 
 window.moreDists = function(){
-  NAV.distLimit += 60;
+  NAV.cityLimit += 60;
   renderDistBatch();
 };
 
-// ── SELECT DISTRICT → SHOW PINCODES ─────────────────────────────
-function selectDist(city, dist){
-  NAV.district = dist;
-  const filtered = NAV.data.filter(r=>val(r,NAV.fields.city)===city && val(r,NAV.fields.dist)===dist);
-  updateMapMarkers(filtered, dist);
+// ── SELECT CITY → SHOW PINCODES ─────────────────────────────
+function selectDist(dist, city){
+  NAV.city = city;
+  const filtered = NAV.data.filter(r=>val(r,NAV.fields.dist)===dist && val(r,NAV.fields.city)===city);
+  updateMapMarkers(filtered, city);
   showPins(filtered);
 }
 
@@ -1031,6 +1077,15 @@ function showDetail(idx){
     if(value === null || value === undefined || value === '') value = '—';
     let label = key.replace(/_/g, ' ').replace(/([A-Z])/g, ' $1').trim();
     label = label.charAt(0).toUpperCase() + label.slice(1);
+    const low = label.toLowerCase();
+    if(low === 'county') label = 'District';
+    if(low === 'circlename') label = 'Circle Name';
+    if(low === 'regionname') label = 'Region Name';
+    if(low === 'divisionname') label = 'Division Name';
+    if(low === 'officename') label = 'Office Name';
+    if(low === 'statename') label = 'State Name';
+    if(low === 'officetype') label = 'Office Type';
+    
     const icon = getAttrIcon(key);
     return `<div class="di-item">
       <div class="di-item-lbl"><span>${icon}</span> ${label}</div>
@@ -1055,9 +1110,9 @@ function showDetail(idx){
 
 // ── BACK NAVIGATION ──────────────────────────────────────────────
 function goBack(fromStep){
-  if(fromStep<=1){ hide('s1','s2','s3','s4'); show('s0'); NAV.stateFile=null; NAV.city=null; NAV.district=null; }
+  if(fromStep<=1){ hide('s1','s2','s3','s4'); show('s0'); NAV.stateFile=null; NAV.city=null; NAV.district=null; NAV.usingCitiesS1=false; }
   else if(fromStep===2){ hide('s2','s3','s4'); show('s1'); NAV.city=null; NAV.district=null; }
-  else if(fromStep===3){ hide('s3','s4'); show('s2'); NAV.district=null; }
+  else if(fromStep===3){ hide('s3','s4'); show('s2'); NAV.city=null; }
   else if(fromStep===4){ hide('s4'); show('s3'); }
   updateBC();
   window.scrollTo({top:0,behavior:'smooth'});
@@ -1096,34 +1151,52 @@ loadStates();
 </body>
 </html>"""
 
+PHONE_MAP = {
+    "AD": "+376", "AE": "+971", "AI": "+1", "AL": "+355", "AR": "+54", "AS": "+1", "AT": "+43", "AU": "+61", "AX": "+358", "AZ": "+994", "BD": "+880", "BE": "+32", "BG": "+359", "BM": "+1", "BR": "+55", "BY": "+375", "CA": "+1", "CC": "+61", "CH": "+41", "CL": "+56", "CN": "+86", "CO": "+57", "CR": "+506", "CX": "+61", "CY": "+357", "CZ": "+420", "DE": "+49", "DK": "+45", "DO": "+1", "DZ": "+213", "EC": "+593", "EE": "+372", "ES": "+34", "FI": "+358", "FK": "+500", "FM": "+691", "FO": "+298", "FR": "+33", "GB": "+44", "GF": "+594", "GG": "+44", "GI": "+350", "GL": "+299", "GP": "+590", "GS": "+500", "GT": "+502", "GU": "+1", "HK": "+852", "HM": "+672", "HN": "+504", "HR": "+385", "HT": "+509", "HU": "+36", "ID": "+62", "IE": "+353", "IM": "+44", "IO": "+246", "IS": "+354", "IT": "+39", "JE": "+44", "JP": "+81", "KE": "+254", "KR": "+82", "LI": "+423", "LK": "+94", "LT": "+370", "LU": "+352", "LV": "+371", "MA": "+212", "MC": "+377", "MD": "+373", "MH": "+692", "MK": "+389", "MO": "+853", "MP": "+1", "MQ": "+596", "MT": "+356", "MW": "+265", "MX": "+52", "MY": "+60", "NC": "+687", "NF": "+672", "NL": "+31", "NO": "+47", "NR": "+674", "NU": "+683", "NZ": "+64", "PA": "+507", "PE": "+51", "PF": "+689", "PH": "+63", "PK": "+92", "PL": "+48", "PM": "+508", "PN": "+870", "PR": "+1", "PT": "+351", "PW": "+680", "RE": "+262", "RO": "+40", "RS": "+381", "RU": "+7", "SE": "+46", "SG": "+65", "SI": "+386", "SJ": "+47", "SK": "+421", "SM": "+378", "TC": "+1", "TH": "+66", "TR": "+90", "UA": "+380", "UY": "+598", "VA": "+39", "VI": "+1", "WF": "+681", "WS": "+685", "YT": "+262", "ZA": "+27", "IN": "+91", "US": "+1"
+}
+
+class Country:
+    def __init__(self, code, name, lat, lon, term, region, subtitle):
+        self.code = code
+        self.name = name
+        self.lat = lat
+        self.lon = lon
+        self.term = term
+        self.region = region
+        self.subtitle = subtitle
+        self.phone = PHONE_MAP.get(code, '')
+
 def generate():
     output_dir = os.path.join(os.path.dirname(__file__), "pages")
     os.makedirs(output_dir, exist_ok=True)
     generated, skipped = [], []
 
-    for code, name, lat, lon, term, region, subtitle in COUNTRIES:
+    # Convert list of tuples to list of Country objects
+    country_objects = [Country(*c) for c in COUNTRIES]
+    
+    for c in country_objects:
         content = HTML_TEMPLATE
-        content = content.replace("{{NAME}}", name)
-        content = content.replace("{{NAME_LOWER}}", name.lower())
-        content = content.replace("{{CODE}}", code)
-        content = content.replace("{{CODE_LOWER}}", code.lower())
-        content = content.replace("{{TERM}}", term)
-        content = content.replace("{{TERM_LOWER}}", term.lower())
-        content = content.replace("{{SUBTITLE}}", subtitle)
-        content = content.replace("{{LAT}}", str(lat))
-        content = content.replace("{{LON}}", str(lon))
-        content = content.replace("{{REGION}}", region)
+        content = content.replace("{{NAME}}", c.name)
+        content = content.replace("{{NAME_LOWER}}", c.name.lower())
+        content = content.replace("{{CODE}}", c.code)
+        content = content.replace("{{PHONE}}", c.phone)
+        content = content.replace("{{TERM}}", c.term)
+        content = content.replace("{{TERM_LOWER}}", c.term.lower())
+        content = content.replace("{{SUBTITLE}}", c.subtitle)
+        content = content.replace("{{LAT}}", str(c.lat))
+        content = content.replace("{{LON}}", str(c.lon))
+        content = content.replace("{{REGION}}", c.region)
 
-        filename = os.path.join(output_dir, f"{code.lower()}.html")
+        filename = os.path.join(output_dir, f"{c.code.lower()}.html")
         with open(filename, "w", encoding="utf-8") as f:
             f.write(content)
-        generated.append(f"{code.lower()}.html ({name})")
+        generated.append(f"{c.code.lower()}.html ({c.name})")
 
-        if code == "IN":
+        if c.code == "IN":
             with open(os.path.join(output_dir, "india.html"), "w", encoding="utf-8") as f:
                 f.write(content)
             generated.append("india.html (India)")
-        elif code == "US":
+        elif c.code == "US":
             with open(os.path.join(output_dir, "usa.html"), "w", encoding="utf-8") as f:
                 f.write(content)
             generated.append("usa.html (United States)")

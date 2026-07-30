@@ -4,62 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — PO ZipCode Global</title>
+<meta name="description" content="Privacy Policy for PO ZipCode Global — 121 countries postal code directory. We collect no personal data and respect your privacy.">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   ZIPCODE GLOBAL — Privacy Policy
-   Cinematic Dark Theme · Standalone Page
-   ============================================ */
+/* ===== ZIPCODE GLOBAL — Privacy Policy ===== */
 
 :root {
   --saffron: #ff6b1a;
   --saffron-bright: #ff8c42;
-  --saffron-glow: #ffb380;
   --gold: #f5b700;
-  --gold-light: #ffd966;
   --cinema: #050816;
-
   --bg-base: #050816;
   --bg-night: #0a0e27;
-  --bg-deep: #131838;
   --bg-card: rgba(255, 255, 255, 0.035);
   --bg-card-hi: rgba(255, 255, 255, 0.07);
   --bg-glass: rgba(255, 255, 255, 0.05);
-  --bg-veil: rgba(5, 8, 22, 0.85);
+  --bg-veil: rgba(5, 8, 22, 0.88);
   --border: rgba(255, 179, 102, 0.14);
   --border-hi: rgba(255, 179, 102, 0.35);
-
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(255, 107, 26, 0.2);
   --text: #f5f1e8;
   --text-2: #d4cfc0;
   --text-3: #8b8478;
-  --text-dim: #5c5648;
-
-  --grad-saffron: linear-gradient(135deg, #ff6b1a 0%, #f5b700 100%);
-  --grad-cinema: linear-gradient(135deg, #ff6b1a 0%, #f5b700 50%, #e83e8c 100%);
-
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.6);
-  --shadow-saffron: 0 0 60px rgba(255, 107, 26, 0.4);
-
   --font-body: 'Inter', system-ui, sans-serif;
   --font-display: 'Space Grotesk', 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Inter', monospace;
-
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --d-fast: 0.2s;
-  --d-base: 0.4s;
-  --d-slow: 0.8s;
-
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --container: 900px;
-  --r-sm: 8px;
   --r-md: 16px;
   --r-lg: 24px;
-  --r-xl: 32px;
   --r-full: 999px;
 }
 
@@ -67,155 +43,97 @@
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 body {
   font-family: var(--font-body);
-  background: var(--bg-base);
-  color: var(--text);
-  line-height: 1.7;
-  overflow-x: hidden;
-  min-height: 100vh;
-  position: relative;
+  background: var(--bg-base); color: var(--text);
+  line-height: 1.7; overflow-x: hidden; min-height: 100vh; position: relative;
 }
 
 body::before {
-  content: '';
-  position: fixed; inset: 0;
+  content: ''; position: fixed; inset: 0;
   background:
     radial-gradient(ellipse at 10% 20%, rgba(255, 107, 26, 0.12) 0%, transparent 50%),
     radial-gradient(ellipse at 90% 10%, rgba(245, 183, 0, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 90%, rgba(45, 106, 79, 0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 80%, rgba(45, 27, 105, 0.25) 0%, transparent 50%);
-  z-index: -2;
-  pointer-events: none;
+  z-index: -2; pointer-events: none;
 }
-
 body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(rgba(245, 183, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(245, 183, 0, 0.02) 1px, transparent 1px);
-  background-size: 80px 80px;
-  z-index: -1;
-  pointer-events: none;
+  content: ''; position: fixed; inset: 0;
+  background-image: linear-gradient(rgba(245, 183, 0, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 183, 0, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px; z-index: -1; pointer-events: none;
   mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
 }
 
 ::selection { background: var(--saffron); color: white; }
-::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-night); }
-::-webkit-scrollbar-thumb { background: var(--grad-saffron); border-radius: var(--r-full); }
+::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #ff6b1a, #f5b700); border-radius: var(--r-full); }
 
-a { color: var(--saffron-bright); text-decoration: none; transition: color var(--d-fast) var(--ease-out); }
+a { color: var(--saffron-bright); text-decoration: none; transition: color 0.2s; }
 a:hover { color: var(--gold); }
-img { max-width: 100%; display: block; }
 
 .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 1.5rem; }
 
-/* ============ NAV ============ */
+/* ── NAV ── */
 .cinema-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1rem 0;
+  position: sticky; top: 0; z-index: 100; padding: 0;
   background: var(--bg-veil);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid var(--border);
 }
-.cinema-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.cinema-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 14px 24px; }
 
 .brand {
   display: flex; align-items: center; gap: 0.75rem;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--text);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--text);
 }
 .brand-mark {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: var(--grad-saffron);
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, #ff6b1a, #f5b700);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  box-shadow: var(--shadow-saffron);
+  overflow: hidden;
 }
+.brand-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 
-.nav-back {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-full);
-  color: var(--text-2);
-  font-size: 0.85rem;
-  transition: all var(--d-fast) var(--ease-out);
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  padding: 7px 14px; border-radius: var(--r-full); font-size: 0.84rem; font-weight: 500;
+  color: var(--text-3); text-decoration: none;
+  border: 1px solid transparent; transition: all 0.25s var(--ease);
 }
-.nav-back:hover { background: var(--bg-card-hi); border-color: var(--saffron); color: var(--text); }
+.nav-links a:hover { color: var(--text); background: rgba(255,107,26,0.08); border-color: var(--border-accent); }
+.nav-links a.active { color: var(--saffron); border-color: var(--border-accent); background: rgba(255,107,26,0.07); }
 
-/* ============ HEADER ============ */
-.page-header {
-  padding: 8rem 1.5rem 3rem;
-  text-align: center;
-  position: relative;
-}
+/* ── HEADER ── */
+.page-header { padding: 5rem 1.5rem 2.5rem; text-align: center; position: relative; }
 
 .kicker {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--saffron-bright);
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-hi);
-  border-radius: var(--r-full);
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  margin-bottom: 1.5rem;
+  font-family: var(--font-display); font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--saffron-bright);
+  padding: 0.5rem 1rem; border: 1px solid var(--border-hi); border-radius: var(--r-full);
+  background: var(--bg-glass); backdrop-filter: blur(20px); margin-bottom: 1.5rem;
 }
 .kicker::before { content: '\25C6'; font-size: 0.55rem; color: var(--gold); }
 
 .page-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 1rem;
-  background: var(--grad-cinema);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff6b1a 0%, #f5b700 50%, #e83e8c 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 
-.page-updated {
-  font-size: 0.9rem;
-  color: var(--text-3);
-  font-weight: 400;
-}
-.page-updated span {
-  color: var(--saffron-bright);
-  font-weight: 600;
-}
+.page-updated { font-size: 0.9rem; color: var(--text-3); font-weight: 400; }
+.page-updated span { color: var(--saffron-bright); font-weight: 600; }
 
-/* ============ CONTENT ============ */
-.privacy-content {
-  padding: 0 0 4rem;
-}
+/* ── CONTENT ── */
+.privacy-content { padding: 0 0 4rem; }
 
 .section-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 2.5rem;
-  margin-bottom: 1.5rem;
-  transition: all var(--d-base) var(--ease-out);
-  opacity: 0;
-  transform: translateY(24px);
-  animation: card-rise 0.7s var(--ease-out) forwards;
+  background: var(--bg-card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: var(--r-lg); padding: 2.5rem;
+  margin-bottom: 1.5rem; transition: all 0.4s var(--ease);
+  opacity: 0; transform: translateY(24px); animation: card-rise 0.7s var(--ease) forwards;
 }
 .section-card:nth-child(1) { animation-delay: 0.05s; }
 .section-card:nth-child(2) { animation-delay: 0.1s; }
@@ -226,208 +144,118 @@ img { max-width: 100%; display: block; }
 .section-card:nth-child(7) { animation-delay: 0.35s; }
 .section-card:nth-child(8) { animation-delay: 0.4s; }
 
-@keyframes card-rise {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.section-card:hover {
-  border-color: var(--border-hi);
-  box-shadow: var(--shadow-md);
-}
+@keyframes card-rise { to { opacity: 1; transform: translateY(0); } }
+.section-card:hover { border-color: var(--border-hi); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
 
 .section-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: var(--grad-saffron);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: white;
-  flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(255, 107, 26, 0.35);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, #ff6b1a, #f5b700);
+  font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;
+  color: white; flex-shrink: 0; box-shadow: 0 4px 16px rgba(255, 107, 26, 0.35);
 }
 
-.section-head {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
+.section-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.section-head h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
 
-.section-head h2 {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-
-.section-card p {
-  color: var(--text-2);
-  font-size: 0.95rem;
-  line-height: 1.8;
-  margin-bottom: 1rem;
-}
+.section-card p { color: var(--text-2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
 .section-card p:last-child { margin-bottom: 0; }
 
-.section-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0;
-}
-
+.section-card ul { list-style: none; padding: 0; margin: 0.5rem 0; }
 .section-card ul li {
-  position: relative;
-  padding: 0.6rem 0 0.6rem 1.75rem;
-  color: var(--text-2);
-  font-size: 0.93rem;
-  line-height: 1.7;
+  position: relative; padding: 0.6rem 0 0.6rem 1.75rem;
+  color: var(--text-2); font-size: 0.93rem; line-height: 1.7;
   border-bottom: 1px solid rgba(255, 179, 102, 0.06);
 }
 .section-card ul li:last-child { border-bottom: none; }
-
 .section-card ul li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 1.05rem;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--grad-saffron);
-  box-shadow: 0 0 8px rgba(255, 107, 26, 0.4);
+  content: ''; position: absolute; left: 0; top: 1.05rem;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b1a, #f5b700); box-shadow: 0 0 8px rgba(255, 107, 26, 0.4);
 }
-
-.section-card ul li strong {
-  color: var(--text);
-  font-weight: 600;
-}
+.section-card ul li strong { color: var(--text); font-weight: 600; }
 
 .highlight-box {
-  margin-top: 1rem;
-  padding: 1rem 1.25rem;
-  background: rgba(255, 107, 26, 0.06);
-  border: 1px solid rgba(255, 107, 26, 0.15);
-  border-radius: var(--r-md);
-  font-size: 0.88rem;
-  color: var(--text-2);
+  margin-top: 1rem; padding: 1rem 1.25rem;
+  background: rgba(255, 107, 26, 0.06); border: 1px solid rgba(255, 107, 26, 0.15);
+  border-radius: var(--r-md); font-size: 0.88rem; color: var(--text-2);
 }
 .highlight-box strong { color: var(--saffron-bright); }
 
-/* ============ CONTACT CARD ============ */
-.contact-card {
-  background: linear-gradient(135deg, rgba(255, 107, 26, 0.08), rgba(245, 183, 0, 0.04));
-  border-color: var(--saffron) !important;
-}
-.contact-card .section-number {
-  box-shadow: 0 0 24px rgba(255, 107, 26, 0.5);
-}
+/* ── CONTACT CARD ── */
+.contact-card { background: linear-gradient(135deg, rgba(255, 107, 26, 0.08), rgba(245, 183, 0, 0.04)); border-color: rgba(255, 107, 26, 0.3) !important; }
+.contact-card .section-number { box-shadow: 0 0 24px rgba(255, 107, 26, 0.5); }
 
-.contact-email {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.25rem;
-  background: var(--bg-card-hi);
-  border: 1px solid var(--border-hi);
-  border-radius: var(--r-full);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--saffron-bright);
-  margin-top: 0.5rem;
-  transition: all var(--d-fast) var(--ease-out);
-  word-break: break-all;
+/* Contact link — styled as button, email NOT shown as plain text */
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.75rem 1.5rem; margin-top: 1rem;
+  background: rgba(255,107,26,0.08); border: 1px solid rgba(255,107,26,0.25);
+  border-radius: var(--r-full); font-family: var(--font-display);
+  font-size: 0.9rem; font-weight: 600; color: var(--saffron-bright);
+  transition: all 0.25s var(--ease); cursor: pointer; text-decoration: none;
 }
-.contact-email:hover {
-  background: var(--saffron);
-  color: white;
-  border-color: var(--saffron);
-}
+.contact-btn:hover { background: var(--saffron); color: white; border-color: var(--saffron); box-shadow: 0 8px 24px rgba(255,107,26,0.4); transform: translateY(-2px); }
 
-/* ============ FOOTER ============ */
+/* ── FOOTER ── */
 .cinema-footer {
   padding: 2rem 0 1.5rem;
   background: linear-gradient(180deg, transparent, var(--bg-night));
-  border-top: 1px solid var(--border);
-  text-align: center;
+  border-top: 1px solid var(--border); text-align: center;
 }
 
-.footer-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
+.footer-actions { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .footer-btn {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-full);
-  color: var(--text-2);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all var(--d-fast) var(--ease-out);
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--r-full); color: var(--text-2); font-size: 0.9rem; font-weight: 500;
+  transition: all 0.25s var(--ease); text-decoration: none;
 }
 .footer-btn:hover {
-  background: var(--grad-saffron);
-  color: white;
-  border-color: var(--saffron);
-  box-shadow: 0 8px 24px rgba(255, 107, 26, 0.4);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #ff6b1a, #f5b700); color: white;
+  border-color: var(--saffron); box-shadow: 0 8px 24px rgba(255, 107, 26, 0.4); transform: translateY(-2px);
 }
-
-.footer-copy {
-  font-size: 0.8rem;
-  color: var(--text-3);
-  margin-bottom: 0.75rem;
-}
+.footer-copy { font-size: 0.8rem; color: var(--text-3); margin-bottom: 0.75rem; }
 
 .tricolor-bar {
   height: 3px;
   background: linear-gradient(90deg, #ff6b1a 0%, #ff6b1a 33%, #f5f1e8 33%, #f5f1e8 66%, #2d6a4f 66%, #2d6a4f 100%);
-  border-radius: var(--r-full);
-  margin-top: 1.5rem;
-  opacity: 0.5;
+  border-radius: var(--r-full); margin-top: 1.5rem; opacity: 0.5;
 }
 
-/* ============ RESPONSIVE ============ */
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .page-header { padding: 7rem 1rem 2rem; }
+  .page-header { padding: 4rem 1rem 2rem; }
   .section-card { padding: 1.75rem 1.25rem; }
   .section-head h2 { font-size: 1.15rem; }
-  .section-card ul li { font-size: 0.88rem; }
-  .contact-email { font-size: 0.75rem; padding: 0.5rem 1rem; }
-  .footer-actions { flex-direction: column; align-items: center; }
+  .cinema-nav .container { padding: 12px 16px; gap: 0.5rem; }
+  .nav-links a { padding: 6px 10px; font-size: 0.78rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
+<!-- NAV -->
 <nav class="cinema-nav">
   <div class="container">
-    <a class="brand" href="https://zipcodeglobal.blogspot.com/">
-      <span class="brand-mark">🌍</span>
+    <a class="brand" href="/home/main.html">
+      <span class="brand-mark"><img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></span>
       <span>PO ZipCode Global</span>
     </a>
-    <a class="nav-back" href="https://zipcodeglobal.blogspot.com/">
-      ← Back to Home
-    </a>
+    <div class="nav-links">
+      <a href="/home/main.html">← Home</a>
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/privacy.html" class="active">Privacy</a>
+      <a href="/pages/report.html">Report</a>
+    </div>
   </div>
 </nav>
 
-<!-- ============ HEADER ============ -->
+<!-- HEADER -->
 <header class="page-header">
   <div class="container">
     <span class="kicker">Legal</span>
@@ -436,7 +264,7 @@ img { max-width: 100%; display: block; }
   </div>
 </header>
 
-<!-- ============ CONTENT ============ -->
+<!-- CONTENT -->
 <main class="privacy-content">
   <div class="container">
 
@@ -451,7 +279,8 @@ img { max-width: 100%; display: block; }
         <li><strong>We do NOT collect personal information.</strong> No names, emails, or phone numbers are stored on our servers.</li>
         <li><strong>We do not use cookies for tracking.</strong> There are no third-party tracking cookies on this site.</li>
         <li><strong>We do not store search queries.</strong> Your postal code lookups are processed in real-time and never saved.</li>
-        <li><strong>Map data is provided by OpenStreetMap.</strong> Map tiles and geocoding are handled by a third-party open-source service.</li>
+        <li><strong>No accounts required.</strong> You can use every feature without creating an account or logging in.</li>
+        <li><strong>Map data is provided by OpenStreetMap/Leaflet.</strong> Map tiles are handled by open-source services under their own privacy policies.</li>
       </ul>
     </div>
 
@@ -463,11 +292,11 @@ img { max-width: 100%; display: block; }
       </div>
       <p>All postal code data displayed on PO ZipCode Global is sourced from public government databases:</p>
       <ul>
-        <li><strong>India data:</strong> <a href="https://data.gov.in" target="_blank" rel="noopener">data.gov.in</a> — Government of India Open Data portal</li>
+        <li><strong>India data:</strong> <a href="https://data.gov.in" target="_blank" rel="noopener">data.gov.in</a> — Government of India Open Data portal (India Post)</li>
         <li><strong>USA data:</strong> USPS public postal data — United States Postal Service</li>
-        <li><strong>World data:</strong> Various government postal services across 121 countries</li>
+        <li><strong>World data:</strong> Various national government postal services across 121 countries</li>
       </ul>
-      <p>Data is displayed as-is for informational purposes only. We do not modify, sell, or redistribute the source data.</p>
+      <p>Data is displayed as-is for informational purposes only. We do not modify, sell, or redistribute the source data for commercial gain.</p>
     </div>
 
     <!-- Section 3 -->
@@ -479,9 +308,10 @@ img { max-width: 100%; display: block; }
       <p>PO ZipCode Global integrates with the following third-party services:</p>
       <ul>
         <li><strong>Google Fonts</strong> — Font loading for typography (Inter, Space Grotesk)</li>
-        <li><strong>OpenStreetMap / Leaflet</strong> — Map display and geocoding via the Leaflet.js library</li>
-        <li><strong>GitHub</strong> — Data hosting via raw.githubusercontent.com for postal code datasets</li>
-        <li><strong>Google AdSense</strong> — Advertising delivery (if enabled by the site owner)</li>
+        <li><strong>OpenStreetMap / Leaflet.js</strong> — Interactive map display and geocoding</li>
+        <li><strong>flagcdn.com</strong> — Country flag images (no personal data sent)</li>
+        <li><strong>jsDelivr CDN / GitHub</strong> — Postal code dataset hosting and delivery</li>
+        <li><strong>Google AdSense</strong> — Advertising (if enabled; operates under Google's own privacy policy)</li>
       </ul>
       <div class="highlight-box">
         <strong>Note:</strong> Each third-party service operates under its own privacy policy. We encourage you to review their respective policies for details on how they handle data.
@@ -496,9 +326,10 @@ img { max-width: 100%; display: block; }
       </div>
       <p>We take a minimal approach to cookies:</p>
       <ul>
-        <li>We use <strong>only essential cookies</strong> required for basic site functionality.</li>
+        <li>We use <strong>only essential cookies</strong> required for basic site functionality (such as remembering your region filter preference).</li>
         <li><strong>No tracking or analytics cookies</strong> are used without your explicit consent.</li>
         <li>If Google AdSense is active, it may set its own cookies in accordance with Google's advertising policies.</li>
+        <li>You can clear cookies at any time via your browser settings without affecting site functionality.</li>
       </ul>
     </div>
 
@@ -506,15 +337,16 @@ img { max-width: 100%; display: block; }
     <div class="section-card">
       <div class="section-head">
         <span class="section-number">5</span>
-        <h2>Data Accuracy</h2>
+        <h2>Data Accuracy &amp; Disclaimer</h2>
       </div>
       <p>While we strive to provide accurate postal code information:</p>
       <ul>
         <li>We <strong>cannot guarantee 100% correctness</strong> of all data displayed across 121 countries.</li>
-        <li>If you find incorrect data, please use our <a href="https://zipcodeglobal.blogspot.com/" target="_blank" rel="noopener">Report page</a> or email us directly.</li>
+        <li>If you find incorrect data, please use our <a href="/pages/report.html">Report a Mistake</a> page.</li>
         <li>Data is <strong>updated periodically</strong> from the original source government databases.</li>
+        <li>Postal codes, location names, and administrative boundaries may change over time.</li>
       </ul>
-      <p>Postal codes, location names, and administrative boundaries may change over time. Always verify critical information with official sources.</p>
+      <p>Always verify critical information with official postal service sources for important business or logistics decisions.</p>
     </div>
 
     <!-- Section 6 -->
@@ -527,7 +359,7 @@ img { max-width: 100%; display: block; }
       <ul>
         <li>Our service is <strong>not directed to children under 13</strong> years of age.</li>
         <li>We <strong>do not knowingly collect any data</strong> from children under 13.</li>
-        <li>If we become aware that a child has provided us with personal information, we will take steps to delete that information promptly.</li>
+        <li>If we become aware that a child has provided personal information, we will take steps to delete it promptly.</li>
       </ul>
     </div>
 
@@ -545,7 +377,7 @@ img { max-width: 100%; display: block; }
       </ul>
     </div>
 
-    <!-- Section 8 -->
+    <!-- Section 8 — Contact (email NOT shown as plain text) -->
     <div class="section-card contact-card">
       <div class="section-head">
         <span class="section-number">8</span>
@@ -553,29 +385,42 @@ img { max-width: 100%; display: block; }
       </div>
       <p>If you have questions, concerns, or feedback about this privacy policy or our data practices:</p>
       <ul>
-        <li><strong>Email:</strong> Send us a message at the address below</li>
-        <li><strong>Report Mistakes:</strong> Use our Report page to flag incorrect postal code data</li>
+        <li><strong>Report Mistakes:</strong> Use our <a href="/pages/report.html">Report page</a> to flag incorrect postal code data.</li>
+        <li><strong>Privacy Questions:</strong> Use the button below to email our team directly.</li>
+        <li>We respond within <strong>48 hours</strong> on business days.</li>
       </ul>
-      <a class="contact-email" href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=Privacy%20Policy%20-%20ZipCode%20Global">
-        ✉ reclaimedmindwithrelaxmusic@gmail.com
-      </a>
+      <!-- Email is obfuscated using JS — not shown as plain text anywhere -->
+      <a class="contact-btn" id="contactBtn" href="#">✉ Contact Our Team</a>
     </div>
 
   </div>
 </main>
 
-<!-- ============ FOOTER ============ -->
+<!-- FOOTER -->
 <footer class="cinema-footer">
   <div class="container">
     <div class="footer-actions">
-      <a class="footer-btn" href="https://zipcodeglobal.blogspot.com/">
-        ← Back to Home
-      </a>
+      <a class="footer-btn" href="/home/main.html">🌍 All 121 Countries</a>
+      <a class="footer-btn" href="/pages/about.html">About</a>
+      <a class="footer-btn" href="/pages/report.html">⚠️ Report Mistake</a>
     </div>
-    <p class="footer-copy">&copy; 2026 PO ZipCode Global &middot; 121 Countries &middot; One World</p>
+    <p class="footer-copy">&copy; 2026 PO ZipCode Global &middot; 121 Countries &middot; Made with ❤️ Love of Earth</p>
     <div class="tricolor-bar"></div>
   </div>
 </footer>
+
+<script>
+// Obfuscate email — never stored in plain text in HTML source
+(function(){
+  var u = 'reclaimedmindwithrelaxmusic';
+  var d = 'gmail.com';
+  var subject = encodeURIComponent('Privacy Policy — PO ZipCode Global');
+  var btn = document.getElementById('contactBtn');
+  if(btn){
+    btn.href = 'mailto:' + u + '@' + d + '?subject=' + subject;
+  }
+})();
+</script>
 
 </body>
 </html>

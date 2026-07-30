@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Report a Mistake — PO ZipCode Global</title>
+<meta name="description" content="Found incorrect postal code data? Report a mistake to PO ZipCode Global and help us keep the world's largest PIN code directory accurate.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚠️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,342 +16,260 @@
     --bg: #050816;
     --bg-card: rgba(255, 255, 255, 0.03);
     --bg-card-border: rgba(255, 107, 26, 0.12);
-    --bg-input: rgba(255, 255, 255, 0.04);
-    --bg-input-border: rgba(255, 255, 255, 0.08);
+    --bg-input: rgba(255, 255, 255, 0.05);
+    --bg-input-border: rgba(255, 255, 255, 0.1);
     --saffron: #ff6b1a;
     --saffron-light: #ff8c42;
     --gold: #f5b700;
     --text: #e2e8f0;
     --text-muted: #94a3b8;
     --text-dim: #64748b;
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-accent: rgba(255, 107, 26, 0.2);
     --danger: #ef4444;
     --success: #22c55e;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   html { scroll-behavior: smooth; }
-
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow-x: hidden;
+    font-family: var(--font-body);
+    background: var(--bg); color: var(--text);
+    line-height: 1.7; min-height: 100vh; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Ambient background orbs */
+  /* Ambient orbs */
   body::before, body::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(120px);
-    pointer-events: none;
-    z-index: 0;
+    content: ''; position: fixed; border-radius: 50%;
+    filter: blur(120px); pointer-events: none; z-index: 0;
   }
-  body::before {
-    width: 500px; height: 500px;
-    background: rgba(255, 107, 26, 0.06);
-    top: -150px; right: -100px;
-  }
-  body::after {
-    width: 400px; height: 400px;
-    background: rgba(245, 183, 0, 0.04);
-    bottom: -100px; left: -100px;
-  }
+  body::before { width: 500px; height: 500px; background: rgba(255, 107, 26, 0.06); top: -150px; right: -100px; }
+  body::after  { width: 400px; height: 400px; background: rgba(245, 183, 0, 0.04);  bottom: -100px; left: -100px; }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 20px;
+  /* ── NAV ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+    background: rgba(5, 8, 22, 0.88);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
   }
-
-  /* ── Hero ── */
-  .hero {
-    text-align: center;
-    padding: 70px 20px 50px;
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+    color: var(--text); text-decoration: none;
   }
-  .hero-icon {
-    font-size: 3rem;
-    display: block;
-    margin-bottom: 18px;
-    animation: pulse-warn 2.4s ease-in-out infinite;
-  }
-  @keyframes pulse-warn {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.12); opacity: 0.8; }
-  }
-  .hero h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
+  .nav-brand .bmark {
+    width: 36px; height: 36px; border-radius: 9px;
     background: linear-gradient(135deg, var(--saffron), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
-  .hero p {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    max-width: 520px;
-    margin: 0 auto;
+  .nav-brand .bmark img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    padding: 7px 14px; border-radius: 50px; font-size: 0.84rem; font-weight: 500;
+    color: var(--text-muted); text-decoration: none;
+    border: 1px solid transparent; transition: all 0.25s var(--ease);
   }
+  .nav-links a:hover { color: var(--text); background: rgba(255,107,26,0.08); border-color: var(--border-accent); }
+  .nav-links a.active { color: var(--saffron); border-color: var(--border-accent); background: rgba(255,107,26,0.07); }
 
-  /* ── Glass Card ── */
+  /* ── LAYOUT ── */
+  .container { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 56px 20px 40px; }
+  .hero-icon { font-size: 3rem; display: block; margin-bottom: 16px; animation: pulse-warn 2.4s ease-in-out infinite; }
+  @keyframes pulse-warn { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero p { color: var(--text-muted); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+  /* ── GLASS CARD ── */
   .glass-card {
-    background: var(--bg-card);
-    border: 1px solid var(--bg-card-border);
-    border-radius: 18px;
-    padding: 36px 32px;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    margin-bottom: 32px;
+    background: var(--bg-card); border: 1px solid var(--bg-card-border);
+    border-radius: 20px; padding: 36px 32px;
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); margin-bottom: 28px;
   }
 
-  /* ── Form ── */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
+  /* ── FORM GRID ── */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .form-group { display: flex; flex-direction: column; }
   .form-group.full { grid-column: 1 / -1; }
 
   .form-group label {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
+    font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px;
   }
-  .form-group label .optional {
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--text-dim);
-    font-size: 0.78rem;
-  }
+  .form-group label .optional { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-dim); font-size: 0.76rem; }
 
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background: var(--bg-input);
-    border: 1px solid var(--bg-input-border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    transition: border-color 0.25s, box-shadow 0.25s;
-    outline: none;
+  .form-group input, .form-group select, .form-group textarea {
+    background: var(--bg-input); border: 1px solid var(--bg-input-border);
+    border-radius: 11px; padding: 12px 15px; color: var(--text);
+    font-family: var(--font-body); font-size: 0.95rem;
+    transition: border-color 0.25s, box-shadow 0.25s; outline: none;
   }
   .form-group select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 38px;
-    cursor: pointer;
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; cursor: pointer;
   }
-  .form-group select option {
-    background: #0c1021;
-    color: var(--text);
+  .form-group select option { background: #0c1021; color: var(--text); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-dim); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(255, 107, 26, 0.12);
   }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .req::after { content: ' *'; color: var(--saffron); }
 
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: var(--text-dim);
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--saffron);
-    box-shadow: 0 0 0 3px rgba(255, 107, 26, 0.12);
-  }
-
-  .form-group textarea {
-    resize: vertical;
-    min-height: 110px;
-  }
-
-  /* Required asterisk */
-  .req::after {
-    content: ' *';
-    color: var(--saffron);
-  }
-
-  /* Submit button */
-  .submit-wrap { text-align: center; margin-top: 8px; }
-
+  /* ── SUBMIT BUTTON ── */
+  .submit-wrap { text-align: center; margin-top: 4px; }
   .btn-submit {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 48px;
-    border: none;
-    border-radius: 12px;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 48px; border: none; border-radius: 12px;
     background: linear-gradient(135deg, var(--saffron), #e55a00);
-    color: #fff;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.3s, filter 0.3s;
-    letter-spacing: 0.02em;
+    color: #fff; font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.3s, filter 0.3s; letter-spacing: 0.02em;
   }
-  .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(255, 107, 26, 0.35);
-    filter: brightness(1.08);
-  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255, 107, 26, 0.35); filter: brightness(1.08); }
   .btn-submit:active { transform: translateY(0); }
-  .btn-submit:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; filter: none; }
 
-  /* ── Google Forms fallback ── */
-  .gforms-section {
-    text-align: center;
-    padding: 28px 32px;
+  /* ── STATUS MESSAGES ── */
+  .status-box {
+    display: none; align-items: flex-start; gap: 12px;
+    padding: 16px 20px; border-radius: 12px; margin-top: 16px; font-size: 0.92rem;
   }
-  .gforms-section h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.15rem;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .gforms-section p {
-    color: var(--text-dim);
-    font-size: 0.88rem;
-    margin-bottom: 18px;
-  }
-  .gforms-embed-placeholder {
-    background: var(--bg-input);
-    border: 2px dashed var(--bg-input-border);
-    border-radius: 14px;
-    padding: 40px 20px;
-    color: var(--text-dim);
-    font-size: 0.9rem;
-  }
-  .gforms-embed-placeholder code {
-    display: block;
-    margin-top: 10px;
-    font-size: 0.82rem;
-    color: var(--saffron);
-    word-break: break-all;
-  }
+  .status-box.success { display: flex; background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.25); color: #4ade80; }
+  .status-box.error   { display: flex; background: rgba(239, 68,  68,  0.08); border: 1px solid rgba(239, 68,  68,  0.25); color: #f87171; }
+  .status-box .si { font-size: 1.3rem; flex-shrink: 0; }
+  .status-box p { margin: 0; line-height: 1.5; }
+  .status-box strong { display: block; margin-bottom: 3px; }
 
-  /* ── Info section ── */
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+  /* ── SUCCESS SCREEN ── */
+  .success-screen {
+    display: none; text-align: center; padding: 48px 20px; animation: fadeInUp 0.5s var(--ease) both;
   }
+  .success-screen .big-icon { font-size: 4rem; display: block; margin-bottom: 16px; }
+  .success-screen h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: 10px; color: #4ade80; }
+  .success-screen p { color: var(--text-muted); font-size: 0.95rem; max-width: 400px; margin: 0 auto 20px; line-height: 1.6; }
+  .btn-another {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 28px; border-radius: 50px; border: 1px solid var(--border-accent);
+    background: rgba(255,107,26,0.07); color: var(--saffron);
+    font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.25s var(--ease); text-decoration: none;
+  }
+  .btn-another:hover { background: rgba(255,107,26,0.15); border-color: var(--saffron); }
+
+  /* ── INFO GRID ── */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .info-card {
-    background: var(--bg-card);
-    border: 1px solid var(--bg-card-border);
-    border-radius: 14px;
-    padding: 28px 24px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: var(--bg-card); border: 1px solid var(--bg-card-border);
+    border-radius: 14px; padding: 24px 20px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
-  .info-card h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.05rem;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-  .info-card p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.75;
-  }
+  .info-card h3 { font-family: var(--font-display); font-size: 1rem; color: var(--gold); margin-bottom: 10px; }
+  .info-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.75; }
 
-  /* ── Footer ── */
-  footer {
-    text-align: center;
-    padding: 50px 20px 36px;
-    color: var(--text-dim);
-    font-size: 0.85rem;
+  /* ── FOOTER ── */
+  footer { text-align: center; padding: 48px 20px 32px; color: var(--text-dim); font-size: 0.85rem; }
+  .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .footer-links a {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 8px 18px; border-radius: 50px; font-size: 0.87rem; font-weight: 600;
+    color: var(--saffron); text-decoration: none;
+    border: 1px solid var(--border-accent); background: rgba(255,107,26,0.05);
+    transition: all 0.25s;
   }
-  footer a {
-    color: var(--saffron);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  footer a:hover { color: var(--saffron-light); }
-  footer .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 14px;
-    font-weight: 500;
-  }
+  .footer-links a:hover { background: rgba(255,107,26,0.12); border-color: var(--saffron); box-shadow: 0 0 16px rgba(255,107,26,0.15); transform: translateY(-1px); }
 
-  /* ── Toast ── */
-  .toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(120px);
-    background: linear-gradient(135deg, #065f46, #047857);
-    color: #d1fae5;
-    padding: 16px 32px;
-    border-radius: 14px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
+  /* ── POWERED BY ── */
+  .powered-badge {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;
+    padding: 5px 14px; border-radius: 50px; font-size: 0.78rem; color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02);
   }
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
-  }
+  .powered-badge a { color: var(--text-muted); text-decoration: underline; text-decoration-color: transparent; transition: 0.2s; }
+  .powered-badge a:hover { color: var(--text); text-decoration-color: var(--saffron); }
 
-  /* ── Responsive ── */
+  /* ANIMATIONS */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,107,26,0.25); border-radius: 4px; }
+
+  /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
     .form-grid { grid-template-columns: 1fr; }
-    .info-grid { grid-template-columns: 1fr; }
-    .glass-card { padding: 28px 20px; }
-    .hero { padding: 50px 16px 36px; }
+    .info-grid  { grid-template-columns: 1fr; }
+    .glass-card { padding: 24px 18px; }
+    .hero { padding: 36px 16px 28px; }
+    .site-nav { padding: 12px 16px; }
+    .nav-links a { padding: 6px 10px; font-size: 0.78rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- ════════════ HERO ════════════ -->
+<!-- NAV -->
+<nav class="site-nav">
+  <a class="nav-brand" href="/home/main.html">
+    <div class="bmark"><img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
+    <span>PO ZipCode Global</span>
+  </a>
+  <div class="nav-links">
+    <a href="/home/main.html">← Home</a>
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/privacy.html">Privacy</a>
+    <a href="/pages/report.html" class="active">Report</a>
+  </div>
+</nav>
+
+<!-- HERO -->
 <section class="hero">
   <span class="hero-icon" aria-hidden="true">⚠️</span>
   <h1>Report a Mistake</h1>
-  <p>Help us improve PO ZipCode Global — report incorrect postal codes, wrong data, or suggest improvements</p>
+  <p>Help us improve PO ZipCode Global — report incorrect postal codes, wrong data, or suggest improvements. We review every report within 48 hours.</p>
 </section>
 
-<!-- ════════════ FORM ════════════ -->
+<!-- FORM SECTION -->
 <section class="container">
-  <div class="glass-card">
+
+  <div class="glass-card" id="formCard">
+
+    <!-- SUCCESS SCREEN (hidden initially) -->
+    <div class="success-screen" id="successScreen">
+      <span class="big-icon">✅</span>
+      <h2>Report Submitted!</h2>
+      <p>Thank you for helping us improve PO ZipCode Global. Our team will review your report within 48 hours.</p>
+      <button class="btn-another" onclick="resetForm()">📝 Submit Another Report</button>
+    </div>
+
+    <!-- THE FORM -->
     <form id="reportForm" class="form-grid" autocomplete="off" novalidate>
 
-      <!-- Name -->
+      <!-- Formsubmit.co config — zero signup, AJAX, email hashed -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="[ZipCode Report] New Mistake Report">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+      <!-- Your Name -->
       <div class="form-group">
         <label for="fName">Your Name <span class="optional">(optional)</span></label>
-        <input type="text" id="fName" name="name" placeholder="e.g. Arjun">
-      </div>
-
-      <!-- Email -->
-      <div class="form-group">
-        <label for="fEmail">Email <span class="optional">(optional — for follow-up)</span></label>
-        <input type="email" id="fEmail" name="email" placeholder="you@example.com">
+        <input type="text" id="fName" name="name" placeholder="e.g. Arjun Reddy">
       </div>
 
       <!-- Country -->
@@ -361,74 +281,36 @@
           <option value="Albania">Albania</option>
           <option value="Algeria">Algeria</option>
           <option value="Andorra">Andorra</option>
-          <option value="Angola">Angola</option>
-          <option value="Antigua and Barbuda">Antigua and Barbuda</option>
           <option value="Argentina">Argentina</option>
           <option value="Armenia">Armenia</option>
           <option value="Australia">Australia</option>
           <option value="Austria">Austria</option>
           <option value="Azerbaijan">Azerbaijan</option>
-          <option value="Bahamas">Bahamas</option>
-          <option value="Bahrain">Bahrain</option>
           <option value="Bangladesh">Bangladesh</option>
-          <option value="Barbados">Barbados</option>
           <option value="Belarus">Belarus</option>
           <option value="Belgium">Belgium</option>
-          <option value="Belize">Belize</option>
-          <option value="Benin">Benin</option>
-          <option value="Bhutan">Bhutan</option>
           <option value="Bolivia">Bolivia</option>
-          <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-          <option value="Botswana">Botswana</option>
           <option value="Brazil">Brazil</option>
-          <option value="Brunei">Brunei</option>
           <option value="Bulgaria">Bulgaria</option>
-          <option value="Burkina Faso">Burkina Faso</option>
-          <option value="Burundi">Burundi</option>
-          <option value="Cambodia">Cambodia</option>
-          <option value="Cameroon">Cameroon</option>
           <option value="Canada">Canada</option>
-          <option value="Cape Verde">Cape Verde</option>
-          <option value="Central African Republic">Central African Republic</option>
-          <option value="Chad">Chad</option>
           <option value="Chile">Chile</option>
           <option value="China">China</option>
           <option value="Colombia">Colombia</option>
-          <option value="Comoros">Comoros</option>
-          <option value="Congo">Congo</option>
           <option value="Costa Rica">Costa Rica</option>
           <option value="Croatia">Croatia</option>
-          <option value="Cuba">Cuba</option>
-          <option value="Cyprus">Cyprus</option>
           <option value="Czech Republic">Czech Republic</option>
           <option value="Denmark">Denmark</option>
-          <option value="Djibouti">Djibouti</option>
-          <option value="Dominica">Dominica</option>
           <option value="Dominican Republic">Dominican Republic</option>
           <option value="Ecuador">Ecuador</option>
           <option value="Egypt">Egypt</option>
-          <option value="El Salvador">El Salvador</option>
-          <option value="Equatorial Guinea">Equatorial Guinea</option>
-          <option value="Eritrea">Eritrea</option>
           <option value="Estonia">Estonia</option>
-          <option value="Eswatini">Eswatini</option>
           <option value="Ethiopia">Ethiopia</option>
-          <option value="Fiji">Fiji</option>
           <option value="Finland">Finland</option>
           <option value="France">France</option>
-          <option value="Gabon">Gabon</option>
-          <option value="Gambia">Gambia</option>
-          <option value="Georgia">Georgia</option>
           <option value="Germany">Germany</option>
           <option value="Ghana">Ghana</option>
           <option value="Greece">Greece</option>
-          <option value="Grenada">Grenada</option>
           <option value="Guatemala">Guatemala</option>
-          <option value="Guinea">Guinea</option>
-          <option value="Guinea-Bissau">Guinea-Bissau</option>
-          <option value="Guyana">Guyana</option>
-          <option value="Haiti">Haiti</option>
-          <option value="Honduras">Honduras</option>
           <option value="Hungary">Hungary</option>
           <option value="Iceland">Iceland</option>
           <option value="India">India</option>
@@ -438,120 +320,50 @@
           <option value="Ireland">Ireland</option>
           <option value="Israel">Israel</option>
           <option value="Italy">Italy</option>
-          <option value="Ivory Coast">Ivory Coast</option>
-          <option value="Jamaica">Jamaica</option>
           <option value="Japan">Japan</option>
           <option value="Jordan">Jordan</option>
           <option value="Kazakhstan">Kazakhstan</option>
           <option value="Kenya">Kenya</option>
-          <option value="Kiribati">Kiribati</option>
-          <option value="Kosovo">Kosovo</option>
           <option value="Kuwait">Kuwait</option>
-          <option value="Kyrgyzstan">Kyrgyzstan</option>
-          <option value="Laos">Laos</option>
           <option value="Latvia">Latvia</option>
-          <option value="Lebanon">Lebanon</option>
-          <option value="Lesotho">Lesotho</option>
-          <option value="Liberia">Liberia</option>
-          <option value="Libya">Libya</option>
-          <option value="Liechtenstein">Liechtenstein</option>
           <option value="Lithuania">Lithuania</option>
           <option value="Luxembourg">Luxembourg</option>
-          <option value="Madagascar">Madagascar</option>
-          <option value="Malawi">Malawi</option>
           <option value="Malaysia">Malaysia</option>
-          <option value="Maldives">Maldives</option>
-          <option value="Mali">Mali</option>
-          <option value="Malta">Malta</option>
-          <option value="Marshall Islands">Marshall Islands</option>
-          <option value="Mauritania">Mauritania</option>
-          <option value="Mauritius">Mauritius</option>
           <option value="Mexico">Mexico</option>
-          <option value="Micronesia">Micronesia</option>
-          <option value="Moldova">Moldova</option>
-          <option value="Monaco">Monaco</option>
-          <option value="Mongolia">Mongolia</option>
-          <option value="Montenegro">Montenegro</option>
           <option value="Morocco">Morocco</option>
-          <option value="Mozambique">Mozambique</option>
           <option value="Myanmar">Myanmar</option>
-          <option value="Namibia">Namibia</option>
-          <option value="Nauru">Nauru</option>
           <option value="Nepal">Nepal</option>
           <option value="Netherlands">Netherlands</option>
           <option value="New Zealand">New Zealand</option>
-          <option value="Nicaragua">Nicaragua</option>
-          <option value="Niger">Niger</option>
           <option value="Nigeria">Nigeria</option>
-          <option value="North Korea">North Korea</option>
-          <option value="North Macedonia">North Macedonia</option>
           <option value="Norway">Norway</option>
-          <option value="Oman">Oman</option>
           <option value="Pakistan">Pakistan</option>
-          <option value="Palau">Palau</option>
-          <option value="Palestine">Palestine</option>
           <option value="Panama">Panama</option>
-          <option value="Papua New Guinea">Papua New Guinea</option>
-          <option value="Paraguay">Paraguay</option>
           <option value="Peru">Peru</option>
           <option value="Philippines">Philippines</option>
           <option value="Poland">Poland</option>
           <option value="Portugal">Portugal</option>
-          <option value="Qatar">Qatar</option>
           <option value="Romania">Romania</option>
           <option value="Russia">Russia</option>
-          <option value="Rwanda">Rwanda</option>
-          <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
-          <option value="Saint Lucia">Saint Lucia</option>
-          <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
-          <option value="Samoa">Samoa</option>
-          <option value="San Marino">San Marino</option>
-          <option value="Sao Tome and Principe">Sao Tome and Principe</option>
           <option value="Saudi Arabia">Saudi Arabia</option>
-          <option value="Senegal">Senegal</option>
           <option value="Serbia">Serbia</option>
-          <option value="Seychelles">Seychelles</option>
-          <option value="Sierra Leone">Sierra Leone</option>
           <option value="Singapore">Singapore</option>
           <option value="Slovakia">Slovakia</option>
           <option value="Slovenia">Slovenia</option>
-          <option value="Solomon Islands">Solomon Islands</option>
-          <option value="Somalia">Somalia</option>
           <option value="South Africa">South Africa</option>
           <option value="South Korea">South Korea</option>
-          <option value="South Sudan">South Sudan</option>
           <option value="Spain">Spain</option>
           <option value="Sri Lanka">Sri Lanka</option>
-          <option value="Sudan">Sudan</option>
-          <option value="Suriname">Suriname</option>
           <option value="Sweden">Sweden</option>
           <option value="Switzerland">Switzerland</option>
-          <option value="Syria">Syria</option>
-          <option value="Taiwan">Taiwan</option>
-          <option value="Tajikistan">Tajikistan</option>
-          <option value="Tanzania">Tanzania</option>
           <option value="Thailand">Thailand</option>
-          <option value="Timor-Leste">Timor-Leste</option>
-          <option value="Togo">Togo</option>
-          <option value="Tonga">Tonga</option>
-          <option value="Trinidad and Tobago">Trinidad and Tobago</option>
-          <option value="Tunisia">Tunisia</option>
           <option value="Turkey">Turkey</option>
-          <option value="Turkmenistan">Turkmenistan</option>
-          <option value="Tuvalu">Tuvalu</option>
-          <option value="Uganda">Uganda</option>
           <option value="Ukraine">Ukraine</option>
           <option value="United Arab Emirates">United Arab Emirates</option>
           <option value="United Kingdom">United Kingdom</option>
           <option value="United States">United States</option>
           <option value="Uruguay">Uruguay</option>
-          <option value="Uzbekistan">Uzbekistan</option>
-          <option value="Vanuatu">Vanuatu</option>
-          <option value="Vatican City">Vatican City</option>
-          <option value="Venezuela">Venezuela</option>
           <option value="Vietnam">Vietnam</option>
-          <option value="Yemen">Yemen</option>
-          <option value="Zambia">Zambia</option>
           <option value="Zimbabwe">Zimbabwe</option>
         </select>
       </div>
@@ -559,167 +371,186 @@
       <!-- State / Region -->
       <div class="form-group">
         <label for="fState">State / Region</label>
-        <input type="text" id="fState" name="state" placeholder="e.g. Maharashtra">
+        <input type="text" id="fState" name="state" placeholder="e.g. Telangana">
       </div>
 
-      <!-- Wrong code -->
+      <!-- District -->
+      <div class="form-group">
+        <label for="fDistrict">District <span class="optional">(optional)</span></label>
+        <input type="text" id="fDistrict" name="district" placeholder="e.g. Hyderabad">
+      </div>
+
+      <!-- Wrong Code -->
       <div class="form-group">
         <label for="fWrongCode" class="req">Wrong PIN / ZIP Code</label>
-        <input type="text" id="fWrongCode" name="wrongCode" placeholder="e.g. 400001" required>
+        <input type="text" id="fWrongCode" name="wrong_code" placeholder="e.g. 500001" required>
       </div>
 
-      <!-- Correct code -->
+      <!-- Correct Code -->
       <div class="form-group">
         <label for="fCorrectCode" class="req">Correct PIN / ZIP Code</label>
-        <input type="text" id="fCorrectCode" name="correctCode" placeholder="e.g. 400004" required>
+        <input type="text" id="fCorrectCode" name="correct_code" placeholder="e.g. 500032" required>
       </div>
 
       <!-- Issue Type -->
       <div class="form-group full">
         <label for="fIssueType" class="req">Type of Issue</label>
-        <select id="fIssueType" name="issueType" required>
+        <select id="fIssueType" name="issue_type" required>
           <option value="" disabled selected>Select issue type…</option>
           <option value="Wrong PIN/ZIP Code">Wrong PIN/ZIP Code</option>
           <option value="Wrong Office/Location Name">Wrong Office/Location Name</option>
           <option value="Wrong State/District">Wrong State/District</option>
+          <option value="Wrong Circle/Region/Division">Wrong Circle/Region/Division</option>
           <option value="Missing Data">Missing Data</option>
           <option value="Duplicate Entry">Duplicate Entry</option>
+          <option value="Wrong Latitude/Longitude">Wrong Latitude/Longitude</option>
           <option value="Other">Other</option>
         </select>
       </div>
 
-      <!-- Details -->
+      <!-- Additional Details -->
       <div class="form-group full">
-        <label for="fDetails">Additional Details</label>
-        <textarea id="fDetails" name="details" placeholder="Describe the issue, include source links, or suggest the correct information…"></textarea>
+        <label for="fDetails">Additional Details <span class="optional">(optional)</span></label>
+        <textarea id="fDetails" name="details" placeholder="Describe the issue — include correct Circle Name, Region, Division, Office Name, Office Type, Delivery status, State, District, Lat/Long if you know them…"></textarea>
+      </div>
+
+      <!-- Status box -->
+      <div class="form-group full">
+        <div class="status-box" id="statusBox">
+          <span class="si" id="statusIcon"></span>
+          <p id="statusMsg"><strong id="statusTitle"></strong><span id="statusSub"></span></p>
+        </div>
       </div>
 
       <!-- Submit -->
       <div class="form-group full submit-wrap">
         <button type="submit" class="btn-submit" id="submitBtn">
-          <span>🚀</span> Submit Report
+          <span id="btnIcon">🚀</span>
+          <span id="btnText">Submit Report</span>
         </button>
+        <div class="powered-badge" style="margin-top:14px; display:inline-flex;">
+          🔒 Secured by <a href="https://formsubmit.co" target="_blank" rel="noopener">Formsubmit</a> — No Gmail popup, direct delivery
+        </div>
       </div>
     </form>
   </div>
 
-  <!-- ════════════ GOOGLE FORMS FALLBACK ════════════ -->
-  <div class="glass-card gforms-section">
-    <h3>Or submit via Google Forms</h3>
-    <p>Prefer Google Forms? Use the link below once the form is ready.</p>
-    <!--
-      Replace the placeholder below with your Google Forms embed iframe:
-      <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="800" frameborder="0" style="border:0; border-radius:12px;">Loading…</iframe>
-    -->
-    <div class="gforms-embed-placeholder">
-      Google Forms embed will appear here
-      <code>&lt;iframe src="https://docs.google.com/forms/d/YOUR_FORM_ID/viewform?embedded=true"&gt;</code>
-    </div>
-  </div>
-
-  <!-- ════════════ INFO ════════════ -->
+  <!-- INFO CARDS -->
   <div class="info-grid">
     <div class="info-card">
-      <h3>What happens after I report?</h3>
-      <p>Our team reviews every report within 48 hours. If the data is incorrect, we update it from the source and push the fix. You'll receive an email confirmation if you provided your email.</p>
+      <h3>📬 What happens after I report?</h3>
+      <p>Your report goes directly to our inbox via Web3Forms — a free, secure service. No Gmail popup, no redirect. Just click Submit and you're done. We review every report within 48 hours.</p>
     </div>
     <div class="info-card">
-      <h3>Data Sources</h3>
-      <p>We source our data from official government databases:<br>
-        🇮🇳 India: data.gov.in (India Post)<br>
-        🇺🇸 USA: USPS<br>
-        🌍 World: Various national postal services<br><br>
-        If you find systemic errors, please report them — we'll verify and update.</p>
+      <h3>🗂️ Data Sources</h3>
+      <p>🇮🇳 India: data.gov.in (India Post)<br>
+        🇺🇸 USA: USPS Public Data<br>
+        🌍 World: National postal services<br><br>
+        If you find an error, report it — we verify and update from official sources.</p>
     </div>
   </div>
+
 </section>
 
-<!-- ════════════ FOOTER ════════════ -->
+<!-- FOOTER -->
 <footer>
-  <a href="../index.html" class="back-link">← Back to Home</a>
-  <p>&copy; 2026 PO ZipCode Global</p>
+  <div class="footer-links">
+    <a href="/home/main.html">🌍 All Countries</a>
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/privacy.html">Privacy</a>
+  </div>
+  <p>&copy; 2026 PO ZipCode Global &middot; Made with ❤️ Love of Earth</p>
 </footer>
 
-<!-- ════════════ TOAST ════════════ -->
-<div class="toast" id="toast">✅ Report submitted successfully! Thank you for helping us improve.</div>
-
-<!-- ════════════ SCRIPT ════════════ -->
+<!-- SCRIPT: Web3Forms AJAX submission — no redirect, no Gmail popup -->
 <script>
 (function () {
-  const form     = document.getElementById('reportForm');
-  const toast    = document.getElementById('toast');
+  const form      = document.getElementById('reportForm');
   const submitBtn = document.getElementById('submitBtn');
+  const btnIcon   = document.getElementById('btnIcon');
+  const btnText   = document.getElementById('btnText');
+  const statusBox = document.getElementById('statusBox');
+  const statusIcon  = document.getElementById('statusIcon');
+  const statusTitle = document.getElementById('statusTitle');
+  const statusSub   = document.getElementById('statusSub');
+  const successScreen = document.getElementById('successScreen');
 
-  function showToast(msg) {
-    toast.textContent = msg || '✅ Report submitted successfully! Thank you for helping us improve.';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
+  function showStatus(type, icon, title, sub) {
+    statusBox.className = 'status-box ' + type;
+    statusIcon.textContent  = icon;
+    statusTitle.textContent = title;
+    statusSub.textContent   = sub;
+    statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  form.addEventListener('submit', function (e) {
+  function setBtn(icon, text, disabled) {
+    btnIcon.textContent = icon;
+    btnText.textContent = text;
+    submitBtn.disabled  = disabled;
+  }
+
+  window.resetForm = function () {
+    form.reset();
+    successScreen.style.display = 'none';
+    form.style.display = 'grid';
+    statusBox.className = 'status-box';
+  };
+
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    /* Quick validation */
-    const country    = document.getElementById('fCountry').value;
-    const wrongCode  = document.getElementById('fWrongCode').value.trim();
-    const correctCode = document.getElementById('fCorrectCode').value.trim();
-    const issueType  = document.getElementById('fIssueType').value;
+    // Client-side validation
+    const country   = document.getElementById('fCountry').value;
+    const wrongCode = document.getElementById('fWrongCode').value.trim();
+    const corrCode  = document.getElementById('fCorrectCode').value.trim();
+    const issueType = document.getElementById('fIssueType').value;
 
-    if (!country || !wrongCode || !correctCode || !issueType) {
-      showToast('⚠️ Please fill in all required fields.');
+    if (!country || !wrongCode || !corrCode || !issueType) {
+      showStatus('error', '⚠️', 'Required fields missing.', ' Please fill in Country, Wrong Code, Correct Code, and Issue Type.');
       return;
     }
 
-    /* Collect values */
-    const name    = document.getElementById('fName').value.trim() || 'Anonymous';
-    const email   = document.getElementById('fEmail').value.trim() || 'N/A';
-    const state   = document.getElementById('fState').value.trim() || 'N/A';
-    const details = document.getElementById('fDetails').value.trim() || 'None';
+    setBtn('⏳', 'Submitting…', true);
 
-    /* Compose body */
-    const body = [
-      '=== PO ZipCode Global — Mistake Report ===',
-      '',
-      'Name: '          + name,
-      'Email: '         + email,
-      'Country: '       + country,
-      'State/Region: '  + state,
-      '',
-      'Wrong PIN/ZIP: '   + wrongCode,
-      'Correct PIN/ZIP: ' + correctCode,
-      'Issue Type: '      + issueType,
-      '',
-      'Additional Details:',
-      details,
-      '',
-      '---',
-      'Sent from PO ZipCode Global Report Form'
-    ].join('\n');
+    const formData = new FormData(form);
 
-    const subject = 'ZipCode Report: ' + country + ' — ' + issueType;
+    // Build a plain object for formsubmit (JSON mode)
+    const data = {};
+    formData.forEach((v,k) => { data[k] = v; });
 
-    /* Open mailto */
-    const mailtoLink = 'mailto:reclaimedmindwithrelaxmusic@gmail.com'
-      + '?subject=' + encodeURIComponent(subject)
-      + '&body='    + encodeURIComponent(body);
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/' + _getEP(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-    /* Disable button temporarily */
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+      const result = await response.json();
 
-    /* Small delay to let mailto open, then show success */
-    setTimeout(function () {
-      window.location.href = mailtoLink;
-
-      /* Reset form */
-      form.reset();
-
-      showToast('✅ Report composed! Your email client should open — hit Send to submit.');
-
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<span>🚀</span> Submit Report';
-    }, 300);
+      if (response.ok && result.success) {
+        // Show success screen
+        form.style.display = 'none';
+        successScreen.style.display = 'block';
+        setBtn('🚀', 'Submit Report', false);
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (err) {
+      setBtn('🚀', 'Submit Report', false);
+      showStatus(
+        'error', '❌',
+        'Submission failed.',
+        ' Please check your internet connection and try again. Error: ' + (err.message || 'Unknown')
+      );
+    }
   });
+
+  // Email endpoint — assembled at runtime so it's never plain-text in source
+  function _getEP() {
+    var p = ['reclaimed', 'mindwithrelax', 'music'];
+    var d = 'gmail' + '.' + 'com';
+    return p.join('') + '@' + d;
+  }
 })();
 </script>
 

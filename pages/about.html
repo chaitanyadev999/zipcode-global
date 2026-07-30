@@ -5,25 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About PO ZipCode Global — World's #1 PIN Code Finder</title>
     <meta name="description" content="Learn about PO ZipCode Global — the world's most comprehensive postal code finder covering 121 countries across 6 continents with 10,00,000+ postal codes.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg-primary: #050816;
-            --bg-secondary: #0a0e27;
-            --bg-card: rgba(15, 20, 50, 0.6);
             --bg-glass: rgba(255, 255, 255, 0.03);
             --saffron: #ff6b1a;
-            --saffron-glow: rgba(255, 107, 26, 0.3);
             --gold: #f5b700;
-            --gold-glow: rgba(245, 183, 0, 0.25);
             --text-primary: #e8eaf0;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
@@ -31,294 +23,131 @@
             --border-accent: rgba(255, 107, 26, 0.2);
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-display: 'Space Grotesk', 'Inter', sans-serif;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.7;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background: var(--bg-primary); color: var(--text-primary);
+            line-height: 1.7; min-height: 100vh; overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-
-        /* Background ambient effects */
         body::before {
-            content: '';
-            position: fixed;
-            top: -40%;
-            left: -20%;
-            width: 60%;
-            height: 60%;
+            content: ''; position: fixed; top: -40%; left: -20%; width: 60%; height: 60%;
             background: radial-gradient(ellipse, rgba(255, 107, 26, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
-
         body::after {
-            content: '';
-            position: fixed;
-            bottom: -30%;
-            right: -15%;
-            width: 50%;
-            height: 50%;
+            content: ''; position: fixed; bottom: -30%; right: -15%; width: 50%; height: 50%;
             background: radial-gradient(ellipse, rgba(245, 183, 0, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
-
-        .page-wrapper {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* NAV */
+        .site-nav {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 28px;
+            background: rgba(5, 8, 22, 0.88);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
         }
-
-        /* ===== HERO SECTION ===== */
-        .hero {
-            text-align: center;
-            padding: 80px 20px 60px;
-            position: relative;
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px;
+            font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+            color: var(--text-primary); text-decoration: none;
         }
-
-        .hero-globe {
-            font-size: 72px;
-            line-height: 1;
-            margin-bottom: 24px;
-            display: block;
-            animation: floatGlobe 4s ease-in-out infinite;
+        .nav-brand .bmark {
+            width: 36px; height: 36px; border-radius: 9px;
+            background: linear-gradient(135deg, var(--saffron), var(--gold));
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
-
-        @keyframes floatGlobe {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .nav-brand .bmark img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-links a {
+            padding: 7px 14px; border-radius: 50px; font-size: 0.84rem; font-weight: 500;
+            color: var(--text-secondary); text-decoration: none;
+            border: 1px solid transparent; transition: all 0.25s var(--ease);
         }
-
+        .nav-links a:hover { color: var(--text-primary); background: rgba(255,107,26,0.08); border-color: var(--border-accent); }
+        .nav-links a.active { color: var(--saffron); border-color: var(--border-accent); background: rgba(255,107,26,0.07); }
+        /* PAGE WRAPPER */
+        .page-wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        /* HERO */
+        .hero { text-align: center; padding: 70px 20px 50px; animation: fadeInUp 0.7s ease-out both; }
+        .hero-globe { font-size: 68px; line-height: 1; margin-bottom: 20px; display: block; animation: floatGlobe 4s ease-in-out infinite; }
+        @keyframes floatGlobe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.2rem, 5vw, 3.4rem);
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 12px;
+            font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 700; letter-spacing: -1px; margin-bottom: 12px;
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--saffron) 60%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-
         .hero-subtitle {
-            font-family: var(--font-display);
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+            font-family: var(--font-display); font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 500; color: var(--text-secondary); margin-bottom: 20px;
+            animation: fadeInUp 0.7s ease-out 0.1s both;
         }
-
         .hero-kicker {
-            display: inline-block;
-            font-family: var(--font-display);
-            font-size: clamp(0.85rem, 1.8vw, 1rem);
-            font-weight: 500;
-            color: var(--saffron);
-            background: rgba(255, 107, 26, 0.08);
-            border: 1px solid var(--border-accent);
-            border-radius: 40px;
-            padding: 10px 28px;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            display: inline-block; font-family: var(--font-display);
+            font-size: clamp(0.85rem, 1.8vw, 1rem); font-weight: 500;
+            color: var(--saffron); background: rgba(255, 107, 26, 0.08);
+            border: 1px solid var(--border-accent); border-radius: 40px;
+            padding: 10px 28px; letter-spacing: 0.5px;
             animation: fadeInUp 0.8s ease-out 0.3s both;
         }
-
-        /* ===== DIVIDER ===== */
-        .section-divider {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--saffron), var(--gold));
-            border: none;
-            border-radius: 3px;
-            margin: 50px auto;
-        }
-
-        /* ===== GLASS CARD ===== */
+        /* DIVIDER */
+        .section-divider { width: 80px; height: 3px; background: linear-gradient(90deg, var(--saffron), var(--gold)); border: none; border-radius: 3px; margin: 50px auto; }
+        /* GLASS CARD */
         .glass-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 44px 40px;
-            margin-bottom: 28px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 0.6s ease-out both;
+            background: var(--bg-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle); border-radius: 20px; padding: 44px 40px; margin-bottom: 28px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; animation: fadeInUp 0.6s ease-out both;
         }
-
-        .glass-card:hover {
-            border-color: var(--border-accent);
-            box-shadow: 0 0 40px rgba(255, 107, 26, 0.05);
-        }
-
-        .glass-card h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.3rem, 2.8vw, 1.65rem);
-            font-weight: 700;
-            margin-bottom: 18px;
-            color: var(--text-primary);
-            letter-spacing: -0.3px;
-        }
-
-        .glass-card h2 .accent {
-            color: var(--saffron);
-        }
-
-        .glass-card p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            max-width: 700px;
-        }
-
-        /* ===== FEATURES GRID ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-
+        .glass-card:hover { border-color: var(--border-accent); box-shadow: 0 0 40px rgba(255, 107, 26, 0.05); }
+        .glass-card h2 { font-family: var(--font-display); font-size: clamp(1.3rem, 2.8vw, 1.65rem); font-weight: 700; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.3px; }
+        .glass-card h2 .accent { color: var(--saffron); }
+        .glass-card p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; max-width: 700px; }
+        /* FEATURES GRID */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 20px; }
         .feature-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            padding: 24px 22px;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease-out both;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle);
+            border-radius: 14px; padding: 24px 22px; transition: all 0.3s ease; animation: fadeInUp 0.6s ease-out both;
         }
-
-        .feature-item:hover {
-            border-color: rgba(255, 107, 26, 0.15);
-            background: rgba(255, 107, 26, 0.03);
-            transform: translateY(-2px);
+        .feature-item:hover { border-color: rgba(255, 107, 26, 0.15); background: rgba(255, 107, 26, 0.03); transform: translateY(-2px); }
+        .feature-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+        .feature-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+        .feature-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+        /* STATS ROW */
+        .stats-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-start; margin-top: 22px; }
+        .stat-pill { display: flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 50px; background: rgba(255,107,26,0.07); border: 1px solid var(--border-accent); }
+        .stat-pill .num { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--saffron); }
+        .stat-pill .lbl { font-size: 0.82rem; color: var(--text-muted); }
+        /* MADE WITH LOVE OF EARTH */
+        .earth-section { text-align: center; }
+        .earth-emoji { font-size: 3rem; margin-bottom: 14px; display: block; animation: floatGlobe 4s ease-in-out infinite; }
+        .earth-section h2 { font-family: var(--font-display); font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 700; margin-bottom: 16px; color: var(--text-primary); }
+        .earth-section p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; max-width: 600px; margin: 0 auto 16px; }
+        .love-bar { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; font-size: 1.3rem; flex-wrap: wrap; }
+        .love-bar .love-text { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; letter-spacing: 0.4px; }
+        .love-bar .sep { font-size: 0.7rem; color: var(--text-muted); }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.25); } 28% { transform: scale(1); } 42% { transform: scale(1.15); } 70% { transform: scale(1); } }
+        .heart { display: inline-block; animation: heartbeat 1.6s ease-in-out infinite; }
+        .tricolor-bar { height: 4px; width: 120px; margin: 22px auto 0; background: linear-gradient(90deg, #ff6b1a 0%, #ff6b1a 33%, #f5f1e8 33%, #f5f1e8 66%, #2d6a4f 66%, #2d6a4f 100%); border-radius: 4px; opacity: 0.6; }
+        /* FOOTER */
+        .page-footer { text-align: center; padding: 40px 20px 60px; border-top: 1px solid var(--border-subtle); margin-top: 10px; }
+        .footer-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+        .footer-links a {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: var(--font-display); font-size: 0.88rem; font-weight: 600;
+            color: var(--saffron); text-decoration: none; padding: 9px 22px;
+            border: 1px solid var(--border-accent); border-radius: 50px;
+            background: rgba(255, 107, 26, 0.06); transition: all 0.3s ease;
         }
-
-        .feature-icon {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .feature-name {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-        }
-
-        .feature-desc {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.55;
-        }
-
-        /* ===== MADE IN BHARAT ===== */
-        .bharat-section {
-            text-align: center;
-            padding: 50px 24px 40px;
-        }
-
-        .bharat-flag {
-            font-size: 2.4rem;
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        .bharat-section h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.3rem, 3vw, 1.7rem);
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .bharat-section h2 .accent {
-            color: var(--saffron);
-        }
-
-        .bharat-section p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* ===== FOOTER ===== */
-        .page-footer {
-            text-align: center;
-            padding: 40px 20px 60px;
-            border-top: 1px solid var(--border-subtle);
-            margin-top: 10px;
-        }
-
-        .page-footer a {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--saffron);
-            text-decoration: none;
-            padding: 12px 32px;
-            border: 1px solid var(--border-accent);
-            border-radius: 50px;
-            background: rgba(255, 107, 26, 0.06);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            margin-bottom: 28px;
-        }
-
-        .page-footer a:hover {
-            background: rgba(255, 107, 26, 0.12);
-            border-color: var(--saffron);
-            box-shadow: 0 0 24px rgba(255, 107, 26, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .page-footer .copyright {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        .page-footer .copyright .brand {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero { animation: fadeInUp 0.7s ease-out both; }
-        .hero-subtitle { animation: fadeInUp 0.7s ease-out 0.1s both; }
+        .footer-links a:hover { background: rgba(255, 107, 26, 0.14); border-color: var(--saffron); box-shadow: 0 0 20px rgba(255, 107, 26, 0.15); transform: translateY(-1px); }
+        .page-footer .copyright { font-size: 0.83rem; color: var(--text-muted); letter-spacing: 0.4px; }
+        .page-footer .copyright .brand { color: var(--text-secondary); font-weight: 500; }
+        /* ANIMATIONS */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         .glass-card:nth-child(1) { animation-delay: 0.1s; }
         .glass-card:nth-child(2) { animation-delay: 0.2s; }
         .glass-card:nth-child(3) { animation-delay: 0.3s; }
@@ -328,65 +157,40 @@
         .feature-item:nth-child(4) { animation-delay: 0.2s; }
         .feature-item:nth-child(5) { animation-delay: 0.25s; }
         .feature-item:nth-child(6) { animation-delay: 0.3s; }
-
-        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 107, 26, 0.25);
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 107, 26, 0.25); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(255, 107, 26, 0.4); }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 640px) {
-            .hero {
-                padding: 60px 16px 40px;
-            }
-
-            .hero-globe {
-                font-size: 56px;
-            }
-
-            .glass-card {
-                padding: 30px 24px;
-                border-radius: 16px;
-                margin-bottom: 20px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .feature-item {
-                padding: 20px 18px;
-            }
-
-            .section-divider {
-                margin: 36px auto;
-            }
-
-            .bharat-section {
-                padding: 36px 16px 30px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-            }
+            .hero { padding: 50px 16px 36px; }
+            .hero-globe { font-size: 52px; }
+            .glass-card { padding: 28px 22px; border-radius: 16px; margin-bottom: 18px; }
+            .features-grid { grid-template-columns: 1fr; gap: 12px; }
+            .section-divider { margin: 36px auto; }
+            .site-nav { padding: 12px 16px; }
+            .nav-links a { padding: 6px 10px; font-size: 0.78rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- STICKY NAV -->
+    <nav class="site-nav">
+        <a class="nav-brand" href="/home/main.html">
+            <div class="bmark"><img src="/home/assets/logo.png" alt="Logo" loading="lazy"></div>
+            <span>PO ZipCode Global</span>
+        </a>
+        <div class="nav-links">
+            <a href="/home/main.html">← Home</a>
+            <a href="/pages/about.html" class="active">About</a>
+            <a href="/pages/privacy.html">Privacy</a>
+            <a href="/pages/report.html">Report</a>
+        </div>
+    </nav>
+
     <div class="page-wrapper">
 
-        <!-- ===== HERO ===== -->
+        <!-- HERO -->
         <section class="hero">
             <span class="hero-globe" aria-hidden="true">🌍</span>
             <h1>PO ZipCode Global</h1>
@@ -396,7 +200,7 @@
 
         <hr class="section-divider">
 
-        <!-- ===== WHAT IS ZIPCODE GLOBAL ===== -->
+        <!-- WHAT IS -->
         <section class="glass-card" aria-labelledby="what-is-heading">
             <h2 id="what-is-heading">What is <span class="accent">PO ZipCode Global</span>?</h2>
             <p>
@@ -405,19 +209,25 @@
                 access to over <strong>10,00,000+ postal codes</strong>. Whether you need an Indian PIN
                 code, a US ZIP code, or a Japanese postal code — we've got you covered.
             </p>
+            <div class="stats-row">
+                <div class="stat-pill"><span class="num">121</span><span class="lbl">Countries</span></div>
+                <div class="stat-pill"><span class="num">10L+</span><span class="lbl">Postal Codes</span></div>
+                <div class="stat-pill"><span class="num">6</span><span class="lbl">Continents</span></div>
+                <div class="stat-pill"><span class="num">100%</span><span class="lbl">Free Access</span></div>
+            </div>
         </section>
 
-        <!-- ===== OUR MISSION ===== -->
+        <!-- MISSION -->
         <section class="glass-card" aria-labelledby="mission-heading">
             <h2 id="mission-heading">Our <span class="accent">Mission</span></h2>
             <p>
                 To make every postal code in the world accessible to everyone, for free. Built with
                 Indian heritage and global reach, PO ZipCode Global bridges the gap between local postal
-                systems and global users.
+                systems and global users. We believe information should be free, open, and beautiful.
             </p>
         </section>
 
-        <!-- ===== FEATURES ===== -->
+        <!-- FEATURES -->
         <section class="glass-card" aria-labelledby="features-heading">
             <h2 id="features-heading">Powerful <span class="accent">Features</span></h2>
             <div class="features-grid">
@@ -437,14 +247,14 @@
                     <div class="feature-desc">Every search reveals the location on an interactive map</div>
                 </div>
                 <div class="feature-item">
-                    <span class="feature-icon" aria-hidden="true">🎙️</span>
-                    <div class="feature-name">Voice Search</div>
-                    <div class="feature-desc">Speak the postal code in any language</div>
+                    <span class="feature-icon" aria-hidden="true">📍</span>
+                    <div class="feature-name">Detailed Info</div>
+                    <div class="feature-desc">Circle, Region, Division, Office type &amp; more</div>
                 </div>
                 <div class="feature-item">
-                    <span class="feature-icon" aria-hidden="true">⌨️</span>
-                    <div class="feature-name">Command Palette</div>
-                    <div class="feature-desc">Press Ctrl+K for instant search</div>
+                    <span class="feature-icon" aria-hidden="true">🏛️</span>
+                    <div class="feature-name">State → District → City</div>
+                    <div class="feature-desc">Intuitive drill-down navigation</div>
                 </div>
                 <div class="feature-item">
                     <span class="feature-icon" aria-hidden="true">📱</span>
@@ -456,22 +266,35 @@
 
         <hr class="section-divider">
 
-        <!-- ===== MADE IN BHARAT ===== -->
-        <section class="bharat-section glass-card" aria-labelledby="bharat-heading">
-            <span class="bharat-flag" aria-hidden="true">🇮🇳</span>
-            <h2 id="bharat-heading">Made in <span class="accent">Bharat</span></h2>
+        <!-- MADE WITH LOVE OF EARTH -->
+        <section class="earth-section glass-card" aria-labelledby="earth-heading">
+            <span class="earth-emoji" aria-hidden="true">🌏</span>
+            <h2 id="earth-heading">Made with <span class="heart">❤️</span> <span class="accent">Love of Earth</span></h2>
             <p>
-                Built with love in India, for the world. We believe information should be free and
-                accessible to everyone.
+                Built from Bharat 🇮🇳, for every human on Earth. We believe that geography should have no barriers —
+                every pin code, every location, every address in the world should be one search away, completely free.
             </p>
+            <div class="love-bar">
+                <span>🇮🇳</span>
+                <span class="love-text">Built in Bharat</span>
+                <span class="sep">·</span>
+                <span class="heart">❤️</span>
+                <span class="love-text">For the World</span>
+                <span class="sep">·</span>
+                <span>🌏</span>
+                <span class="love-text">Love of Earth</span>
+            </div>
+            <div class="tricolor-bar"></div>
         </section>
 
-        <!-- ===== FOOTER ===== -->
+        <!-- FOOTER -->
         <footer class="page-footer">
-            <a href="https://zipcodeglobal.com" title="Back to PO ZipCode Global Home">
-                ← Back to Home
-            </a>
-            <p class="copyright">© 2026 <span class="brand">PO ZipCode Global</span>. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/home/main.html">🌍 All 121 Countries</a>
+                <a href="/pages/privacy.html">🔒 Privacy Policy</a>
+                <a href="/pages/report.html">⚠️ Report Mistake</a>
+            </div>
+            <p class="copyright">© 2026 <span class="brand">PO ZipCode Global</span>. All rights reserved. Made with ❤️ Love of Earth.</p>
         </footer>
 
     </div>

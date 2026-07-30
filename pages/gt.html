@@ -43,9 +43,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   display:flex;align-items:center;justify-content:space-between;transition:all .35s var(--ease)}
 .nav.sc{background:rgba(5,8,22,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(var(--p2),.18)}
 .brand{display:flex;align-items:center;gap:.65rem;font-family:var(--fd);font-weight:700;font-size:1rem}
-.bmark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--a));
-  display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;color:#000;
+.bmark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--p),var(--a));
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
   box-shadow:0 0 20px rgba(var(--p2),.4)}
+.bmark img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
 .nav-links{display:flex;gap:.3rem}
 .nl{padding:.32rem .78rem;border-radius:999px;background:var(--glass);border:1px solid rgba(var(--p2),.18);
   font-size:.76rem;color:var(--t2);transition:all .2s var(--ease)}
@@ -269,12 +270,13 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 
 <nav class="nav" id="nav">
   <a class="brand" href="/home/main.html">
-    <div class="bmark">PZ</div>
+    <div class="bmark"><img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
     <a class="nl" href="/home/main.html">&#8592; All Countries</a>
     <a class="nl" href="/pages/about.html">About</a>
+    <a class="nl" href="/pages/privacy.html">Privacy</a>
     <a class="nl" href="/pages/report.html">Report</a>
   </div>
 </nav>
@@ -282,12 +284,13 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 <!-- HERO -->
 <section class="hero">
   <div class="flag-wrap">
-    <img id="hFlag" src="https://flagcdn.com/w320/gt.png" alt="Guatemala Flag" crossorigin="Anonymous" onerror="this.style.display='none'"/>
+    <img id="hFlag" src="https://flagcdn.com/w320/{{CODE_LOWER}}.png" alt="Guatemala Flag" crossorigin="Anonymous" onerror="this.style.display='none'"/>
   </div>
   <h1><span class="grad">Guatemala</span> Postal Code Directory</h1>
   <p class="hero-sub">Central America · 22 Departments</p>
   <div class="hero-stats" id="hStats">
     <div><span class="hs-n" id="statRegions">—</span><span class="hs-l">Regions</span></div>
+    <div><span class="hs-n">+502</span><span class="hs-l">Calling Code</span></div>
     <div><span class="hs-n">GT</span><span class="hs-l">Country Code</span></div>
     <div><span class="hs-n">Postal Code</span><span class="hs-l">Code Type</span></div>
   </div>
@@ -330,10 +333,10 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
   <div id="cityLoadWrap"></div>
 </div>
 
-<!-- DISTRICTS -->
+<!-- DISTRICTS (NOW CITIES) -->
 <div class="sec" id="s2" style="display:none">
   <div class="sec-hdr">
-    <button class="back-btn" onclick="goBack(2)">&#8592; Back to Cities</button>
+    <button class="back-btn" onclick="goBack(2)">&#8592; Back to Districts</button>
     <div class="sec-title" id="s2title">Districts</div>
     <div class="sec-count" id="s2cnt"></div>
   </div>
@@ -344,7 +347,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 <!-- PINCODES -->
 <div class="sec" id="s3" style="display:none">
   <div class="sec-hdr">
-    <button class="back-btn" onclick="goBack(3)">&#8592; Back to Districts</button>
+    <button class="back-btn" onclick="goBack(3)">&#8592; Back to Cities</button>
     <div class="sec-title" id="s3title">Postal Codes</div>
     <div class="sec-count" id="s3cnt"></div>
   </div>
@@ -392,7 +395,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 
 // ── COUNTRY CONFIG ──────────────────────────────────────────────
 const C = {
-  name:'Guatemala', code:'GT', flag:'gt',
+  name:'Guatemala', code:'GT', flag:'{{CODE_LOWER}}',
   term:'Postal Code', subtitle:'Central America · 22 Departments',
   lat:15.7835, lon:-90.2308, region:'Americas',
   dataBase:'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/world/GT/'
@@ -665,8 +668,8 @@ function updateMapMarkers(records, focusLocationName){
 function updateBC(){
   const items = [['&#127760; '+C.name, ()=>goBack(0)]];
   if(NAV.stateFile) items.push([NAV.stateFile.replace('.json','').replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase()), ()=>goBack(1)]);
-  if(NAV.city)      items.push([NAV.city, ()=>goBack(2)]);
-  if(NAV.district)  items.push([NAV.district, ()=>goBack(3)]);
+  if(NAV.district)  items.push([NAV.district, ()=>goBack(2)]);
+  if(NAV.city && !NAV.usingCitiesS1) items.push([NAV.city, ()=>goBack(3)]);
   const bc=$('bc');
   bc.innerHTML = items.map((it,i)=>{
     const isLast = i===items.length-1;
@@ -716,6 +719,30 @@ async function selectState(file, label){
   }catch(e){ console.warn('Places unavailable'); }
 }
 
+// ── LATEST UPDATES (BLOG) ──
+function loadBlogPosts() {
+  const codeLower = C.code.toLowerCase();
+  fetch(`https://www.blogger.com/feeds/7898864703908862562/posts/default/-/${codeLower}?alt=json&max-results=3`)
+    .then(r => r.json())
+    .then(data => {
+      const feed = data.feed;
+      if(feed && feed.entry && feed.entry.length > 0) {
+        let html = '<div class="sec-hdr" style="margin-top:3rem;"><h2 class="sec-title">Latest Updates</h2></div><div class="city-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">';
+        feed.entry.forEach(p => {
+           let title = p.title.$t;
+           let link = p.link.find(l => l.rel === 'alternate').href;
+           html += `<a href="${link}" target="_blank" class="city-card" style="text-align:left;display:block;"><h3 style="font-size:.95rem;margin:0 0 .5rem 0;color:var(--t);">${title}</h3><p style="font-size:.8rem;color:var(--p);margin:0;">Read more &rarr;</p></a>`;
+        });
+        html += '</div>';
+        const d = document.createElement('div');
+        d.className = 'sec';
+        d.innerHTML = html;
+        document.getElementById('s0').appendChild(d);
+      }
+    }).catch(e => console.log('No posts found.'));
+}
+loadBlogPosts();
+
 // ── EXTRACT DYNAMIC THEME COLOR ──
 $('hFlag').addEventListener('load', function() {
   try {
@@ -741,14 +768,24 @@ $('hFlag').addEventListener('load', function() {
 });
 
 // ── INITIALIZE ──
-// ── STEP 1: CITIES (BATCH PAGINATION - 60 AT A TIME) ─────────────
+// ── STEP 1: DISTRICTS (BATCH PAGINATION - 60 AT A TIME) ─────────────
 function showCities(){
-  NAV.citiesList = uniq(NAV.data.map(r=>val(r,NAV.fields.city)));
-  NAV.cityLimit = 60;
+  NAV.distsList = uniq(NAV.data.map(r=>val(r,NAV.fields.dist)));
+  NAV.distLimit = 60;
   const stLabel = (NAV.stateFile||'').replace('.json','').replace(/-/g,' ').replace(/\b\w/g,x=>x.toUpperCase());
-  $('s1title').textContent = stLabel + ' — Cities';
-  setCount('s1cnt', NAV.citiesList.length, 'City');
-  if(!NAV.citiesList.length){
+  
+  if(!NAV.distsList.length || (NAV.distsList.length===1 && !NAV.distsList[0])){
+    NAV.distsList = uniq(NAV.data.map(r=>val(r,NAV.fields.city)));
+    $('s1title').textContent = stLabel + ' — Cities';
+    setCount('s1cnt', NAV.distsList.length, 'City');
+    NAV.usingCitiesS1 = true;
+  } else {
+    $('s1title').textContent = stLabel + ' — Districts';
+    setCount('s1cnt', NAV.distsList.length, 'District');
+    NAV.usingCitiesS1 = false;
+  }
+
+  if(!NAV.distsList.length){
     NAV.city = 'All'; NAV.district = 'All';
     showPins(NAV.data);
     return;
@@ -760,13 +797,14 @@ function showCities(){
 }
 
 function renderCityBatch(){
-  const batch = NAV.citiesList.slice(0, NAV.cityLimit);
-  $('cityGrid').innerHTML = batch.map(c=>'<div class="city-card" onclick="selectCity(\''+escQ(c)+'\')">'+c+'</div>').join('');
-  if (NAV.citiesList.length > NAV.cityLimit) {
+  const batch = NAV.distsList.slice(0, NAV.distLimit);
+  $('cityGrid').innerHTML = batch.map(d=>'<div class="city-card" onclick="selectCity(\''+escQ(d)+'\')">'+d+'</div>').join('');
+  if (NAV.distsList.length > NAV.distLimit) {
+    const lbl = NAV.usingCitiesS1 ? 'cities' : 'districts';
     $('cityLoadWrap').innerHTML = `
       <div class="load-more-wrap">
         <button class="load-more-btn" onclick="moreCities()">Load More (+60) &#8594;</button>
-        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.citiesList.length} cities</div>
+        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.distsList.length} ${lbl}</div>
       </div>`;
   } else {
     $('cityLoadWrap').innerHTML = '';
@@ -774,27 +812,35 @@ function renderCityBatch(){
 }
 
 window.moreCities = function(){
-  NAV.cityLimit += 60;
+  NAV.distLimit += 60;
   renderCityBatch();
 };
 
-// ── SELECT CITY → SHOW DISTRICTS (BATCH PAGINATION - 60 AT A TIME) ─────
-function selectCity(city){
-  NAV.city = city; NAV.district = null;
-  const filtered = NAV.data.filter(r=>val(r,NAV.fields.city)===city);
-  NAV.distsList = uniq(filtered.map(r=>val(r,NAV.fields.dist)));
-  NAV.distLimit = 60;
-  NAV.filteredCityData = filtered;
-
-  updateMapMarkers(filtered, city);
-
-  if(!NAV.distsList.length || (NAV.distsList.length===1 && !NAV.distsList[0])){
-    NAV.district = city;
+// ── SELECT DISTRICT → SHOW CITIES (BATCH PAGINATION - 60 AT A TIME) ─────
+function selectCity(dist){
+  if(NAV.usingCitiesS1){
+    NAV.city = dist; NAV.district = dist;
+    const filtered = NAV.data.filter(r=>val(r,NAV.fields.city)===dist);
+    updateMapMarkers(filtered, dist);
     showPins(filtered);
     return;
   }
-  $('s2title').textContent = city + ' — Districts';
-  setCount('s2cnt', NAV.distsList.length, 'District');
+
+  NAV.district = dist; NAV.city = null;
+  const filtered = NAV.data.filter(r=>val(r,NAV.fields.dist)===dist);
+  NAV.citiesList = uniq(filtered.map(r=>val(r,NAV.fields.city)));
+  NAV.cityLimit = 60;
+  NAV.filteredDistData = filtered;
+
+  updateMapMarkers(filtered, dist);
+
+  if(!NAV.citiesList.length || (NAV.citiesList.length===1 && !NAV.citiesList[0])){
+    NAV.city = dist;
+    showPins(filtered);
+    return;
+  }
+  $('s2title').textContent = dist + ' — Cities';
+  setCount('s2cnt', NAV.citiesList.length, 'City');
   renderDistBatch();
   show('s2'); hide('s3','s4');
   updateBC();
@@ -802,13 +848,13 @@ function selectCity(city){
 }
 
 function renderDistBatch(){
-  const batch = NAV.distsList.slice(0, NAV.distLimit);
-  $('distGrid').innerHTML = batch.map(d=>'<div class="city-card" onclick="selectDist(\''+escQ(NAV.city)+'\',\''+escQ(d)+'\')">'+d+'</div>').join('');
-  if (NAV.distsList.length > NAV.distLimit) {
+  const batch = NAV.citiesList.slice(0, NAV.cityLimit);
+  $('distGrid').innerHTML = batch.map(c=>'<div class="city-card" onclick="selectDist(\''+escQ(NAV.district)+'\',\''+escQ(c)+'\')">'+c+'</div>').join('');
+  if (NAV.citiesList.length > NAV.cityLimit) {
     $('distLoadWrap').innerHTML = `
       <div class="load-more-wrap">
         <button class="load-more-btn" onclick="moreDists()">Load More (+60) &#8594;</button>
-        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.distsList.length} districts</div>
+        <div class="load-cnt-tag">Showing ${batch.length} of ${NAV.citiesList.length} cities</div>
       </div>`;
   } else {
     $('distLoadWrap').innerHTML = '';
@@ -816,15 +862,15 @@ function renderDistBatch(){
 }
 
 window.moreDists = function(){
-  NAV.distLimit += 60;
+  NAV.cityLimit += 60;
   renderDistBatch();
 };
 
-// ── SELECT DISTRICT → SHOW PINCODES ─────────────────────────────
-function selectDist(city, dist){
-  NAV.district = dist;
-  const filtered = NAV.data.filter(r=>val(r,NAV.fields.city)===city && val(r,NAV.fields.dist)===dist);
-  updateMapMarkers(filtered, dist);
+// ── SELECT CITY → SHOW PINCODES ─────────────────────────────
+function selectDist(dist, city){
+  NAV.city = city;
+  const filtered = NAV.data.filter(r=>val(r,NAV.fields.dist)===dist && val(r,NAV.fields.city)===city);
+  updateMapMarkers(filtered, city);
   showPins(filtered);
 }
 
@@ -899,6 +945,15 @@ function showDetail(idx){
     if(value === null || value === undefined || value === '') value = '—';
     let label = key.replace(/_/g, ' ').replace(/([A-Z])/g, ' $1').trim();
     label = label.charAt(0).toUpperCase() + label.slice(1);
+    const low = label.toLowerCase();
+    if(low === 'county') label = 'District';
+    if(low === 'circlename') label = 'Circle Name';
+    if(low === 'regionname') label = 'Region Name';
+    if(low === 'divisionname') label = 'Division Name';
+    if(low === 'officename') label = 'Office Name';
+    if(low === 'statename') label = 'State Name';
+    if(low === 'officetype') label = 'Office Type';
+    
     const icon = getAttrIcon(key);
     return `<div class="di-item">
       <div class="di-item-lbl"><span>${icon}</span> ${label}</div>
@@ -923,9 +978,9 @@ function showDetail(idx){
 
 // ── BACK NAVIGATION ──────────────────────────────────────────────
 function goBack(fromStep){
-  if(fromStep<=1){ hide('s1','s2','s3','s4'); show('s0'); NAV.stateFile=null; NAV.city=null; NAV.district=null; }
+  if(fromStep<=1){ hide('s1','s2','s3','s4'); show('s0'); NAV.stateFile=null; NAV.city=null; NAV.district=null; NAV.usingCitiesS1=false; }
   else if(fromStep===2){ hide('s2','s3','s4'); show('s1'); NAV.city=null; NAV.district=null; }
-  else if(fromStep===3){ hide('s3','s4'); show('s2'); NAV.district=null; }
+  else if(fromStep===3){ hide('s3','s4'); show('s2'); NAV.city=null; }
   else if(fromStep===4){ hide('s4'); show('s3'); }
   updateBC();
   window.scrollTo({top:0,behavior:'smooth'});
