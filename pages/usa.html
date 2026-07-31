@@ -898,8 +898,9 @@ function renderPinBatch(){
   const f = NAV.fields;
   $('pinGrid').innerHTML = batch.map((r,i)=>{
     const pin = val(r,f.pin)||'—';
-    const place = val(r,f.city)||val(r,f.dist)||'';
-    const meta = val(r,f.dist)||val(r,f.state)||'';
+      const off = val(r, 'officename') || val(r, 'office_name');
+      const place = off ? off : (val(r,f.city)||val(r,f.dist)||'');
+      const meta = off ? (val(r,f.city)||val(r,f.dist)||'') : (val(r,f.dist)||val(r,f.state)||'');
     return '<div class="pin-card" onclick="showDetail('+i+')">'+
       '<div class="pin-num">'+pin+'</div>'+
       (place?'<div class="pin-place">'+place+'</div>':'')+
@@ -954,10 +955,10 @@ function showDetail(idx){
     label = label.charAt(0).toUpperCase() + label.slice(1);
     const low = label.toLowerCase();
     if(low === 'county') label = 'District';
-    if(low === 'circlename') label = 'Circle Name';
-    if(low === 'regionname') label = 'Region Name';
-    if(low === 'divisionname') label = 'Division Name';
-    if(low === 'officename') label = 'Office Name';
+    if(low === 'circlename') label = 'Circle';
+      if(low === 'regionname') label = 'Region';
+      if(low === 'divisionname') label = 'City';
+      if(low === 'officename') label = 'Post Office';
     if(low === 'statename') label = 'State Name';
     if(low === 'officetype') label = 'Office Type';
     
