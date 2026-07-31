@@ -137,8 +137,27 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{{NAME}} {{TERM}} — Find Postal Codes by State, City & District | PO ZipCode Global</title>
 <meta name="description" content="Find any {{TERM}} in {{NAME}}. Browse states, cities, districts. Interactive map, full address details. Free & instant."/>
-<meta property="og:title" content="{{NAME}} {{TERM}} Directory — PO ZipCode Global"/>
+<meta name="keywords" content="{{NAME}} {{TERM}}, {{NAME}} postal code, {{TERM}} lookup, zip code {{NAME}}, pin code {{NAME}}, post office {{NAME}}"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<meta name="author" content="PO ZipCode Global"/>
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website"/>
+<meta property="og:title" content="{{NAME}} {{TERM}} Directory — PO ZipCode Global"/>
+<meta property="og:description" content="Find any {{TERM}} in {{NAME}}. Browse states, cities, districts. Interactive map, full address details. Free & instant."/>
+<meta property="og:site_name" content="PO ZipCode Global"/>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{NAME}} {{TERM}} Directory"/>
+<meta name="twitter:description" content="Find any {{TERM}} in {{NAME}}. Browse states, cities, districts. Interactive map, full address details. Free & instant."/>
+
+<!-- Geo & Local SEO Tags (Hidden) -->
+<meta name="geo.region" content="{{CODE}}"/>
+<meta name="geo.placename" content="{{NAME}}"/>
+<meta name="geo.position" content="{{LAT}};{{LON}}"/>
+<meta name="ICBM" content="{{LAT}}, {{LON}}"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
