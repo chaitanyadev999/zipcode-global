@@ -53,7 +53,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .nl:hover{background:var(--card-hi);border-color:var(--p);color:var(--t)}
 
 /* ── HERO ── */
-.hero{padding:6.5rem 1.5rem 2.5rem;text-align:center;max-width:860px;margin:0 auto}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:600px;background-size:cover;background-position:center;opacity:0.15;z-index:-1;mask-image:linear-gradient(to bottom, black 0%, transparent 100%);-webkit-mask-image:linear-gradient(to bottom, black 0%, transparent 100%);pointer-events:none}
+  .hero{padding:6.5rem 1.5rem 2.5rem;text-align:center;max-width:860px;margin:0 auto}
 @keyframes fu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 .flag-wrap{margin-bottom:1.25rem;animation:fu .7s var(--ease) both}
 .flag-wrap img{width:320px;max-width:100%;height:auto;border-radius:16px;
@@ -104,11 +105,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 #mainMap{width:100%;height:100%}
 .map-badge{
-  position:absolute;top:1rem;right:1rem;z-index:400;
-  padding:.4rem .9rem;border-radius:999px;background:rgba(5,8,22,0.85);
-  backdrop-filter:blur(16px);border:1px solid rgba(var(--p2),0.3);
-  font-family:var(--fm);font-size:.72rem;color:var(--p);box-shadow:0 4px 16px rgba(0,0,0,0.4);
-}
+    position:absolute;top:1rem;right:1rem;z-index:400;
+    max-width:calc(100% - 2rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:.4rem .9rem;border-radius:999px;background:rgba(5,8,22,0.85);
+    backdrop-filter:blur(16px);border:1px solid rgba(var(--p2),0.3);
+    font-family:var(--fm);font-size:.72rem;color:var(--p);box-shadow:0 4px 16px rgba(0,0,0,0.4);
+  }
 
 /* ── SECTION COMMON ── */
 .sec{max-width:960px;margin:0 auto;padding:0 1.5rem 3rem}
@@ -282,7 +284,8 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<div class="hero-bg" style="background-image: url('https://flagcdn.com/w1280/{{CODE_LOWER}}.png')"></div>
+  <section class="hero">
   <div class="flag-wrap">
     <img id="hFlag" src="https://flagcdn.com/w320/{{CODE_LOWER}}.png" alt="Norfolk Island Flag" crossorigin="Anonymous" onerror="this.style.display='none'"/>
   </div>
@@ -644,7 +647,13 @@ function updateMapMarkers(records, focusLocationName){
     const lat = parseFloat(val(r,f.lat));
     const lon = parseFloat(val(r,f.lon));
     const pin = val(r,f.pin)||'—';
-    const place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+    let place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+    let realCity = '';
+    if (C.code === 'IN' && r['officename']) {
+        realCity = String(r['officename']).replace(/ (B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
+        realCity = realCity.replace(/[\-,]+$/, '').trim();
+        if (realCity) place = realCity;
+    }
     
     if(!isNaN(lat) && !isNaN(lon) && lat!==0 && lon!==0){
       validPoints.push([lat, lon]);
@@ -783,8 +792,8 @@ function showCities(){
   
   if(!NAV.distsList.length || (NAV.distsList.length===1 && !NAV.distsList[0])){
     NAV.distsList = uniq(NAV.data.map(r=>val(r,NAV.fields.city)));
-    $('s1title').textContent = stLabel + ' — Cities';
-    setCount('s1cnt', NAV.distsList.length, 'City');
+    $('s1title').textContent = stLabel + (C.code==='IN' ? ' — Divisions' : ' — Cities');
+      setCount('s1cnt', NAV.distsList.length, C.code==='IN'?'Division':'City');
     NAV.usingCitiesS1 = true;
   } else {
     $('s1title').textContent = stLabel + ' — Districts';
@@ -846,8 +855,8 @@ function selectCity(dist){
     showPins(filtered);
     return;
   }
-  $('s2title').textContent = dist + ' — Cities';
-  setCount('s2cnt', NAV.citiesList.length, 'City');
+  $('s2title').textContent = dist + (C.code==='IN' ? ' — Divisions' : ' — Cities');
+    setCount('s2cnt', NAV.citiesList.length, C.code==='IN'?'Division':'City');
   renderDistBatch();
   show('s2'); hide('s3','s4');
   updateBC();
@@ -929,7 +938,13 @@ function showDetail(idx){
   if(!r) return;
   const f = NAV.fields;
   const pin   = val(r,f.pin)||'—';
-  const place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+  let place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+    let realCity = '';
+    if (C.code === 'IN' && r['officename']) {
+        realCity = String(r['officename']).replace(/ (B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
+        realCity = realCity.replace(/[\-,]+$/, '').trim();
+        if (realCity) place = realCity;
+    }
   const lat   = parseFloat(val(r,f.lat))||null;
   const lon   = parseFloat(val(r,f.lon))||null;
 
@@ -954,10 +969,10 @@ function showDetail(idx){
     label = label.charAt(0).toUpperCase() + label.slice(1);
     const low = label.toLowerCase();
     if(low === 'county') label = 'District';
-    if(low === 'circlename') label = 'Circle Name';
-    if(low === 'regionname') label = 'Region Name';
-    if(low === 'divisionname') label = 'Division Name';
-    if(low === 'officename') label = 'Office Name';
+    if(low === 'circlename') label = 'Circle';
+      if(low === 'regionname') label = 'Region';
+      if(low === 'divisionname') { label = 'Division'; if(typeof value === 'string') value = value.replace(/Division/i, '').trim(); }
+      if(low === 'officename') label = 'Post Office';
     if(low === 'statename') label = 'State Name';
     if(low === 'officetype') label = 'Office Type';
     
@@ -968,7 +983,16 @@ function showDetail(idx){
     </div>`;
   }).join('');
 
-  $('diGrid').innerHTML = itemsHtml;
+  
+    let realCityHtml = '';
+    if (C.code === 'IN' && realCity) {
+        realCityHtml = `<div class="di-item">
+          <div class="di-item-lbl"><span>🏙️</span> City</div>
+          <div class="di-item-val" style="color:var(--p);font-weight:600">${realCity}</div>
+        </div>`;
+    }
+    
+    $('diGrid').innerHTML = realCityHtml + itemsHtml + (C.code==='IN' ? `<div style='grid-column: 1 / -1; font-size:0.85rem; color:#888; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px; margin-top:5px;'><b>💡 Abbreviations:</b> B.O = Branch Office, S.O = Sub Office, H.O = Head Office, V.O = Village Office</div>` : '');
 
   const mapQ = encodeURIComponent(place + ' ' + pin + ' ' + C.name);
   $('diActions').innerHTML =

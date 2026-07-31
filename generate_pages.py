@@ -185,7 +185,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .nl:hover{background:var(--card-hi);border-color:var(--p);color:var(--t)}
 
 /* ── HERO ── */
-.hero{padding:6.5rem 1.5rem 2.5rem;text-align:center;max-width:860px;margin:0 auto}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:600px;background-size:cover;background-position:center;opacity:0.15;z-index:-1;mask-image:linear-gradient(to bottom, black 0%, transparent 100%);-webkit-mask-image:linear-gradient(to bottom, black 0%, transparent 100%);pointer-events:none}
+  .hero{padding:6.5rem 1.5rem 2.5rem;text-align:center;max-width:860px;margin:0 auto}
 @keyframes fu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 .flag-wrap{margin-bottom:1.25rem;animation:fu .7s var(--ease) both}
 .flag-wrap img{width:320px;max-width:100%;height:auto;border-radius:16px;
@@ -415,7 +416,8 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<div class="hero-bg" style="background-image: url('https://flagcdn.com/w1280/{{CODE_LOWER}}.png')"></div>
+  <section class="hero">
   <div class="flag-wrap">
     <img id="hFlag" src="https://flagcdn.com/w320/{{CODE_LOWER}}.png" alt="{{NAME}} Flag" crossorigin="Anonymous" onerror="this.style.display='none'"/>
   </div>
