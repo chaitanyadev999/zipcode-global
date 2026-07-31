@@ -776,7 +776,13 @@ function updateMapMarkers(records, focusLocationName){
     const lat = parseFloat(val(r,f.lat));
     const lon = parseFloat(val(r,f.lon));
     const pin = val(r,f.pin)||'—';
-    const place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+    let place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+    let realCity = '';
+    if (C.code === 'IN' && r['officename']) {
+        realCity = String(r['officename']).replace(/ (B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
+        realCity = realCity.replace(/[\-,]+$/, '').trim();
+        if (realCity) place = realCity;
+    }
     
     if(!isNaN(lat) && !isNaN(lon) && lat!==0 && lon!==0){
       validPoints.push([lat, lon]);
@@ -1061,7 +1067,13 @@ function showDetail(idx){
   if(!r) return;
   const f = NAV.fields;
   const pin   = val(r,f.pin)||'—';
-  const place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+  let place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
+    let realCity = '';
+    if (C.code === 'IN' && r['officename']) {
+        realCity = String(r['officename']).replace(/ (B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
+        realCity = realCity.replace(/[\-,]+$/, '').trim();
+        if (realCity) place = realCity;
+    }
   const lat   = parseFloat(val(r,f.lat))||null;
   const lon   = parseFloat(val(r,f.lon))||null;
 
@@ -1102,16 +1114,12 @@ function showDetail(idx){
 
   
     let realCityHtml = '';
-    if (C.code === 'IN' && r['officename']) {
-        let realCity = String(r['officename']).replace(/(B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
-        // Remove trailing hyphens or commas
-        realCity = realCity.replace(/[\-,]+$/, '').trim();
-        if (realCity) {
-            realCityHtml = `<div class="di-item">
-              <div class="di-item-lbl"><span>🏙️</span> City</div>
-              <div class="di-item-val" style="color:var(--p);font-weight:600">${realCity}</div>
-            </div>`;
-        }
+    if (C.code === 'IN' && realCity) {
+        realCityHtml = `<div class="di-item">
+          <div class="di-item-lbl"><span>🏙️</span> City</div>
+          <div class="di-item-val" style="color:var(--p);font-weight:600">${realCity}</div>
+        </div>`;
+    }
     }
     
     $('diGrid').innerHTML = realCityHtml + itemsHtml + (C.code==='IN' ? `<div style='grid-column: 1 / -1; font-size:0.85rem; color:#888; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px; margin-top:5px;'><b>💡 Abbreviations:</b> B.O = Branch Office, S.O = Sub Office, H.O = Head Office, V.O = Village Office</div>` : '');
