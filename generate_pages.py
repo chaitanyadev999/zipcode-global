@@ -915,8 +915,8 @@ function showCities(){
   
   if(!NAV.distsList.length || (NAV.distsList.length===1 && !NAV.distsList[0])){
     NAV.distsList = uniq(NAV.data.map(r=>val(r,NAV.fields.city)));
-    $('s1title').textContent = stLabel + ' — Cities';
-    setCount('s1cnt', NAV.distsList.length, 'City');
+    $('s1title').textContent = stLabel + (C.code==='IN' ? ' — Divisions' : ' — Cities');
+      setCount('s1cnt', NAV.distsList.length, C.code==='IN'?'Division':'City');
     NAV.usingCitiesS1 = true;
   } else {
     $('s1title').textContent = stLabel + ' — Districts';
@@ -978,8 +978,8 @@ function selectCity(dist){
     showPins(filtered);
     return;
   }
-  $('s2title').textContent = dist + ' — Cities';
-  setCount('s2cnt', NAV.citiesList.length, 'City');
+  $('s2title').textContent = dist + (C.code==='IN' ? ' — Divisions' : ' — Cities');
+    setCount('s2cnt', NAV.citiesList.length, C.code==='IN'?'Division':'City');
   renderDistBatch();
   show('s2'); hide('s3','s4');
   updateBC();
@@ -1086,10 +1086,10 @@ function showDetail(idx){
     label = label.charAt(0).toUpperCase() + label.slice(1);
     const low = label.toLowerCase();
     if(low === 'county') label = 'District';
-    if(low === 'circlename') label = 'Circle Name';
-    if(low === 'regionname') label = 'Region Name';
-    if(low === 'divisionname') label = 'Division Name';
-    if(low === 'officename') label = 'Office Name';
+    if(low === 'circlename') label = 'Circle';
+      if(low === 'regionname') label = 'Region';
+      if(low === 'divisionname') { label = 'Division'; if(typeof value === 'string') value = value.replace(/Division/i, '').trim(); }
+      if(low === 'officename') label = 'Post Office';
     if(low === 'statename') label = 'State Name';
     if(low === 'officetype') label = 'Office Type';
     
@@ -1100,7 +1100,21 @@ function showDetail(idx){
     </div>`;
   }).join('');
 
-  $('diGrid').innerHTML = itemsHtml;
+  
+    let realCityHtml = '';
+    if (C.code === 'IN' && r['officename']) {
+        let realCity = String(r['officename']).replace(/(B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
+        // Remove trailing hyphens or commas
+        realCity = realCity.replace(/[\-,]+$/, '').trim();
+        if (realCity) {
+            realCityHtml = `<div class="di-item">
+              <div class="di-item-lbl"><span>🏙️</span> City</div>
+              <div class="di-item-val" style="color:var(--p);font-weight:600">${realCity}</div>
+            </div>`;
+        }
+    }
+    
+    $('diGrid').innerHTML = realCityHtml + itemsHtml;
 
   const mapQ = encodeURIComponent(place + ' ' + pin + ' ' + C.name);
   $('diActions').innerHTML =
