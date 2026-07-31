@@ -1087,6 +1087,21 @@ h1, h2, h3, h4, h5, h6 {
     $('resultsTitle').textContent = title;
     $('resultsCount').textContent = results.length + ' found';
     $('resultsList').innerHTML = results.map((item, idx) => {
+      let stateLbl = 'State';
+      let distLbl = 'District';
+      if (['US','GB','IE'].includes(C.code)) distLbl = 'County';
+      else if (C.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
+      else if (C.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
+      else if (C.code === 'CN') { stateLbl = 'Province'; distLbl = 'Prefecture'; }
+      else if (C.code === 'FR') { stateLbl = 'Region'; distLbl = 'Department'; }
+      else if (C.code === 'IT') { stateLbl = 'Region'; distLbl = 'Province'; }
+      else if (C.code === 'ES') { stateLbl = 'Community'; distLbl = 'Province'; }
+      else if (C.code === 'AU') { stateLbl = 'State'; distLbl = 'Region'; }
+      else if (C.code === 'BR') { stateLbl = 'State'; distLbl = 'Municipality'; }
+      else if (C.code === 'ZA') { stateLbl = 'Province'; distLbl = 'Municipality'; }
+      else if (C.code === 'RU') { stateLbl = 'Republic/Oblast'; distLbl = 'District'; }
+      else if (C.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
+
       const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
       const office = item.officename || item.OfficeName || item.City || 'Location';
       const state = item.statename || item.State || '';
@@ -1099,8 +1114,8 @@ h1, h2, h3, h4, h5, h6 {
         '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
         '<div class="result-office">' + office + '</div>' +
         '<div class="result-meta">' +
-          '<div class="meta-item"><span class="meta-label">State</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
-          '<div class="meta-item"><span class="meta-label">District</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
+          '<div class="meta-item"><span class="meta-label">' + stateLbl + '</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
+          '<div class="meta-item"><span class="meta-label">' + distLbl + '</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
           '<div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">' + (region || 'N/A') + '</span></div>' +
           '<div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">' + (division || 'N/A') + '</span></div>' +
         '</div>' +
