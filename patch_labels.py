@@ -1,40 +1,70 @@
-import re
+import os
 
-with open(r'C:\Users\recla\zipcode-global\generate_pages.py', 'r', encoding='utf-8') as f:
+template_file = r'C:\Users\recla\zipcode-global\pages\country-template.html'
+
+with open(template_file, 'r', encoding='utf-8') as f:
     content = f.read()
 
-# Replace Hero label
-content = content.replace('<span class="hs-l">Regions</span>', '<span class="hs-l" id="statRegionsLabel">Regions</span>')
+# The block to replace:
+old_render = """      function renderItem(item, idx) {
+        const hasCoords = (item.latitude && item.longitude);
+        const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
+        const office = item.officename || item.OfficeName || item.City || 'Location';
+        const state = item.statename || item.State || '';
+        const district = item.district || item.County || item.City || '';
+        const region = item.regionname || item.Country || '';
+        const division = item.divisionname || '';
+        const delivery = item.delivery || '';
 
-# Replace s0 title
-content = content.replace('<h2 class="sec-title" id="s0title">Choose a Region</h2>', '<h2 class="sec-title" id="s0title">Choose a Region</h2>')
+        return '<div class="result-card" style="animation-delay:' + idx * 50 + 'ms">' +
+          '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
+          '<div class="result-office">' + office + '</div>' +
+          '<div class="result-meta">' +
+            '<div class="meta-item"><span class="meta-label">State</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">District</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">' + (region || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">' + (division || 'N/A') + '</span></div>' +
+          '</div>' +"""
 
-# Replace loadStates logic
-old_load = """      $('statRegions').textContent = states.length;
-      setCount('s0cnt', states.length, 'Region');"""
+new_render = """      function renderItem(item, idx) {
+        let stateLbl = 'State';
+        let distLbl = 'District';
+        if (['US','GB','IE'].includes(C.code)) distLbl = 'County';
+        else if (C.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
+        else if (C.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
+        else if (C.code === 'CN') { stateLbl = 'Province'; distLbl = 'Prefecture'; }
+        else if (C.code === 'FR') { stateLbl = 'Region'; distLbl = 'Department'; }
+        else if (C.code === 'IT') { stateLbl = 'Region'; distLbl = 'Province'; }
+        else if (C.code === 'ES') { stateLbl = 'Community'; distLbl = 'Province'; }
+        else if (C.code === 'AU') { stateLbl = 'State'; distLbl = 'Region'; }
+        else if (C.code === 'BR') { stateLbl = 'State'; distLbl = 'Municipality'; }
+        else if (C.code === 'ZA') { stateLbl = 'Province'; distLbl = 'Municipality'; }
+        else if (C.code === 'RU') { stateLbl = 'Oblast/Republic'; distLbl = 'District'; }
+        else if (C.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
 
-new_load = """      $('statRegions').textContent = states.length;
-      const sLabel = C.code === 'IN' ? 'State' : 'Region';
-      $('s0title').textContent = 'Choose a ' + sLabel;
-      $('statRegionsLabel').textContent = sLabel + 's';
-      setCount('s0cnt', states.length, sLabel);"""
+        const hasCoords = (item.latitude && item.longitude);
+        const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
+        const office = item.officename || item.OfficeName || item.City || 'Location';
+        const state = item.statename || item.State || '';
+        const district = item.district || item.County || item.City || '';
+        const region = item.regionname || item.Country || '';
+        const division = item.divisionname || '';
+        const delivery = item.delivery || '';
 
-content = content.replace(old_load, new_load)
+        return '<div class="result-card" style="animation-delay:' + idx * 50 + 'ms">' +
+          '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
+          '<div class="result-office">' + office + '</div>' +
+          '<div class="result-meta">' +
+            '<div class="meta-item"><span class="meta-label">' + stateLbl + '</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">' + distLbl + '</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">' + (region || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">' + (division || 'N/A') + '</span></div>' +
+          '</div>' +"""
 
-# Replace back button text in s1
-old_back1 = """<button class="back-btn" onclick="goBack(1)">&#8592; Back to Regions</button>"""
-new_back1 = """<button class="back-btn" id="s1back" onclick="goBack(1)">&#8592; Back to Regions</button>"""
-content = content.replace(old_back1, new_back1)
-
-old_init = """    // Set page title and meta dynamically"""
-new_init = """    if(C.code === 'IN') {
-      const s1back = document.getElementById('s1back');
-      if(s1back) s1back.innerHTML = '&#8592; Back to States';
-    }
-    // Set page title and meta dynamically"""
-content = content.replace(old_init, new_init)
-
-with open(r'C:\Users\recla\zipcode-global\generate_pages.py', 'w', encoding='utf-8') as f:
-    f.write(content)
-
-print("generate_pages.py updated labels successfully!")
+if old_render in content:
+    content = content.replace(old_render, new_render)
+    with open(template_file, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print("Updated country-template.html dynamically.")
+else:
+    print("Could not find old render text.")
