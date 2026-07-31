@@ -408,8 +408,8 @@ footer{
 <div class="globe-section" style="position:relative; overflow:hidden; border-top:1px solid rgba(0,212,255,0.1); border-bottom:1px solid rgba(0,212,255,0.1); background: radial-gradient(circle at center, rgba(0,212,255,0.05) 0%, transparent 70%);">
   <div style="position:absolute; inset:0; opacity:0.1; background-image:radial-gradient(var(--p2) 1px, transparent 1px); background-size:24px 24px;"></div>
   <div class="marquee-wrap" style="position:relative; z-index:2; padding: 2rem 0; overflow:hidden; white-space:nowrap; display:flex;">
-    <div class="marquee-track" id="mqTrack1" style="display:inline-flex; gap:1.5rem; animation: scrollX 150s linear infinite;"></div>
-    <div class="marquee-track" id="mqTrack2" style="display:inline-flex; gap:1.5rem; animation: scrollX 150s linear infinite;"></div>
+    <div class="marquee-track" id="mqTrack1" style="display:inline-flex; gap:1.5rem; animation: scrollX 350s linear infinite;"></div>
+    <div class="marquee-track" id="mqTrack2" style="display:inline-flex; gap:1.5rem; animation: scrollX 350s linear infinite;"></div>
   </div>
   
   <style>
@@ -485,7 +485,6 @@ footer{
     <a href="/pages/usa.html">USA ZIP Codes</a>
     <a href="/pages/gb.html">UK Postcodes</a>
     <a href="/pages/au.html">Australia Postcodes</a>
-    <a href="/pages/pk.html">Pakistan Postal</a>
     <a href="/pages/about.html">About</a>
     <a href="/pages/privacy.html">Privacy</a>
     <a href="/sitemap.xml">Sitemap</a>
@@ -514,7 +513,6 @@ const COUNTRIES = [
   {code:'KR',name:'South Korea',region:'asia',term:'Postal Code',phone:'+82', lat:35.9078,lon:127.7669},
   {code:'MX',name:'Mexico',region:'americas',term:'Código Postal',phone:'+52', lat:23.6345,lon:-102.5528},
   {code:'NZ',name:'New Zealand',region:'oceania',term:'Postcode',phone:'+64', lat:-40.9006,lon:174.8860},
-  {code:'PK',name:'Pakistan',region:'asia',term:'Postal Code',phone:'+92', lat:30.3753,lon:69.3451},
   {code:'BD',name:'Bangladesh',region:'asia',term:'Postal Code',phone:'+880', lat:23.6850,lon:90.3563},
   {code:'LK',name:'Sri Lanka',region:'asia',term:'Postal Code',phone:'+94', lat:7.8731,lon:80.7718},
   {code:'TH',name:'Thailand',region:'asia',term:'Postal Code',phone:'+66', lat:15.8700,lon:100.9925},
@@ -789,7 +787,7 @@ function initHeroFlags() {
     const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px;" alt=""/>`).join('');
     
     // We need 2 copies for infinite scroll
-    const duration = 240 + (r % 3)*60; // Slower speed: 240s to 360s
+    const duration = 400 + (r % 3)*100; // Slower speed: 240s to 360s
     const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
     
     rowsHtml += `
