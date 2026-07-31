@@ -1120,7 +1120,6 @@ function showDetail(idx){
           <div class="di-item-val" style="color:var(--p);font-weight:600">${realCity}</div>
         </div>`;
     }
-    }
     
     $('diGrid').innerHTML = realCityHtml + itemsHtml + (C.code==='IN' ? `<div style='grid-column: 1 / -1; font-size:0.85rem; color:#888; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px; margin-top:5px;'><b>💡 Abbreviations:</b> B.O = Branch Office, S.O = Sub Office, H.O = Head Office, V.O = Village Office</div>` : '');
 
