@@ -408,8 +408,8 @@ footer{
 <div class="globe-section" style="position:relative; overflow:hidden; border-top:1px solid rgba(0,212,255,0.1); border-bottom:1px solid rgba(0,212,255,0.1); background: radial-gradient(circle at center, rgba(0,212,255,0.05) 0%, transparent 70%);">
   <div style="position:absolute; inset:0; opacity:0.1; background-image:radial-gradient(var(--p2) 1px, transparent 1px); background-size:24px 24px;"></div>
   <div class="marquee-wrap" style="position:relative; z-index:2; padding: 2rem 0; overflow:hidden; white-space:nowrap; display:flex;">
-    <div class="marquee-track" id="mqTrack1" style="display:inline-flex; gap:1.5rem; animation: scrollX 350s linear infinite;"></div>
-    <div class="marquee-track" id="mqTrack2" style="display:inline-flex; gap:1.5rem; animation: scrollX 350s linear infinite;"></div>
+    <div class="marquee-track" id="mqTrack1" style="display:inline-flex; gap:1.5rem; animation: scrollX 1500s linear infinite;"></div>
+    <div class="marquee-track" id="mqTrack2" style="display:inline-flex; gap:1.5rem; animation: scrollX 1500s linear infinite;"></div>
   </div>
   
   <style>
@@ -625,7 +625,7 @@ const COUNTRIES = [
 const seen=new Set(), ALL=[];
 COUNTRIES.forEach(c=>{ if(!seen.has(c.code)){seen.add(c.code);ALL.push(c);} });
 
-const PRIORITY=['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','PK','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
+const PRIORITY=['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
 const SPECIAL={IN:'/pages/india.html',US:'/pages/usa.html'};
 
 function pageUrl(code){ return SPECIAL[code]||('/pages/'+code.toLowerCase()+'.html'); }
@@ -787,7 +787,7 @@ function initHeroFlags() {
     const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px;" alt=""/>`).join('');
     
     // We need 2 copies for infinite scroll
-    const duration = 400 + (r % 3)*100; // Slower speed: 240s to 360s
+    const duration = 1200 + (r % 3)*100; // Slower speed: 240s to 360s
     const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
     
     rowsHtml += `
