@@ -421,7 +421,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
   <h1><span class="grad">{{NAME}}</span> {{TERM}} Directory</h1>
   <p class="hero-sub">{{SUBTITLE}}</p>
   <div class="hero-stats" id="hStats">
-    <div><span class="hs-n" id="statRegions">—</span><span class="hs-l">Regions</span></div>
+    <div><span class="hs-n" id="statRegions">—</span><span class="hs-l" id="statRegionsLabel">Regions</span></div>
     <div><span class="hs-n">{{PHONE}}</span><span class="hs-l">Calling Code</span></div>
     <div><span class="hs-n">{{CODE}}</span><span class="hs-l">Country Code</span></div>
     <div><span class="hs-n">{{TERM}}</span><span class="hs-l">Code Type</span></div>
@@ -457,7 +457,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 <!-- CITIES -->
 <div class="sec" id="s1" style="display:none">
   <div class="sec-hdr">
-    <button class="back-btn" onclick="goBack(1)">&#8592; Back to Regions</button>
+    <button class="back-btn" id="s1back" onclick="goBack(1)">&#8592; Back to Regions</button>
     <div class="sec-title" id="s1title">Cities</div>
     <div class="sec-count" id="s1cnt"></div>
   </div>
