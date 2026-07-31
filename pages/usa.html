@@ -899,8 +899,19 @@ function renderPinBatch(){
   $('pinGrid').innerHTML = batch.map((r,i)=>{
     const pin = val(r,f.pin)||'—';
       const off = val(r, 'officename') || val(r, 'office_name');
-      const place = off ? off : (val(r,f.city)||val(r,f.dist)||'');
-      const meta = off ? (val(r,f.city)||val(r,f.dist)||'') : (val(r,f.dist)||val(r,f.state)||'');
+      let realCity = '';
+      if (C.code === 'IN' && off) {
+         realCity = String(off).replace(/ (B\.O|S\.O|H\.O|V\.O|Branch Office|Sub Office|Head Office)/ig, '').trim();
+         realCity = realCity.replace(/[\-,]+$/, '').trim();
+      }
+      
+      let place = off ? off : (val(r,f.city)||val(r,f.dist)||'');
+      let meta = off ? (val(r,f.city)||val(r,f.dist)||'') : (val(r,f.dist)||val(r,f.state)||'');
+
+      if (C.code === 'IN' && realCity && realCity !== off) {
+          place = realCity;
+          meta = off;
+      }
     return '<div class="pin-card" onclick="showDetail('+i+')">'+
       '<div class="pin-num">'+pin+'</div>'+
       (place?'<div class="pin-place">'+place+'</div>':'')+
