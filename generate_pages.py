@@ -690,7 +690,13 @@ document.documentElement.style.setProperty('--p2', T.p2);
 function detectFields(records) {
   if (!records.length) return {};
   const k = Object.keys(records[0]);
-  const find = (...pats) => k.find(x => pats.some(p => p.test(x.toLowerCase()))) || '';
+  const find = (...pats) => {
+    for(const p of pats){
+      const match = k.find(x => p.test(x.toLowerCase()));
+      if(match) return match;
+    }
+    return '';
+  };
   return {
     pin:   find(/^pincode$/,/^postcode$/,/post.?code/,/zip.?code/,/^code$/),
     city:  find(/division.?name/,/region.?name/,/^city$/,/^village$/,/^town$/,/place.?name/,/office.?name/,/^locality$/),
