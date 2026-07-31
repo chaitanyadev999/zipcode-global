@@ -1210,6 +1210,7 @@ def generate():
         content = content.replace("{{NAME}}", c.name)
         content = content.replace("{{NAME_LOWER}}", c.name.lower())
         content = content.replace("{{CODE}}", c.code)
+        content = content.replace("{{CODE_LOWER}}", c.code.lower())
         content = content.replace("{{PHONE}}", c.phone)
         content = content.replace("{{TERM}}", c.term)
         content = content.replace("{{TERM_LOWER}}", c.term.lower())
