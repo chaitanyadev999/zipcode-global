@@ -957,7 +957,7 @@ function showDetail(idx){
     if(low === 'county') label = 'District';
     if(low === 'circlename') label = 'Circle';
       if(low === 'regionname') label = 'Region';
-      if(low === 'divisionname') label = 'City';
+      if(low === 'divisionname') { label = 'City'; if(typeof value === 'string') value = value.replace(/\bDivision\b/i, '').trim(); }
       if(low === 'officename') label = 'Post Office';
     if(low === 'statename') label = 'State Name';
     if(low === 'officetype') label = 'Office Type';
