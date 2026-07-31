@@ -479,6 +479,30 @@
   const statusSub   = document.getElementById('statusSub');
   const successScreen = document.getElementById('successScreen');
 
+  // Auto-fill from URL params
+  const urlParams = new URLSearchParams(window.location.search);
+  const pCountry = urlParams.get('country');
+  const pOffice = urlParams.get('office');
+  const pPin = urlParams.get('pin');
+  
+  if (pCountry) {
+    const countrySelect = document.getElementById('fCountry');
+    for (let i = 0; i < countrySelect.options.length; i++) {
+      if (countrySelect.options[i].value === pCountry) {
+        countrySelect.selectedIndex = i;
+        break;
+      }
+    }
+  }
+  
+  if (pPin) {
+    document.getElementById('fWrongCode').value = pPin;
+  }
+  
+  if (pOffice) {
+    document.getElementById('fDetails').value = "Issue regarding: " + pOffice + "\n\n";
+  }
+
   function showStatus(type, icon, title, sub) {
     statusBox.className = 'status-box ' + type;
     statusIcon.textContent  = icon;

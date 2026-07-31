@@ -1122,7 +1122,7 @@ h1, h2, h3, h4, h5, h6 {
         '<div class="result-actions">' +
           (hasCoords ? '<button class="action-btn" data-lat="' + item.latitude + '" data-lon="' + item.longitude + '" data-label="' + office + '">🗺️ Focus</button>' : '') +
           '<a class="action-btn" href="https://www.google.com/maps?q=' + (item.latitude || '') + ',' + (item.longitude || '') + '" target="_blank" rel="noopener">🌍 Google</a>' +
-          '<a class="action-btn" href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=Mistake: ' + office + '">⚠️ Report</a>' +
+          '<a class="action-btn" href="/pages/report.html?country=' + encodeURIComponent(COUNTRY.name) + '&office=' + encodeURIComponent(office) + '&pin=' + encodeURIComponent(pin) + '">⚠️ Report</a>' +
         '</div></div>';
     }).join('');
 
