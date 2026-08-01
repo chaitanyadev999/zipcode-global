@@ -591,7 +591,7 @@
         const app = document.getElementById('app');
         const logoEl = document.querySelector('.logo');
         if (logoEl && !logoEl.innerHTML.includes('img')) {
-            logoEl.innerHTML = '<img src="/home/assets/logo.png" alt="PO ZipCode Global" style="height:32px; vertical-align:middle; margin-right:8px; border-radius:4px;"> PO ZipCode Global';
+            logoEl.innerHTML = '<img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" style="height:40px; vertical-align:middle; margin-right:8px; border-radius:4px;"> PO ZipCode Global';
         }
         if (app) app.innerHTML = html;
         else document.body.innerHTML = html;
@@ -601,7 +601,7 @@
           let seoText = document.querySelector('.seo-text');
           const resultsHeader = document.querySelector('.results-header');
           
-          if (!seoText && window.PSEO_CITY && window.PSEO_STATE_LABEL) {
+          if (!seoText && window.PSEO_STATE_LABEL) {
               seoText = document.createElement('div');
               seoText.className = 'seo-text';
               seoText.style.padding = '20px';
@@ -677,6 +677,8 @@ function applyDynamicCountryTheme(code) {
   document.documentElement.style.setProperty('--saffron', p);
   document.documentElement.style.setProperty('--bg-card', 'color-mix(in srgb, '+p+' 5%, rgba(255,255,255,0.035))');
 }
+
+
 
 
 
