@@ -593,8 +593,26 @@
         document.body.className = 'theme-' + COUNTRY.code.toLowerCase();
           applyDynamicCountryTheme(COUNTRY.code);
         setTimeout(() => {
-          const seoText = document.querySelector('.seo-text');
+          let seoText = document.querySelector('.seo-text');
           const resultsHeader = document.querySelector('.results-header');
+          
+          if (!seoText && window.PSEO_CITY && window.PSEO_STATE_LABEL) {
+              seoText = document.createElement('div');
+              seoText.className = 'seo-text';
+              seoText.style.padding = '20px';
+              seoText.style.background = 'rgba(255,255,255,0.05)';
+              seoText.style.margin = '20px auto';
+              seoText.style.maxWidth = '800px';
+              seoText.style.borderRadius = '8px';
+              seoText.style.color = '#ccc';
+              seoText.style.lineHeight = '1.6';
+              seoText.style.textAlign = 'center';
+              seoText.style.fontSize = '14px';
+              
+              let term = window.PSEO_COUNTRY === 'US' ? 'ZIP Code' : (window.PSEO_COUNTRY === 'IN' ? 'PIN Code' : 'Postal Code');
+              seoText.innerHTML = `This page provides a comprehensive list of all ${term}s and Post Offices in <strong>${window.PSEO_CITY}</strong>, <strong>${window.PSEO_STATE_LABEL}</strong>. Use our interactive map and directory to find post office locations, delivery areas, and branch details for <strong>${window.PSEO_CITY}</strong>.`;
+          }
+          
           if (seoText && resultsHeader) {
             seoText.style.display = 'block';
             resultsHeader.parentNode.insertBefore(seoText, resultsHeader.nextSibling);
@@ -654,5 +672,6 @@ function applyDynamicCountryTheme(code) {
   document.documentElement.style.setProperty('--saffron', p);
   document.documentElement.style.setProperty('--bg-card', 'color-mix(in srgb, '+p+' 5%, rgba(255,255,255,0.035))');
 }
+
 
 
