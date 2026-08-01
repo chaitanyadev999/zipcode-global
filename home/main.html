@@ -829,14 +829,58 @@ window.filterRegion=function(r,chip){
   document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
 
-window.doSearch=function(){
-  curSearch=document.getElementById('heroSearch').value.trim();
+let globalIndex = null;
+async function loadGlobalIndex() {
+  if (!globalIndex) {
+     try {
+       const res = await fetch('/home/assets/search_index.json');
+       if (res.ok) globalIndex = await res.json();
+     } catch (e) {
+       console.error("Failed to load global index", e);
+     }
+  }
+}
+document.getElementById('heroSearch').addEventListener('focus', loadGlobalIndex);
+
+window.doSearch = async function() {
+  const q = document.getElementById('heroSearch').value.trim().toLowerCase();
+  if (!q) {
+      curSearch = '';
+      renderAll();
+      return;
+  }
+  
+  if (!globalIndex) {
+      await loadGlobalIndex();
+  }
+
+  if (globalIndex) {
+    if (globalIndex.pincodes && globalIndex.pincodes[q]) {
+      window.location.href = '/' + globalIndex.pincodes[q];
+      return;
+    }
+    const cKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+    if (globalIndex.cities && globalIndex.cities[cKey]) {
+      window.location.href = '/' + globalIndex.cities[cKey];
+      return;
+    }
+    const sKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, ' ');
+    if (globalIndex.states && globalIndex.states[sKey]) {
+      window.location.href = '/' + globalIndex.states[sKey];
+      return;
+    }
+  }
+
+  curSearch = q;
   renderAll();
-  if(curSearch)document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
 };
 
 document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch();});
-document.getElementById('heroSearch').addEventListener('input',e=>{curSearch=e.target.value.trim();renderAll();});
+document.getElementById('heroSearch').addEventListener('input',e=>{
+    const v = e.target.value.trim();
+    if (!v) { curSearch = ''; renderAll(); }
+});
 
 function showToast(msg,type){
   const w=document.getElementById('toastWrap');
