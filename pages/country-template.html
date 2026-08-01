@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   PO ZIPCODE GLOBAL — Country Page Template
   ==========================================
   Copy this template for each country page in Blogger.
@@ -564,9 +564,52 @@ h1, h2, h3, h4, h5, h6 {
   .hero-flag { font-size: 3.5rem; }
   .search-card { padding: 1.25rem; }
 }
+
+/* AD SLOT CSS */
+.ad-slot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 0;
+  overflow: hidden;
+}
+.ad-slot-container:empty {
+  display: none;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile { display: none !important; }
+}
+@media (max-width: 1024px) {
+  .hide-on-tab { display: none !important; }
+}
+
+.ad-sticky-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(5,8,22,0.95);
+  border-top: 1px solid rgba(0,212,255,0.2);
+  margin: 0;
+}
 </style>
 
 <!-- Dynamic meta tags will be set by JS -->
+<style>
+/* Responsive Ad Slots */
+.ad-slot { width: 100%; margin: 20px auto; text-align: center; background: transparent; min-height: 90px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 0.9rem; overflow: hidden; }
+.ad-slot:empty { display: none !important; }
+.ad-slot-1, .ad-slot-2 { display: flex; }
+.ad-slot-3, .ad-slot-4, .ad-slot-5 { display: none; }
+@media (min-width: 768px) { .ad-slot-3 { display: flex; } }
+@media (min-width: 1024px) { .ad-slot-4 { display: flex; } .ad-slot-5 { display: flex; } }
+</style>
 </head>
 <body>
 
@@ -588,6 +631,11 @@ h1, h2, h3, h4, h5, h6 {
   </div>
 </div>
 </nav>
+
+<!-- AD SLOT 1: TOP HEADER (PC, TAB, MOBILE) -->
+<div class="ad-slot-container" id="ad-slot-1">
+  <!-- Insert AdSense Code Here (e.g. data-ad-format="auto"). Collapses if empty. -->
+</div>
 
 <!-- COUNTRY HERO -->
 <section class="country-hero">
@@ -625,9 +673,14 @@ h1, h2, h3, h4, h5, h6 {
       <div id="map"></div>
     </div>
   </div>
-</section>
-
-<!-- RESULTS -->
+  </section>
+  
+  <!-- AD SLOT: MAP BOTTOM -->
+  <div class="ad-slot-container" id="ad-country-map">
+    <!-- Insert AdSense Code Here (e.g. data-ad-format="auto"). Collapses if empty. -->
+  </div>
+  
+  <!-- RESULTS -->
 <section class="results-section" id="resultsSection">
   <div class="container">
     <div class="results-header">
@@ -635,11 +688,26 @@ h1, h2, h3, h4, h5, h6 {
       <span class="results-count" id="resultsCount">0 found</span>
     </div>
     <div class="results-grid" id="resultsList"></div>
+    </div>
+  </section>
+  
+  <!-- AD SLOT 3: ABOVE FOOTER (PC, TAB) - Hides on Mobile -->
+  <div class="ad-slot-container hide-on-mobile" id="ad-slot-3">
+    <!-- Insert AdSense Code Here -->
   </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="site-footer">
+  
+  <!-- AD SLOT 4: DEEP CONTENT (PC ONLY) - Hides on Tab, Mobile -->
+  <div class="ad-slot-container hide-on-tab hide-on-mobile" id="ad-slot-4">
+    <!-- Insert AdSense Code Here -->
+  </div>
+  
+  <!-- AD SLOT 5: STICKY BOTTOM ANCHOR (PC ONLY) - Hides on Tab, Mobile -->
+  <div class="ad-slot-container hide-on-tab hide-on-mobile ad-sticky-bottom" id="ad-slot-5">
+    <!-- Insert AdSense Code Here -->
+  </div>
+  
+  <!-- FOOTER -->
+  <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
@@ -1157,3 +1225,5 @@ h1, h2, h3, h4, h5, h6 {
 
 </body>
 </html>
+
+

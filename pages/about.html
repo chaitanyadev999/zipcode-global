@@ -174,7 +174,21 @@
             .site-nav { padding: 12px 16px; }
             .nav-links a { padding: 6px 10px; font-size: 0.78rem; }
         }
-    </style>
+    
+  /* Google Translate styling */
+  #google_translate_element { display:inline-block; margin-left: 10px; vertical-align: middle; }
+  .goog-te-gadget { font-family: var(--f) !important; color: transparent !important; font-size:0; }
+  .goog-te-gadget .goog-te-combo { 
+    background: var(--glass); border: 1px solid var(--b); color: var(--t2); 
+    padding: .4rem .9rem; border-radius: 999px; font-weight: 600; font-size: .8rem;
+    cursor: pointer; transition: all .25s var(--ease); outline: none;
+  }
+  .goog-te-gadget .goog-te-combo:hover { background: var(--card-hi); border-color: var(--cyan); color: var(--t); }
+  .goog-te-gadget .goog-te-combo option { background: #050816; color: #fff; font-weight:normal; }
+  .skiptranslate iframe { display: none !important; }
+  body { top: 0 !important; }
+</style>
+
 </head>
 <body>
 
@@ -185,11 +199,13 @@
             <span>PO ZipCode Global</span>
         </a>
         <div class="nav-links">
+      <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
             <a href="/home/main.html">← Home</a>
             <a href="/pages/about.html" class="active">About</a>
             <a href="/pages/privacy.html">Privacy</a>
             <a href="/pages/report.html">Report</a>
-        </div>
+          <div id="google_translate_element"></div>
+    </div>
     </nav>
 
     <div class="page-wrapper">
@@ -302,5 +318,13 @@
         </footer>
 
     </div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: "en", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, "google_translate_element");
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 </body>
+
 </html>

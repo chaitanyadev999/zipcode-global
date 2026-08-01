@@ -65,9 +65,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ── NAV ── */
 .nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
+  position:fixed;top:0;left:0;right:0;z-index:9999;
   padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
-  transition:all .4s var(--ease);
+  transition:all .3s var(--ease);
 }
 .nav.scrolled{
   background:rgba(5,8,22,0.88);backdrop-filter:blur(24px);
@@ -343,15 +343,52 @@ footer{
 .toast.show{transform:translateX(0)}
 .toast.info{border-left:3px solid var(--cyan)}
 
-@media(max-width:768px){
-  .nav{padding:.8rem 1.25rem}
-  .hero{padding:6rem 1.25rem 3rem}
-  .hero h1{font-size:2.2rem}
-  .hero-stats{gap:1.2rem}
-  .globe-section,.section,.labels-section{padding-left:1.25rem;padding-right:1.25rem}
-  .cards-grid{grid-template-columns:1fr}
-  .all-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  @media(max-width:768px){
+    .nav{flex-direction:column; gap:0.8rem; padding:0.8rem 1.25rem}
+    .nav-links{overflow-x:auto; width:100%; padding-bottom:0.5rem; justify-content:flex-start; -ms-overflow-style:none; scrollbar-width:none;}
+    .nav-links::-webkit-scrollbar { display: none; }
+    .hero{padding:7rem 1.25rem 3rem}
+    .hero h1{font-size:2.2rem}
+    .hero-stats{gap:1.2rem}
+    .globe-section,.section,.labels-section{padding-left:1.25rem;padding-right:1.25rem}
+    .cards-grid{grid-template-columns:1fr}
+    .all-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  }
+  /* Google Translate styling */
+  #google_translate_element { display:inline-block; margin-left: 10px; vertical-align: middle; }
+  .goog-te-gadget { font-family: var(--f) !important; color: transparent !important; font-size:0; }
+  .goog-te-gadget .goog-te-combo { 
+    background: var(--glass); border: 1px solid var(--b); color: var(--t2); 
+    padding: .4rem .9rem; border-radius: 999px; font-weight: 600; font-size: .8rem;
+    cursor: pointer; transition: all .25s var(--ease); outline: none;
+  }
+  .goog-te-gadget .goog-te-combo:hover { background: var(--card-hi); border-color: var(--cyan); color: var(--t); }
+  .goog-te-gadget .goog-te-combo option { background: #050816; color: #fff; font-weight:normal; }
+  .skiptranslate iframe { display: none !important; }
+  body { top: 0 !important; }
+</style>
+<style>
+/* Responsive Ad Slots */
+.ad-slot {
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+    background: transparent;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+    overflow: hidden;
 }
+.ad-slot:empty {
+    display: none !important;
+}
+.ad-slot-1, .ad-slot-2 { display: flex; }
+.ad-slot-3, .ad-slot-4, .ad-slot-5 { display: none; }
+@media (min-width: 768px) { .ad-slot-3 { display: flex; } }
+@media (min-width: 1024px) { .ad-slot-4 { display: flex; } .ad-slot-5 { display: flex; } }
 </style>
 </head>
 <body>
@@ -364,13 +401,28 @@ footer{
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
+    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
+    <a class="nav-btn" href="/pages/blog.html">Blog</a>
     <a class="nav-btn" href="#allSec">121 Countries</a>
     <a class="nav-btn" href="/pages/about.html">About</a>
+    <div id="google_translate_element"></div>
     <a class="nav-btn" href="/pages/privacy.html">Privacy</a>
     <a class="nav-btn" href="/pages/report.html">Report</a>
     <a class="nav-btn primary" href="/pages/india.html">🇮🇳 India PIN</a>
   </div>
 </nav>
+  
+  <!-- AD SLOT 1: TOP HEADER (PC, TAB, MOBILE) -->
+  <div class="ad-slot-container" id="ad-slot-1">
+    <!-- Insert AdSense Code Here (e.g. data-ad-format="auto"). Collapses if empty. -->
+  </div>
+  
+  <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,es,fr,de,zh-CN,ar,hi,pt,ru,ja,ko,it,nl', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 
 <!-- HERO -->
 <section class="hero">
@@ -427,10 +479,49 @@ footer{
     .mq-card:hover { transform: scale(1.05); background: rgba(var(--p2-rgb), 0.2); border-color: var(--p2); }
     .mq-card img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
     .mq-card span { font-family: var(--fm); font-size: 0.9rem; font-weight: 600; }
-  </style>
-</div>
-
-<!-- REGIONS FILTER -->
+      
+      /* AD SLOT CSS */
+      .ad-slot-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 1200px;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .ad-slot-container:empty {
+        display: none;
+        margin: 0;
+      }
+      
+      @media (max-width: 768px) {
+        .hide-on-mobile { display: none !important; }
+      }
+      @media (max-width: 1024px) {
+        .hide-on-tab { display: none !important; }
+      }
+      
+      .ad-sticky-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(5,8,22,0.95);
+        border-top: 1px solid rgba(0,212,255,0.2);
+        margin: 0;
+      }
+    </style>
+  </div>
+  
+  <!-- AD SLOT: HOME TOP -->
+  <div class="ad-slot-container" id="ad-home-top">
+    <!-- Insert AdSense Code Here (e.g. data-ad-format="auto"). Collapses if empty. -->
+  </div>
+  
+  <!-- REGIONS FILTER -->
 <div class="labels-section">
   <div class="labels-hdr">
     <div class="labels-title">🌍 Browse Countries by Region</div>
@@ -477,8 +568,23 @@ footer{
 
   <div class="all-grid" id="allGrid"></div>
 </section>
-
-<!-- FOOTER -->
+  
+  <!-- AD SLOT 3: ABOVE FOOTER (PC, TAB) - Hides on Mobile -->
+  <div class="ad-slot-container hide-on-mobile" id="ad-slot-3">
+    <!-- Insert AdSense Code Here (e.g. data-ad-format="auto") -->
+  </div>
+  
+  <!-- AD SLOT 4: DEEP CONTENT (PC ONLY) - Hides on Tab, Mobile -->
+  <div class="ad-slot-container hide-on-tab hide-on-mobile" id="ad-slot-4">
+    <!-- Insert AdSense Code Here (e.g. data-ad-format="auto") -->
+  </div>
+  
+  <!-- AD SLOT 5: STICKY BOTTOM ANCHOR (PC ONLY) - Hides on Tab, Mobile -->
+  <div class="ad-slot-container hide-on-tab hide-on-mobile ad-sticky-bottom" id="ad-slot-5">
+    <!-- Insert AdSense Code Here (e.g. data-ad-format="auto") -->
+  </div>
+  
+  <!-- FOOTER -->
 <footer>
   <div class="flinks">
     <a href="/pages/india.html">India PIN Codes</a>
@@ -776,23 +882,21 @@ function initHeroFlags() {
   const container = document.getElementById('heroBgFlags');
   if(!container) return;
   
-  // Create 10 rows
+  // Create 10 rows (increased from 6 to cover background)
   let rowsHtml = '';
-  // Randomize flags a bit for each row
   for(let r = 0; r < 10; r++) {
-    // Shuffle ALL slightly for each row to look random, or just shift array
     const shift = (r * 15) % ALL.length;
-    const rowFlags = [...ALL.slice(shift), ...ALL.slice(0, shift)];
+    // Wrap around to guarantee we always get 25 flags even if shift is near the end
+    const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
+    const rowFlags = wrappedAll.slice(0, 25);
     
-    // We only need flag images
-    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px;" alt=""/>`).join('');
+    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt=""/>`).join('');
     
-    // We need 2 copies for infinite scroll
-    const duration = 1200 + (r % 3)*100; // Slower speed: 240s to 360s
+    const duration = 1200 + (r % 3)*100;
     const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
     
     rowsHtml += `
-      <div style="display:flex; width:max-content; animation: ${dir} ${duration}s linear infinite;">
+      <div style="display:flex; width:max-content; animation: ${dir} ${duration}s linear infinite; will-change:transform;">
         <div style="display:flex;">${flagsHtml}</div>
         <div style="display:flex;">${flagsHtml}</div>
       </div>
@@ -824,3 +928,4 @@ if(document.readyState==='complete'){
 </script>
 </body>
 </html>
+

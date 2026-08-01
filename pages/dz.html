@@ -55,10 +55,11 @@ a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--p);border-radius:99px}
+::-webkit-scrollbar-thumb{background:var(--p);border-radius:999px}
 ::selection{background:rgba(var(--p2),0.3)}
 
 /* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:.85rem 1.75rem;
+.nav{position:fixed;top:0;left:0;right:0;z-index:9999;padding:.85rem 1.75rem;
   display:flex;align-items:center;justify-content:space-between;transition:all .35s var(--ease)}
 .nav.sc{background:rgba(5,8,22,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(var(--p2),.18)}
 .brand{display:flex;align-items:center;gap:.65rem;font-family:var(--fd);font-weight:700;font-size:1rem}
@@ -67,7 +68,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   box-shadow:0 0 20px rgba(var(--p2),.4)}
 .bmark img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
 .nav-links{display:flex;gap:.3rem}
-.nl{padding:.32rem .78rem;border-radius:999px;background:var(--glass);border:1px solid rgba(var(--p2),.18);
+.nav-btn{padding:.32rem .78rem;border-radius:999px;background:var(--glass);border:1px solid rgba(var(--p2),.18);
   font-size:.76rem;color:var(--t2);transition:all .2s var(--ease)}
 .nl:hover{background:var(--card-hi);border-color:var(--p);color:var(--t)}
 
@@ -275,16 +276,50 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
 .flinks{display:flex;gap:1.25rem;justify-content:center;margin-bottom:.75rem;flex-wrap:wrap}
 .flinks a{color:var(--p)}
 
-@media(max-width:680px){
-  .hero{padding:5.5rem 1.25rem 2rem}
-  .states-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-  .city-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
-  .pin-grid{grid-template-columns:1fr 1fr}
-  .di-grid{grid-template-columns:1fr 1fr}
-  .nav{padding:.75rem 1.25rem}
-  .hero h1{font-size:1.9rem}
+  @media(max-width:680px){
+    .nav{flex-direction:column; gap:0.8rem; padding:0.8rem 1.25rem}
+    .nav-links{overflow-x:auto; width:100%; padding-bottom:0.5rem; justify-content:flex-start; -ms-overflow-style:none; scrollbar-width:none;}
+    .nav-links::-webkit-scrollbar { display: none; }
+    .hero{padding:7.5rem 1.25rem 2rem}
+    .states-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+    .city-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+    .pin-grid{grid-template-columns:1fr 1fr}
+    .di-grid{grid-template-columns:1fr 1fr}
+    .hero h1{font-size:1.9rem}
+  }
+/* Google Translate styling */
+#google_translate_element { display:inline-block; margin-left: 10px; vertical-align: middle; }
+.goog-te-gadget { font-family: var(--f) !important; color: transparent !important; font-size:0; }
+.goog-te-gadget .goog-te-combo { 
+  background: var(--glass); border: 1px solid var(--b); color: var(--t2); 
+  padding: .4rem .9rem; border-radius: 999px; font-weight: 600; font-size: .8rem;
+  cursor: pointer; transition: all .25s var(--ease); outline: none;
 }
+.goog-te-gadget .goog-te-combo:hover { background: var(--card-hi); border-color: var(--cyan); color: var(--t); }
+.goog-te-gadget .goog-te-combo option { background: #050816; color: #fff; font-weight:normal; }
+.skiptranslate iframe { display: none !important; }
+body { top: 0 !important; }
 </style>
+
+  <!-- Dynamic meta tags will be set by JS -->
+  <meta name="description" content="Find any Postal Code in Algeria. Browse regions and cities with our interactive map and zip code directory.">
+  <meta name="keywords" content="Algeria zip code, Algeria postal code, Algeria postcode, find zip code Algeria, Postal Code lookup, PO ZipCode Global">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Algeria Postal Code Directory",
+    "description": "Comprehensive Postal Code directory for Algeria with interactive maps.",
+    "url": "https://zipcodeglobal.github.io/pages/dz.html",
+    "mainEntity": {
+      "@type": "Dataset",
+      "name": "Algeria Postal Codes",
+      "description": "A database of Postal Codes across Algeria regions and cities.",
+      "keywords": ["Postal Code", "Algeria", "postal code", "zip code"]
+    }
+  }
+  </script>
+
 </head>
 <body>
 <div class="tc" id="tc"></div>
@@ -295,12 +330,22 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 1.5rem 1.5rem;
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
-    <a class="nl" href="/home/main.html">&#8592; All Countries</a>
-    <a class="nl" href="/pages/about.html">About</a>
-    <a class="nl" href="/pages/privacy.html">Privacy</a>
-    <a class="nl" href="/pages/report.html">Report</a>
+    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
+    <a class="nav-btn" href="/pages/blog.html">Blog</a>
+    <a class="nav-btn" href="/home/main.html">&#8592; All Countries</a>
+    <a class="nav-btn" href="/pages/about.html">About</a>
+    <a class="nav-btn" href="/pages/privacy.html">Privacy</a>
+    <a class="nav-btn" href="/pages/report.html">Report</a>
+    <div id="google_translate_element"></div>
   </div>
 </nav>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,ar', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 
 <!-- HERO -->
 <div class="hero-bg" style="background-image: url('https://flagcdn.com/w1280/dz.png')"></div>
