@@ -414,13 +414,18 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.75rem; color: var(--text);
 }
 .result-meta {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0.5rem; margin-bottom: 1rem;
-}
+    display: none; grid-template-columns: 1fr 1fr;
+    gap: 0.5rem; margin-top: 1rem; margin-bottom: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+  .result-card.expanded .result-meta { display: grid; }
 .meta-item { display: flex; flex-direction: column; }
 .meta-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
 .meta-value { font-size: 0.85rem; color: var(--text-2); }
 .result-actions { display: none; gap: 0.5rem; flex-wrap: wrap; }
+  .result-card.expanded .result-actions { display: flex; }
+  .result-card.expanded .result-actions { display: none; gap: 0.5rem; flex-wrap: wrap; }
   .result-card.expanded .result-actions { display: flex; }
 .action-btn {
   padding: 0.5rem 0.875rem;
@@ -642,4 +647,5 @@ h1, h2, h3, h4, h5, h6 {
   --bg-card: rgba(255, 205, 0, 0.05);
   --grad-cinema: linear-gradient(135deg, var(--vermillion), var(--lotus));
 }
+
 
