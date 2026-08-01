@@ -420,7 +420,8 @@ h1, h2, h3, h4, h5, h6 {
 .meta-item { display: flex; flex-direction: column; }
 .meta-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
 .meta-value { font-size: 0.85rem; color: var(--text-2); }
-.result-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.result-actions { display: none; gap: 0.5rem; flex-wrap: wrap; }
+  .result-card.expanded .result-actions { display: flex; }
 .action-btn {
   padding: 0.5rem 0.875rem;
   background: var(--bg-card-hi);
@@ -608,3 +609,37 @@ h1, h2, h3, h4, h5, h6 {
     .ad-slot-4 { display: flex; }
     .ad-slot-5 { display: flex; }
 }
+
+
+/* Themes for Countries */
+.theme-in {
+  --vermillion: #ff9933;
+  --lotus: #138808;
+  --bg-card: rgba(255, 153, 51, 0.05);
+  --grad-cinema: linear-gradient(135deg, var(--vermillion), #ff8c42);
+}
+.theme-us {
+  --vermillion: #b22234;
+  --lotus: #3c3b6e;
+  --bg-card: rgba(60, 59, 110, 0.05);
+  --grad-cinema: linear-gradient(135deg, var(--vermillion), var(--lotus));
+}
+.theme-gb {
+  --vermillion: #c8102e;
+  --lotus: #012169;
+  --bg-card: rgba(1, 33, 105, 0.05);
+  --grad-cinema: linear-gradient(135deg, var(--vermillion), var(--lotus));
+}
+.theme-ca {
+  --vermillion: #ff0000;
+  --lotus: #ff0000;
+  --bg-card: rgba(255, 0, 0, 0.05);
+  --grad-cinema: linear-gradient(135deg, #ff0000, #ff6666);
+}
+.theme-au {
+  --vermillion: #ffcd00;
+  --lotus: #00843D;
+  --bg-card: rgba(255, 205, 0, 0.05);
+  --grad-cinema: linear-gradient(135deg, var(--vermillion), var(--lotus));
+}
+

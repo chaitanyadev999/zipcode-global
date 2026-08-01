@@ -470,7 +470,7 @@
       const division = item.divisionname || '';
       const delivery = item.delivery || '';
       const hasCoords = item.latitude != null && item.longitude != null;
-      return '<div class="result-card" style="animation-delay:' + idx * 50 + 'ms">' +
+      return '<div class="result-card" style="animation-delay:' + idx * 50 + 'ms" onclick="this.classList.toggle(\'expanded\')">'  +
         '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
         '<div class="result-office">' + office + '</div>' +
         '<div class="result-meta">' +
@@ -590,6 +590,15 @@
         const app = document.getElementById('app');
         if (app) app.innerHTML = html;
         else document.body.innerHTML = html;
+        document.body.className = 'theme-' + COUNTRY.code.toLowerCase();
+        setTimeout(() => {
+          const seoText = document.querySelector('.seo-text');
+          const resultsHeader = document.querySelector('.results-header');
+          if (seoText && resultsHeader) {
+            seoText.style.display = 'block';
+            resultsHeader.parentNode.insertBefore(seoText, resultsHeader.nextSibling);
+          }
+        }, 100);
         
         $('searchBtn').addEventListener('click', () => searchAll($('searchInput').value.trim()));
         $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
@@ -621,3 +630,6 @@
   }
 
 })();
+
+
+
