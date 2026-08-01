@@ -448,7 +448,7 @@
     $('resultsCount').textContent = results.length + ' found';
     $('resultsList').innerHTML = results.map((item, idx) => {
       let stateLbl = 'State';
-      let distLbl = 'District';
+      let distLbl = 'City / District';
       if (['US','GB','IE'].includes(COUNTRY.code)) distLbl = 'County';
       else if (COUNTRY.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
       else if (COUNTRY.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
@@ -591,6 +591,7 @@
         if (app) app.innerHTML = html;
         else document.body.innerHTML = html;
         document.body.className = 'theme-' + COUNTRY.code.toLowerCase();
+          applyDynamicCountryTheme(COUNTRY.code);
         setTimeout(() => {
           const seoText = document.querySelector('.seo-text');
           const resultsHeader = document.querySelector('.results-header');
@@ -631,5 +632,27 @@
 
 })();
 
+
+
+
+function applyDynamicCountryTheme(code) {
+  const customThemes = {
+    'IN': ['#ff9933', '#138808'],
+    'US': ['#b22234', '#3c3b6e'],
+    'GB': ['#c8102e', '#012169'],
+    'CA': ['#ff0000', '#ff0000'],
+    'AU': ['#ffcd00', '#00843D']
+  };
+  let p, s;
+  if(customThemes[code]) { p = customThemes[code][0]; s = customThemes[code][1]; }
+  else {
+    let h = 0; for(let i=0; i<code.length; i++) h = code.charCodeAt(i) + ((h<<5)-h);
+    let hue = Math.abs(h) % 360;
+    p = 'hsl('+hue+', 80%, 55%)'; s = 'hsl('+((hue+45)%360)+', 70%, 45%)';
+  }
+  document.documentElement.style.setProperty('--grad-cinema', 'linear-gradient(135deg, '+p+', '+s+')');
+  document.documentElement.style.setProperty('--saffron', p);
+  document.documentElement.style.setProperty('--bg-card', 'color-mix(in srgb, '+p+' 5%, rgba(255,255,255,0.035))');
+}
 
 
