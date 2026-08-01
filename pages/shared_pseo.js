@@ -462,6 +462,7 @@
       else if (COUNTRY.code === 'RU') { stateLbl = 'Republic/Oblast'; distLbl = 'District'; }
       else if (COUNTRY.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
 
+      const safeFn = (n) => (n || '').replace(/[^a-zA-Z0-9\s-]/g, '').trim().toLowerCase().replace(/\s+/g, '-');
       const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
       const office = item.officename || item.OfficeName || item.City || 'Location';
       const state = item.statename || item.State || '';
@@ -588,6 +589,10 @@
         if (bodyMatch) html = bodyMatch[1];
         
         const app = document.getElementById('app');
+        const logoEl = document.querySelector('.logo');
+        if (logoEl && !logoEl.innerHTML.includes('img')) {
+            logoEl.innerHTML = '<img src="/logo.png" alt="PO ZipCode Global" style="height:32px; vertical-align:middle; margin-right:8px; border-radius:4px;"> PO ZipCode Global';
+        }
         if (app) app.innerHTML = html;
         else document.body.innerHTML = html;
         document.body.className = 'theme-' + COUNTRY.code.toLowerCase();
@@ -672,6 +677,8 @@ function applyDynamicCountryTheme(code) {
   document.documentElement.style.setProperty('--saffron', p);
   document.documentElement.style.setProperty('--bg-card', 'color-mix(in srgb, '+p+' 5%, rgba(255,255,255,0.035))');
 }
+
+
 
 
 
