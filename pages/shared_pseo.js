@@ -243,18 +243,28 @@
   }, { passive: true });
 
   function initPage() {
-    // Set page title and meta dynamically
-    document.title = COUNTRY.name + ' Postal Codes \u2014 PO ZipCode Global';
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.content = COUNTRY.name + ' Postal Codes \u2014 PO ZipCode Global';
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.content = 'Find any postal code in ' + COUNTRY.name + '. ' + COUNTRY.states.length + ' regions. Instant lookup with interactive map.';
+    if (!window.PSEO_CITY) {
+      // Set page title and meta dynamically for normal pages
+      document.title = COUNTRY.name + ' Postal Codes \u2014 PO ZipCode Global';
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.content = COUNTRY.name + ' Postal Codes \u2014 PO ZipCode Global';
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.content = 'Find any postal code in ' + COUNTRY.name + '. ' + COUNTRY.states.length + ' regions. Instant lookup with interactive map.';
+    }
 
     // Init hero with flagcdn.com image
     $('heroFlag').innerHTML = '<img src="https://flagcdn.com/w160/' + COUNTRY.flagCode + '.png" alt="' + COUNTRY.name + ' Flag" style="width:120px;height:auto;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:inline-block;"/>';
-    $('heroTitle').textContent = COUNTRY.name;
-    $('heroSubtitle').textContent = COUNTRY.subtitle;
-    $('statesTitle').textContent = COUNTRY.name + ' \u2014 States & Regions';
+    
+    if (window.PSEO_CITY) {
+      $('heroTitle').textContent = window.PSEO_CITY + ', ' + (window.PSEO_STATE_LABEL || '') + ' - ' + COUNTRY.name;
+      $('heroSubtitle').textContent = 'List of all post offices and postal codes';
+      $('statesTitle').textContent = 'Post Offices in ' + window.PSEO_CITY;
+    } else {
+      $('heroTitle').textContent = COUNTRY.name;
+      $('heroSubtitle').textContent = COUNTRY.subtitle;
+      $('statesTitle').textContent = COUNTRY.name + ' \u2014 States & Regions';
+    }
+    
     $('year').textContent = new Date().getFullYear();
 
     // Stats
@@ -425,6 +435,7 @@
 
   // Results
   function renderResults(results, title, subtitle) {
+    if ($('statesSection')) $('statesSection').style.display = 'none';
     if (!results || results.length === 0) {
       $('resultsList').innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><p>No results found.' + (subtitle ? ' Try a different code.' : '') + '</p></div>';
       $('resultsCount').textContent = '0 found';
@@ -438,18 +449,18 @@
     $('resultsList').innerHTML = results.map((item, idx) => {
       let stateLbl = 'State';
       let distLbl = 'District';
-      if (['US','GB','IE'].includes(C.code)) distLbl = 'County';
-      else if (C.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
-      else if (C.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
-      else if (C.code === 'CN') { stateLbl = 'Province'; distLbl = 'Prefecture'; }
-      else if (C.code === 'FR') { stateLbl = 'Region'; distLbl = 'Department'; }
-      else if (C.code === 'IT') { stateLbl = 'Region'; distLbl = 'Province'; }
-      else if (C.code === 'ES') { stateLbl = 'Community'; distLbl = 'Province'; }
-      else if (C.code === 'AU') { stateLbl = 'State'; distLbl = 'Region'; }
-      else if (C.code === 'BR') { stateLbl = 'State'; distLbl = 'Municipality'; }
-      else if (C.code === 'ZA') { stateLbl = 'Province'; distLbl = 'Municipality'; }
-      else if (C.code === 'RU') { stateLbl = 'Republic/Oblast'; distLbl = 'District'; }
-      else if (C.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
+      if (['US','GB','IE'].includes(COUNTRY.code)) distLbl = 'County';
+      else if (COUNTRY.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
+      else if (COUNTRY.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
+      else if (COUNTRY.code === 'CN') { stateLbl = 'Province'; distLbl = 'Prefecture'; }
+      else if (COUNTRY.code === 'FR') { stateLbl = 'Region'; distLbl = 'Department'; }
+      else if (COUNTRY.code === 'IT') { stateLbl = 'Region'; distLbl = 'Province'; }
+      else if (COUNTRY.code === 'ES') { stateLbl = 'Community'; distLbl = 'Province'; }
+      else if (COUNTRY.code === 'AU') { stateLbl = 'State'; distLbl = 'Region'; }
+      else if (COUNTRY.code === 'BR') { stateLbl = 'State'; distLbl = 'Municipality'; }
+      else if (COUNTRY.code === 'ZA') { stateLbl = 'Province'; distLbl = 'Municipality'; }
+      else if (COUNTRY.code === 'RU') { stateLbl = 'Republic/Oblast'; distLbl = 'District'; }
+      else if (COUNTRY.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
 
       const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
       const office = item.officename || item.OfficeName || item.City || 'Location';
@@ -494,9 +505,12 @@
   }
 
   // Event listeners
-  $('searchBtn').addEventListener('click', () => searchAll($('searchInput').value.trim()));
-  $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
-  $('voiceBtn').addEventListener('click', startVoice);
+  const searchBtnNode = $('searchBtn');
+  if (searchBtnNode) {
+    searchBtnNode.addEventListener('click', () => searchAll($('searchInput').value.trim()));
+    $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') searchBtnNode.click(); });
+    $('voiceBtn').addEventListener('click', startVoice);
+  }
 
   // Init removed
 
@@ -595,4 +609,15 @@
             loadStates();
             loadCityData();
         }
-      } catch (e) { console.error('Failed to load l
+      } catch (e) { console.error('Failed to load layout'); }
+    }
+  }
+
+  if (window.PSEO_CITY) {
+    startApp();
+  } else {
+    // Normal country page
+    loadStates();
+  }
+
+})();
