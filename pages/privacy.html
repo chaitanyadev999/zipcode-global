@@ -99,14 +99,10 @@ a:hover { color: var(--a); }
 }
 .brand-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 
-.nav-links { display: flex; gap: 4px; }
-.nav-links a {
-  padding: 7px 14px; border-radius: var(--r-full); font-size: 0.84rem; font-weight: 500;
-  color: var(--text-3); text-decoration: none;
-  border: 1px solid transparent; transition: all 0.25s var(--ease);
-}
-.nav-links a:hover { color: var(--text); background: rgba(var(--p2-rgb),0.08); border-color: var(--border-accent); }
-.nav-links a.active { color: var(--p); border-color: var(--border-accent); background: rgba(var(--p2-rgb),0.07); }
+
+
+
+
 
 /* ── HEADER ── */
 .page-header { padding: 5rem 1.5rem 2.5rem; text-align: center; position: relative; }
@@ -233,7 +229,7 @@ a:hover { color: var(--a); }
   .section-card { padding: 1.75rem 1.25rem; }
   .section-head h2 { font-size: 1.15rem; }
   .cinema-nav .container { padding: 12px 16px; gap: 0.5rem; }
-  .nav-links a { padding: 6px 10px; font-size: 0.78rem; }
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -252,27 +248,64 @@ a:hover { color: var(--a); }
   .goog-te-gadget .goog-te-combo option { background: #050816; color: #fff; font-weight:normal; }
   .skiptranslate iframe { display: none !important; }
   body { top: 0 !important; }
+@media(max-width:768px){
+  .nav{flex-direction:column; gap:0.8rem; padding:0.8rem 1.25rem}
+  .nav-links{flex-wrap:wrap; justify-content:center}
+}
+</style>
+
+
+<style id="navStyle">
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  transition:all .3s var(--ease);
+}
+.nav.scrolled{
+  background:rgba(5,8,22,0.88);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--b);
+}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--fd);font-weight:700;font-size:1.08rem;color:#fff;text-decoration:none}
+.brand-icon{
+  width:36px;height:36px;border-radius:9px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;box-shadow:0 0 20px rgba(0,212,255,0.4);
+}
+.brand-icon img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
+.nav-links{display:flex;align-items:center;gap:.5rem}
+.nav-btn{
+  padding:.4rem .9rem;border-radius:999px;font-size:.8rem;font-weight:600;
+  background:var(--glass);border:1px solid var(--b);color:var(--t2);text-decoration:none;
+  transition:all .25s var(--ease);
+}
+.nav-btn:hover{background:var(--card-hi);border-color:var(--cyan);color:var(--t);transform:translateY(-1px)}
+.nav-btn.primary{background:var(--grad);color:#000;border:none;box-shadow:0 4px 16px rgba(0,212,255,0.3)}
+ 
+@media(max-width:768px){
+  .nav{flex-direction:column; gap:0.8rem; padding:0.8rem 1.25rem}
+  .nav-links{flex-wrap:wrap; justify-content:center}
+}
 </style>
 
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="cinema-nav">
-  <div class="container">
-    <a class="brand" href="/home/main.html">
-      <span class="brand-mark"><img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></span>
-      <span>PO ZipCode Global</span>
-    </a>
-    <div class="nav-links">
-      <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
-      <a href="/home/main.html">← Home</a>
-      <a href="/pages/about.html">About</a>
-      <a href="/pages/privacy.html" class="active">Privacy</a>
-      <a href="/pages/report.html">Report</a>
-    </div>
+<nav class="nav" id="mainNav">
+  <a class="brand" href="../home/main.html">
+    <div class="brand-icon"><img src="../home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
+    <span>PO ZipCode Global</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-btn" href="../home/main.html">🏠 Home Page</a>
+    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="translate.html">Translator</a>
+    <a class="nav-btn" href="blog.html">Blog</a>
+    <a class="nav-btn" href="about.html">About</a>
+    <a class="nav-btn" href="privacy.html">Privacy</a>
+    <a class="nav-btn" href="report.html">Report</a>
     <div id="google_translate_element"></div>
-    </div>
+  </div>
 </nav>
 
 <!-- HEADER -->
@@ -362,7 +395,7 @@ a:hover { color: var(--a); }
       <p>While we strive to provide accurate postal code information:</p>
       <ul>
         <li>We <strong>cannot guarantee 100% correctness</strong> of all data displayed across 121 countries.</li>
-        <li>If you find incorrect data, please use our <a href="/pages/report.html">Report a Mistake</a> page.</li>
+        <li>If you find incorrect data, please use our <a href="report.html">Report a Mistake</a> page.</li>
         <li>Data is <strong>updated periodically</strong> from the original source government databases.</li>
         <li>Postal codes, location names, and administrative boundaries may change over time.</li>
       </ul>
@@ -405,7 +438,7 @@ a:hover { color: var(--a); }
       </div>
       <p>If you have questions, concerns, or feedback about this privacy policy or our data practices:</p>
       <ul>
-        <li><strong>Report Mistakes:</strong> Use our <a href="/pages/report.html">Report page</a> to flag incorrect postal code data.</li>
+        <li><strong>Report Mistakes:</strong> Use our <a href="report.html">Report page</a> to flag incorrect postal code data.</li>
         <li><strong>Privacy Questions:</strong> Use the button below to email our team directly.</li>
         <li>We respond within <strong>48 hours</strong> on business days.</li>
       </ul>
@@ -420,9 +453,9 @@ a:hover { color: var(--a); }
 <footer class="cinema-footer">
   <div class="container">
     <div class="footer-actions">
-      <a class="footer-btn" href="/home/main.html">🌍 All 121 Countries</a>
-      <a class="footer-btn" href="/pages/about.html">About</a>
-      <a class="footer-btn" href="/pages/report.html">⚠️ Report Mistake</a>
+      <a class="footer-btn" href="../home/main.html">🌍 All 121 Countries</a>
+      <a class="footer-btn" href="about.html">About</a>
+      <a class="footer-btn" href="report.html">⚠️ Report Mistake</a>
     </div>
     <p class="footer-copy">&copy; 2026 PO ZipCode Global &middot; 121 Countries &middot; Made with ❤️ Love of Earth</p>
     <div class="tricolor-bar"></div>
@@ -430,16 +463,11 @@ a:hover { color: var(--a); }
 </footer>
 
 <script>
-// Obfuscate email — never stored in plain text in HTML source
-(function(){
-  var u = 'reclaimedmindwithrelaxmusic';
-  var d = 'gmail.com';
-  var subject = encodeURIComponent('Privacy Policy — PO ZipCode Global');
-  var btn = document.getElementById('contactBtn');
-  if(btn){
-    btn.href = 'mailto:' + u + '@' + d + '?subject=' + subject;
+  // Let the Contact button go directly to report page
+  const btn = document.getElementById('contactBtn');
+  if (btn) {
+    btn.href = 'report.html';
   }
-})();
 </script>
 
 

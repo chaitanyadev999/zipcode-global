@@ -1063,12 +1063,56 @@ window.selectDist = selectDist;
 window.showDetail = showDetail;
 
 // ── SEARCH ──────────────────────────────────────────────────────
-function doSearch(){
-  const q=$('search').value.trim().toLowerCase(); if(!q)return;
-  if(!NAV.data.length){toast('Select a region first','info');return;}
-  const hits = NAV.data.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(q)));
+async function doSearch(){
+  let q=$('search').value.trim().toLowerCase(); if(!q)return;
+  
+  let searchData = NAV.data;
+  
+  if(!searchData.length){
+    if(window.isFetchingGlobal) { toast('Still loading data...','info'); return; }
+    if(!window.globalDataCache) {
+      window.isFetchingGlobal = true;
+      toast('Loading global data... this may take a moment','info');
+      window.globalDataCache = [];
+      try {
+        const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+        const r = await fetch(apiUrl);
+        if(!r.ok) throw new Error(r.status);
+        const files = await r.json();
+        const jsonUrls = files.filter(f=>f.name.endsWith('.json')).map(f=>f.download_url);
+        
+        for (let i = 0; i < jsonUrls.length; i += 5) {
+            const batch = jsonUrls.slice(i, i + 5);
+            await Promise.all(batch.map(async (url) => {
+                try {
+                    const dr = await fetch(url);
+                    if(dr.ok) {
+                        const data = await dr.json();
+                        window.globalDataCache.push(...data);
+                    }
+                } catch(e) {}
+            }));
+        }
+      } catch(e) {
+        toast('Global search failed','err');
+        window.isFetchingGlobal = false;
+        return;
+      }
+      window.isFetchingGlobal = false;
+    }
+    searchData = window.globalDataCache;
+  }
+  
+  q = $('search').value.trim().toLowerCase();
+  if(!q) return;
+  const hits = searchData.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(q)));
   if(!hits.length){toast('No results found','err');return;}
   NAV.city='Search'; NAV.district='Results';
+  
+  if(!NAV.fields.pin && hits.length) {
+    NAV.fields = detectFields(hits);
+  }
+
   showPins(hits);
   updateMapMarkers(hits, 'Search: ' + q);
   toast('Found '+hits.length+' results','ok');

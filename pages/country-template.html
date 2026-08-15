@@ -22,6 +22,7 @@
 <head>
 <meta charset='UTF-8'/>
 <meta content='width=device-width, initial-scale=1' name='viewport'/>
+<meta name='description' content='Find any postal code, ZIP code, or PIN code worldwide instantly with PO ZipCode Global.'/>
 <title>PO ZipCode Global</title>
 
 <!-- Open Graph -->
@@ -158,30 +159,28 @@ h1, h2, h3, h4, h5, h6 {
 .section { padding: 4rem 0; position: relative; }
 
 /* NAV */
-.country-nav {
+.nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 100; padding: 1rem 0;
   transition: all var(--d-base) var(--ease-out);
 }
-.country-nav.scrolled {
+.nav.scrolled {
   background: var(--bg-veil);
   backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid var(--border);
 }
-.country-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav .container { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .brand {
   display: flex; align-items: center; gap: 0.75rem;
   font-family: var(--font-display);
   font-weight: 700; font-size: 1.25rem;
 }
-.brand-mark {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: var(--grad-saffron);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  box-shadow: var(--shadow-saffron);
+.brand-icon{
+  width:auto;height:36px;border-radius:9px;background:var(--grad-saffron);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;box-shadow:var(--shadow-saffron);padding:0 4px;
 }
+.brand-icon img{height:28px;width:auto;object-fit:contain;border-radius:4px;}
 .nav-links { display: flex; align-items: center; gap: 0.5rem; }
 .nav-link {
   height: 40px; padding: 0 0.875rem;
@@ -356,7 +355,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #map { height: 500px; width: 100%; z-index: 1; }
 .map-badge {
-  position: absolute; top: 1rem; left: 1rem;
+  position: absolute; top: 1rem; right: 1rem;
   z-index: 1000;
   padding: 0.6rem 1.1rem;
   background: var(--bg-veil);
@@ -615,21 +614,20 @@ h1, h2, h3, h4, h5, h6 {
 
 <div class="toast-container" id="toastContainer"></div>
 
-<nav class="country-nav" id="countryNav">
-<div class="container">
-  <a class="brand" href="/">
-    <span class="brand-mark">🌍</span>
+<nav class="nav" id="mainNav">
+  <a class="brand" href="../home/main.html">
+    <div class="brand-icon"><img src="../home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
-    <a class="nav-link" href="/">🏠 Home</a>
-    <a class="nav-link" href="/pages/about.html">About</a>
-    <a class="nav-link" href="/pages/report.html">⚠️ Report</a>
-    <button class="nav-link" id="cmdTrigger" type="button">
-      🔍 <span class="kbd">⌘K</span>
-    </button>
+    <a class="nav-btn" href="../home/main.html">🏠 Home Page</a>
+    <a class="nav-btn" href="../pages/translate.html">Translator</a>
+    <a class="nav-btn" href="../pages/blog.html">Blog</a>
+    <a class="nav-btn" href="../pages/about.html">About</a>
+    <a class="nav-btn" href="../pages/privacy.html">Privacy</a>
+    <a class="nav-btn" href="../pages/report.html">Report</a>
+    <div id="google_translate_element"></div>
   </div>
-</div>
 </nav>
 
 <!-- AD SLOT 1: TOP HEADER (PC, TAB, MOBILE) -->
@@ -712,7 +710,7 @@ h1, h2, h3, h4, h5, h6 {
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="brand">
-          <span class="brand-mark">🌍</span>
+          <div class="brand-icon"><img src="../home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
           <span>PO ZipCode Global</span>
         </div>
         <p>The world's largest PIN code finder. 121 countries. Voice search, command palette, auto-map. Made with ❤️ in Bharat.</p>
@@ -720,22 +718,22 @@ h1, h2, h3, h4, h5, h6 {
       <div class="footer-col">
         <h4>Explore</h4>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/#countriesSection">All Countries</a></li>
-          <li><a href="/pages/about.html">About</a></li>
+          <li><a href="../home/main.html">Home</a></li>
+          <li><a href="../home/main.html#allSec">All Countries</a></li>
+          <li><a href="../pages/about.html">About</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
-          <li><a href="/pages/privacy.html">Privacy Policy</a></li>
-          <li><a href="/pages/report.html">Report Mistake</a></li>
+          <li><a href="../pages/privacy.html">Privacy Policy</a></li>
+          <li><a href="../pages/report.html">Report Mistake</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:reclaimedmindwithrelaxmusic@gmail.com?subject=PO ZipCode Global">Email Us</a></li>
+          <li><a href="report.html">Contact / Report</a></li>
           <li><a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">GitHub Data</a></li>
         </ul>
       </div>
@@ -883,12 +881,12 @@ h1, h2, h3, h4, h5, h6 {
 
   // Read URL param - special redirect for IN and US
   const urlCode = (new URLSearchParams(window.location.search)).get('code') || 'GB';
-  if (urlCode.toUpperCase() === 'IN') { window.location.href = '/home/india.html'; throw new Error('redirect'); }
-  if (urlCode.toUpperCase() === 'US') { window.location.href = '/home/usa.html'; throw new Error('redirect'); }
+  
+  
 
   const META = COUNTRY_DB[urlCode.toUpperCase()];
   if (!META) {
-    document.body.innerHTML = '<div style="color:#fff;padding:4rem;text-align:center"><h1>Country not found</h1><a href="/home/main.html" style="color:#00d4ff">&larr; Go Home</a></div>';
+    document.body.innerHTML = '<div style="color:#fff;padding:4rem;text-align:center"><h1>Country not found</h1><a href="../home/main.html" style="color:#00d4ff">&larr; Go Home</a></div>';
     throw new Error('Unknown country');
   }
 
@@ -1190,7 +1188,7 @@ h1, h2, h3, h4, h5, h6 {
         '<div class="result-actions">' +
           (hasCoords ? '<button class="action-btn" data-lat="' + item.latitude + '" data-lon="' + item.longitude + '" data-label="' + office + '">🗺️ Focus</button>' : '') +
           '<a class="action-btn" href="https://www.google.com/maps?q=' + (item.latitude || '') + ',' + (item.longitude || '') + '" target="_blank" rel="noopener">🌍 Google</a>' +
-          '<a class="action-btn" href="/pages/report.html?country=' + encodeURIComponent(COUNTRY.name) + '&office=' + encodeURIComponent(office) + '&pin=' + encodeURIComponent(pin) + '">⚠️ Report</a>' +
+          '<a class="action-btn" href="\' + getBasePath() + \'pages/report.html?country=' + encodeURIComponent(COUNTRY.name) + '&office=' + encodeURIComponent(office) + '&pin=' + encodeURIComponent(pin) + '">⚠️ Report</a>' +
         '</div></div>';
     }).join('');
 
@@ -1215,6 +1213,14 @@ h1, h2, h3, h4, h5, h6 {
   // Event listeners
   $('searchBtn').addEventListener('click', () => searchAll($('searchInput').value.trim()));
   $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
+  
+  // Auto-search on input
+  let searchTimeout = null;
+  $('searchInput').addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    const val = e.target.value.trim();
+    searchTimeout = setTimeout(() => searchAll(val), 300);
+  });
   $('voiceBtn').addEventListener('click', startVoice);
 
   // Init — kick off async country load
@@ -1223,8 +1229,31 @@ h1, h2, h3, h4, h5, h6 {
 //]]>
 </script>
 
+
+<!-- Auto-Search Logic -->
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    try {
+      const q = new URLSearchParams(window.location.search).get('q');
+      if(q && document.getElementById('search')) {
+        document.getElementById('search').value = q;
+        if(typeof window.doSearch === 'function') {
+           window.doSearch();
+        } else {
+           console.log("doSearch not found, waiting...");
+           // try again in 1s
+           setTimeout(() => { if(typeof window.doSearch === 'function') window.doSearch(); }, 1000);
+        }
+      }
+    } catch(e) {}
+  }, 500);
+});
+</script>
 </body>
+
 </html>
+
 
 
 

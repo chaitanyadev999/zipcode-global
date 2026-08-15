@@ -1,6 +1,11 @@
+function getBasePath() {
+    const path = window.location.pathname;
+    const idx = path.indexOf("/pages/");
+    return idx !== -1 ? path.substring(0, idx + 1) : "/";
+}
 (function() {
   'use strict';
-  const SCRIPT_URL = document.currentScript ? document.currentScript.src : '/pages/shared_pseo.js';
+  const SCRIPT_URL = document.currentScript ? document.currentScript.src : getBasePath() + 'pages/shared_pseo.js';
 
   // ====================================================
   // DYNAMIC COUNTRY LOADER - reads ?code=XX from URL
@@ -143,18 +148,25 @@
       const match = window.location.pathname.match(/\/pages\/([a-zA-Z0-9-]+)\.html/);
       if (match && match[1] && match[1] !== 'layout' && match[1] !== 'country-template') {
         const urlName = match[1].toLowerCase().replace(/-/g, ' ');
-        for (const [code, meta] of Object.entries(COUNTRY_DB)) {
-          if (meta.name.toLowerCase() === urlName) {
-            urlCode = code.toLowerCase();
-            break;
-          }
+        
+        // Special fallbacks for India and USA
+        if (urlName === 'usa') { urlCode = 'us'; }
+        else if (urlName === 'india') { urlCode = 'in'; }
+        else if (urlName === 'united states') { urlCode = 'us'; }
+        else {
+            for (const [code, meta] of Object.entries(COUNTRY_DB)) {
+              if (meta.name.toLowerCase() === urlName || code.toLowerCase() === urlName) {
+                urlCode = code.toLowerCase();
+                break;
+              }
+            }
         }
       }
     }
   }
 
   if (!urlCode) {
-    if (!isPseo && window.location.pathname.includes('/pages/')) {
+    if (!isPseo && (window.location.pathname.includes('/pages/') || window.location.pathname.includes('\\pages\\'))) {
        // fallback for india if on india.html but not matched
        urlCode = 'in';
     } else {
@@ -190,11 +202,11 @@
   // Async load states from GitHub Contents API
   async function loadStates() {
     try {
-      const resp = await fetch('https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/' + COUNTRY.code);
+      let apiUrl = 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/' + COUNTRY.code; if (COUNTRY.code === 'IN') apiUrl = 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/'; const resp = await fetch(apiUrl);
       const files = await resp.json();
       if (Array.isArray(files)) {
         COUNTRY.states = files
-          .filter(f => f.name.endsWith('.json'))
+          .filter(f => f.name.endsWith('.json') && f.name !== 'pincode-map.json' && f.name !== 'package.json' && f.name !== 'data.json')
           .map(f => ({ name: f.name.replace('.json', '').replace(/-/g, ' '), file: f.name }));
       }
     } catch (e) {
@@ -256,7 +268,13 @@
     $('heroFlag').innerHTML = '<img src="https://flagcdn.com/w160/' + COUNTRY.flagCode + '.png" alt="' + COUNTRY.name + ' Flag" style="width:120px;height:auto;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.6);display:inline-block;"/>';
     
     if (window.PSEO_CITY) {
-      $('heroTitle').textContent = window.PSEO_CITY + ', ' + (window.PSEO_STATE_LABEL || '') + ' - ' + COUNTRY.name;
+      const toTitleCase = (str) => {
+        if (!str) return '';
+        return str.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
+      };
+      const cityStr = window.PSEO_CITY ? toTitleCase(window.PSEO_CITY) + ', ' : '';
+      const stateStr = window.PSEO_STATE_LABEL ? toTitleCase(window.PSEO_STATE_LABEL) : '';
+      $('heroTitle').textContent = cityStr + stateStr + (stateStr ? ' - ' : '') + COUNTRY.name;
       $('heroSubtitle').textContent = 'List of all post offices and postal codes';
       $('statesTitle').textContent = 'Post Offices in ' + window.PSEO_CITY;
     } else {
@@ -305,9 +323,14 @@
           const query = $('searchInput').value.trim();
           let results = data;
           if (query) {
+            const lowerQuery = query.toLowerCase();
+            const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
             results = data.filter(item => {
-              const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
-              return fields.some(f => item[f] && String(item[f]).toLowerCase().includes(query.toLowerCase()));
+              for (let i = 0; i < fields.length; i++) {
+                const val = item[fields[i]];
+                if (val && String(val).toLowerCase().includes(lowerQuery)) return true;
+              }
+              return false;
             });
           }
 
@@ -333,7 +356,8 @@
     $('resultsSection').classList.add('visible');
 
     const allMatches = [];
-    const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code'];
+    const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code', 'officename', 'OfficeName', 'City', 'district', 'Districtname', 'County', 'statename', 'State'];
+    const lowerQuery = query.toLowerCase();
 
     for (const state of COUNTRY.states) {
       try {
@@ -345,9 +369,11 @@
           if (res.ok) { data = await res.json(); dataCache.set(url, data); }
         }
         if (data) {
-          for (const item of data) {
-            for (const f of fields) {
-              if (item[f] && String(item[f]).toLowerCase() === query.toLowerCase()) {
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            for (let j = 0; j < fields.length; j++) {
+              const val = item[fields[j]];
+              if (val && String(val).toLowerCase().includes(lowerQuery)) {
                 allMatches.push(item);
                 break;
               }
@@ -357,7 +383,26 @@
       } catch (e) {}
     }
 
+    window.CURRENT_PAGE_DATA = allMatches;
     renderResults(allMatches, COUNTRY.name + ' — Search: ' + query, null);
+    
+    const normalizedQuery = lowerQuery.replace(/-/g, ' ');
+    const stateMatches = COUNTRY.states.filter(s => s.name.toLowerCase().includes(normalizedQuery));
+    if (stateMatches.length > 0) {
+      const statesHtml = '<div style="margin-bottom:2.5rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(var(--p2),0.2);"><h3 style="color:var(--t); margin-bottom:1.25rem; font-size:1.2rem; display:flex; align-items:center; gap:0.5rem;"><span style="color:var(--p)">📍</span> Matching Regions / States</h3><div class="states-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:1rem;">' +
+        stateMatches.map((s) =>
+          '<button class="state-btn" onclick="window.location.href=\'' + getBasePath() + 'pages/' + COUNTRY.code.toLowerCase() + '/' + s.file.replace('.json', '.html') + '\'" style="width:100%; text-align:center; padding:1rem; background:var(--card-hi); border:1px solid var(--p); box-shadow:var(--glow); border-radius:12px; color:var(--t); font-weight:600; cursor:pointer; font-family:var(--fd); transition:all 0.2s;">' + s.name + '</button>'
+        ).join('') +
+        '</div></div>';
+      
+      const resultsList = $('resultsList');
+      // Prepend to results list if empty state wasn't rendered
+      if (resultsList.querySelector('.empty-state') && allMatches.length === 0) {
+        resultsList.innerHTML = statesHtml;
+      } else {
+        resultsList.insertAdjacentHTML('afterbegin', statesHtml);
+      }
+    }
   }
 
   // Voice search
@@ -387,10 +432,9 @@
     recognition.start();
   }
 
-  // Map
   function initMap() {
     if (mapInitialized) return;
-    map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([COUNTRY.lat, COUNTRY.lon], 4);
+    map = L.map('map', { zoomControl: true, scrollWheelZoom: false, preferCanvas: true }).setView([COUNTRY.lat, COUNTRY.lon], 4);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(map);
     mapInitialized = true;
   }
@@ -410,31 +454,72 @@
     const withCoords = results.filter(r => r.latitude != null && r.longitude != null);
     if (withCoords.length === 0) { $('mapSection').classList.remove('visible'); return; }
 
-    withCoords.forEach((item, i) => {
+    const MAX_MARKERS = window.innerWidth <= 768 ? 100 : 300;
+    const markersToRender = withCoords.slice(0, MAX_MARKERS);
+    const isValidCoords = (lat, lon) => {
+      if (isNaN(lat) || isNaN(lon) || (lat === 0 && lon === 0) || lat < -90 || lat > 90 || lon < -180 || lon > 180) return false;
+      let latDiff = Math.abs(lat - COUNTRY.lat);
+      let lonDiff = Math.abs(lon - COUNTRY.lon);
+      if (lonDiff > 180) lonDiff = 360 - lonDiff;
+      return latDiff <= 50 && lonDiff <= 120;
+    };
+
+    markersToRender.forEach(item => {
       const lat = parseFloat(item.latitude), lon = parseFloat(item.longitude);
-      if (isNaN(lat) || isNaN(lon)) return;
-      const colors = i === 0 ? ['#ff6b1a', '#f5b700'] : ['#006d77', '#0a9396'];
-      const popup = '<strong style="color:#f5b700;">' + (item.officename || item.OfficeName || 'Location') + '</strong><br/><span style="color:#d4cfc0;font-size:0.85rem;">' + (item.pincode || '') + ' • ' + (item.statename || '') + '</span>';
+      if (!isValidCoords(lat, lon)) return;
+      const office = item.officename || item.OfficeName || item.City || item.PlaceName || 'Unknown';
+      const pin = item.pincode || item.ZipCode || item.Postcode || '';
+      const dist = item.district || item.District || item.County || '';
+      const popup = `<b>${office}</b><br>${pin}<br>${dist}<br><a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank">Google Maps</a>`;
+      let colors = ['#00d4ff', '#0055ff'];
+      if (item.officetype === 'HO') colors = ['#ff0055', '#ff9900'];
+      else if (item.officetype === 'SO') colors = ['#00ff88', '#0099ff'];
       const m = L.marker([lat, lon], { icon: makePin(...colors) }).addTo(map).bindPopup(popup);
       mapMarkers.push(m);
     });
-
-    if (withCoords.length === 1) {
-      const lat = parseFloat(withCoords[0].latitude), lon = parseFloat(withCoords[0].longitude);
-      if (!isNaN(lat) && !isNaN(lon)) map.setView([lat, lon], 6, { animate: true });
-    } else {
-      const valid = withCoords.filter(r => !isNaN(parseFloat(r.latitude)) && !isNaN(parseFloat(r.longitude)));
-      if (valid.length > 0) {
-        map.fitBounds(valid.map(r => [parseFloat(r.latitude), parseFloat(r.longitude)]), { padding: [50, 50], maxZoom: 6 });
+    
+    if (markersToRender.length > 0) {
+      const firstValid = markersToRender.find(r => isValidCoords(parseFloat(r.latitude), parseFloat(r.longitude)));
+      if (firstValid) {
+        const lat = parseFloat(firstValid.latitude), lon = parseFloat(firstValid.longitude);
+        map.setView([lat, lon], 6, { animate: true });
       }
     }
-    $('mapBadgeText').textContent = withCoords.length + ' location' + (withCoords.length > 1 ? 's' : '');
+
+    let valid = markersToRender.filter(r => isValidCoords(parseFloat(r.latitude), parseFloat(r.longitude)));
+    if (valid.length > 2) {
+      const lats = valid.map(r => parseFloat(r.latitude)).sort((a,b)=>a-b);
+      const lons = valid.map(r => parseFloat(r.longitude)).sort((a,b)=>a-b);
+      const mLat = lats[Math.floor(lats.length/2)], mLon = lons[Math.floor(lons.length/2)];
+      const madLat = valid.map(r => Math.abs(parseFloat(r.latitude)-mLat)).sort((a,b)=>a-b)[Math.floor(valid.length/2)];
+      const madLon = valid.map(r => Math.abs(parseFloat(r.longitude)-mLon)).sort((a,b)=>a-b)[Math.floor(valid.length/2)];
+      const tLat = Math.max(madLat * 4, 2), tLon = Math.max(madLon * 4, 2);
+      valid = valid.filter(r => Math.abs(parseFloat(r.latitude)-mLat) <= tLat && Math.abs(parseFloat(r.longitude)-mLon) <= tLon);
+    }
+    if (valid.length > 0) {
+      map.fitBounds(valid.map(r => [parseFloat(r.latitude), parseFloat(r.longitude)]), { padding: [50, 50], maxZoom: 6 });
+    }
+    
+    let badgeText = markersToRender.length + ' location' + (markersToRender.length > 1 ? 's' : '');
+    if (withCoords.length > MAX_MARKERS) badgeText += ' (showing top ' + MAX_MARKERS + ')';
+    $('mapBadgeText').textContent = badgeText;
+    
     $('mapSection').classList.add('visible');
     setTimeout(() => map.invalidateSize(), 400);
   }
 
   // Results
   function renderResults(results, title, subtitle) {
+    if (results && results.length > 0) {
+      results.forEach(r => {
+        if (r.latitude === undefined && (r.Latitude !== undefined || r.lat !== undefined)) {
+          r.latitude = r.Latitude !== undefined ? r.Latitude : r.lat;
+        }
+        if (r.longitude === undefined && (r.Longitude !== undefined || r.lon !== undefined || r.lng !== undefined)) {
+          r.longitude = r.Longitude !== undefined ? r.Longitude : (r.lon !== undefined ? r.lon : r.lng);
+        }
+      });
+    }
     if ($('statesSection')) $('statesSection').style.display = 'none';
     if (!results || results.length === 0) {
       $('resultsList').innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><p>No results found.' + (subtitle ? ' Try a different code.' : '') + '</p></div>';
@@ -446,60 +531,77 @@
     }
     $('resultsTitle').textContent = title;
     $('resultsCount').textContent = results.length + ' found';
-    $('resultsList').innerHTML = results.map((item, idx) => {
-      let stateLbl = 'State';
-      let distLbl = 'City / District';
-      if (['US','GB','IE'].includes(COUNTRY.code)) distLbl = 'County';
-      else if (COUNTRY.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
-      else if (COUNTRY.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
-      else if (COUNTRY.code === 'CN') { stateLbl = 'Province'; distLbl = 'Prefecture'; }
-      else if (COUNTRY.code === 'FR') { stateLbl = 'Region'; distLbl = 'Department'; }
-      else if (COUNTRY.code === 'IT') { stateLbl = 'Region'; distLbl = 'Province'; }
-      else if (COUNTRY.code === 'ES') { stateLbl = 'Community'; distLbl = 'Province'; }
-      else if (COUNTRY.code === 'AU') { stateLbl = 'State'; distLbl = 'Region'; }
-      else if (COUNTRY.code === 'BR') { stateLbl = 'State'; distLbl = 'Municipality'; }
-      else if (COUNTRY.code === 'ZA') { stateLbl = 'Province'; distLbl = 'Municipality'; }
-      else if (COUNTRY.code === 'RU') { stateLbl = 'Republic/Oblast'; distLbl = 'District'; }
-      else if (COUNTRY.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
+    
+    const resultsList = $('resultsList');
+    resultsList.innerHTML = '';
+    const CHUNK_SIZE = 100;
+    let chunkIndex = 0;
+    
+    function renderChunk() {
+      const chunk = results.slice(chunkIndex, chunkIndex + CHUNK_SIZE);
+      if (chunk.length === 0) return;
+      
+      const html = chunk.map((item, idx) => {
+        let globalIdx = chunkIndex + idx;
+        let stateLbl = 'State';
+        let distLbl = 'City / District';
+        if (['US','GB','IE'].includes(COUNTRY.code)) distLbl = 'County';
+        else if (COUNTRY.code === 'JP') { stateLbl = 'Prefecture'; distLbl = 'City/Ward'; }
+        else if (COUNTRY.code === 'CA') { stateLbl = 'Province'; distLbl = 'County/City'; }
+        else if (COUNTRY.code === 'CN') { stateLbl = 'Province'; distLbl = 'Prefecture'; }
+        else if (COUNTRY.code === 'FR') { stateLbl = 'Region'; distLbl = 'Department'; }
+        else if (COUNTRY.code === 'IT') { stateLbl = 'Region'; distLbl = 'Province'; }
+        else if (COUNTRY.code === 'ES') { stateLbl = 'Community'; distLbl = 'Province'; }
+        else if (COUNTRY.code === 'AU') { stateLbl = 'State'; distLbl = 'Region'; }
+        else if (COUNTRY.code === 'BR') { stateLbl = 'State'; distLbl = 'Municipality'; }
+        else if (COUNTRY.code === 'ZA') { stateLbl = 'Province'; distLbl = 'Municipality'; }
+        else if (COUNTRY.code === 'RU') { stateLbl = 'Republic/Oblast'; distLbl = 'District'; }
+        else if (COUNTRY.code !== 'IN') { stateLbl = 'Province/State'; distLbl = 'County/City'; }
 
-      const safeFn = (n) => (n || '').replace(/[^a-zA-Z0-9\s-]/g, '').trim().toLowerCase().replace(/\s+/g, '-');
-      const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
-      const office = item.officename || item.OfficeName || item.City || 'Location';
-      const state = item.statename || item.State || '';
-      const district = item.district || item.County || item.City || '';
-      const region = item.regionname || item.Country || '';
-      const division = item.divisionname || '';
-      const delivery = item.delivery || '';
-      const hasCoords = item.latitude != null && item.longitude != null;
-      return '<div class="result-card" style="animation-delay:' + idx * 50 + 'ms" onclick="this.classList.toggle(\'expanded\')">'  +
-        '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
-        '<div class="result-office">' + office + '</div>' +
-        '<div class="result-meta">' +
-          '<div class="meta-item"><span class="meta-label">' + stateLbl + '</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
-          '<div class="meta-item"><span class="meta-label">' + distLbl + '</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
-          '<div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">' + (region || 'N/A') + '</span></div>' +
-          '<div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">' + (division || 'N/A') + '</span></div>' +
-        '</div>' +
-        '<div class="result-actions">' +
-          (hasCoords ? '<button class="action-btn" data-lat="' + item.latitude + '" data-lon="' + item.longitude + '" data-label="' + office + '">🗺️ Focus</button>' : '') +
-          '<a class="action-btn" href="https://www.google.com/maps?q=' + (item.latitude || '') + ',' + (item.longitude || '') + '" target="_blank" rel="noopener">🌍 Google</a>' +
-          '<a class="action-btn" href="/pages/report.html?country=' + encodeURIComponent(COUNTRY.name) + '&office=' + encodeURIComponent(office) + '&pin=' + encodeURIComponent(pin) + '">⚠️ Report</a>' +
-        '</div></div>';
-    }).join('');
+        const pin = item.pincode || item.ZipCode || item.zipcode || 'N/A';
+        const office = item.officename || item.OfficeName || item.City || 'Location';
+        const state = item.statename || item.State || '';
+        const district = item.district || item.Districtname || item.County || item.City || item.Taluk || item.divisionname || '';
+        const region = item.regionname || item.Country || '';
+        const division = item.divisionname || '';
+        const hasCoords = item.latitude != null && item.longitude != null;
+        
+        let animDelay = Math.min(globalIdx * 10, 1000);
+        return '<div class="result-card" data-idx="' + globalIdx + '" style="animation-delay:' + animDelay + 'ms">'  +
+          '<div class="result-pin"><span class="result-pin-num">' + pin + '</span><button class="copy-btn" data-pin="' + pin + '">📋</button></div>' +
+          '<div class="result-office">' + office + '</div>' +
+          '<div class="result-meta">' +
+            '<div class="meta-item"><span class="meta-label">' + stateLbl + '</span><span class="meta-value">' + (state || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">' + distLbl + '</span><span class="meta-value">' + (district || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">Region</span><span class="meta-value">' + (region || 'N/A') + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">Division</span><span class="meta-value">' + (division || 'N/A') + '</span></div>' +
+          '</div>' +
+          '<div class="result-actions">' +
+            (hasCoords ? '<button class="action-btn" data-lat="' + item.latitude + '" data-lon="' + item.longitude + '" data-label="' + office + '">🗺️ Focus</button>' : '') +
+            '<a class="action-btn" href="https://www.google.com/maps?q=' + (item.latitude || '') + ',' + (item.longitude || '') + '" target="_blank" rel="noopener">🌍 Google</a>' +
+            '<a class="action-btn" href="' + getBasePath() + 'pages/report.html?country=' + encodeURIComponent(COUNTRY.name) + '&office=' + encodeURIComponent(office) + '&pin=' + encodeURIComponent(pin) + '">⚠️ Report</a>' +
+          '</div></div>';
+      }).join('');
 
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        copyPin(btn.dataset.pin);
-        btn.classList.add('copied'); btn.textContent = '✓';
-        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋'; }, 1500);
-      });
-    });
-    document.querySelectorAll('.action-btn[data-lat]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        showMap([{ latitude: btn.dataset.lat, longitude: btn.dataset.lon, officename: btn.dataset.label }]);
-      });
-    });
+      resultsList.insertAdjacentHTML('beforeend', html);
+      chunkIndex += CHUNK_SIZE;
+      
+      if (chunkIndex < results.length) {
+        requestAnimationFrame(renderChunk);
+      } else {
+        const moreHtml = `
+          <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+            <a href="${getBasePath()}pages/${COUNTRY.flagCode}.html" class="action-btn" style="background: linear-gradient(135deg, #ff6b1a 0%, #f5b700 100%); color: #000; padding: 0.8rem 1.5rem; font-weight: bold; border-radius: 8px; text-decoration: none;">🔍 Find More Pincodes in ${COUNTRY.name}</a>
+            <a href="https://www.google.com/search?q=${encodeURIComponent(title + ' postal code')}" target="_blank" class="action-btn" style="background: #333; color: #fff; padding: 0.8rem 1.5rem; font-weight: bold; border-radius: 8px; text-decoration: none;">🌍 Google Search</a>
+          </div>
+        `;
+        resultsList.insertAdjacentHTML('beforeend', moreHtml);
+      }
+
+    }
+    
+    requestAnimationFrame(renderChunk);
+
     $('resultsSection').classList.add('visible');
     showMap(results);
     setTimeout(() => $('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
@@ -507,10 +609,81 @@
 
   // Event listeners
   const searchBtnNode = $('searchBtn');
-  if (searchBtnNode) {
-    searchBtnNode.addEventListener('click', () => searchAll($('searchInput').value.trim()));
-    $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') searchBtnNode.click(); });
-    $('voiceBtn').addEventListener('click', startVoice);
+  const searchInputNode = $('searchInput');
+  if (searchBtnNode && searchInputNode) {
+    searchBtnNode.addEventListener('click', () => searchAll(searchInputNode.value.trim()));
+    searchInputNode.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchBtnNode.click(); });
+    
+    // Auto-search on input
+    let searchTimeout = null;
+    searchInputNode.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      const val = e.target.value.trim();
+      searchTimeout = setTimeout(() => searchAll(val), 300);
+    });
+    
+    const voiceBtn = $('voiceBtn');
+    if (voiceBtn) voiceBtn.addEventListener('click', startVoice);
+  }
+
+  // Global event delegation for results list (Optimized DOM handling)
+  document.addEventListener('click', (e) => {
+    const copyBtn = e.target.closest('.copy-btn');
+    if (copyBtn) {
+      e.stopPropagation();
+      copyPin(copyBtn.dataset.pin);
+      copyBtn.classList.add('copied'); copyBtn.textContent = '✓';
+      setTimeout(() => { copyBtn.classList.remove('copied'); copyBtn.textContent = '📋'; }, 1500);
+      return;
+    }
+    const focusBtn = e.target.closest('.action-btn[data-lat]');
+    if (focusBtn) {
+      e.stopPropagation();
+      showMap([{ latitude: focusBtn.dataset.lat, longitude: focusBtn.dataset.lon, officename: focusBtn.dataset.label }]);
+      return;
+    }
+    const card = e.target.closest('.result-card');
+    if (card && !e.target.closest('.action-btn') && !e.target.closest('.copy-btn')) {
+      const idx = card.dataset.idx;
+      if (idx !== undefined && window.CURRENT_PAGE_DATA && window.CURRENT_PAGE_DATA[idx]) {
+          showPinDetails(window.CURRENT_PAGE_DATA[idx]);
+      } else {
+          card.classList.toggle('expanded');
+      }
+    }
+  });
+
+  window.showPinDetails = function(pinObj) {
+    $('resultsList').style.display = 'none';
+    if ($('pagination')) $('pagination').style.display = 'none';
+    if ($('mapSection')) $('mapSection').style.display = 'none';
+    
+    let d = $('pinDetails');
+    if (!d) {
+       d = document.createElement('div');
+       d.id = 'pinDetails';
+       d.style.padding = '20px';
+       d.style.textAlign = 'center';
+       $('resultsSection').appendChild(d);
+    }
+    d.style.display = 'block';
+    
+    let html = '<button class="action-btn" style="margin-bottom:15px;background:#333;color:#fff;" onclick="document.getElementById(\'pinDetails\').style.display=\'none\';document.getElementById(\'resultsList\').style.display=\'\';if(document.getElementById(\'mapSection\'))document.getElementById(\'mapSection\').style.display=\'\';">🔙 Back to List</button>';
+    html += '<div class="pin-card highlight" style="max-width:600px;margin:0 auto;text-align:left;">';
+    for(let k in pinObj){
+        html += '<div style="margin-bottom:8px;"><strong>'+String(k).toUpperCase()+':</strong> '+pinObj[k]+'</div>';
+    }
+    const office = pinObj.officename || pinObj.City || pinObj.OfficeName || '';
+    const state = pinObj.statename || pinObj.State || '';
+    const pin = pinObj.pincode || pinObj.zip || pinObj.ZipCode || '';
+    const query = encodeURIComponent(office + ' ' + pin);
+    
+    html += '<div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">';
+    html += '<a href="https://www.google.com/maps/search/?api=1&query='+query+'" target="_blank" class="action-btn" style="background:#4285F4;color:#fff;">📍 Maps</a>';
+    html += '<a href="https://www.google.com/search?q='+encodeURIComponent('About ' + office + ' ' + state)+'" target="_blank" class="action-btn" style="background:linear-gradient(135deg, #10a37f, #0d8a6a);color:#fff;">📖 About '+office+'</a>';
+    html += '</div></div>';
+    
+    d.innerHTML = html;
   }
 
   // Init removed
@@ -551,52 +724,117 @@
 
   async function loadCityData() {
     const url = COUNTRY.dataPath + COUNTRY.dataPrefix + window.PSEO_STATE;
-    const query = window.PSEO_CITY.toLowerCase();
+    const query = window.PSEO_CITY ? window.PSEO_CITY.toLowerCase() : '';
     
     try {
       $('resultsList').innerHTML = '<div class="spinner"></div>';
-      $('resultsTitle').textContent = 'Loading ' + window.PSEO_CITY + '...';
+      $('resultsTitle').textContent = 'Loading ' + (window.PSEO_CITY || window.PSEO_STATE_LABEL) + '...';
       $('resultsSection').classList.add('visible');
       
       const res = await fetch(url);
-      const data = await res.json();
+      let data = await res.json();
       
-      const results = data.filter(item => {
-        const office = (item.officename || item.OfficeName || item.City || '').toLowerCase();
-        const district = (item.district || item.County || '').toLowerCase();
-        const state = (item.statename || item.State || '').toLowerCase();
-        
-        return office.includes(query) || district.includes(query) || state.includes(query);
-      });
+      let results = data;
+      if (query) {
+        results = data.filter(item => {
+          const office = String(item.officename || item.OfficeName || item.City || '').toLowerCase();
+          const district = String(item.district || item.Districtname || item.County || '').toLowerCase();
+          const state = String(item.statename || item.State || '').toLowerCase();
+          
+          return office.includes(query) || district.includes(query) || state.includes(query);
+        });
+      }
       
-      renderResults(results, window.PSEO_CITY + ' — ' + window.PSEO_STATE_LABEL, 'City Search');
+      window.CURRENT_PAGE_DATA = results;
+      const title = window.PSEO_CITY ? (window.PSEO_CITY + ' — ' + window.PSEO_STATE_LABEL) : window.PSEO_STATE_LABEL;
+      renderResults(results, title, window.PSEO_CITY ? 'City Search' : 'State Search');
     } catch (e) {
-      console.error('Failed to load city data', e);
-      $('resultsList').innerHTML = '<div class="empty-state">Failed to load city data</div>';
+      console.error('Failed to load data', e);
+      $('resultsList').innerHTML = '<div class="empty-state">Failed to load data</div>';
     }
   }
 
+  function performLocalSearch(q) {
+    const toTitleCase = (str) => {
+      if (!str) return '';
+      return str.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
+    };
+    
+    if (window.CURRENT_PAGE_DATA && q) {
+      const titleCity = window.PSEO_CITY ? toTitleCase(window.PSEO_CITY) : '';
+      const titleState = window.PSEO_STATE_LABEL ? toTitleCase(window.PSEO_STATE_LABEL) : '';
+      const titleStr = titleCity ? (titleCity + ' — ' + titleState) : titleState;
+      document.title = titleStr + ' | PO ZipCode Global';
+    }
+
+    if (!window.CURRENT_PAGE_DATA) return;
+    if (!q) {
+      const titleCity = window.PSEO_CITY ? toTitleCase(window.PSEO_CITY) : '';
+      const titleState = window.PSEO_STATE_LABEL ? toTitleCase(window.PSEO_STATE_LABEL) : '';
+      const title = titleCity ? (titleCity + ' — ' + titleState) : titleState;
+      renderResults(window.CURRENT_PAGE_DATA, title, window.PSEO_CITY ? 'City Search' : 'State Search');
+      return;
+    }
+    const query = q.toLowerCase();
+    const fields = ['pincode', 'ZipCode', 'zipcode', 'postcode', 'postalcode', 'Postcode', 'code', 'officename', 'OfficeName', 'City', 'district', 'Districtname', 'County', 'statename', 'State'];
+    const results = window.CURRENT_PAGE_DATA.filter(item => {
+      for (let i = 0; i < fields.length; i++) {
+        const val = item[fields[i]];
+        if (val && String(val).toLowerCase().includes(query)) return true;
+      }
+      return false;
+    });
+    renderResults(results, 'Search Results for "' + q + '"', '');
+  }
+
   async function startApp() {
-    if (window.PSEO_CITY) {
+    if (window.PSEO_CITY || window.PSEO_IS_STATE) {
       try {
         let templatePath = SCRIPT_URL.replace('shared_pseo.js', 'country-template.html');
         if (window.location.protocol === 'file:') {
-            templatePath = 'https://zipcodeglobal.github.io/pages/country-template.html';
+            templatePath = getBasePath() + 'pages/country-template.html';
         }
         const res = await fetch(templatePath);
         let html = await res.text();
+        
+        const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/ig);
+        if (styleMatch) {
+            styleMatch.forEach(styleTag => {
+                document.head.insertAdjacentHTML('beforeend', styleTag);
+            });
+        }
+        
         const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
         if (bodyMatch) html = bodyMatch[1];
         
         const app = document.getElementById('app');
         const logoEl = document.querySelector('.logo');
         if (logoEl && !logoEl.innerHTML.includes('img')) {
-            logoEl.innerHTML = '<img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" style="height:40px; vertical-align:middle; margin-right:8px; border-radius:4px;"> PO ZipCode Global';
+            logoEl.innerHTML = '<img src="' + getBasePath() + 'home/assets/logo.png" alt="PO ZipCode Global Logo" style="height:40px; vertical-align:middle; margin-right:8px; border-radius:4px;"> PO ZipCode Global';
         }
+        
+        const bp = getBasePath();
+        html = html.replace(/href="\.\.\/home\//g, 'href="' + bp + 'home/');
+        html = html.replace(/href="\.\.\/pages\//g, 'href="' + bp + 'pages/');
+        html = html.replace(/src="\.\.\/home\//g, 'src="' + bp + 'home/');
+        html = html.replace(/href="report\.html"/g, 'href="' + bp + 'pages/report.html"');
+        html = html.replace(/href="\/"/g, 'href="' + bp + 'home/main.html"');
+        
         if (app) app.innerHTML = html;
         else document.body.innerHTML = html;
         document.body.className = 'theme-' + COUNTRY.code.toLowerCase();
           applyDynamicCountryTheme(COUNTRY.code);
+          
+        // Dynamic Navbar Active Highlight
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-btn, .nav-links a').forEach(el => {
+            const href = el.getAttribute('href');
+            if (href && !href.startsWith('#') && currentPath.includes(href.split('/').pop())) {
+                el.style.color = 'var(--p)';
+                el.style.borderColor = 'var(--p)';
+            }
+        });
+        
         setTimeout(() => {
           let seoText = document.querySelector('.seo-text');
           const resultsHeader = document.querySelector('.results-header');
@@ -624,9 +862,18 @@
           }
         }, 100);
         
-        $('searchBtn').addEventListener('click', () => searchAll($('searchInput').value.trim()));
+        $('searchBtn').addEventListener('click', () => performLocalSearch($('searchInput').value.trim()));
         $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
-        $('voiceBtn').addEventListener('click', startVoice);
+        
+        let localSearchTimeout = null;
+        $('searchInput').addEventListener('input', (e) => {
+            clearTimeout(localSearchTimeout);
+            const val = e.target.value.trim();
+            localSearchTimeout = setTimeout(() => performLocalSearch(val), 200);
+        });
+        
+        const vBtn = $('voiceBtn');
+        if(vBtn) vBtn.addEventListener('click', startVoice);
         
         if (typeof injectAdSlots === 'function') injectAdSlots();
         
@@ -646,7 +893,7 @@
     }
   }
 
-  if (window.PSEO_CITY) {
+  if (window.PSEO_CITY || window.PSEO_IS_STATE) {
     startApp();
   } else {
     // Normal country page
@@ -685,3 +932,17 @@ function applyDynamicCountryTheme(code) {
 
 
 
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    try{
+      const q = new URLSearchParams(window.location.search).get('q');
+      if(q && document.getElementById('search') && window.doSearch) {
+        document.getElementById('search').value = q;
+        window.doSearch();
+      }
+    }catch(e){}
+  }, 500);
+});
