@@ -1,0 +1,932 @@
+{
+  "scan_metadata": {
+    "timestamp": "2026-08-02T13:21:12.784142+00:00",
+    "search_index_path": "home/assets/search_index.json",
+    "search_index_size_mb": 91.47,
+    "total_index_keys": 1727221,
+    "cities_count": 819364,
+    "states_count": 1750,
+    "pincodes_count": 906107,
+    "pages_directory": "pages/",
+    "total_country_directories": 241
+  },
+  "summary_counts": {
+    "parallel_country_folder_overlaps": 119,
+    "target_url_collisions_cities": 1706,
+    "target_url_collisions_states": 0,
+    "target_url_collisions_pincodes": 31692,
+    "key_normalization_issues": 668,
+    "cross_section_exact_duplicate_keys": 605,
+    "broken_index_links_sample_check": 1
+  },
+  "checks": [
+    {
+      "check_id": "CHK_FS_01",
+      "category": "Parallel Country Directory Overlap",
+      "severity": "CRITICAL",
+      "description": "Dual country directories existing under both ISO code and full country name slug.",
+      "affected_count": 119,
+      "samples": [
+        {
+          "iso_code": "ad",
+          "iso_path": "pages/ad/",
+          "full_name": "andorra",
+          "full_name_path": "pages/andorra/",
+          "overlapping_directories_count": 14,
+          "iso_subdirs_count": 14,
+          "full_name_subdirs_count": 14
+        },
+        {
+          "iso_code": "ae",
+          "iso_path": "pages/ae/",
+          "full_name": "united-arab-emirates",
+          "full_name_path": "pages/united-arab-emirates/",
+          "overlapping_directories_count": 2,
+          "iso_subdirs_count": 2,
+          "full_name_subdirs_count": 2
+        },
+        {
+          "iso_code": "ai",
+          "iso_path": "pages/ai/",
+          "full_name": "anguilla",
+          "full_name_path": "pages/anguilla/",
+          "overlapping_directories_count": 2,
+          "iso_subdirs_count": 2,
+          "full_name_subdirs_count": 2
+        },
+        {
+          "iso_code": "al",
+          "iso_path": "pages/al/",
+          "full_name": "albania",
+          "full_name_path": "pages/albania/",
+          "overlapping_directories_count": 24,
+          "iso_subdirs_count": 24,
+          "full_name_subdirs_count": 24
+        },
+        {
+          "iso_code": "ar",
+          "iso_path": "pages/ar/",
+          "full_name": "argentina",
+          "full_name_path": "pages/argentina/",
+          "overlapping_directories_count": 46,
+          "iso_subdirs_count": 46,
+          "full_name_subdirs_count": 46
+        },
+        {
+          "iso_code": "as",
+          "iso_path": "pages/as/",
+          "full_name": "american-samoa",
+          "full_name_path": "pages/american-samoa/",
+          "overlapping_directories_count": 2,
+          "iso_subdirs_count": 2,
+          "full_name_subdirs_count": 2
+        },
+        {
+          "iso_code": "at",
+          "iso_path": "pages/at/",
+          "full_name": "austria",
+          "full_name_path": "pages/austria/",
+          "overlapping_directories_count": 18,
+          "iso_subdirs_count": 18,
+          "full_name_subdirs_count": 18
+        },
+        {
+          "iso_code": "au",
+          "iso_path": "pages/au/",
+          "full_name": "australia",
+          "full_name_path": "pages/australia/",
+          "overlapping_directories_count": 16,
+          "iso_subdirs_count": 16,
+          "full_name_subdirs_count": 16
+        },
+        {
+          "iso_code": "ax",
+          "iso_path": "pages/ax/",
+          "full_name": "aland-islands",
+          "full_name_path": "pages/aland-islands/",
+          "overlapping_directories_count": 6,
+          "iso_subdirs_count": 6,
+          "full_name_subdirs_count": 6
+        },
+        {
+          "iso_code": "az",
+          "iso_path": "pages/az/",
+          "full_name": "azerbaijan",
+          "full_name_path": "pages/azerbaijan/",
+          "overlapping_directories_count": 130,
+          "iso_subdirs_count": 130,
+          "full_name_subdirs_count": 130
+        },
+        {
+          "iso_code": "bd",
+          "iso_path": "pages/bd/",
+          "full_name": "bangladesh",
+          "full_name_path": "pages/bangladesh/",
+          "overlapping_directories_count": 14,
+          "iso_subdirs_count": 14,
+          "full_name_subdirs_count": 14
+        },
+        {
+          "iso_code": "be",
+          "iso_path": "pages/be/",
+          "full_name": "belgium",
+          "full_name_path": "pages/belgium/",
+          "overlapping_directories_count": 6,
+          "iso_subdirs_count": 6,
+          "full_name_subdirs_count": 6
+        },
+        {
+          "iso_code": "bg",
+          "iso_path": "pages/bg/",
+          "full_name": "bulgaria",
+          "full_name_path": "pages/bulgaria/",
+          "overlapping_directories_count": 56,
+          "iso_subdirs_count": 56,
+          "full_name_subdirs_count": 56
+        },
+        {
+          "iso_code": "bm",
+          "iso_path": "pages/bm/",
+          "full_name": "bermuda",
+          "full_name_path": "pages/bermuda/",
+          "overlapping_directories_count": 20,
+          "iso_subdirs_count": 20,
+          "full_name_subdirs_count": 20
+        },
+        {
+          "iso_code": "br",
+          "iso_path": "pages/br/",
+          "full_name": "brazil",
+          "full_name_path": "pages/brazil/",
+          "overlapping_directories_count": 54,
+          "iso_subdirs_count": 54,
+          "full_name_subdirs_count": 54
+        },
+        {
+          "iso_code": "by",
+          "iso_path": "pages/by/",
+          "full_name": "belarus",
+          "full_name_path": "pages/belarus/",
+          "overlapping_directories_count": 14,
+          "iso_subdirs_count": 14,
+          "full_name_subdirs_count": 14
+        },
+        {
+          "iso_code": "ca",
+          "iso_path": "pages/ca/",
+          "full_name": "canada",
+          "full_name_path": "pages/canada/",
+          "overlapping_directories_count": 20,
+          "iso_subdirs_count": 33,
+          "full_name_subdirs_count": 26
+        },
+        {
+          "iso_code": "cc",
+          "iso_path": "pages/cc/",
+          "full_name": "cocos-islands",
+          "full_name_path": "pages/cocos-islands/",
+          "overlapping_directories_count": 2,
+          "iso_subdirs_count": 2,
+          "full_name_subdirs_count": 2
+        },
+        {
+          "iso_code": "ch",
+          "iso_path": "pages/ch/",
+          "full_name": "switzerland",
+          "full_name_path": "pages/switzerland/",
+          "overlapping_directories_count": 52,
+          "iso_subdirs_count": 52,
+          "full_name_subdirs_count": 52
+        },
+        {
+          "iso_code": "cl",
+          "iso_path": "pages/cl/",
+          "full_name": "chile",
+          "full_name_path": "pages/chile/",
+          "overlapping_directories_count": 30,
+          "iso_subdirs_count": 30,
+          "full_name_subdirs_count": 30
+        }
+      ]
+    },
+    {
+      "check_id": "CHK_IDX_01",
+      "category": "Target URL Collision (Cities)",
+      "severity": "HIGH",
+      "description": "Multiple city search keys mapping to identical target HTML URL.",
+      "affected_count": 1706,
+      "samples": [
+        {
+          "target_url": "pages/india/andhra-pradesh/jagannadhapuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "jagannadhapuram",
+            "jagannadhapuram."
+          ]
+        },
+        {
+          "target_url": "pages/india/assam/balijan-te.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "balijan te",
+            "balijan t.e."
+          ]
+        },
+        {
+          "target_url": "pages/india/madhya-pradesh/katangi.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "katangi",
+            "katangi."
+          ]
+        },
+        {
+          "target_url": "pages/india/madhya-pradesh/paraswada.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "paraswada",
+            "paraswada."
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/chikhali-bk.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "chikhali bk.",
+            "chikhali bk"
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/jawala-bk.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "jawala bk",
+            "jawala (bk)"
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/kavathe.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "kavathe.",
+            "kavathe"
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/borgaon-bazar.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "borgaon (bazar)",
+            "borgaon bazar"
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/abanpalli-m.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "abanpalli m",
+            "abanpalli (m)"
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/midc.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "m.i.d.c.",
+            "midc"
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/jinti.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "jinti",
+            "jinti."
+          ]
+        },
+        {
+          "target_url": "pages/india/maharashtra/chinchpur-bk.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "chinchpur bk",
+            "chinchpur bk."
+          ]
+        },
+        {
+          "target_url": "pages/india/tamil-nadu/apudupatti.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "a.pudupatti",
+            "apudupatti"
+          ]
+        },
+        {
+          "target_url": "pages/india/tamil-nadu/mpudupatti.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "mpudupatti",
+            "m.pudupatti"
+          ]
+        },
+        {
+          "target_url": "pages/india/tamil-nadu/modaiyur.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "modaiyur",
+            "m.odaiyur"
+          ]
+        },
+        {
+          "target_url": "pages/india/tamil-nadu/mpudur.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "m.pudur",
+            "mpudur"
+          ]
+        },
+        {
+          "target_url": "pages/india/tamil-nadu/npudupatti.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "npudupatti",
+            "n.pudupatti"
+          ]
+        },
+        {
+          "target_url": "pages/india/telangana/mallapurbo.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "mallapurb.o",
+            "mallapurbo"
+          ]
+        },
+        {
+          "target_url": "pages/india/telangana/boregaon.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "boregaon",
+            "boregaon )"
+          ]
+        },
+        {
+          "target_url": "pages/ae/03/al-fagaa.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "al fagaa",
+            "al fagaa'"
+          ]
+        }
+      ]
+    },
+    {
+      "check_id": "CHK_IDX_01_S",
+      "category": "Target URL Collision (States)",
+      "severity": "HIGH",
+      "description": "Multiple state search keys mapping to identical target HTML URL.",
+      "affected_count": 0,
+      "samples": []
+    },
+    {
+      "check_id": "CHK_IDX_02",
+      "category": "Target URL Collision (Pincodes)",
+      "severity": "HIGH",
+      "description": "Multiple pincode search keys mapping to identical target HTML URL.",
+      "affected_count": 31692,
+      "samples": [
+        {
+          "target_url": "pages/india/andhra-pradesh/nagulapalli.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "531002",
+            "533447"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/malkapuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "534002",
+            "530011"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/jagannadhapuram.html",
+          "keys_count": 5,
+          "sample_keys": [
+            "521215",
+            "534145",
+            "531055",
+            "535501",
+            "534475"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/lakshmipuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "521235",
+            "534313"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/vadlapudi.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "524405",
+            "530046"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/mohammadapuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "524309",
+            "523246"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/takkellapadu.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "522509",
+            "522438"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/rayavaram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "521162",
+            "533445"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/bhimavaram.html",
+          "keys_count": 3,
+          "sample_keys": [
+            "523292",
+            "531082",
+            "517102"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/arugolanu.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "534146",
+            "521106"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/allapuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "521101",
+            "515766"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/koduru.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "521227",
+            "521230"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/medapadu.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "533434",
+            "534268"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/gollapalli.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "535573",
+            "515865"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/rahimanpuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "532430",
+            "518598"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/kothapalli.html",
+          "keys_count": 3,
+          "sample_keys": [
+            "532242",
+            "515751",
+            "516502"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/nadupuru.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "530044",
+            "535280"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/devada.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "530031",
+            "535183"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/krishnapuram.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "535148",
+            "516172"
+          ]
+        },
+        {
+          "target_url": "pages/india/andhra-pradesh/kothapeta.html",
+          "keys_count": 2,
+          "sample_keys": [
+            "535218",
+            "532005"
+          ]
+        }
+      ]
+    },
+    {
+      "check_id": "CHK_IDX_03",
+      "category": "Key Normalization Anomaly",
+      "severity": "MEDIUM",
+      "description": "Keys with consecutive spaces or leading/trailing whitespace across cities, states, and pincodes.",
+      "affected_count": 668,
+      "samples": [
+        {
+          "section": "cities",
+          "key": "aberdeen  bazar",
+          "target_url": "pages/india/andaman-and-nicobar-islands/aberdeen--bazar.html"
+        },
+        {
+          "section": "cities",
+          "key": "smith  island",
+          "target_url": "pages/india/andaman-and-nicobar-islands/smith--island.html"
+        },
+        {
+          "section": "cities",
+          "key": "hut  bay",
+          "target_url": "pages/india/andaman-and-nicobar-islands/hut--bay.html"
+        },
+        {
+          "section": "cities",
+          "key": "lingamguntla  agraharam",
+          "target_url": "pages/india/andhra-pradesh/lingamguntla--agraharam.html"
+        },
+        {
+          "section": "cities",
+          "key": "cheyyeru  project",
+          "target_url": "pages/india/andhra-pradesh/cheyyeru--project.html"
+        },
+        {
+          "section": "cities",
+          "key": "railpeta   repale",
+          "target_url": "pages/india/andhra-pradesh/railpeta---repale.html"
+        },
+        {
+          "section": "cities",
+          "key": "besthavari  peta",
+          "target_url": "pages/india/andhra-pradesh/besthavari--peta.html"
+        },
+        {
+          "section": "cities",
+          "key": "alami  chapori",
+          "target_url": "pages/india/assam/alami--chapori.html"
+        },
+        {
+          "section": "cities",
+          "key": "falimari  pt i",
+          "target_url": "pages/india/assam/falimari--pt-i.html"
+        },
+        {
+          "section": "cities",
+          "key": "deopani  habigaon",
+          "target_url": "pages/india/assam/deopani--habigaon.html"
+        },
+        {
+          "section": "cities",
+          "key": "kalibari  3rd pwd colony",
+          "target_url": "pages/india/assam/kalibari--3rd-pwd-colony.html"
+        },
+        {
+          "section": "cities",
+          "key": "charingia  pukhuri",
+          "target_url": "pages/india/assam/charingia--pukhuri.html"
+        },
+        {
+          "section": "cities",
+          "key": "boraibari pt  v",
+          "target_url": "pages/india/assam/boraibari-pt--v.html"
+        },
+        {
+          "section": "cities",
+          "key": "kendriya  vidyalaya",
+          "target_url": "pages/india/assam/kendriya--vidyalaya.html"
+        },
+        {
+          "section": "cities",
+          "key": "nongalmora  tiniali",
+          "target_url": "pages/india/assam/nongalmora--tiniali.html"
+        },
+        {
+          "section": "cities",
+          "key": "nagaon girls  college",
+          "target_url": "pages/india/assam/nagaon-girls--college.html"
+        },
+        {
+          "section": "cities",
+          "key": "amsinggaon e (s  85)",
+          "target_url": "pages/india/assam/amsinggaon-e-s--85.html"
+        },
+        {
+          "section": "cities",
+          "key": "motihari  college",
+          "target_url": "pages/india/bihar/motihari--college.html"
+        },
+        {
+          "section": "cities",
+          "key": "bhaglapur  engg college",
+          "target_url": "pages/india/bihar/bhaglapur--engg-college.html"
+        },
+        {
+          "section": "cities",
+          "key": "sanokhar  bazarbo",
+          "target_url": "pages/india/bihar/sanokhar--bazarbo.html"
+        }
+      ]
+    },
+    {
+      "check_id": "CHK_IDX_04",
+      "category": "Broken Index Target Links Sample",
+      "severity": "HIGH",
+      "description": "Sample check of relative target HTML paths in search index that do not exist on disk.",
+      "affected_count": 1,
+      "samples": [
+        "pages/jp/Hokkaido/.html"
+      ]
+    },
+    {
+      "check_id": "CHK_IDX_05",
+      "category": "Cross-Section Duplicate Keys",
+      "severity": "MEDIUM",
+      "description": "Search keys appearing across multiple sections (cities, states, pincodes).",
+      "affected_count": 605,
+      "samples": [
+        {
+          "key": "riga",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/arunachal-pradesh/riga.html",
+            "pages/lv/Riga.html"
+          ]
+        },
+        {
+          "key": "manipur",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/assam/manipur.html",
+            "pages/india/manipur.html"
+          ]
+        },
+        {
+          "key": "sarawak",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/bihar/sarawak.html",
+            "pages/my/Sarawak.html"
+          ]
+        },
+        {
+          "key": "batna",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/bihar/batna.html",
+            "pages/dz/Batna.html"
+          ]
+        },
+        {
+          "key": "saida",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/chhattisgarh/saida.html",
+            "pages/dz/Saida.html"
+          ]
+        },
+        {
+          "key": "sada",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/goa/sada.html",
+            "pages/yt/Sada.html"
+          ]
+        },
+        {
+          "key": "bavaria",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/gujarat/bavaria.html",
+            "pages/de/Bavaria.html"
+          ]
+        },
+        {
+          "key": "kerala",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/gujarat/kerala.html",
+            "pages/india/kerala.html"
+          ]
+        },
+        {
+          "key": "meta",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/gujarat/meta.html",
+            "pages/co/Meta.html"
+          ]
+        },
+        {
+          "key": "oran",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/gujarat/oran.html",
+            "pages/dz/Oran.html"
+          ]
+        },
+        {
+          "key": "arad",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/gujarat/arad.html",
+            "pages/ro/Arad.html"
+          ]
+        },
+        {
+          "key": "satun",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/gujarat/satun.html",
+            "pages/th/Satun.html"
+          ]
+        },
+        {
+          "key": "piura",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/himachal-pradesh/piura.html",
+            "pages/pe/Piura.html"
+          ]
+        },
+        {
+          "key": "nandi",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/himachal-pradesh/nandi.html",
+            "pages/ke/Nandi.html"
+          ]
+        },
+        {
+          "key": "lamu",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/himachal-pradesh/lamu.html",
+            "pages/ke/Lamu.html"
+          ]
+        },
+        {
+          "key": "jura",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/jharkhand/jura.html",
+            "pages/ch/Jura.html"
+          ]
+        },
+        {
+          "key": "safi",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/ladakh/safi.html",
+            "pages/mt/Safi.html"
+          ]
+        },
+        {
+          "key": "para",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/madhya-pradesh/para.html",
+            "pages/br/Para.html"
+          ]
+        },
+        {
+          "key": "delhi",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/madhya-pradesh/delhi.html",
+            "pages/india/delhi.html"
+          ]
+        },
+        {
+          "key": "sonora",
+          "occurrences_count": 2,
+          "sections": [
+            "cities",
+            "states"
+          ],
+          "targets": [
+            "pages/india/madhya-pradesh/sonora.html",
+            "pages/mx/Sonora.html"
+          ]
+        }
+      ]
+    }
+  ]
+}

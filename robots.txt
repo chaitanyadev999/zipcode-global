@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chaitanyadev999.github.io/pincode-dataindia/sitemap.xml

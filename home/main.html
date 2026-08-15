@@ -9,7 +9,7 @@
 <meta property="og:title" content="PO ZipCode Global — 121 Countries Postal Code Directory"/>
 <meta property="og:description" content="Find postal codes for 121 countries. Interactive 3D globe. Free."/>
 <meta property="og:type" content="website"/>
-<link rel="canonical" href="https://zipcodeglobal.github.io/"/>
+<link rel="canonical" href="https://chaitanyadev999.github.io/pincode-dataindia/"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -120,7 +120,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* SEARCH BAR */
 .search-wrapper{
-  width:100%;max-width:620px;position:relative;margin-bottom:2.5rem;
+  width:100%;max-width:620px;position:relative;z-index:20;margin-bottom:2.5rem;
 }
 .search-box{
   display:flex;align-items:center;gap:.5rem;padding:.45rem .5rem .45rem 1.3rem;
@@ -133,6 +133,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   border-color:var(--cyan);box-shadow:0 12px 50px rgba(0,0,0,0.6),var(--glow);
   transform:scale(1.01);
 }
+
+.search-box select {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(0,212,255,0.3);
+  color: var(--t);
+  font-family: var(--fm);
+  font-size: 0.95rem;
+  padding: 0.45rem 0.8rem 0.45rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.search-box select option {
+  background: #0a0e27;
+  color: var(--t);
+}
+
 .search-box input{
   flex:1;background:transparent;border:none;outline:none;
   color:var(--t);font-size:.95rem;font-family:var(--fm);min-width:0;
@@ -144,6 +164,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   transition:all .25s var(--ease);box-shadow:0 4px 20px rgba(0,212,255,0.3);
 }
 .search-box button:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(0,212,255,0.5)}
+
+/* SEARCH SUGGESTIONS */
+.search-suggestions {
+  position: absolute; top: 110%; left: 0; right: 0;
+  background: rgba(10,14,39,0.95); backdrop-filter: blur(24px);
+  border: 1px solid rgba(0,212,255,0.2); border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  max-height: 300px; overflow-y: auto; z-index: 1000;
+  display: none; flex-direction: column; text-align: left;
+}
+.search-suggestions.show { display: flex; }
+.suggestion-item {
+  padding: 0.8rem 1.2rem; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.95rem; color: var(--t2); transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: rgba(0,212,255,0.1); color: var(--t); }
+.suggestion-type { font-size: 0.7rem; color: var(--cyan); background: rgba(0,212,255,0.1); padding: 0.25rem 0.6rem; border-radius: 4px; font-family: var(--fm); }
 
 /* STATS */
 .hero-stats{
@@ -164,7 +202,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   gap:.4rem;font-family:var(--fm);font-size:.7rem;color:var(--t3);letter-spacing:.15em;
   text-transform:uppercase;opacity:.6;animation:scroll-bounce 2s ease-in-out infinite;
 }
-@keyframes scroll-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@keyframes scroll-bounce{0%,100%{transform:translateY(0) translateZ(0)}50%{transform:translateY(8px) translateZ(0)}}
 .scroll-line{width:1px;height:24px;background:linear-gradient(to bottom,var(--cyan),transparent)}
 
 /* ── 3D GLOBE SECTION ── */
@@ -203,7 +241,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 #navOverlay #navName{font-family:var(--fd);font-size:1.8rem;font-weight:800}
 #navOverlay #navSub{font-family:var(--fm);font-size:.85rem;color:var(--cyan)}
 .nav-rocket{font-size:2.5rem;animation:rocket-fly 1.2s ease-in-out infinite}
-@keyframes rocket-fly{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.1)}}
+@keyframes rocket-fly{0%,100%{transform:translateY(0) translateZ(0) scale(1)}50%{transform:translateY(-12px) scale(1.1) translateZ(0)}}
 .nav-hint{font-family:var(--fm);font-size:.75rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
 
 /* ── REGIONS / POPULAR SECTION ── */
@@ -229,7 +267,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .pcard{
   position:relative;border-radius:18px;background:rgba(10,14,39,0.7);
   backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);
-  padding:1.4rem;transition:all .3s var(--ease);display:flex;flex-direction:column;
+  padding:1.4rem;transition:all .3s var(--ease);
+  will-change: transform;
+  display:flex;flex-direction:column;
   justify-content:space-between;gap:1rem;overflow:hidden;
 }
 .pcard::before{
@@ -265,14 +305,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   position:relative;border-radius:16px;background:rgba(10,14,39,0.6);
   backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);
   display:flex;flex-direction:column;overflow:hidden;
-  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);text-decoration:none;
+  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  will-change: transform;
+  text-decoration:none;
 }
 .citem::before{
   content:'';position:absolute;inset:0;border-radius:16px;
   box-shadow:inset 0 0 0 1px rgba(0,212,255,0);transition:all 0.4s ease;pointer-events:none;z-index:10;
 }
 .citem:hover{
-  transform:translateY(-8px) scale(1.02);background:rgba(10,14,39,0.85);
+  transform:translateY(-8px) translateZ(0) scale(1.02);background:rgba(10,14,39,0.85);
   box-shadow:0 20px 40px rgba(0,0,0,0.6),0 0 20px rgba(0,212,255,0.2);
 }
 .citem:hover::before{
@@ -308,7 +350,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   font-size:1.2rem;opacity:0;transform:translateX(-10px);transition:all 0.3s ease;z-index:5;
 }
 .citem:hover .citem-arr{
-  opacity:1;transform:translateX(0);
+  opacity:1;transform:translateX(0) translateZ(0);
 }
 
 /* ── FILTER STRIP ── */
@@ -339,8 +381,9 @@ footer{
   backdrop-filter:blur(20px);border:1px solid rgba(0,212,255,0.3);
   font-size:.82rem;color:var(--t);box-shadow:0 8px 32px rgba(0,0,0,0.5);
   transform:translateX(120%);transition:transform .4s var(--ease);
+  will-change: transform;
 }
-.toast.show{transform:translateX(0)}
+.toast.show{transform:translateX(0) translateZ(0)}
 .toast.info{border-left:3px solid var(--cyan)}
 
   @media(max-width:768px){
@@ -366,6 +409,14 @@ footer{
   .goog-te-gadget .goog-te-combo option { background: #050816; color: #fff; font-weight:normal; }
   .skiptranslate iframe { display: none !important; }
   body { top: 0 !important; }
+  @keyframes pulseBtn {
+    0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,212,255,0.2); }
+    50% { transform: scale(1.05); box-shadow: 0 4px 25px rgba(0,212,255,0.6); }
+    100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,212,255,0.2); }
+  }
+  .pulse-btn {
+    animation: pulseBtn 1.5s infinite;
+  }
 </style>
 <style>
 /* Responsive Ad Slots */
@@ -396,19 +447,18 @@ footer{
 
 <!-- NAV -->
 <nav class="nav" id="mainNav">
-  <a class="brand" href="/home/main.html">
-    <div class="brand-icon"><img src="/home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
+  <a class="brand" href="main.html">
+    <div class="brand-icon"><img src="assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
-    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
-    <a class="nav-btn" href="/pages/blog.html">Blog</a>
-    <a class="nav-btn" href="#allSec">121 Countries</a>
-    <a class="nav-btn" href="/pages/about.html">About</a>
+    <a class="nav-btn" href="main.html">🏠 Home Page</a>
+    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="../pages/translate.html">Translator</a>
+    <a class="nav-btn" href="../pages/blog.html">Blog</a>
+    <a class="nav-btn" href="../pages/about.html">About</a>
+    <a class="nav-btn" href="../pages/privacy.html">Privacy</a>
+    <a class="nav-btn" href="../pages/report.html">Report</a>
     <div id="google_translate_element"></div>
-    <a class="nav-btn" href="/pages/privacy.html">Privacy</a>
-    <a class="nav-btn" href="/pages/report.html">Report</a>
-    <a class="nav-btn primary" href="/pages/india.html">🇮🇳 India PIN</a>
   </div>
 </nav>
   
@@ -436,9 +486,13 @@ function googleTranslateElementInit() {
   
   <div class="search-wrapper">
     <div class="search-box">
-      <input id="heroSearch" type="text" placeholder="Search country, PIN code, state, city..." autocomplete="off"/>
+            <select id="heroCountrySelect" onchange="document.getElementById('heroSearch').focus()">
+        <option value="ALL">🌍 Global</option>
+      </select>
+      <input id="heroSearch" type="text" placeholder="Search country, state, city..." autocomplete="off"/>
       <button onclick="doSearch()">Search Global</button>
     </div>
+    <div id="searchSuggestions" class="search-suggestions"></div>
   </div>
 
   <div class="hero-stats">
@@ -449,25 +503,52 @@ function googleTranslateElementInit() {
     <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Free Access</span></div>
   </div>
 
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
 </section>
 
+
+<!-- INSTANT FINDER FORM -->
+<div class="finder-wrapper" style="max-width:900px; margin:-30px auto 40px auto; position:relative; z-index:10; padding:0 15px;">
+  <div style="background:rgba(10,14,39,0.95); backdrop-filter:blur(24px); border:1px solid rgba(0,212,255,0.3); border-radius:16px; padding:2rem; box-shadow:0 12px 50px rgba(0,0,0,0.6), 0 0 40px rgba(0,212,255,0.15);">
+    <h3 style="color:var(--t); font-size:1.4rem; margin-bottom:0.5rem; text-align:center;">⚡ Instant ZIP Code Finder</h3>
+    <p style="color:var(--t3); text-align:center; margin-bottom:1.5rem; font-size:0.95rem;">Select your location step-by-step to view all Postal & ZIP codes.</p>
+    
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-end; justify-content:center;">
+      <div style="flex:1 1 200px;">
+        <label style="color:var(--cyan); font-size:0.8rem; font-weight:bold; margin-bottom:0.4rem; display:block;">Country</label>
+        <select id="fCountry" onchange="loadFinderStates()" style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem;">
+          <option value="">-- Select Country --</option>
+        </select>
+      </div>
+      <div style="flex:1 1 200px;">
+        <label style="color:var(--cyan); font-size:0.8rem; font-weight:bold; margin-bottom:0.4rem; display:block;">State / Province</label>
+        <select id="fState" onchange="loadFinderCities()" disabled style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem; opacity:0.5;">
+          <option value="">-- Select State --</option>
+        </select>
+      </div>
+      <div style="flex:1 1 200px;">
+        <label style="color:var(--cyan); font-size:0.8rem; font-weight:bold; margin-bottom:0.4rem; display:block;">City / District</label>
+        <select id="fCity" onchange="document.getElementById('finderBtn').classList.add('pulse-btn');" disabled style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem; opacity:0.5;">
+          <option value="">-- Select City --</option>
+        </select>
+      </div>
+      <button id="finderBtn" onclick="gotoFinderCity()" style="padding:0.8rem 1.5rem; border-radius:8px; background:var(--grad); border:none; color:#000; font-weight:bold; cursor:pointer; flex:0 1 auto; min-width:140px; transition:all 0.3s var(--ease); box-shadow:0 4px 15px rgba(0,212,255,0.2);">Get Pincodes 🚀</button>
+    </div>
+    <div id="finderResult" style="display:none; margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(0,212,255,0.2);"></div>
+  </div>
+</div>
 
 <!-- SCROLLING FLAGS & STATIC MAP -->
 <div class="globe-section" style="position:relative; overflow:hidden; border-top:1px solid rgba(0,212,255,0.1); border-bottom:1px solid rgba(0,212,255,0.1); background: radial-gradient(circle at center, rgba(0,212,255,0.05) 0%, transparent 70%);">
   <div style="position:absolute; inset:0; opacity:0.1; background-image:radial-gradient(var(--p2) 1px, transparent 1px); background-size:24px 24px;"></div>
   <div class="marquee-wrap" style="position:relative; z-index:2; padding: 2rem 0; overflow:hidden; white-space:nowrap; display:flex;">
-    <div class="marquee-track" id="mqTrack1" style="display:inline-flex; gap:1.5rem; animation: scrollX 1500s linear infinite;"></div>
-    <div class="marquee-track" id="mqTrack2" style="display:inline-flex; gap:1.5rem; animation: scrollX 1500s linear infinite;"></div>
+    <div class="marquee-track" id="mqTrack1" style="display:inline-flex; gap:1.5rem; will-change: transform; animation: scrollX 1500s linear infinite;"></div>
+    <div class="marquee-track" id="mqTrack2" style="display:inline-flex; gap:1.5rem; will-change: transform; animation: scrollX 1500s linear infinite;"></div>
   </div>
   
   <style>
     @keyframes scrollX {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+      0% { transform: translateX(0) translateZ(0); }
+      100% { transform: translateX(-100%) translateZ(0); }
     }
     .mq-card {
       display: inline-flex; align-items: center; gap: 0.75rem;
@@ -522,24 +603,6 @@ function googleTranslateElementInit() {
   </div>
   
   <!-- REGIONS FILTER -->
-<div class="labels-section">
-  <div class="labels-hdr">
-    <div class="labels-title">🌍 Browse Countries by Region</div>
-  </div>
-  <div class="label-row-title">By Continent</div>
-  <div class="label-row" id="regionChips">
-    <div class="lchip on" onclick="filterRegion('all',this)">🌐 All <span class="cnt">121</span></div>
-    <div class="lchip" onclick="filterRegion('asia',this)">🌏 Asia <span class="cnt">21</span></div>
-    <div class="lchip" onclick="filterRegion('europe',this)">🌍 Europe <span class="cnt">52</span></div>
-    <div class="lchip" onclick="filterRegion('americas',this)">🌎 Americas <span class="cnt">28</span></div>
-    <div class="lchip" onclick="filterRegion('oceania',this)">🏝 Oceania <span class="cnt">17</span></div>
-    <div class="lchip" onclick="filterRegion('africa',this)">🌍 Africa <span class="cnt">8</span></div>
-  </div>
-
-  <div class="label-row-title" style="margin-top:.75rem">Popular Countries</div>
-  <div class="label-row" id="popularChips"></div>
-</div>
-
 <!-- FEATURED TOP COUNTRIES -->
 <section class="section">
   <div class="section-head" style="text-align:left">
@@ -587,13 +650,11 @@ function googleTranslateElementInit() {
   <!-- FOOTER -->
 <footer>
   <div class="flinks">
-    <a href="/pages/india.html">India PIN Codes</a>
-    <a href="/pages/usa.html">USA ZIP Codes</a>
-    <a href="/pages/gb.html">UK Postcodes</a>
-    <a href="/pages/au.html">Australia Postcodes</a>
-    <a href="/pages/about.html">About</a>
-    <a href="/pages/privacy.html">Privacy</a>
-    <a href="/sitemap.xml">Sitemap</a>
+    <a href="#allSec">🌍 All Countries</a>
+    <a href="../pages/about.html">About</a>
+    <a href="../pages/privacy.html">Privacy Policy</a>
+    <a href="../pages/report.html">Report Issue</a>
+    <a href="../sitemap.xml">Sitemap</a>
   </div>
   <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
 </footer>
@@ -733,9 +794,9 @@ const seen=new Set(), ALL=[];
 COUNTRIES.forEach(c=>{ if(!seen.has(c.code)){seen.add(c.code);ALL.push(c);} });
 
 const PRIORITY=['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
-const SPECIAL={IN:'/pages/india.html',US:'/pages/usa.html'};
+const SPECIAL={'IN':'../pages/india.html', 'US':'../pages/usa.html'};
 
-function pageUrl(code){ return SPECIAL[code]||('/pages/'+code.toLowerCase()+'.html'); }
+function pageUrl(code){ return SPECIAL[code]||('../pages/'+code.toLowerCase()+'.html'); }
 function fSrc(code,w){ return 'https://flagcdn.com/w'+(w||80)+'/'+code.toLowerCase()+'.png'; }
 function fImg(code,cls,w){
   return '<img src="'+fSrc(code,w||80)+'" class="'+cls+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
@@ -743,10 +804,178 @@ function fImg(code,cls,w){
 
 function cardNav(c){
   showToast('Opening '+c.name+'...','info');
-  document.getElementById('globeMount').scrollIntoView({behavior:'smooth',block:'center'});
+  
   
     window.location.href=pageUrl(c.code);
   
+}
+
+
+function populateCountrySelect() {
+  const sel = document.getElementById('heroCountrySelect');
+  if(!sel) return;
+  // Sort ALL countries by name
+  let sorted = [...ALL].sort((a,b) => a.name.localeCompare(b.name));
+  sorted.forEach(c => {
+    let opt = document.createElement('option');
+    let val = c.code.toLowerCase();
+    if(val === 'in') val = 'india';
+    if(val === 'us') val = 'usa';
+    opt.value = val;
+    opt.textContent = c.name;
+    sel.appendChild(opt);
+  });
+}
+
+populateCountrySelect();
+initFinder();
+
+// ── INSTANT FINDER LOGIC ──
+function initFinder() {
+  const fC = document.getElementById('fCountry');
+  if(!fC || fC.options.length > 1) return;
+  fC.innerHTML = '<option value="">-- Select Country --</option>';
+  let sorted = [...ALL].sort((a,b) => a.name.localeCompare(b.name));
+  sorted.forEach(c => {
+    let opt = document.createElement('option');
+    let val = c.code.toLowerCase();
+    if(val === 'in') val = 'india';
+    if(val === 'us') val = 'usa';
+    opt.value = val;
+    opt.textContent = c.name;
+    fC.appendChild(opt);
+  });
+}
+
+window.loadFinderStates = loadFinderStates;
+window.loadFinderCities = loadFinderCities;
+window.gotoFinderCity = gotoFinderCity;
+
+async function loadFinderStates() {
+  if (!globalIndex) await loadGlobalIndex();
+  
+  const c = document.getElementById('fCountry').value;
+  const s = document.getElementById('fState');
+  const cy = document.getElementById('fCity');
+  
+  cy.innerHTML = '<option value="">-- Select City --</option>';
+  cy.disabled = true;
+  cy.style.opacity = '0.5';
+  
+  if(!c || !globalIndex || !globalIndex.states) {
+    s.innerHTML = '<option value="">-- Select State --</option>';
+    s.disabled = true;
+    s.style.opacity = '0.5';
+    return;
+  }
+  
+  s.disabled = false;
+  s.style.opacity = '1';
+  s.innerHTML = '<option value="">-- Select State --</option>';
+  
+  let cName = document.getElementById('fCountry').options[document.getElementById('fCountry').selectedIndex].text;
+  let cSlug = cName.toLowerCase().replace(/ /g, '-').replace(/'/g, '');
+  if (c === 'in') cSlug = 'india';
+  if (c === 'us') cSlug = 'usa';
+  const cPath = 'pages/' + cSlug + '/';
+  let statesFound = [];
+  for(let key in globalIndex.states) {
+    if(globalIndex.states[key].includes(cPath)) {
+      statesFound.push({ name: key, path: globalIndex.states[key] });
+    }
+  }
+  statesFound.sort((a,b) => a.name.localeCompare(b.name));
+  
+  if (statesFound.length === 0) {
+    s.innerHTML = '<option value="">-- No States Available --</option>';
+    s.disabled = true;
+    s.style.opacity = '0.5';
+  } else {
+    let optsHtml = '<option value="">-- Select State --</option>';
+    statesFound.forEach(st => {
+      let parts = st.path.split('/');
+      let val = parts[2].replace('.html','');
+      let text = st.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      optsHtml += `<option value="${val}">${text}</option>`;
+    });
+    s.innerHTML = optsHtml;
+  }
+}
+
+async function loadFinderCities() {
+  if (!globalIndex) await loadGlobalIndex();
+  
+  const c = document.getElementById('fCountry').value;
+  const st = document.getElementById('fState').value;
+  const cy = document.getElementById('fCity');
+  
+  if(!c || !st || !globalIndex || !globalIndex.cities) {
+    cy.innerHTML = '<option value="">-- Select City --</option>';
+    cy.disabled = true;
+    cy.style.opacity = '0.5';
+    document.getElementById('finderBtn').classList.remove('pulse-btn');
+    return;
+  }
+  
+  cy.disabled = false;
+  cy.style.opacity = '1';
+  cy.innerHTML = '<option value="">-- Select City --</option>';
+  document.getElementById('finderBtn').classList.remove('pulse-btn');
+  
+  let cName = document.getElementById('fCountry').options[document.getElementById('fCountry').selectedIndex].text;
+  let cSlug = cName.toLowerCase().replace(/ /g, '-').replace(/'/g, '');
+  if (c === 'in') cSlug = 'india';
+  if (c === 'us') cSlug = 'usa';
+  const sPath = 'pages/' + cSlug + '/' + st + '/';
+  let citiesFound = [];
+  for(let key in globalIndex.cities) {
+    if(globalIndex.cities[key].includes(sPath)) {
+      citiesFound.push({ name: key, path: globalIndex.cities[key] });
+    }
+  }
+  citiesFound.sort((a,b) => a.name.localeCompare(b.name));
+  
+  if (citiesFound.length === 0) {
+    cy.innerHTML = '<option value="">-- No Cities Available --</option>';
+    cy.disabled = true;
+    cy.style.opacity = '0.5';
+    document.getElementById('finderBtn').classList.add('pulse-btn');
+  } else {
+    let optsHtml = '<option value="">-- Select City --</option>';
+    citiesFound.forEach(city => {
+      let text = city.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      optsHtml += `<option value="${city.path}">${text}</option>`;
+    });
+    cy.innerHTML = optsHtml;
+  }
+}
+
+function gotoFinderCity() {
+  const c = document.getElementById('fCountry').value;
+  const st = document.getElementById('fState').value;
+  const cy = document.getElementById('fCity').value;
+  
+  if(!c) {
+    showToast('Please select a location first', 'error');
+    return;
+  }
+  
+  let cName = document.getElementById('fCountry').options[document.getElementById('fCountry').selectedIndex].text;
+  let cSlug = cName.toLowerCase().replace(/ /g, '-').replace(/'/g, '');
+  if (c === 'in') cSlug = 'india';
+  if (c === 'us') cSlug = 'usa';
+  
+  let targetUrl = '';
+  if(cy) {
+    targetUrl = cy;
+  } else if(st) {
+    targetUrl = 'pages/' + cSlug + '/' + st + '.html';
+  } else if(c) {
+    targetUrl = 'pages/' + cSlug + '.html';
+  }
+  
+  let navUrl = targetUrl.startsWith('pages/') ? '../' + targetUrl : targetUrl;
+  window.location.href = navUrl;
 }
 
 // ── RENDER CARDS ──
@@ -767,7 +996,7 @@ function renderPriority(){
   const pList = ALL.filter(c=>PRIORITY.includes(c.code)).slice(0,12);
   const grid = document.getElementById('priorityGrid');
   grid.innerHTML = pList.map(c=>`
-    <div class="pcard" onclick="cardNav({code:'${c.code}',name:'${c.name.replace(/'/g,"\\'")} ',lat:${c.lat},lon:${c.lon},term:'${c.term}'})">
+    <a class="pcard" href="${pageUrl(c.code)}" onclick="showToast('Opening '+this.dataset.name+'...','info')" data-name="${c.name.replace(/'/g,"\\'").trim()}" style="text-decoration:none; display:block; color:inherit;">
       <div class="pcard-top">
         ${fImg(c.code,'pcard-flag',100)}
         <div>
@@ -777,7 +1006,7 @@ function renderPriority(){
       </div>
       <div class="pcard-meta">Explore states, cities & postal codes</div>
       <div class="pcard-btn">Browse ${c.name} &#8594;</div>
-    </div>
+    </a>
   `).join('');
 }
 
@@ -802,14 +1031,6 @@ function renderAll(){
   `).join('');
 }
 
-function renderPopular(){
-  const pop = PRIORITY.slice(0,10).map(code=>ALL.find(c=>c.code===code)).filter(Boolean);
-  document.getElementById('popularChips').innerHTML = pop.map(c=>`
-    <div class="lchip" onclick="cardNav({code:'${c.code}',name:'${c.name.replace(/'/g,"\\'")} ',lat:${c.lat},lon:${c.lon},term:'${c.term}'})">
-      ${fImg(c.code,'',40)} ${c.name}
-    </div>
-  `).join('');
-}
 
 window.filterBy=function(r,btn){
   curFilter=r;
@@ -833,7 +1054,11 @@ let globalIndex = null;
 async function loadGlobalIndex() {
   if (!globalIndex) {
      try {
-       const res = await fetch('/home/assets/search_index.json');
+       let indexUrl = 'assets/search_index.json?v=12';
+       if (window.location.protocol === 'file:') {
+           indexUrl = 'https://chaitanyadev999.github.io/pincode-dataindia/home/assets/search_index.json?v=12';
+       }
+       const res = await fetch(indexUrl);
        if (res.ok) globalIndex = await res.json();
      } catch (e) {
        console.error("Failed to load global index", e);
@@ -849,25 +1074,84 @@ window.doSearch = async function() {
       renderAll();
       return;
   }
+
+  // Exact Country match has absolute highest priority!
+  const lowerV = q.replace(/[^a-z0-9\s-]/g, '').trim();
+   const cFilter = document.getElementById('heroCountrySelect').value;
+  if (typeof ALL !== 'undefined') {
+      for (let i = 0; i < ALL.length; i++) {
+          if (ALL[i].name.toLowerCase() === lowerV || ALL[i].code.toLowerCase() === lowerV) {
+              let pageName = ALL[i].code.toLowerCase();
+              if (pageName === 'in') pageName = 'india';
+              if (pageName === 'us') pageName = 'usa';
+              window.location.href = '../pages/' + pageName + '.html';
+              return;
+          }
+      }
+  }
   
   if (!globalIndex) {
       await loadGlobalIndex();
   }
 
   if (globalIndex) {
-    if (globalIndex.pincodes && globalIndex.pincodes[q]) {
-      window.location.href = '/' + globalIndex.pincodes[q];
+    if (globalIndex.pincodes && globalIndex.pincodes[q] && (cFilter==="ALL" || globalIndex.pincodes[q].includes("/"+cFilter+"/"))) {
+      window.location.href = '../' + globalIndex.pincodes[q];
       return;
     }
     const cKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
-    if (globalIndex.cities && globalIndex.cities[cKey]) {
-      window.location.href = '/' + globalIndex.cities[cKey];
+    if (globalIndex.cities && globalIndex.cities[cKey] && (cFilter==="ALL" || globalIndex.cities[cKey].includes("/"+cFilter+"/"))) {
+      window.location.href = '../' + globalIndex.cities[cKey];
       return;
     }
     const sKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, ' ');
-    if (globalIndex.states && globalIndex.states[sKey]) {
-      window.location.href = '/' + globalIndex.states[sKey];
+    if (globalIndex.states && globalIndex.states[sKey] && (cFilter==="ALL" || globalIndex.states[sKey].includes("/"+cFilter+"/"))) {
+      window.location.href = '../' + globalIndex.states[sKey];
       return;
+    }
+
+    // Partial match fallback
+    if (q.length >= 2) {
+        
+        // Match Country (partial)
+        if (typeof ALL !== 'undefined') {
+            for (let i = 0; i < ALL.length; i++) {
+                if (ALL[i].name.toLowerCase().includes(lowerV)) {
+                    let pageName = ALL[i].code.toLowerCase();
+                    if (pageName === 'in') pageName = 'india';
+                    if (pageName === 'us') pageName = 'usa';
+                    window.location.href = '../pages/' + pageName + '.html';
+                    return;
+                }
+            }
+        }
+        
+        if (globalIndex.cities) {
+            const cityMatchTerm = lowerV.replace(/\s+/g, '-');
+            for (const key in globalIndex.cities) {
+                if (key.includes(cityMatchTerm) && (cFilter === "ALL" || globalIndex.cities[key].includes("/"+cFilter+"/"))) {
+                    window.location.href = '../' + globalIndex.cities[key];
+                    return;
+                }
+            }
+        }
+        if (globalIndex.states) {
+            const stateMatchTerm = lowerV.replace(/\s+/g, ' ');
+            for (const key in globalIndex.states) {
+                if (key.includes(stateMatchTerm) && (cFilter === "ALL" || globalIndex.states[key].includes("/"+cFilter+"/"))) {
+                    window.location.href = '../' + globalIndex.states[key];
+                    return;
+                }
+            }
+        }
+        if (globalIndex.pincodes) {
+            for (const key in globalIndex.pincodes) {
+                if (key.includes(lowerV) && (cFilter === "ALL" || globalIndex.pincodes[key].includes("/"+cFilter+"/"))) {
+                    window.location.href = '../' + globalIndex.pincodes[key];
+                    return;
+                }
+            }
+        }
     }
   }
 
@@ -877,9 +1161,85 @@ window.doSearch = async function() {
 };
 
 document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch();});
-document.getElementById('heroSearch').addEventListener('input',e=>{
+document.getElementById('heroSearch').addEventListener('input', async e => {
     const v = e.target.value.trim();
-    if (!v) { curSearch = ''; renderAll(); }
+    const suggBox = document.getElementById('searchSuggestions');
+    if (!v) { 
+        curSearch = ''; renderAll(); 
+        suggBox.classList.remove('show');
+        return; 
+    }
+    
+    if (!globalIndex) await loadGlobalIndex();
+    
+    if (globalIndex && v.length >= 2) {
+        const lowerV = v.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim();
+        let matches = [];
+        let cFilter = document.getElementById('heroCountrySelect').value;
+        
+        // Search Countries first
+        if (typeof ALL !== 'undefined') {
+            for (let i = 0; i < ALL.length; i++) {
+                if (ALL[i].name.toLowerCase().includes(lowerV) || ALL[i].code.toLowerCase().includes(lowerV)) {
+                    let pageName = ALL[i].code.toLowerCase();
+                    if (pageName === 'in') pageName = 'india';
+                    if (pageName === 'us') pageName = 'usa';
+                    matches.push({ name: ALL[i].name, path: 'pages/' + pageName + '.html', type: 'Country' });
+                }
+                if (matches.length > 3) break;
+            }
+        }
+
+        if (globalIndex.cities && matches.length < 5) {
+            const cityMatchTerm = lowerV.replace(/\s+/g, '-');
+            let count = 0;
+            for (const key in globalIndex.cities) {
+                if (key.includes(cityMatchTerm) && (cFilter === "ALL" || globalIndex.cities[key].includes("/"+cFilter+"/"))) {
+                    matches.push({ name: key.replace(/-/g, ' '), path: globalIndex.cities[key], type: 'City' });
+                    count++;
+                }
+                if (count > 5) break;
+            }
+        }
+        
+        if (globalIndex.states && matches.length < 8) {
+            const stateMatchTerm = lowerV.replace(/\s+/g, ' ');
+            let count = 0;
+            for (const key in globalIndex.states) {
+                if (key.includes(stateMatchTerm) && (cFilter === "ALL" || globalIndex.states[key].includes("/"+cFilter+"/"))) {
+                    matches.push({ name: key, path: globalIndex.states[key], type: 'State' });
+                    count++;
+                }
+                if (count > 8) break;
+            }
+        }
+        
+        if (globalIndex.pincodes && matches.length < 10) {
+            let count = 0;
+            for (const key in globalIndex.pincodes) {
+                if (key.includes(lowerV) && (cFilter === "ALL" || globalIndex.pincodes[key].includes("/"+cFilter+"/"))) {
+                    matches.push({ name: key, path: globalIndex.pincodes[key], type: 'Code' });
+                    count++;
+                }
+                if (count > 10) break;
+            }
+        }
+        
+        if (matches.length > 0) {
+            suggBox.innerHTML = matches.map(m => 
+                `<div class="suggestion-item" onclick="window.location.href='../${m.path}'">
+                    <span style="text-transform:capitalize">${m.name}</span>
+                    <span class="suggestion-type">${m.type}</span>
+                </div>`
+            ).join('');
+            suggBox.classList.add('show');
+        } else {
+            suggBox.innerHTML = `<div class="suggestion-item" style="cursor:default">No exact matches found</div>`;
+            suggBox.classList.add('show');
+        }
+    } else {
+        suggBox.classList.remove('show');
+    }
 });
 
 function showToast(msg,type){
@@ -898,7 +1258,7 @@ window.ALL=ALL;
 
 renderPriority();
 renderAll();
-renderPopular();
+
 
 
 
@@ -930,9 +1290,9 @@ function initHeroFlags() {
   let rowsHtml = '';
   for(let r = 0; r < 10; r++) {
     const shift = (r * 15) % ALL.length;
-    // Wrap around to guarantee we always get 25 flags even if shift is near the end
+    // Wrap around to guarantee we always get enough flags even if shift is near the end
     const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
-    const rowFlags = wrappedAll.slice(0, 25);
+    const rowFlags = wrappedAll.slice(0, 60);
     
     const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt=""/>`).join('');
     
@@ -950,8 +1310,8 @@ function initHeroFlags() {
   // Add animation styles dynamically
   const style = document.createElement('style');
   style.innerHTML = `
-    @keyframes scrollXHero { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    @keyframes scrollXHeroRev { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    @keyframes scrollXHero { 0% { transform: translateX(0) translateZ(0); } 100% { transform: translateX(-50%) translateZ(0); } }
+    @keyframes scrollXHeroRev { 0% { transform: translateX(-50%) translateZ(0); } 100% { transform: translateX(0) translateZ(0); } }
   `;
   document.head.appendChild(style);
   
@@ -972,6 +1332,11 @@ if(document.readyState==='complete'){
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
