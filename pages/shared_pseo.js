@@ -194,7 +194,7 @@ function getBasePath() {
     dataPrefix: 'world/' + urlCode.toUpperCase() + '/',
     states: []
   };
-  if (urlCode === 'IN') {
+  if (urlCode.toUpperCase() === 'IN') {
     COUNTRY.dataPath = 'https://raw.githubusercontent.com/chaitanyadev999/pincode-dataindia/main/';
     COUNTRY.dataPrefix = '';
   }
