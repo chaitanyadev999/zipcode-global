@@ -1399,16 +1399,15 @@ function initMarquee() {
 function initHeroFlags() {
   const container = document.getElementById('heroBgFlags');
   if(!container) return;
-  
-  // Create 4 rows (reduced from 10 to save memory)
+  // Create 10 rows to cover the entire vertical space of the hero section
   let rowsHtml = '';
-  for(let r = 0; r < 4; r++) {
+  for(let r = 0; r < 10; r++) {
     const shift = (r * 15) % ALL.length;
     // Wrap around to guarantee we always get enough flags even if shift is near the end
     const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
-    const rowFlags = wrappedAll.slice(0, 60);
+    const rowFlags = wrappedAll.slice(0, 50);
     
-    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt="Country flag icon"/>`).join('');
+    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" loading="lazy" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt="Country flag icon"/>`).join('');
     
     const duration = 1200 + (r % 3)*100;
     const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
@@ -1434,11 +1433,11 @@ function initHeroFlags() {
 
 if(document.readyState==='complete'){
   initMarquee();
-  initHeroFlags();
+  setTimeout(initHeroFlags, 300);
 }else{
   window.addEventListener('load',()=>{
     initMarquee();
-    initHeroFlags();
+    setTimeout(initHeroFlags, 300);
   });
 }
 
