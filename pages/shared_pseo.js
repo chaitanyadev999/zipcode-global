@@ -292,7 +292,11 @@ function getBasePath() {
       '<div class="stat"><span class="stat-num">' + COUNTRY.code + '</span><span class="stat-label">Country Code</span></div>' +
       '<div class="stat"><span class="stat-num">' + META.region + '</span><span class="stat-label">Continent</span></div>';
 
-    renderStates();
+    if (window.PSEO_CITY || window.PSEO_IS_STATE) {
+      if ($('statesSection')) $('statesSection').style.display = 'none';
+    } else {
+      renderStates();
+    }
   }
 
   // Render states
