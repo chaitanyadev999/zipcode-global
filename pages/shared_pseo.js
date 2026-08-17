@@ -818,7 +818,7 @@ function getBasePath() {
         html = html.replace(/href="\.\.\/pages\//g, 'href="' + bp + 'pages/');
         html = html.replace(/src="\.\.\/home\//g, 'src="' + bp + 'home/');
         html = html.replace(/href="report\.html"/g, 'href="' + bp + 'pages/report.html"');
-        html = html.replace(/href="\/"/g, 'href="' + bp + 'home/main.html"');
+        html = html.replace(/href="\/"/g, 'href="' + bp + '"');
         
         if (app) app.innerHTML = html;
         else document.body.innerHTML = html;

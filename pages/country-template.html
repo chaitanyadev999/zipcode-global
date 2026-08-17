@@ -615,12 +615,12 @@ h1, h2, h3, h4, h5, h6 {
 <div class="toast-container" id="toastContainer"></div>
 
 <nav class="nav" id="mainNav">
-  <a class="brand" href="../home/main.html">
+  <a class="brand" href="/">
     <div class="brand-icon"><img src="../home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
-    <a class="nav-btn" href="../home/main.html">🏠 Home Page</a>
+    <a class="nav-btn" href="/">🏠 Home Page</a>
     <a class="nav-btn" href="../pages/translate.html">Translator</a>
     <a class="nav-btn" href="../pages/blog.html">Blog</a>
     <a class="nav-btn" href="../pages/about.html">About</a>
@@ -718,8 +718,8 @@ h1, h2, h3, h4, h5, h6 {
       <div class="footer-col">
         <h4>Explore</h4>
         <ul>
-          <li><a href="../home/main.html">Home</a></li>
-          <li><a href="../home/main.html#allSec">All Countries</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#allSec">All Countries</a></li>
           <li><a href="../pages/about.html">About</a></li>
         </ul>
       </div>
@@ -886,7 +886,7 @@ h1, h2, h3, h4, h5, h6 {
 
   const META = COUNTRY_DB[urlCode.toUpperCase()];
   if (!META) {
-    document.body.innerHTML = '<div style="color:#fff;padding:4rem;text-align:center"><h1>Country not found</h1><a href="../home/main.html" style="color:#00d4ff">&larr; Go Home</a></div>';
+    document.body.innerHTML = '<div style="color:#fff;padding:4rem;text-align:center"><h1>Country not found</h1><a href="/" style="color:#00d4ff">&larr; Go Home</a></div>';
     throw new Error('Unknown country');
   }
 
