@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-// Auto clean cache every 24 hours
-(function() {
-    try {
-        const lastClear = localStorage.getItem('last_cache_clear_home');
-        const now = Date.now();
-        if (!lastClear || now - parseInt(lastClear) > 86400000) {
-            localStorage.clear();
-            sessionStorage.clear();
-            localStorage.setItem('last_cache_clear_home', now.toString());
-            window.location.reload(true);
-        }
-    } catch(e) {}
-})();
-</script>
-
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Global Postal Code & ZIP Code Finder | PO ZipCode Global</title>

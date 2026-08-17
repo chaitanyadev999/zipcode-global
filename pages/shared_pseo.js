@@ -1,18 +1,4 @@
 
-// Auto clean cache every 24 hours
-(function() {
-    try {
-        const lastClear = localStorage.getItem('last_cache_clear');
-        const now = Date.now();
-        if (!lastClear || now - parseInt(lastClear) > 86400000) {
-            localStorage.clear();
-            sessionStorage.clear();
-            localStorage.setItem('last_cache_clear', now.toString());
-            window.location.reload(true);
-        }
-    } catch(e) {}
-})();
-
 function getBasePath() {
     const path = window.location.pathname;
     const idx = path.indexOf("/pages/");
