@@ -890,7 +890,7 @@ function detectFields(records) {
   };
   return {
     pin:   find(/^pincode$/,/^postcode$/,/post.?code/,/zip.?code/,/^code$/),
-    city:  find(/division.?name/,/region.?name/,/^city$/,/^village$/,/^town$/,/place.?name/,/office.?name/,/^locality$/),
+    city:  find(/^city$/,/office.?name/,/^village$/,/^town$/,/place.?name/,/^locality$/,/division.?name/,/region.?name/),
     dist:  find(/district/,/county/,/admin.?name2/,/admin.?2/),
     state: find(/state.?name/,/province/,/admin.?name1/,/admin.?1/,/^state$/),
     lat:   find(/^lat/,/latitude/),
@@ -1375,6 +1375,8 @@ async function doSearch(){
 }
 window.doSearch = doSearch;
 $('search').addEventListener('keypress',e=>{if(e.key==='Enter')doSearch();});
+let searchTo=null;
+$('search').addEventListener('input',e=>{clearTimeout(searchTo);searchTo=setTimeout(doSearch,400);});
 
 // ── ESCAPE QUOTES ────────────────────────────────────────────────
 function escQ(s){ return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
