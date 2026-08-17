@@ -1163,16 +1163,19 @@ window.doSearch = async function() {
 };
 
 document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch();});
-document.getElementById('heroSearch').addEventListener('input', async e => {
-    const v = e.target.value.trim();
-    const suggBox = document.getElementById('searchSuggestions');
-    if (!v) { 
-        curSearch = ''; renderAll(); 
-        suggBox.classList.remove('show');
-        return; 
-    }
-    
-    if (!globalIndex) await loadGlobalIndex();
+let searchTimeout;
+document.getElementById('heroSearch').addEventListener('input', e => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(async () => {
+        const v = e.target.value.trim();
+        const suggBox = document.getElementById('searchSuggestions');
+        if (!v) { 
+            curSearch = ''; renderAll(); 
+            suggBox.classList.remove('show');
+            return; 
+        }
+        
+        if (!globalIndex) await loadGlobalIndex();
     
     if (globalIndex && v.length >= 2) {
         const lowerV = v.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim();
@@ -1242,6 +1245,7 @@ document.getElementById('heroSearch').addEventListener('input', async e => {
     } else {
         suggBox.classList.remove('show');
     }
+    }, 300);
 });
 
 function showToast(msg,type){
