@@ -1319,6 +1319,34 @@ window.selectDist = selectDist;
 window.showDetail = showDetail;
 
 // ── SEARCH ──────────────────────────────────────────────────────
+
+async function preloadGlobalData() {
+    if(window.globalDataCache || window.isFetchingGlobal) return;
+    window.isFetchingGlobal = true;
+    window.globalDataCache = [];
+    try {
+        const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
+        const r = await fetch(apiUrl);
+        if(r.ok) {
+            const files = await r.json();
+            const jsonUrls = files.filter(f=>f.name.endsWith('.json') && f.name !== 'pincode-map.json' && f.name !== 'package.json' && f.name !== 'data.json').map(f=>f.download_url);
+            for (let i = 0; i < jsonUrls.length; i += 5) {
+                const batch = jsonUrls.slice(i, i + 5);
+                await Promise.all(batch.map(async (url) => {
+                    try {
+                        const dr = await fetch(url);
+                        if(dr.ok) {
+                            const data = await dr.json();
+                            window.globalDataCache.push(...data);
+                        }
+                    } catch(e) {}
+                }));
+            }
+        }
+    } catch(e) {}
+    window.isFetchingGlobal = false;
+}
+
 async function doSearch(){
   let q=$('search').value.trim().toLowerCase(); if(!q)return;
   
@@ -1387,6 +1415,7 @@ $('yr').textContent=new Date().getFullYear();
 updateBC();
 initMainMap();
 loadStates();
+preloadGlobalData();
 })();
 </script>
 </body>
