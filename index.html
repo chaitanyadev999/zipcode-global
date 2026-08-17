@@ -20,6 +20,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>PO ZipCode Global — Find Postal Codes for 121 Countries</title>
+<link rel="icon" type="image/png" href="/home/assets/logo.png">
 <meta name="description" content="Find postal codes, PIN codes and ZIP codes for 121 countries. India Pincode, USA ZIP Code, UK Postcode. Free instant lookup with interactive 3D globe."/>
 <meta name="keywords" content="postal code finder, zip code lookup, pincode search, india pincode, usa zip code, uk postcode, world postal codes"/>
 <meta property="og:title" content="PO ZipCode Global — 121 Countries Postal Code Directory"/>
@@ -457,6 +458,46 @@ footer{
 @media (min-width: 768px) { .ad-slot-3 { display: flex; } }
 @media (min-width: 1024px) { .ad-slot-4 { display: flex; } .ad-slot-5 { display: flex; } }
 </style>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "url": "https://pozip.me/",
+      "name": "PO ZipCode Global",
+      "description": "Find postal codes and zip codes for 121 countries.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "PO ZipCode Global",
+        "url": "https://pozip.me/",
+        "logo": "https://pozip.me/home/assets/logo.png"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is a postal code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A postal code (also known as a PIN code or ZIP code) is a series of letters or digits appended to a postal address for the purpose of sorting mail."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How do I find my zip code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can use our Instant Finder tool on PO ZipCode Global. Simply select your country, state, and city to instantly see the correct postal code on an interactive map."
+        }
+      }]
+    }
+  ]
+}
+</script>
+
 </head>
 <body>
 <div class="toast-wrap" id="toastWrap"></div>
@@ -667,7 +708,7 @@ function googleTranslateElementInit() {
     <a href="pages/report.html">Report Issue</a>
     <a href="../sitemap.xml">Sitemap</a>
   </div>
-  <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/zipcode-global" target="_blank" rel="noopener">chaitanyadev999/zipcode-global</a></p>
+  <p>&copy; <span id="yr"></span> PO ZipCode Global </p>
 </footer>
 
 <!-- SCRIPT -->
@@ -1316,7 +1357,7 @@ function initHeroFlags() {
     const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
     const rowFlags = wrappedAll.slice(0, 60);
     
-    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt=""/>`).join('');
+    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt="Country flag icon"/>`).join('');
     
     const duration = 1200 + (r % 3)*100;
     const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
