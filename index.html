@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>\n
+<script>
+// Auto clean cache every 24 hours
+(function() {
+    try {
+        const lastClear = localStorage.getItem('last_cache_clear_home');
+        const now = Date.now();
+        if (!lastClear || now - parseInt(lastClear) > 86400000) {
+            localStorage.clear();
+            sessionStorage.clear();
+            localStorage.setItem('last_cache_clear_home', now.toString());
+            window.location.reload(true);
+        }
+    } catch(e) {}
+})();
+</script>
+
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>PO ZipCode Global — Find Postal Codes for 121 Countries</title>
@@ -9,7 +25,7 @@
 <meta property="og:title" content="PO ZipCode Global — 121 Countries Postal Code Directory"/>
 <meta property="og:description" content="Find postal codes for 121 countries. Interactive 3D globe. Free."/>
 <meta property="og:type" content="website"/>
-<link rel="canonical" href="https://chaitanyadev999.github.io/pincode-dataindia/"/>
+<link rel="canonical" href="https://pozip.me/"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -651,7 +667,7 @@ function googleTranslateElementInit() {
     <a href="pages/report.html">Report Issue</a>
     <a href="../sitemap.xml">Sitemap</a>
   </div>
-  <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></p>
+  <p>&copy; <span id="yr"></span> PO ZipCode Global &middot; Data: <a href="https://github.com/chaitanyadev999/zipcode-global" target="_blank" rel="noopener">chaitanyadev999/zipcode-global</a></p>
 </footer>
 
 <!-- SCRIPT -->
@@ -1057,7 +1073,7 @@ async function loadGlobalIndex() {
      try {
        let indexUrl = 'home/assets/search_index.json?v=12';
        if (window.location.protocol === 'file:') {
-           indexUrl = 'https://chaitanyadev999.github.io/pincode-dataindia/home/assets/search_index.json?v=12';
+           indexUrl = 'https://pozip.me/home/assets/search_index.json?v=12';
        }
        const res = await fetch(indexUrl);
        if (res.ok) globalIndex = await res.json();

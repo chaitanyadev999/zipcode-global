@@ -729,13 +729,13 @@ h1, h2, h3, h4, h5, h6 {
         <h4>Contact</h4>
         <ul>
           <li><a href="report.html">Contact / Report</a></li>
-          <li><a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">GitHub Data</a></li>
+          <li><a href="https://github.com/chaitanyadev999/zipcode-global" target="_blank" rel="noopener">GitHub Data</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div>© <span id="year"></span> PO ZipCode Global · Made with ❤️ in Bharat 🇮🇳</div>
-      <div>Data: <a href="https://github.com/chaitanyadev999/pincode-dataindia" target="_blank" rel="noopener">chaitanyadev999/pincode-dataindia</a></div>
+      <div>Data: <a href="https://github.com/chaitanyadev999/zipcode-global" target="_blank" rel="noopener">chaitanyadev999/zipcode-global</a></div>
     </div>
     <div class="tricolor-bar"></div>
   </div>
@@ -1095,6 +1095,7 @@ h1, h2, h3, h4, h5, h6 {
     map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView([COUNTRY.lat, COUNTRY.lon], 4);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(map);
     mapInitialized = true;
+    new ResizeObserver(() => map.invalidateSize()).observe(document.getElementById('map'));
   }
 
   function makePin(c1, c2) {
