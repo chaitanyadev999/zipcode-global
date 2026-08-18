@@ -1103,12 +1103,13 @@ async function preloadGlobalData() {
             const jsonUrls = files.filter(f=>f.name.endsWith('.json') && f.name !== 'pincode-map.json' && f.name !== 'package.json' && f.name !== 'data.json').map(f=>f.download_url);
             for (let i = 0; i < jsonUrls.length; i += 5) {
                 const batch = jsonUrls.slice(i, i + 5);
+                await new Promise(r => setTimeout(r, 150)); // Yield to main thread
                 await Promise.all(batch.map(async (url) => {
                     try {
                         const dr = await fetch(url);
                         if(dr.ok) {
                             const data = await dr.json();
-                            window.globalDataCache.push(...data);
+                            window.globalDataCache = window.globalDataCache.concat(data);
                         }
                     } catch(e) {}
                 }));
@@ -1138,12 +1139,13 @@ async function doSearch(){
         
         for (let i = 0; i < jsonUrls.length; i += 5) {
             const batch = jsonUrls.slice(i, i + 5);
-            await Promise.all(batch.map(async (url) => {
+            await new Promise(r => setTimeout(r, 150)); // Yield to main thread
+                await Promise.all(batch.map(async (url) => {
                 try {
                     const dr = await fetch(url);
                     if(dr.ok) {
                         const data = await dr.json();
-                        window.globalDataCache.push(...data);
+                        window.globalDataCache = window.globalDataCache.concat(data);
                     }
                 } catch(e) {}
             }));
@@ -1186,7 +1188,7 @@ $('yr').textContent=new Date().getFullYear();
 updateBC();
 initMainMap();
 loadStates();
-preloadGlobalData();
+setTimeout(preloadGlobalData, 4000);
 })();
 </script>
 </body>
