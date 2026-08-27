@@ -850,10 +850,10 @@ function initMainMap(){
   if(mainMap) return;
   const mapEl = $('mainMap');
   if(!mapEl || typeof L === 'undefined') return;
-  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, noWrap:true});
-  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18, noWrap:true});
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18});
+  const sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18});
   mainMap = L.map('mainMap', {zoomControl:true, attributionControl:false, layers: [osm]}).setView([C.lat, C.lon], 5);
-  L.control.layers({"Map": osm, "Satellite": sat}).addTo(mainMap);
+  L.control.layers({"Map": osm, "Satellite": sat}, null, {position: "bottomright"}).addTo(mainMap);
   mapMarkersGroup = L.layerGroup().addTo(mainMap);
   
   L.circleMarker([C.lat, C.lon],{
