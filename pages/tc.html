@@ -125,7 +125,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 #mainMap{width:100%;height:100%}
 .map-badge{
-    position:absolute;top:1rem;right:1rem;z-index:400;
+    position:absolute;bottom:1rem;left:1rem;z-index:400;top:auto;right:auto;
     max-width:calc(100% - 2rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     padding:.4rem .9rem;border-radius:999px;background:rgba(5,8,22,0.85);
     backdrop-filter:blur(16px);border:1px solid rgba(var(--p2),0.3);
@@ -869,8 +869,9 @@ function updateMapMarkers(records, focusLocationName){
   const validPoints = [];
   
   (records||[]).forEach((r, idx)=>{
-    const lat = parseFloat(val(r,f.lat));
-    const lon = parseFloat(val(r,f.lon));
+          let lat = parseFloat(val(r,f.lat));
+      let lon = parseFloat(val(r,f.lon));
+      if (C.code === 'IN' && lat > 60 && lon < 45) { let temp = lat; lat = lon; lon = temp; }
     const pin = val(r,f.pin)||'—';
     let place = val(r,f.city)||val(r,f.dist)||val(r,f.state)||C.name;
     let realCity = '';
