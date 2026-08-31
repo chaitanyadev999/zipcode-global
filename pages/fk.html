@@ -359,7 +359,7 @@ body { top: 0 !important; }
   <div class="nav-links">
     <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
     <a class="nav-btn" href="/pages/blog.html">Blog</a>
-    <a class="nav-btn" href="/home/main.html">&#8592; All Countries</a>
+    <a class="nav-btn" href="/">&#8592; All Countries</a>
     <a class="nav-btn" href="/pages/about.html">About</a>
     <a class="nav-btn" href="/pages/privacy.html">Privacy</a>
     <a class="nav-btn" href="/pages/report.html">Report</a>
@@ -925,10 +925,13 @@ function updateBC(){
 // ── STEP 0: LOAD STATES ─────────────────────────────────────────
 async function loadStates(){
   try{
-    const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
-      const r = await fetch(apiUrl);
-    if(!r.ok) throw new Error(r.status);
-    const files = await r.json();
+    const r = await fetch('/tree.json');
+      if(!r.ok) throw new Error(r.status);
+      const treeData = await r.json();
+      const prefix = C.code === 'IN' ? '' : 'world/' + C.code + '/';
+      const files = treeData.tree.filter(f => f.path.startsWith(prefix) && f.path.endsWith('.json') && (C.code !== 'IN' || !f.path.includes('/'))).map(f => {
+          return { name: f.path.split('/').pop(), download_url: 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' + f.path };
+      });
     const states = files.filter(f=>f.name.endsWith('.json'));
     $('statRegions').textContent = states.length;
     setCount('s0cnt', states.length, 'Region');
@@ -1231,14 +1234,17 @@ async function preloadGlobalData() {
     window.isFetchingGlobal = true;
     window.globalDataCache = [];
     try {
-        const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
-        const r = await fetch(apiUrl);
-        if(r.ok) {
-            const files = await r.json();
+        const r = await fetch('/tree.json');
+          if(r.ok) {
+              const treeData = await r.json();
+              const prefix = C.code === 'IN' ? '' : 'world/' + C.code + '/';
+              const files = treeData.tree.filter(f => f.path.startsWith(prefix) && f.path.endsWith('.json') && (C.code !== 'IN' || !f.path.includes('/'))).map(f => {
+                  return { name: f.path.split('/').pop(), download_url: 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' + f.path };
+              });
             const jsonUrls = files.filter(f=>f.name.endsWith('.json') && f.name !== 'pincode-map.json' && f.name !== 'package.json' && f.name !== 'data.json').map(f=>f.download_url);
-            for (let i = 0; i < jsonUrls.length; i += 5) {
-                const batch = jsonUrls.slice(i, i + 5);
-                await new Promise(r => setTimeout(r, 150)); // Yield to main thread
+            for (let i = 0; i < jsonUrls.length; i += 15) {
+                const batch = jsonUrls.slice(i, i + 15);
+                await new Promise(r => setTimeout(r, 20)); // Yield to main thread
                 await Promise.all(batch.map(async (url) => {
                     try {
                         const dr = await fetch(url);
@@ -1266,15 +1272,18 @@ async function doSearch(){
       toast('Loading global data... this may take a moment','info');
       window.globalDataCache = [];
       try {
-        const apiUrl = C.code === 'IN' ? 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents' : 'https://api.github.com/repos/chaitanyadev999/pincode-dataindia/contents/world/'+C.code;
-        const r = await fetch(apiUrl);
-        if(!r.ok) throw new Error(r.status);
-        const files = await r.json();
+        const r = await fetch('/tree.json');
+      if(!r.ok) throw new Error(r.status);
+      const treeData = await r.json();
+      const prefix = C.code === 'IN' ? '' : 'world/' + C.code + '/';
+      const files = treeData.tree.filter(f => f.path.startsWith(prefix) && f.path.endsWith('.json') && (C.code !== 'IN' || !f.path.includes('/'))).map(f => {
+          return { name: f.path.split('/').pop(), download_url: 'https://cdn.jsdelivr.net/gh/chaitanyadev999/pincode-dataindia@main/' + f.path };
+      });
         const jsonUrls = files.filter(f=>f.name.endsWith('.json')).map(f=>f.download_url);
         
-        for (let i = 0; i < jsonUrls.length; i += 5) {
-            const batch = jsonUrls.slice(i, i + 5);
-            await new Promise(r => setTimeout(r, 150)); // Yield to main thread
+        for (let i = 0; i < jsonUrls.length; i += 15) {
+            const batch = jsonUrls.slice(i, i + 15);
+            await new Promise(r => setTimeout(r, 20)); // Yield to main thread
                 await Promise.all(batch.map(async (url) => {
                 try {
                     const dr = await fetch(url);
