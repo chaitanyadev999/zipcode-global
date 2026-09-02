@@ -1,0 +1,154 @@
+{
+  "total_count": 3,
+  "jobs": [
+    {
+      "id": 96176621673,
+      "run_id": 32286331177,
+      "workflow_name": "pages build and deployment",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/actions/runs/32286331177",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT5RSz88AAAAWZJLIaQ",
+      "head_sha": "23cf6bb6a00ba1f2c072e267c7a5404422dd4ae3",
+      "url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/actions/jobs/96176621673",
+      "html_url": "https://github.com/chaitanyadev999/zipcode-global/actions/runs/32286331177/job/96176621673",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-08-19T18:15:44Z",
+      "started_at": "2026-08-19T18:15:47Z",
+      "completed_at": "2026-08-19T18:16:15Z",
+      "name": "build",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-08-19T18:15:47Z",
+          "completed_at": "2026-08-19T18:15:48Z"
+        },
+        {
+          "name": "Checkout",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 2,
+          "started_at": "2026-08-19T18:15:48Z",
+          "completed_at": "2026-08-19T18:16:13Z"
+        },
+        {
+          "name": "Upload artifact",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 3,
+          "started_at": "2026-08-19T18:16:13Z",
+          "completed_at": "2026-08-19T18:16:13Z"
+        },
+        {
+          "name": "Post Checkout",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-08-19T18:16:13Z",
+          "completed_at": "2026-08-19T18:16:14Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-08-19T18:16:14Z",
+          "completed_at": "2026-08-19T18:16:14Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/check-runs/96176621673",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000564,
+      "runner_name": "GitHub Actions 1000000564",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 96176783642,
+      "run_id": 32286331177,
+      "workflow_name": "pages build and deployment",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/actions/runs/32286331177",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT5RSz88AAAAWZJVBGg",
+      "head_sha": "23cf6bb6a00ba1f2c072e267c7a5404422dd4ae3",
+      "url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/actions/jobs/96176783642",
+      "html_url": "https://github.com/chaitanyadev999/zipcode-global/actions/runs/32286331177/job/96176783642",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-08-19T18:16:15Z",
+      "started_at": "2026-08-19T18:16:18Z",
+      "completed_at": "2026-08-19T18:16:22Z",
+      "name": "report-build-status",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-08-19T18:16:19Z",
+          "completed_at": "2026-08-19T18:16:19Z"
+        },
+        {
+          "name": "Report Build Status",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-08-19T18:16:20Z",
+          "completed_at": "2026-08-19T18:16:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-08-19T18:16:20Z",
+          "completed_at": "2026-08-19T18:16:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/check-runs/96176783642",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000565,
+      "runner_name": "GitHub Actions 1000000565",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 96176785196,
+      "run_id": 32286331177,
+      "workflow_name": "pages build and deployment",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/actions/runs/32286331177",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT5RSz88AAAAWZJVHLA",
+      "head_sha": "23cf6bb6a00ba1f2c072e267c7a5404422dd4ae3",
+      "url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/actions/jobs/96176785196",
+      "html_url": "https://github.com/chaitanyadev999/zipcode-global/actions/runs/32286331177/job/96176785196",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-08-19T18:16:16Z",
+      "started_at": "2026-08-19T18:16:16Z",
+      "completed_at": "2026-08-19T18:16:15Z",
+      "name": "deploy",
+      "steps": [
+
+      ],
+      "check_run_url": "https://api.github.com/repos/chaitanyadev999/zipcode-global/check-runs/96176785196",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    }
+  ]
+}

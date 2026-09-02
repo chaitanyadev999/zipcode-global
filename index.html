@@ -445,6 +445,18 @@ footer{
     .nav-btn { text-align: center; padding: 0.8rem; }
     #google_translate_element { text-align: center; margin: 10px auto !important; }
   }
+
+  /* Responsive UI Fixes */
+  .ad-slot:not(:has(> *)), .ad-slot-container:not(:has(> *)), .ad-slot:empty, .ad-slot-container:empty { 
+    display: none !important; margin: 0 !important; min-height: 0 !important; padding: 0 !important; border: none !important; 
+  }
+
+  @media(max-width:768px){
+    .search-box { flex-direction: column; border-radius: 12px; padding: 1rem; align-items: stretch; gap: 0.5rem; }
+    .search-box select { width: 100%; border-right: none; border-bottom: 1px solid rgba(0,212,255,0.3); padding-bottom: 0.5rem; text-align: center; }
+    .search-box input { width: 100%; padding: 0.5rem 0; text-align: center; }
+    .search-box button { width: 100%; }
+  }
 </style>
 <style>
 /* Responsive Ad Slots */
