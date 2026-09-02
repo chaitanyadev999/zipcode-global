@@ -397,7 +397,7 @@ function googleTranslateElementInit() {
   <div class="search-bar">
     <div class="sbox">
       <input id="search" type="text" placeholder="Search CEP, city, district..." autocomplete="off"/>
-      <button class="sbtn" onclick="doSearch()">Search</button>
+      <button class="sbtn" onclick="doSearch(true)">Search</button>
     </div>
   </div>
 </section>
@@ -1097,7 +1097,7 @@ function selectDist(dist, city){
 }
 
 // ── STEP 3: PINCODES (BATCH PAGINATION - 60 AT A TIME) ──────────
-function showPins(records){
+function showPins(records, autoScroll=true){
   NAV.pinsList = records;
   NAV.pinLimit = 60;
   $('s3title').textContent = (NAV.district||NAV.city||'') + ' — '+C.term+'s';
@@ -1105,7 +1105,7 @@ function showPins(records){
   renderPinBatch();
   show('s3'); hide('s4');
   updateBC();
-  $('s3').scrollIntoView({behavior:'smooth',block:'start'});
+  if(autoScroll) $('s3').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function renderPinBatch(){
@@ -1261,7 +1261,7 @@ async function preloadGlobalData() {
     window.isFetchingGlobal = false;
 }
 
-async function doSearch(){
+async function doSearch(isManual=false){
   let q=$('search').value.trim().toLowerCase(); if(!q)return;
   
   let searchData = NAV.data;
@@ -1315,14 +1315,14 @@ async function doSearch(){
     NAV.fields = detectFields(hits);
   }
 
-  showPins(hits);
+  showPins(hits, isManual);
   updateMapMarkers(hits, 'Search: ' + q);
   toast('Found '+hits.length+' results','ok');
 }
 window.doSearch = doSearch;
-$('search').addEventListener('keypress',e=>{if(e.key==='Enter')doSearch();});
+$('search').addEventListener('keypress',e=>{if(e.key==='Enter')doSearch(true);});
 let searchTo=null;
-$('search').addEventListener('input',e=>{clearTimeout(searchTo);searchTo=setTimeout(doSearch,400);});
+$('search').addEventListener('input',e=>{clearTimeout(searchTo);searchTo=setTimeout(()=>doSearch(false),400);});
 
 // ── ESCAPE QUOTES ────────────────────────────────────────────────
 function escQ(s){ return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
