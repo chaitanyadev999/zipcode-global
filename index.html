@@ -1229,7 +1229,7 @@ async function loadGlobalIndex() {
 }
 document.getElementById('heroSearch').addEventListener('focus', loadGlobalIndex);
 document.getElementById('fCountry').addEventListener('change', loadGlobalIndex);
-setTimeout(() => loadGlobalIndex(), 1500);
+// setTimeout(() => loadGlobalIndex(), 1500); // Removed to improve page load speed
 
 window.doSearch = async function() {
   const q = document.getElementById('heroSearch').value.trim().toLowerCase();
@@ -1453,13 +1453,12 @@ function initMarquee() {
 function initHeroFlags() {
   const container = document.getElementById('heroBgFlags');
   if(!container) return;
-  // Create 10 rows to cover the entire vertical space of the hero section
+  // Reduced to 4 rows to improve rendering performance on mobile
   let rowsHtml = '';
-  for(let r = 0; r < 10; r++) {
+  for(let r = 0; r < 4; r++) {
     const shift = (r * 15) % ALL.length;
-    // Wrap around to guarantee we always get enough flags even if shift is near the end
     const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
-    const rowFlags = wrappedAll.slice(0, 50);
+    const rowFlags = wrappedAll.slice(0, 25); // Reduced to 25 flags per row
     
     const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" loading="lazy" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt="Country flag icon"/>`).join('');
     
@@ -1487,11 +1486,11 @@ function initHeroFlags() {
 
 if(document.readyState==='complete'){
   initMarquee();
-  setTimeout(initHeroFlags, 300);
+  setTimeout(initHeroFlags, 500); // Delayed slightly to prioritize main content
 }else{
   window.addEventListener('load',()=>{
     initMarquee();
-    setTimeout(initHeroFlags, 300);
+    setTimeout(initHeroFlags, 500);
   });
 }
 
