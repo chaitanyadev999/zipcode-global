@@ -1453,20 +1453,22 @@ function initMarquee() {
 function initHeroFlags() {
   const container = document.getElementById('heroBgFlags');
   if(!container) return;
-  // Reduced to 4 rows to improve rendering performance on mobile
+  // Use 6 rows of larger flags instead of 10 rows of small flags to cover the same area
+  // This drastically reduces DOM elements and network requests without damaging the design.
   let rowsHtml = '';
-  for(let r = 0; r < 4; r++) {
+  for(let r = 0; r < 6; r++) {
     const shift = (r * 15) % ALL.length;
     const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
-    const rowFlags = wrappedAll.slice(0, 25); // Reduced to 25 flags per row
+    const rowFlags = wrappedAll.slice(0, 30); // 30 flags per row
     
-    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" loading="lazy" decoding="async" style="width:60px; height:40px; border-radius:6px; object-fit:cover; margin:0 5px; will-change:transform;" alt="Country flag icon"/>`).join('');
+    // Increased size to 90x60 to cover the same visual area with fewer images
+    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" loading="lazy" decoding="async" style="width:90px; height:60px; border-radius:8px; object-fit:cover; margin:0 8px; will-change:transform;" alt="Country flag icon"/>`).join('');
     
     const duration = 1200 + (r % 3)*100;
     const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
     
     rowsHtml += `
-      <div style="display:flex; width:max-content; animation: ${dir} ${duration}s linear infinite; will-change:transform;">
+      <div style="display:flex; width:max-content; animation: ${dir} ${duration}s linear infinite; will-change:transform; margin-bottom: 5px;">
         <div style="display:flex;">${flagsHtml}</div>
         <div style="display:flex;">${flagsHtml}</div>
       </div>
