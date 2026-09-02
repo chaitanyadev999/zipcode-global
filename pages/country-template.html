@@ -598,6 +598,23 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 1px solid rgba(0,212,255,0.2);
   margin: 0;
 }
+
+  .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: var(--t); user-select: none; line-height: 1; margin-left: auto; }
+  @media(max-width:768px){
+    .nav { flex-direction: row !important; align-items: center !important; padding: 0.8rem 1.25rem !important; }
+    .hamburger { display: block; }
+    .nav-links {
+      display: none !important; position: absolute; top: 100%; left: 0; width: 100%;
+      background: rgba(5, 8, 22, 0.98); backdrop-filter: blur(15px);
+      flex-direction: column !important; padding: 1.5rem !important; 
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+      gap: 1rem !important; align-items: stretch !important; z-index: 10000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-links.active { display: flex !important; }
+    .nav-btn { text-align: center; padding: 0.8rem; }
+    #google_translate_element { text-align: center; margin: 10px auto !important; }
+  }
 </style>
 
 <!-- Dynamic meta tags will be set by JS -->
@@ -609,6 +626,23 @@ h1, h2, h3, h4, h5, h6 {
 .ad-slot-3, .ad-slot-4, .ad-slot-5 { display: none; }
 @media (min-width: 768px) { .ad-slot-3 { display: flex; } }
 @media (min-width: 1024px) { .ad-slot-4 { display: flex; } .ad-slot-5 { display: flex; } }
+
+  .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: var(--t); user-select: none; line-height: 1; margin-left: auto; }
+  @media(max-width:768px){
+    .nav { flex-direction: row !important; align-items: center !important; padding: 0.8rem 1.25rem !important; }
+    .hamburger { display: block; }
+    .nav-links {
+      display: none !important; position: absolute; top: 100%; left: 0; width: 100%;
+      background: rgba(5, 8, 22, 0.98); backdrop-filter: blur(15px);
+      flex-direction: column !important; padding: 1.5rem !important; 
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+      gap: 1rem !important; align-items: stretch !important; z-index: 10000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-links.active { display: flex !important; }
+    .nav-btn { text-align: center; padding: 0.8rem; }
+    #google_translate_element { text-align: center; margin: 10px auto !important; }
+  }
 </style>
 <link rel="canonical" href="https://pozip.me/pages/country-template.html" />
 <meta property="og:image" content="https://pozip.me/assets/og-image.jpg" />
@@ -647,7 +681,8 @@ h1, h2, h3, h4, h5, h6 {
     <div class="brand-icon"><img src="../home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
-  <div class="nav-links">
+  <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</div>
+    <div class="nav-links">
     <a class="nav-btn" href="/">🏠 Home Page</a>
     <a class="nav-btn" href="../pages/translate.html">Translator</a>
     <a class="nav-btn" href="../pages/blog.html">Blog</a>

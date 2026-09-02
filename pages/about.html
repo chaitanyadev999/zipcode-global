@@ -477,6 +477,23 @@ footer{
 .big-hero-image img { width: 100%; max-width: 400px; object-fit: contain; filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.3)); mix-blend-mode: screen; animation: float 6s ease-in-out infinite; }
 @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 .full-width-card { width: 100%; }
+
+  .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: var(--t); user-select: none; line-height: 1; margin-left: auto; }
+  @media(max-width:768px){
+    .nav { flex-direction: row !important; align-items: center !important; padding: 0.8rem 1.25rem !important; }
+    .hamburger { display: block; }
+    .nav-links {
+      display: none !important; position: absolute; top: 100%; left: 0; width: 100%;
+      background: rgba(5, 8, 22, 0.98); backdrop-filter: blur(15px);
+      flex-direction: column !important; padding: 1.5rem !important; 
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+      gap: 1rem !important; align-items: stretch !important; z-index: 10000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-links.active { display: flex !important; }
+    .nav-btn { text-align: center; padding: 0.8rem; }
+    #google_translate_element { text-align: center; margin: 10px auto !important; }
+  }
 </style>
 
 
@@ -518,6 +535,23 @@ footer{
 .big-hero-image img { width: 100%; max-width: 400px; object-fit: contain; filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.3)); mix-blend-mode: screen; animation: float 6s ease-in-out infinite; }
 @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 .full-width-card { width: 100%; }
+
+  .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: var(--t); user-select: none; line-height: 1; margin-left: auto; }
+  @media(max-width:768px){
+    .nav { flex-direction: row !important; align-items: center !important; padding: 0.8rem 1.25rem !important; }
+    .hamburger { display: block; }
+    .nav-links {
+      display: none !important; position: absolute; top: 100%; left: 0; width: 100%;
+      background: rgba(5, 8, 22, 0.98); backdrop-filter: blur(15px);
+      flex-direction: column !important; padding: 1.5rem !important; 
+      border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+      gap: 1rem !important; align-items: stretch !important; z-index: 10000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-links.active { display: flex !important; }
+    .nav-btn { text-align: center; padding: 0.8rem; }
+    #google_translate_element { text-align: center; margin: 10px auto !important; }
+  }
 </style>
 
 
@@ -557,7 +591,8 @@ footer{
     <div class="brand-icon"><img src="../home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
     <span>PO ZipCode Global</span>
   </a>
-  <div class="nav-links">
+  <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</div>
+    <div class="nav-links">
     <a class="nav-btn" href="/">🏠 Home Page</a>
     <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="translate.html">Translator</a>
     <a class="nav-btn" href="blog.html">Blog</a>
