@@ -22,7 +22,8 @@
 <link rel="canonical" href="https://pozip.me/"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/></noscript>
 <style>
 :root{
     --p: #00d4ff;
@@ -203,7 +204,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   background:var(--grad);-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;display:block;line-height:1.2;
 }
-.stat-label{font-size:.75rem;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;font-family:var(--fm)}
+.stat-label{font-size:.75rem;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;font-family:var(--fm)}
 .stat-divider{width:1px;height:32px;background:rgba(255,255,255,0.08)}
 
 /* HERO SCROLL */
@@ -298,7 +299,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 .pcard-name{font-family:var(--fd);font-weight:700;font-size:1.1rem;line-height:1.2}
 .pcard-term{font-family:var(--fm);font-size:.72rem;color:var(--cyan);margin-top:.2rem}
-.pcard-meta{font-size:.8rem;color:var(--t3)}
+.pcard-meta{font-size:.8rem;color:var(--t2)}
 .pcard-btn{
   width:100%;padding:.6rem;border-radius:10px;background:rgba(0,212,255,0.08);
   border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-weight:600;
@@ -507,7 +508,7 @@ footer{
 <!-- NAV -->
 <nav class="nav" id="mainNav">
   <a class="brand" href="/">
-    <div class="brand-icon"><img src="home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
+    <div class="brand-icon"><img src="home/assets/logo_nav.png" alt="PO ZipCode Global Logo" loading="lazy" width="36" height="36"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="nav-links">
@@ -554,7 +555,7 @@ function googleTranslateElementInit() {
     
   <div class="search-wrapper">
     <div class="search-box">
-            <select id="heroCountrySelect" onchange="document.getElementById('heroSearch').focus()">
+            <select id="heroCountrySelect" aria-label="Select Country Filter" onchange="document.getElementById('heroSearch').focus()">
         <option value="ALL">🌍 Global</option>
       </select>
       <input id="heroSearch" type="text" placeholder="Search country, state, city..." autocomplete="off"/>
@@ -587,19 +588,19 @@ function googleTranslateElementInit() {
     <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-end; justify-content:center;">
       <div style="flex:1 1 200px;">
         <label style="color:var(--cyan); font-size:0.8rem; font-weight:bold; margin-bottom:0.4rem; display:block;">Country</label>
-        <select id="fCountry" onchange="loadFinderStates()" style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem;">
+        <select id="fCountry" aria-label="Select Country" onchange="loadFinderStates()" style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem;">
           <option value="">-- Select Country --</option>
         </select>
       </div>
       <div style="flex:1 1 200px;">
         <label style="color:var(--cyan); font-size:0.8rem; font-weight:bold; margin-bottom:0.4rem; display:block;">State / Province</label>
-        <select id="fState" onchange="loadFinderCities()" disabled style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem; opacity:0.5;">
+        <select id="fState" aria-label="Select State" onchange="loadFinderCities()" disabled style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem; opacity:0.5;">
           <option value="">-- Select State --</option>
         </select>
       </div>
       <div style="flex:1 1 200px;">
         <label style="color:var(--cyan); font-size:0.8rem; font-weight:bold; margin-bottom:0.4rem; display:block;">City / District</label>
-        <select id="fCity" onchange="document.getElementById('finderBtn').classList.add('pulse-btn');" disabled style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem; opacity:0.5;">
+        <select id="fCity" aria-label="Select City" onchange="document.getElementById('finderBtn').classList.add('pulse-btn');" disabled style="width:100%; padding:0.8rem; background:rgba(0,0,0,0.5); border:1px solid rgba(0,212,255,0.3); color:#fff; border-radius:8px; outline:none; font-family:var(--fm); font-size:0.95rem; opacity:0.5;">
           <option value="">-- Select City --</option>
         </select>
       </div>
@@ -1161,7 +1162,7 @@ function renderPriority(){
   grid.innerHTML = pList.map(c=>`
     <a class="pcard" href="${pageUrl(c.code)}" onclick="showToast('Opening '+this.dataset.name+'...','info')" data-name="${c.name.replace(/'/g,"\\'").trim()}" style="text-decoration:none; display:block; color:inherit;">
       <div class="pcard-top">
-        ${fImg(c.code,'pcard-flag',100)}
+        ${fImg(c.code,'pcard-flag',80)}
         <div>
           <div class="pcard-name">${c.name}</div>
           <div class="pcard-term">${c.term} <span style="margin-left:8px; color:var(--p2); background:rgba(0,0,0,0.4); padding:2px 6px; border-radius:4px; font-size:0.7rem;">${c.phone}</span></div>
