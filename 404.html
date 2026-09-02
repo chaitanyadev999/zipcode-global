@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="google-site-verification" content="KZQ7vH2j5xhwsaep297qN6UHoTB9c9eccweOQYGswLU" />
+<title>404 Page Not Found | PO ZipCode Global</title>
+
+<meta property="og:title" content="Find Postal & ZIP Codes for 121+ Countries | PO ZipCode Global">
+<meta property="og:description" content="Find any PIN Code or Postal Code worldwide. An interactive directory for shipping and mailing in 121+ countries.">
+<meta property="og:image" content="https://pozip.me/home/assets/social-preview.jpg">
+<meta property="og:url" content="https://pozip.me/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="/home/assets/logo.png">
+<meta name="description" content="Find postal codes, PIN codes and ZIP codes for 121 countries. India Pincode, USA ZIP Code, UK Postcode. Free instant lookup with interactive 3D globe."/>
+<meta name="keywords" content="postal code finder, zip code lookup, pincode search, india pincode, usa zip code, uk postcode, world postal codes"/>
+
+
+
+<link rel="canonical" href="https://pozip.me/"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+    --p: #00d4ff;
+    --a: #7c3aed;
+    --p2: 0,212,255;
+    --p2-rgb: 0,212,255;
+  --bg:#050816;--bg2:#0a0e27;
+  --card:rgba(255,255,255,0.04);--card-hi:rgba(255,255,255,0.08);
+  --glass:rgba(255,255,255,0.05);--veil:rgba(5,8,22,0.92);
+  --b:rgba(0,212,255,0.12);--bhi:rgba(0,212,255,0.3);
+  --t:#f0f2f8;--t2:#94a3b8;--t3:#475569;--tdim:#2a3550;
+  --cyan:#00d4ff;--purple:#7c3aed;--gold:#f59e0b;--green:#10b981;
+  --grad:linear-gradient(135deg,#00d4ff 0%,#7c3aed 100%);
+  --glow:0 0 60px rgba(0,212,255,0.18);
+  --f:'Inter',system-ui,sans-serif;
+  --fd:'Space Grotesk',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--f);background:var(--bg);color:var(--t);overflow-x:hidden;min-height:100vh}
+
+/* ── CINEMATIC BG ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% -10%,rgba(0,212,255,0.09) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 95% 5%,rgba(124,58,237,0.09) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%,rgba(245,158,11,0.06) 0%,transparent 50%);
+}
+/* star particles */
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background-image:
+    radial-gradient(1px 1px at 20% 15%,rgba(255,255,255,0.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 80% 25%,rgba(255,255,255,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 45% 60%,rgba(255,255,255,0.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70% 80%,rgba(255,255,255,0.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 30% 85%,rgba(255,255,255,0.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 90% 55%,rgba(255,255,255,0.25) 0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 45%,rgba(255,255,255,0.2) 0%,transparent 100%);
+}
+
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--grad);border-radius:999px}
+::selection{background:rgba(0,212,255,0.3);color:#fff}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  transition:all .3s var(--ease);
+}
+.nav.scrolled{
+  background:rgba(5,8,22,0.88);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--b);
+}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--fd);font-weight:700;font-size:1.08rem}
+.brand-icon{
+  width:36px;height:36px;border-radius:9px;background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;box-shadow:0 0 20px rgba(0,212,255,0.4);
+}
+.brand-icon img{width:100%;height:100%;object-fit:cover;border-radius:9px;}
+.nav-links{display:flex;align-items:center;gap:.5rem}
+.nav-btn{
+  padding:.4rem .9rem;border-radius:999px;font-size:.8rem;font-weight:600;
+  background:var(--glass);border:1px solid var(--b);color:var(--t2);
+  transition:all .25s var(--ease);
+}
+.nav-btn:hover{background:var(--card-hi);border-color:var(--cyan);color:var(--t);transform:translateY(-1px)}
+.nav-btn.primary{background:var(--grad);color:#000;border:none;box-shadow:0 4px 16px rgba(0,212,255,0.3)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;padding:7rem 1.5rem 4rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.35rem 1.1rem;border-radius:999px;
+  background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.25);
+  font-family:var(--fm);font-size:.76rem;color:var(--cyan);
+  margin-bottom:1.5rem;box-shadow:0 0 30px rgba(0,212,255,0.15);
+  animation:pulse-badge 3s ease-in-out infinite;
+}
+@keyframes pulse-badge{0%,100%{border-color:rgba(0,212,255,0.25)}50%{border-color:rgba(0,212,255,0.65)}}
+
+.hero h1{
+  font-family:var(--fd);font-size:clamp(2.4rem,6vw,4.5rem);font-weight:900;
+  line-height:1.06;letter-spacing:-0.02em;margin-bottom:1.2rem;max-width:900px;
+}
+.grad-text{
+  background:linear-gradient(135deg,#00d4ff 0%,#a855f7 50%,#f59e0b 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{
+  font-size:clamp(.98rem,2.2vw,1.2rem);color:var(--t2);max-width:640px;
+  line-height:1.65;margin-bottom:2.2rem;
+}
+
+/* SEARCH BAR */
+.search-wrapper{
+  width:100%;max-width:620px;position:relative;z-index:20;margin-bottom:2.5rem;
+}
+.search-box{
+  display:flex;align-items:center;gap:.5rem;padding:.45rem .5rem .45rem 1.3rem;
+  background:rgba(10,14,39,0.85);backdrop-filter:blur(24px);
+  border:1px solid rgba(0,212,255,0.3);border-radius:999px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 40px rgba(0,212,255,0.15);
+  transition:all .3s var(--ease);
+}
+.search-box:focus-within{
+  border-color:var(--cyan);box-shadow:0 12px 50px rgba(0,0,0,0.6),var(--glow);
+  transform:scale(1.01);
+}
+
+.search-box select {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(0,212,255,0.3);
+  color: var(--t);
+  font-family: var(--fm);
+  font-size: 0.95rem;
+  padding: 0.45rem 0.8rem 0.45rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.search-box select option {
+  background: #0a0e27;
+  color: var(--t);
+}
+
+.search-box input{
+  flex:1;background:transparent;border:none;outline:none;
+  color:var(--t);font-size:.95rem;font-family:var(--fm);min-width:0;
+}
+.search-box input::placeholder{color:var(--t3)}
+.search-box button{
+  padding:.75rem 1.6rem;border-radius:999px;background:var(--grad);
+  color:#000;font-weight:700;font-size:.88rem;white-space:nowrap;
+  transition:all .25s var(--ease);box-shadow:0 4px 20px rgba(0,212,255,0.3);
+}
+.search-box button:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(0,212,255,0.5)}
+
+/* SEARCH SUGGESTIONS */
+.search-suggestions {
+  position: absolute; top: 110%; left: 0; right: 0;
+  background: rgba(10,14,39,0.95); backdrop-filter: blur(24px);
+  border: 1px solid rgba(0,212,255,0.2); border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  max-height: 300px; overflow-y: auto; z-index: 1000;
+  display: none; flex-direction: column; text-align: left;
+}
+.search-suggestions.show { display: flex; }
+.suggestion-item {
+  padding: 0.8rem 1.2rem; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.95rem; color: var(--t2); transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: rgba(0,212,255,0.1); color: var(--t); }
+.suggestion-type { font-size: 0.7rem; color: var(--cyan); background: rgba(0,212,255,0.1); padding: 0.25rem 0.6rem; border-radius: 4px; font-family: var(--fm); }
+
+/* STATS */
+.hero-stats{
+  display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:center;
+}
+.stat-item{text-align:center}
+.stat-num{
+  font-family:var(--fd);font-size:1.8rem;font-weight:800;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;display:block;line-height:1.2;
+}
+.stat-label{font-size:.75rem;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;font-family:var(--fm)}
+.stat-divider{width:1px;height:32px;background:rgba(255,255,255,0.08)}
+
+/* HERO SCROLL */
+.hero-scroll{
+  position:absolute;bottom:1.5rem;display:flex;flex-direction:column;align-items:center;
+  gap:.4rem;font-family:var(--fm);font-size:.7rem;color:var(--t3);letter-spacing:.15em;
+  text-transform:uppercase;opacity:.6;animation:scroll-bounce 2s ease-in-out infinite;
+}
+@keyframes scroll-bounce{0%,100%{transform:translateY(0) translateZ(0)}50%{transform:translateY(8px) translateZ(0)}}
+.scroll-line{width:1px;height:24px;background:linear-gradient(to bottom,var(--cyan),transparent)}
+
+/* ── 3D GLOBE SECTION ── */
+.globe-section{
+  padding:4rem 2rem;max-width:1200px;margin:0 auto;text-align:center;
+}
+.section-head{margin-bottom:2.5rem}
+.section-head h2{font-family:var(--fd);font-size:1.8rem;font-weight:800;margin-bottom:.4rem}
+.section-head p{font-size:.88rem;color:var(--t2)}
+.globe-shell{
+  position:relative;width:100%;max-width:760px;margin:0 auto;
+  min-height:500px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+#globeMount{width:100%;height:500px;min-height:500px;display:block;cursor:grab}
+#globeMount:active{cursor:grabbing}
+#globeTooltip{
+  position:absolute;pointer-events:none;z-index:100;
+  padding:.45rem .9rem;border-radius:10px;background:rgba(5,8,22,0.92);
+  border:1px solid var(--cyan);backdrop-filter:blur(12px);
+  font-family:var(--fm);font-size:.78rem;color:var(--t);
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:0;transition:opacity .2s ease;
+  display:flex;align-items:center;gap:.5rem;
+}
+#globeTooltip.vis{opacity:1}
+#globeTooltip img{width:22px;height:auto;border-radius:3px}
+
+/* GLOBE OVERLAY ANIMATION ON CLICK */
+#navOverlay{
+  position:absolute;inset:0;z-index:150;background:rgba(5,8,22,0.95);
+  backdrop-filter:blur(30px);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1rem;opacity:0;
+  pointer-events:none;transition:opacity .4s var(--ease);
+}
+#navOverlay.show{opacity:1;pointer-events:auto}
+#navOverlay img{width:80px;height:auto;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.6)}
+#navOverlay #navName{font-family:var(--fd);font-size:1.8rem;font-weight:800}
+#navOverlay #navSub{font-family:var(--fm);font-size:.85rem;color:var(--cyan)}
+.nav-rocket{font-size:2.5rem;animation:rocket-fly 1.2s ease-in-out infinite}
+@keyframes rocket-fly{0%,100%{transform:translateY(0) translateZ(0) scale(1)}50%{transform:translateY(-12px) scale(1.1) translateZ(0)}}
+.nav-hint{font-family:var(--fm);font-size:.75rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+
+/* ── REGIONS / POPULAR SECTION ── */
+.labels-section{padding:0 2rem 3rem;max-width:1100px;margin:0 auto}
+.labels-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+.labels-title{font-family:var(--fd);font-size:1.15rem;font-weight:700}
+.label-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.label-row-title{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem;font-family:var(--fm)}
+.lchip{
+  padding:.42rem .95rem;border-radius:999px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.08);font-size:.8rem;color:var(--t2);
+  cursor:pointer;transition:all .2s var(--ease);display:inline-flex;align-items:center;gap:.4rem;
+}
+.lchip:hover,.lchip.on{background:rgba(0,212,255,0.14);border-color:var(--cyan);color:var(--t);transform:translateY(-1px)}
+.lchip.on{box-shadow:0 0 20px rgba(0,212,255,0.2)}
+.lchip .cnt{font-family:var(--fm);font-size:.68rem;color:var(--t3)}
+
+/* ── PRIORITY QUICK-ACCESS CARDS ── */
+.section{padding:0 2rem 4rem;max-width:1200px;margin:0 auto}
+.cards-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;
+}
+.pcard{
+  position:relative;border-radius:18px;background:rgba(10,14,39,0.7);
+  backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);
+  padding:1.4rem;transition:all .3s var(--ease);
+  will-change: transform;
+  display:flex;flex-direction:column;
+  justify-content:space-between;gap:1rem;overflow:hidden;
+}
+.pcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--grad);opacity:0;transition:opacity .3s var(--ease);
+}
+.pcard:hover{
+  transform:translateY(-6px);border-color:rgba(0,212,255,0.35);
+  box-shadow:0 16px 40px rgba(0,0,0,0.4),var(--glow);background:rgba(10,14,39,0.9);
+}
+.pcard:hover::before{opacity:1}
+.pcard-top{display:flex;align-items:center;gap:1rem}
+.pcard-flag{
+  width:52px;height:36px;border-radius:6px;object-fit:cover;
+  box-shadow:0 4px 12px rgba(0,0,0,0.5);flex-shrink:0;border:1px solid rgba(255,255,255,0.1);
+}
+.pcard-name{font-family:var(--fd);font-weight:700;font-size:1.1rem;line-height:1.2}
+.pcard-term{font-family:var(--fm);font-size:.72rem;color:var(--cyan);margin-top:.2rem}
+.pcard-meta{font-size:.8rem;color:var(--t3)}
+.pcard-btn{
+  width:100%;padding:.6rem;border-radius:10px;background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-weight:600;
+  font-size:.8rem;text-align:center;transition:all .2s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+}
+.pcard:hover .pcard-btn{background:var(--grad);color:#000;border-color:transparent;box-shadow:0 4px 16px rgba(0,212,255,0.3)}
+
+/* ── ALL COUNTRIES COMPACT GRID ── */
+.all-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;
+}
+.citem{
+  position:relative;border-radius:16px;background:rgba(10,14,39,0.6);
+  backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  will-change: transform;
+  text-decoration:none;
+}
+.citem::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  box-shadow:inset 0 0 0 1px rgba(0,212,255,0);transition:all 0.4s ease;pointer-events:none;z-index:10;
+}
+.citem:hover{
+  transform:translateY(-8px) translateZ(0) scale(1.02);background:rgba(10,14,39,0.85);
+  box-shadow:0 20px 40px rgba(0,0,0,0.6),0 0 20px rgba(0,212,255,0.2);
+}
+.citem:hover::before{
+  box-shadow:inset 0 0 0 1px rgba(0,212,255,0.5);
+}
+.citem-flag-wrap{
+  width:100%;height:140px;position:relative;overflow:hidden;
+}
+.citem-flag-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 40%, rgba(10,14,39,1) 100%);
+}
+.citem-flag{
+  width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;
+}
+.citem:hover .citem-flag{
+  transform:scale(1.1);
+}
+.citem-info{
+  padding:1.2rem;display:flex;flex-direction:column;gap:0.2rem;
+  position:relative;z-index:2;margin-top:-35px;
+}
+.citem-name{
+  font-family:var(--fd);font-weight:800;font-size:1.2rem;color:#fff;
+  text-shadow:0 2px 4px rgba(0,0,0,0.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.citem-term{
+  font-family:var(--fm);font-size:0.72rem;color:var(--cyan);
+  text-transform:uppercase;letter-spacing:0.1em;
+}
+.citem-arr{
+  position:absolute;right:1.2rem;bottom:1.2rem;color:var(--cyan);
+  font-size:1.2rem;opacity:0;transform:translateX(-10px);transition:all 0.3s ease;z-index:5;
+}
+.citem:hover .citem-arr{
+  opacity:1;transform:translateX(0) translateZ(0);
+}
+
+/* ── FILTER STRIP ── */
+.filter-strip{
+  display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap;
+}
+.fb{
+  padding:.35rem .85rem;border-radius:999px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.06);font-size:.78rem;color:var(--t2);
+  cursor:pointer;transition:all .2s var(--ease);font-family:var(--fm);
+}
+.fb:hover,.fb.on{background:rgba(0,212,255,0.12);border-color:var(--cyan);color:var(--t)}
+.fb.on{box-shadow:0 0 16px rgba(0,212,255,0.2)}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,0.06);padding:3rem 2rem 2rem;
+  text-align:center;color:var(--t3);font-size:.82rem;
+}
+.flinks{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1.2rem;flex-wrap:wrap}
+.flinks a{color:var(--t2);transition:color .2s var(--ease)}
+.flinks a:hover{color:var(--cyan)}
+
+/* TOAST NOTIFICATION */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;gap:.5rem}
+.toast{
+  padding:.7rem 1.2rem;border-radius:10px;background:rgba(10,14,39,0.95);
+  backdrop-filter:blur(20px);border:1px solid rgba(0,212,255,0.3);
+  font-size:.82rem;color:var(--t);box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  transform:translateX(120%);transition:transform .4s var(--ease);
+  will-change: transform;
+}
+.toast.show{transform:translateX(0) translateZ(0)}
+.toast.info{border-left:3px solid var(--cyan)}
+
+  @media(max-width:768px){
+    .nav{flex-direction:column; gap:0.8rem; padding:0.8rem 1.25rem}
+    .nav-links{overflow-x:auto; width:100%; padding-bottom:0.5rem; justify-content:flex-start; -ms-overflow-style:none; scrollbar-width:none;}
+    .nav-links::-webkit-scrollbar { display: none; }
+    .hero{padding:7rem 1.25rem 3rem}
+    .hero h1{font-size:2.2rem}
+    .hero-stats{gap:1.2rem}
+    .globe-section,.section,.labels-section{padding-left:1.25rem;padding-right:1.25rem}
+    .cards-grid{grid-template-columns:1fr}
+    .all-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  }
+  /* Google Translate styling */
+  #google_translate_element { display:inline-block; margin-left: 10px; vertical-align: middle; }
+  .goog-te-gadget { font-family: var(--f) !important; color: transparent !important; font-size:0; }
+  .goog-te-gadget .goog-te-combo { 
+    background: var(--glass); border: 1px solid var(--b); color: var(--t2); 
+    padding: .4rem .9rem; border-radius: 999px; font-weight: 600; font-size: .8rem;
+    cursor: pointer; transition: all .25s var(--ease); outline: none;
+  }
+  .goog-te-gadget .goog-te-combo:hover { background: var(--card-hi); border-color: var(--cyan); color: var(--t); }
+  .goog-te-gadget .goog-te-combo option { background: #050816; color: #fff; font-weight:normal; }
+  .skiptranslate iframe { display: none !important; }
+  body { top: 0 !important; }
+  @keyframes pulseBtn {
+    0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,212,255,0.2); }
+    50% { transform: scale(1.05); box-shadow: 0 4px 25px rgba(0,212,255,0.6); }
+    100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,212,255,0.2); }
+  }
+  .pulse-btn {
+    animation: pulseBtn 1.5s infinite;
+  }
+</style>
+<style>
+/* Responsive Ad Slots */
+.ad-slot {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    background: transparent;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+    overflow: hidden;
+}
+.ad-slot:empty {
+    display: none !important;
+}
+.ad-slot-1, .ad-slot-2 { display: flex; }
+.ad-slot-3, .ad-slot-4, .ad-slot-5 { display: none; }
+@media (min-width: 768px) { .ad-slot-3 { display: flex; } }
+@media (min-width: 1024px) { .ad-slot-4 { display: flex; } .ad-slot-5 { display: flex; } }
+</style>
+
+
+
+
+<!-- Comprehensive SEO Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://pozip.me/#website",
+      "url": "https://pozip.me/",
+      "name": "PO ZipCode Global",
+      "description": "Find postal codes and zip codes for 121+ countries."
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://pozip.me/#organization",
+      "name": "PO ZipCode Global",
+      "url": "https://pozip.me/",
+      "logo": "https://pozip.me/home/assets/logo.png",
+      "sameAs": ["https://github.com/chaitanyadev999/zipcode-global"]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://pozip.me/#article",
+      "isPartOf": {"@id": "https://pozip.me/#website"},
+      "headline": "Global Postal Code & ZIP Code Finder",
+      "description": "A complete guide and tool to finding postal codes, ZIP codes, and PIN codes for over 121 countries.",
+      "author": {"@id": "https://pozip.me/#organization"},
+      "publisher": {"@id": "https://pozip.me/#organization"},
+      "datePublished": "2026-08-01T08:00:00+00:00",
+      "dateModified": "2026-08-17T12:00:00+00:00"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://pozip.me/"
+      }]
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+<div class="toast-wrap" id="toastWrap"></div>
+
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a class="brand" href="/">
+    <div class="brand-icon"><img src="home/assets/logo.png" alt="PO ZipCode Global Logo" loading="lazy"></div>
+    <span>PO ZipCode Global</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-btn" href="/">🏠 Home Page</a>
+    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="pages/translate.html">Translator</a>
+    <a class="nav-btn" href="pages/blog.html">Blog</a>
+    <a class="nav-btn" href="pages/about.html">About</a>
+    <a class="nav-btn" href="pages/privacy.html">Privacy</a>
+    <a class="nav-btn" href="pages/report.html">Report</a>
+    <div id="google_translate_element"></div>
+  </div>
+</nav>
+    <div style="min-height:70vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; position:relative; z-index:10;">
+        <h1 style="font-size:8rem; font-weight:900; color:var(--cyan); margin-bottom:1rem; text-shadow: var(--glow);">404</h1>
+        <h2 style="font-size:2.5rem; margin-bottom:1.5rem; font-family:var(--fd);">Page Not Found</h2>
+        <p style="color:var(--t2); margin-bottom:3rem; font-size:1.2rem; max-width:500px;">The page you are looking for doesn't exist, has been moved, or the URL is incorrect.</p>
+        <a href="/" style="background:var(--grad); color:#fff; padding:15px 40px; border-radius:30px; text-decoration:none; font-weight:600; font-size:1.2rem; transition:0.3s;" onmouseover="this.style.boxShadow='var(--glow)'" onmouseout="this.style.boxShadow='none'">Go Back Home</a>
+    </div>
+    <footer>
+  <div class="flinks">
+    <a href="#allSec">🌍 All Countries</a>
+    <a href="pages/about.html">About</a>
+    <a href="pages/privacy.html">Privacy Policy</a>
+    <a href="pages/report.html">Report Issue</a>
+    <a href="../sitemap.xml">Sitemap</a>
+  </div>
+  <p>&copy; <span id="yr"></span> PO ZipCode Global </p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+(function(){
+'use strict';
+
+const COUNTRIES = [
+  {code:'IN',name:'India',region:'asia',term:'PIN Code',phone:'+91', lat:20.5937,lon:78.9629},
+  {code:'US',name:'United States',region:'americas',term:'ZIP Code',phone:'+1', lat:39.8283,lon:-98.5795},
+  {code:'GB',name:'United Kingdom',region:'europe',term:'Postcode',phone:'+44', lat:55.3781,lon:-3.4360},
+  {code:'AU',name:'Australia',region:'oceania',term:'Postcode',phone:'+61', lat:-25.2744,lon:133.7751},
+  {code:'CA',name:'Canada',region:'americas',term:'Postal Code',phone:'+1', lat:56.1304,lon:-106.3468},
+  {code:'DE',name:'Germany',region:'europe',term:'Postal Code',phone:'+49', lat:51.1657,lon:10.4515},
+  {code:'FR',name:'France',region:'europe',term:'Code Postal',phone:'+33', lat:46.2276,lon:2.2137},
+  {code:'JP',name:'Japan',region:'asia',term:'Postal Code',phone:'+81', lat:36.2048,lon:138.2529},
+  {code:'AE',name:'UAE',region:'asia',term:'Postal Code',phone:'+971', lat:23.4241,lon:53.8478},
+  {code:'SG',name:'Singapore',region:'asia',term:'Postal Code',phone:'+65', lat:1.3521,lon:103.8198},
+  {code:'BR',name:'Brazil',region:'americas',term:'CEP',phone:'+55', lat:-14.2350,lon:-51.9253},
+  {code:'CN',name:'China',region:'asia',term:'Postal Code',phone:'+86', lat:35.8617,lon:104.1954},
+  {code:'KR',name:'South Korea',region:'asia',term:'Postal Code',phone:'+82', lat:35.9078,lon:127.7669},
+  {code:'MX',name:'Mexico',region:'americas',term:'Código Postal',phone:'+52', lat:23.6345,lon:-102.5528},
+  {code:'NZ',name:'New Zealand',region:'oceania',term:'Postcode',phone:'+64', lat:-40.9006,lon:174.8860},
+  {code:'BD',name:'Bangladesh',region:'asia',term:'Postal Code',phone:'+880', lat:23.6850,lon:90.3563},
+  {code:'LK',name:'Sri Lanka',region:'asia',term:'Postal Code',phone:'+94', lat:7.8731,lon:80.7718},
+  {code:'TH',name:'Thailand',region:'asia',term:'Postal Code',phone:'+66', lat:15.8700,lon:100.9925},
+  {code:'MY',name:'Malaysia',region:'asia',term:'Postcode',phone:'+60', lat:4.2105,lon:101.9758},
+  {code:'PH',name:'Philippines',region:'asia',term:'Postal Code',phone:'+63', lat:12.8797,lon:121.7740},
+  {code:'RU',name:'Russia',region:'europe',term:'Postal Code',phone:'+7', lat:61.5240,lon:105.3188},
+  {code:'IT',name:'Italy',region:'europe',term:'CAP',phone:'+39', lat:41.8719,lon:12.5674},
+  {code:'ES',name:'Spain',region:'europe',term:'Postal Code',phone:'+34', lat:40.4637,lon:-3.7492},
+  {code:'NL',name:'Netherlands',region:'europe',term:'Postal Code',phone:'+31', lat:52.1326,lon:5.2913},
+  {code:'PT',name:'Portugal',region:'europe',term:'Postal Code',phone:'+351', lat:39.3999,lon:-8.2245},
+  {code:'PK',name:'Pakistan',region:'asia',term:'Postal Code',phone:'+92', lat:30.3753,lon:69.3451},
+    {code:'PL',name:'Poland',region:'europe',term:'Postal Code',phone:'+48', lat:51.9194,lon:19.1451},
+  {code:'ZA',name:'South Africa',region:'africa',term:'Postal Code',phone:'+27', lat:-30.5595,lon:22.9375},
+  {code:'TR',name:'Turkey',region:'asia',term:'Postal Code',phone:'+90', lat:38.9637,lon:35.2433},
+  {code:'AR',name:'Argentina',region:'americas',term:'Postal Code',phone:'+54', lat:-38.4161,lon:-63.6167},
+  {code:'AD',name:'Andorra',region:'europe',term:'Postal Code',phone:'+376', lat:42.5063,lon:1.5218},
+  {code:'AI',name:'Anguilla',region:'americas',term:'Postal Code',phone:'+1', lat:18.2206,lon:-63.0686},
+  {code:'AL',name:'Albania',region:'europe',term:'Postal Code',phone:'+355', lat:41.1533,lon:20.1683},
+  {code:'AS',name:'American Samoa',region:'oceania',term:'ZIP Code',phone:'+1', lat:-14.2710,lon:-170.1322},
+  {code:'AT',name:'Austria',region:'europe',term:'Postal Code',phone:'+43', lat:47.5162,lon:14.5501},
+  {code:'AX',name:'Aland Islands',region:'europe',term:'Postal Code',phone:'+358', lat:60.1785,lon:19.9156},
+  {code:'AZ',name:'Azerbaijan',region:'asia',term:'Postal Code',phone:'+994', lat:40.1431,lon:47.5769},
+  {code:'BE',name:'Belgium',region:'europe',term:'Postal Code',phone:'+32', lat:50.5039,lon:4.4699},
+  {code:'BG',name:'Bulgaria',region:'europe',term:'Postal Code',phone:'+359', lat:42.7339,lon:25.4858},
+  {code:'BM',name:'Bermuda',region:'americas',term:'Postal Code',phone:'+1', lat:32.3078,lon:-64.7505},
+  {code:'BY',name:'Belarus',region:'europe',term:'Postal Code',phone:'+375', lat:53.7098,lon:27.9534},
+  {code:'CC',name:'Cocos Islands',region:'oceania',term:'Postal Code',phone:'+61', lat:-12.1642,lon:96.8710},
+  {code:'CH',name:'Switzerland',region:'europe',term:'Postal Code',phone:'+41', lat:46.8182,lon:8.2275},
+  {code:'CL',name:'Chile',region:'americas',term:'Postal Code',phone:'+56', lat:-35.6751,lon:-71.5430},
+  {code:'CO',name:'Colombia',region:'americas',term:'Postal Code',phone:'+57', lat:4.5709,lon:-74.2973},
+  {code:'CR',name:'Costa Rica',region:'americas',term:'Postal Code',phone:'+506', lat:9.7489,lon:-83.7534},
+  {code:'CX',name:'Christmas Island',region:'oceania',term:'Postal Code',phone:'+61', lat:-10.4475,lon:105.6904},
+  {code:'CY',name:'Cyprus',region:'europe',term:'Postal Code',phone:'+357', lat:35.1264,lon:33.4299},
+  {code:'CZ',name:'Czech Republic',region:'europe',term:'Postal Code',phone:'+420', lat:49.8175,lon:15.4730},
+  {code:'DK',name:'Denmark',region:'europe',term:'Postal Code',phone:'+45', lat:56.2639,lon:9.5018},
+  {code:'DO',name:'Dominican Republic',region:'americas',term:'Postal Code',phone:'+1', lat:18.7357,lon:-70.1627},
+  {code:'DZ',name:'Algeria',region:'africa',term:'Postal Code',phone:'+213', lat:28.0339,lon:1.6596},
+  {code:'EC',name:'Ecuador',region:'americas',term:'Postal Code',phone:'+593', lat:-1.8312,lon:-78.1834},
+  {code:'EE',name:'Estonia',region:'europe',term:'Postal Code',phone:'+372', lat:58.5953,lon:25.0136},
+  {code:'FI',name:'Finland',region:'europe',term:'Postal Code',phone:'+358', lat:61.9241,lon:25.7482},
+  {code:'FK',name:'Falkland Islands',region:'americas',term:'Postal Code',phone:'+500', lat:-51.7963,lon:-59.5236},
+  {code:'FM',name:'Micronesia',region:'oceania',term:'ZIP Code',phone:'+691', lat:7.4256,lon:150.5508},
+  {code:'FO',name:'Faroe Islands',region:'europe',term:'Postal Code',phone:'+298', lat:61.8926,lon:-6.9118},
+  {code:'GF',name:'French Guiana',region:'americas',term:'Code Postal',phone:'+594', lat:3.9339,lon:-53.1258},
+  {code:'GG',name:'Guernsey',region:'europe',term:'Postcode',phone:'+44', lat:49.4657,lon:-2.5853},
+  {code:'GI',name:'Gibraltar',region:'europe',term:'Postcode',phone:'+350', lat:36.1408,lon:-5.3536},
+  {code:'GL',name:'Greenland',region:'americas',term:'Postal Code',phone:'+299', lat:71.7069,lon:-42.6043},
+  {code:'GP',name:'Guadeloupe',region:'americas',term:'Code Postal',phone:'+590', lat:16.2650,lon:-61.5510},
+  {code:'GS',name:'South Georgia',region:'americas',term:'Postal Code',phone:'+500', lat:-54.4296,lon:-36.5879},
+  {code:'GT',name:'Guatemala',region:'americas',term:'Postal Code',phone:'+502', lat:15.7835,lon:-90.2308},
+  {code:'GU',name:'Guam',region:'oceania',term:'ZIP Code',phone:'+1', lat:13.4443,lon:144.7937},
+  {code:'HK',name:'Hong Kong',region:'asia',term:'Postal Code',phone:'+852', lat:22.3193,lon:114.1694},
+  {code:'HM',name:'Heard Island',region:'oceania',term:'Postal Code',phone:'+672', lat:-53.0818,lon:73.5042},
+  {code:'HN',name:'Honduras',region:'americas',term:'Postal Code',phone:'+504', lat:15.2000,lon:-86.2419},
+  {code:'HR',name:'Croatia',region:'europe',term:'Postal Code',phone:'+385', lat:45.1000,lon:15.2000},
+  {code:'HT',name:'Haiti',region:'americas',term:'Postal Code',phone:'+509', lat:18.9712,lon:-72.2852},
+  {code:'HU',name:'Hungary',region:'europe',term:'Postal Code',phone:'+36', lat:47.1625,lon:19.5033},
+  {code:'ID',name:'Indonesia',region:'asia',term:'Postal Code',phone:'+62', lat:-0.7893,lon:113.9213},
+  {code:'IE',name:'Ireland',region:'europe',term:'Eircode',phone:'+353', lat:53.1424,lon:-7.6921},
+  {code:'IM',name:'Isle of Man',region:'europe',term:'Postcode',phone:'+44', lat:54.2361,lon:-4.5481},
+  {code:'IO',name:'British Indian Ocean',region:'asia',term:'Postal Code',phone:'+246', lat:-6.3432,lon:71.8765},
+  {code:'IS',name:'Iceland',region:'europe',term:'Postal Code',phone:'+354', lat:64.9631,lon:-19.0208},
+  {code:'JE',name:'Jersey',region:'europe',term:'Postcode',phone:'+44', lat:49.2144,lon:-2.1313},
+  {code:'KE',name:'Kenya',region:'africa',term:'Postal Code',phone:'+254', lat:-0.0236,lon:37.9062},
+  {code:'LI',name:'Liechtenstein',region:'europe',term:'Postal Code',phone:'+423', lat:47.1660,lon:9.5554},
+  {code:'LT',name:'Lithuania',region:'europe',term:'Postal Code',phone:'+370', lat:55.1694,lon:23.8813},
+  {code:'LU',name:'Luxembourg',region:'europe',term:'Postal Code',phone:'+352', lat:49.8153,lon:6.1296},
+  {code:'LV',name:'Latvia',region:'europe',term:'Postal Code',phone:'+371', lat:56.8796,lon:24.6032},
+  {code:'MA',name:'Morocco',region:'africa',term:'Code Postal',phone:'+212', lat:31.7917,lon:-7.0926},
+  {code:'MC',name:'Monaco',region:'europe',term:'Code Postal',phone:'+377', lat:43.7384,lon:7.4246},
+  {code:'MD',name:'Moldova',region:'europe',term:'Postal Code',phone:'+373', lat:47.4116,lon:28.3699},
+  {code:'MH',name:'Marshall Islands',region:'oceania',term:'ZIP Code',phone:'+692', lat:7.1315,lon:171.1845},
+  {code:'MK',name:'North Macedonia',region:'europe',term:'Postal Code',phone:'+389', lat:41.6086,lon:21.7453},
+  {code:'MO',name:'Macao',region:'asia',term:'Postal Code',phone:'+853', lat:22.1987,lon:113.5439},
+  {code:'MP',name:'N. Mariana Islands',region:'oceania',term:'ZIP Code',phone:'+1', lat:17.3308,lon:145.3847},
+  {code:'MQ',name:'Martinique',region:'americas',term:'Code Postal',phone:'+596', lat:14.6415,lon:-61.0242},
+  {code:'MT',name:'Malta',region:'europe',term:'Postal Code',phone:'+356', lat:35.9375,lon:14.3754},
+  {code:'MW',name:'Malawi',region:'africa',term:'Postal Code',phone:'+265', lat:-13.2543,lon:34.3015},
+  {code:'NC',name:'New Caledonia',region:'oceania',term:'Code Postal',phone:'+687', lat:-20.9043,lon:165.6180},
+  {code:'NF',name:'Norfolk Island',region:'oceania',term:'Postal Code',phone:'+672', lat:-29.0408,lon:167.9547},
+  {code:'NO',name:'Norway',region:'europe',term:'Postal Code',phone:'+47', lat:60.4720,lon:8.4689},
+  {code:'NR',name:'Nauru',region:'oceania',term:'Postal Code',phone:'+674', lat:-0.5228,lon:166.9315},
+  {code:'NU',name:'Niue',region:'oceania',term:'Postal Code',phone:'+683', lat:-19.0544,lon:-169.8672},
+  {code:'PA',name:'Panama',region:'americas',term:'Postal Code',phone:'+507', lat:8.5380,lon:-80.7821},
+  {code:'PE',name:'Peru',region:'americas',term:'Postal Code',phone:'+51', lat:-9.1900,lon:-75.0152},
+  {code:'PF',name:'French Polynesia',region:'oceania',term:'Code Postal',phone:'+689', lat:-17.6797,lon:-149.4068},
+  {code:'PM',name:'St Pierre & Miquelon',region:'americas',term:'Code Postal',phone:'+508', lat:46.8852,lon:-56.3159},
+  {code:'PN',name:'Pitcairn',region:'oceania',term:'Postal Code',phone:'+870', lat:-24.7036,lon:-127.4393},
+  {code:'PR',name:'Puerto Rico',region:'americas',term:'ZIP Code',phone:'+1', lat:18.2208,lon:-66.5901},
+  {code:'PW',name:'Palau',region:'oceania',term:'ZIP Code',phone:'+680', lat:7.5150,lon:134.5825},
+  {code:'RE',name:'Reunion',region:'africa',term:'Code Postal',phone:'+262', lat:-21.1151,lon:55.5364},
+  {code:'RO',name:'Romania',region:'europe',term:'Postal Code',phone:'+40', lat:45.9432,lon:24.9668},
+  {code:'RS',name:'Serbia',region:'europe',term:'Postal Code',phone:'+381', lat:44.0165,lon:21.0059},
+  {code:'SE',name:'Sweden',region:'europe',term:'Postal Code',phone:'+46', lat:60.1282,lon:18.6435},
+  {code:'SI',name:'Slovenia',region:'europe',term:'Postal Code',phone:'+386', lat:46.1512,lon:14.9955},
+  {code:'SJ',name:'Svalbard & Jan Mayen',region:'europe',term:'Postal Code',phone:'+47', lat:77.5536,lon:23.6703},
+  {code:'SK',name:'Slovakia',region:'europe',term:'Postal Code',phone:'+421', lat:48.6690,lon:19.6990},
+  {code:'SM',name:'San Marino',region:'europe',term:'Postal Code',phone:'+378', lat:43.9424,lon:12.4578},
+  {code:'TC',name:'Turks & Caicos',region:'americas',term:'Postal Code',phone:'+1', lat:21.6940,lon:-71.7979},
+  {code:'UA',name:'Ukraine',region:'europe',term:'Postal Code',phone:'+380', lat:48.3794,lon:31.1656},
+  {code:'UY',name:'Uruguay',region:'americas',term:'Postal Code',phone:'+598', lat:-32.5228,lon:-55.7658},
+  {code:'VA',name:'Vatican City',region:'europe',term:'Postal Code',phone:'+39', lat:41.9029,lon:12.4534},
+  {code:'VI',name:'US Virgin Islands',region:'americas',term:'ZIP Code',phone:'+1', lat:18.3358,lon:-64.8963},
+  {code:'WF',name:'Wallis & Futuna',region:'oceania',term:'Code Postal',phone:'+681', lat:-13.7687,lon:-177.1561},
+  {code:'WS',name:'Samoa',region:'oceania',term:'Postal Code',phone:'+685', lat:-13.7590,lon:-172.1046},
+  {code:'YT',name:'Mayotte',region:'africa',term:'Code Postal',phone:'+262', lat:-12.8275,lon:45.1662},
+  {code:'IT',name:'Italy',region:'europe',term:'CAP',phone:'+39', lat:41.8719,lon:12.5674},
+];
+
+// deduplicate
+const seen=new Set(), ALL=[];
+COUNTRIES.forEach(c=>{ if(!seen.has(c.code)){seen.add(c.code);ALL.push(c);} });
+
+const PRIORITY=['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
+const SPECIAL={'IN':'pages/india.html', 'US':'pages/usa.html'};
+
+function pageUrl(code){ return SPECIAL[code]||('pages/'+code.toLowerCase()+'.html'); }
+function fSrc(code,w){ return 'https://flagcdn.com/w'+(w||80)+'/'+code.toLowerCase()+'.png'; }
+function fImg(code,cls,w){
+  return '<img src="'+fSrc(code,w||80)+'" class="'+cls+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
+}
+
+function cardNav(c){
+  showToast('Opening '+c.name+'...','info');
+  
+  
+    window.location.href=pageUrl(c.code);
+  
+}
+
+
+function populateCountrySelect() {
+  const sel = document.getElementById('heroCountrySelect');
+  if(!sel) return;
+  // Sort ALL countries by name
+  let sorted = [...ALL].sort((a,b) => a.name.localeCompare(b.name));
+  sorted.forEach(c => {
+    let opt = document.createElement('option');
+    let val = c.code.toLowerCase();
+    if(val === 'in') val = 'india';
+    if(val === 'us') val = 'usa';
+    opt.value = val;
+    opt.textContent = c.name;
+    sel.appendChild(opt);
+  });
+}
+
+populateCountrySelect();
+initFinder();
+
+// ── INSTANT FINDER LOGIC ──
+function initFinder() {
+  const fC = document.getElementById('fCountry');
+  if(!fC || fC.options.length > 1) return;
+  fC.innerHTML = '<option value="">-- Select Country --</option>';
+  let sorted = [...ALL].sort((a,b) => a.name.localeCompare(b.name));
+  sorted.forEach(c => {
+    let opt = document.createElement('option');
+    let val = c.code.toLowerCase();
+    if(val === 'in') val = 'india';
+    if(val === 'us') val = 'usa';
+    opt.value = val;
+    opt.textContent = c.name;
+    fC.appendChild(opt);
+  });
+}
+
+window.loadFinderStates = loadFinderStates;
+window.loadFinderCities = loadFinderCities;
+window.gotoFinderCity = gotoFinderCity;
+
+async function loadFinderStates() {
+  const c = document.getElementById('fCountry').value;
+  const s = document.getElementById('fState');
+  const cy = document.getElementById('fCity');
+  
+  if (!globalIndex && c) {
+    s.innerHTML = '<option value="">-- Loading States... --</option>';
+    s.disabled = true;
+    s.style.opacity = '0.8';
+  }
+  
+  if (!globalIndex) await loadGlobalIndex();
+  
+  cy.innerHTML = '<option value="">-- Select City --</option>';
+  cy.disabled = true;
+  cy.style.opacity = '0.5';
+  
+  if(!c || !globalIndex || !globalIndex.states) {
+    s.innerHTML = '<option value="">-- Select State --</option>';
+    s.disabled = true;
+    s.style.opacity = '0.5';
+    return;
+  }
+  
+  s.disabled = false;
+  s.style.opacity = '1';
+  s.innerHTML = '<option value="">-- Select State --</option>';
+  
+  let cName = document.getElementById('fCountry').options[document.getElementById('fCountry').selectedIndex].text;
+  let cSlug = cName.toLowerCase().replace(/ /g, '-').replace(/'/g, '');
+  if (c === 'in') cSlug = 'india';
+  if (c === 'us') cSlug = 'usa';
+  const cPath = 'pages/' + cSlug + '/';
+  let statesFound = [];
+  for(let key in globalIndex.states) {
+    if(globalIndex.states[key].includes(cPath)) {
+      statesFound.push({ name: key, path: globalIndex.states[key] });
+    }
+  }
+  statesFound.sort((a,b) => a.name.localeCompare(b.name));
+  
+  if (statesFound.length === 0) {
+    s.innerHTML = '<option value="">-- No States Available --</option>';
+    s.disabled = true;
+    s.style.opacity = '0.5';
+  } else {
+    let optsHtml = '<option value="">-- Select State --</option>';
+    statesFound.forEach(st => {
+      let parts = st.path.split('/');
+      let val = parts[2].replace('.html','');
+      let text = st.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      optsHtml += `<option value="${val}">${text}</option>`;
+    });
+    s.innerHTML = optsHtml;
+  }
+}
+
+async function loadFinderCities() {
+  if (!globalIndex) await loadGlobalIndex();
+  
+  const c = document.getElementById('fCountry').value;
+  const st = document.getElementById('fState').value;
+  const cy = document.getElementById('fCity');
+  
+  if(!c || !st || !globalIndex || !globalIndex.cities) {
+    cy.innerHTML = '<option value="">-- Select City --</option>';
+    cy.disabled = true;
+    cy.style.opacity = '0.5';
+    document.getElementById('finderBtn').classList.remove('pulse-btn');
+    return;
+  }
+  
+  cy.disabled = false;
+  cy.style.opacity = '1';
+  cy.innerHTML = '<option value="">-- Select City --</option>';
+  document.getElementById('finderBtn').classList.remove('pulse-btn');
+  
+  let cName = document.getElementById('fCountry').options[document.getElementById('fCountry').selectedIndex].text;
+  let cSlug = cName.toLowerCase().replace(/ /g, '-').replace(/'/g, '');
+  if (c === 'in') cSlug = 'india';
+  if (c === 'us') cSlug = 'usa';
+  const sPath = 'pages/' + cSlug + '/' + st + '/';
+  let citiesFound = [];
+  for(let key in globalIndex.cities) {
+    if(globalIndex.cities[key].includes(sPath)) {
+      citiesFound.push({ name: key, path: globalIndex.cities[key] });
+    }
+  }
+  citiesFound.sort((a,b) => a.name.localeCompare(b.name));
+  
+  if (citiesFound.length === 0) {
+    cy.innerHTML = '<option value="">-- No Cities Available --</option>';
+    cy.disabled = true;
+    cy.style.opacity = '0.5';
+    document.getElementById('finderBtn').classList.add('pulse-btn');
+  } else {
+    let optsHtml = '<option value="">-- Select City --</option>';
+    citiesFound.forEach(city => {
+      let text = city.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      optsHtml += `<option value="${city.path}">${text}</option>`;
+    });
+    cy.innerHTML = optsHtml;
+  }
+}
+
+function gotoFinderCity() {
+  const c = document.getElementById('fCountry').value;
+  const st = document.getElementById('fState').value;
+  const cy = document.getElementById('fCity').value;
+  
+  if(!c) {
+    showToast('Please select a location first', 'error');
+    return;
+  }
+  
+  let cName = document.getElementById('fCountry').options[document.getElementById('fCountry').selectedIndex].text;
+  let cSlug = cName.toLowerCase().replace(/ /g, '-').replace(/'/g, '');
+  if (c === 'in') cSlug = 'india';
+  if (c === 'us') cSlug = 'usa';
+  
+  let targetUrl = '';
+  if(cy) {
+    targetUrl = cy;
+  } else if(st) {
+    targetUrl = 'pages/' + cSlug + '/' + st + '.html';
+  } else if(c) {
+    targetUrl = 'pages/' + cSlug + '.html';
+  }
+  
+  let navUrl = targetUrl.startsWith('pages/') ? '../' + targetUrl : targetUrl;
+  window.location.href = navUrl;
+}
+
+// ── RENDER CARDS ──
+let curFilter='all', curSearch='';
+
+function filterCountries(){
+  return ALL.filter(c=>{
+    const matchReg = curFilter==='all' || c.region===curFilter;
+    const matchSearch = !curSearch ||
+      c.name.toLowerCase().includes(curSearch.toLowerCase()) ||
+      c.code.toLowerCase().includes(curSearch.toLowerCase()) ||
+      c.term.toLowerCase().includes(curSearch.toLowerCase());
+    return matchReg && matchSearch;
+  });
+}
+
+function renderPriority(){
+  const pList = ALL.filter(c=>PRIORITY.includes(c.code)).slice(0,12);
+  const grid = document.getElementById('priorityGrid');
+  grid.innerHTML = pList.map(c=>`
+    <a class="pcard" href="${pageUrl(c.code)}" onclick="showToast('Opening '+this.dataset.name+'...','info')" data-name="${c.name.replace(/'/g,"\\'").trim()}" style="text-decoration:none; display:block; color:inherit;">
+      <div class="pcard-top">
+        ${fImg(c.code,'pcard-flag',100)}
+        <div>
+          <div class="pcard-name">${c.name}</div>
+          <div class="pcard-term">${c.term} <span style="margin-left:8px; color:var(--p2); background:rgba(0,0,0,0.4); padding:2px 6px; border-radius:4px; font-size:0.7rem;">${c.phone}</span></div>
+        </div>
+      </div>
+      <div class="pcard-meta">Explore states, cities & postal codes</div>
+      <div class="pcard-btn">Browse ${c.name} &#8594;</div>
+    </a>
+  `).join('');
+}
+
+function renderAll(){
+  const list = filterCountries();
+  const grid = document.getElementById('allGrid');
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--t3)">No countries match your search.</div>';
+    return;
+  }
+  grid.innerHTML = list.map(c=>`
+    <a class="citem" href="${pageUrl(c.code)}">
+      <div class="citem-flag-wrap">
+        ${fImg(c.code,'citem-flag',320)}
+      </div>
+      <div class="citem-info">
+        <div class="citem-name">${c.name}</div>
+        <div class="citem-term">${c.term} Directory</div>
+      </div>
+      <span class="citem-arr">&#8594;</span>
+    </a>
+  `).join('');
+}
+
+
+window.filterBy=function(r,btn){
+  curFilter=r;
+  document.querySelectorAll('.filter-strip .fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderAll();
+};
+
+window.filterRegion=function(r,chip){
+  curFilter=r;
+  document.querySelectorAll('#regionChips .lchip').forEach(b=>b.classList.remove('on'));
+  chip.classList.add('on');
+  document.querySelectorAll('.filter-strip .fb').forEach(b=>{
+    b.classList.toggle('on',b.textContent.toLowerCase().startsWith(r)||r==='all');
+  });
+  renderAll();
+  document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
+};
+
+let globalIndex = null;
+async function loadGlobalIndex() {
+  if (!globalIndex) {
+     try {
+       let indexUrl = 'home/assets/search_index.json?v=12';
+       if (window.location.protocol === 'file:') {
+           indexUrl = 'https://pozip.me/home/assets/search_index.json?v=12';
+       }
+       const res = await fetch(indexUrl);
+       if (res.ok) globalIndex = await res.json();
+     } catch (e) {
+       console.error("Failed to load global index", e);
+     }
+  }
+}
+document.getElementById('heroSearch').addEventListener('focus', loadGlobalIndex);
+document.getElementById('fCountry').addEventListener('change', loadGlobalIndex);
+// setTimeout(() => loadGlobalIndex(), 1500); // Removed to improve page load speed
+
+window.doSearch = async function() {
+  const q = document.getElementById('heroSearch').value.trim().toLowerCase();
+  if (!q) {
+      curSearch = '';
+      renderAll();
+      return;
+  }
+
+  // Exact Country match has absolute highest priority!
+  const lowerV = q.replace(/[^a-z0-9\s-]/g, '').trim();
+   const cFilter = document.getElementById('heroCountrySelect').value;
+  if (typeof ALL !== 'undefined') {
+      for (let i = 0; i < ALL.length; i++) {
+          if (ALL[i].name.toLowerCase() === lowerV || ALL[i].code.toLowerCase() === lowerV) {
+              let pageName = ALL[i].code.toLowerCase();
+              if (pageName === 'in') pageName = 'india';
+              if (pageName === 'us') pageName = 'usa';
+              window.location.href = 'pages/' + pageName + '.html';
+              return;
+          }
+      }
+  }
+  
+  if (!globalIndex) {
+      await loadGlobalIndex();
+  }
+
+  if (globalIndex) {
+    if (globalIndex.pincodes && globalIndex.pincodes[q] && (cFilter==="ALL" || globalIndex.pincodes[q].includes("/"+cFilter+"/"))) {
+      window.location.href = '../' + globalIndex.pincodes[q];
+      return;
+    }
+    const cKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+    if (globalIndex.cities && globalIndex.cities[cKey] && (cFilter==="ALL" || globalIndex.cities[cKey].includes("/"+cFilter+"/"))) {
+      window.location.href = '../' + globalIndex.cities[cKey];
+      return;
+    }
+    const sKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, ' ');
+    if (globalIndex.states && globalIndex.states[sKey] && (cFilter==="ALL" || globalIndex.states[sKey].includes("/"+cFilter+"/"))) {
+      window.location.href = '../' + globalIndex.states[sKey];
+      return;
+    }
+
+    // Partial match fallback
+    if (q.length >= 2) {
+        
+        // Match Country (partial)
+        if (typeof ALL !== 'undefined') {
+            for (let i = 0; i < ALL.length; i++) {
+                if (ALL[i].name.toLowerCase().includes(lowerV)) {
+                    let pageName = ALL[i].code.toLowerCase();
+                    if (pageName === 'in') pageName = 'india';
+                    if (pageName === 'us') pageName = 'usa';
+                    window.location.href = 'pages/' + pageName + '.html';
+                    return;
+                }
+            }
+        }
+        
+        if (globalIndex.cities) {
+            const cityMatchTerm = lowerV.replace(/\s+/g, '-');
+            for (const key in globalIndex.cities) {
+                if (key.includes(cityMatchTerm) && (cFilter === "ALL" || globalIndex.cities[key].includes("/"+cFilter+"/"))) {
+                    window.location.href = '../' + globalIndex.cities[key];
+                    return;
+                }
+            }
+        }
+        if (globalIndex.states) {
+            const stateMatchTerm = lowerV.replace(/\s+/g, ' ');
+            for (const key in globalIndex.states) {
+                if (key.includes(stateMatchTerm) && (cFilter === "ALL" || globalIndex.states[key].includes("/"+cFilter+"/"))) {
+                    window.location.href = '../' + globalIndex.states[key];
+                    return;
+                }
+            }
+        }
+        if (globalIndex.pincodes) {
+            for (const key in globalIndex.pincodes) {
+                if (key.includes(lowerV) && (cFilter === "ALL" || globalIndex.pincodes[key].includes("/"+cFilter+"/"))) {
+                    window.location.href = '../' + globalIndex.pincodes[key];
+                    return;
+                }
+            }
+        }
+    }
+  }
+
+  curSearch = q;
+  renderAll();
+  document.getElementById('allSec').scrollIntoView({behavior:'smooth',block:'start'});
+};
+
+document.getElementById('heroSearch').addEventListener('keypress',e=>{if(e.key==='Enter')window.doSearch();});
+let searchTimeout;
+document.getElementById('heroSearch').addEventListener('input', e => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(async () => {
+        const v = e.target.value.trim();
+        const suggBox = document.getElementById('searchSuggestions');
+        if (!v) { 
+            curSearch = ''; renderAll(); 
+            suggBox.classList.remove('show');
+            return; 
+        }
+        
+        if (!globalIndex) await loadGlobalIndex();
+    
+    if (globalIndex && v.length >= 2) {
+        const lowerV = v.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim();
+        let matches = [];
+        let cFilter = document.getElementById('heroCountrySelect').value;
+        
+        // Search Countries first
+        if (typeof ALL !== 'undefined') {
+            for (let i = 0; i < ALL.length; i++) {
+                if (ALL[i].name.toLowerCase().includes(lowerV) || ALL[i].code.toLowerCase().includes(lowerV)) {
+                    let pageName = ALL[i].code.toLowerCase();
+                    if (pageName === 'in') pageName = 'india';
+                    if (pageName === 'us') pageName = 'usa';
+                    matches.push({ name: ALL[i].name, path: 'pages/' + pageName + '.html', type: 'Country' });
+                }
+                if (matches.length > 3) break;
+            }
+        }
+
+        if (globalIndex.cities && matches.length < 5) {
+            const cityMatchTerm = lowerV.replace(/\s+/g, '-');
+            let count = 0;
+            for (const key in globalIndex.cities) {
+                if (key.includes(cityMatchTerm) && (cFilter === "ALL" || globalIndex.cities[key].includes("/"+cFilter+"/"))) {
+                    matches.push({ name: key.replace(/-/g, ' '), path: globalIndex.cities[key], type: 'City' });
+                    count++;
+                }
+                if (count > 5) break;
+            }
+        }
+        
+        if (globalIndex.states && matches.length < 8) {
+            const stateMatchTerm = lowerV.replace(/\s+/g, ' ');
+            let count = 0;
+            for (const key in globalIndex.states) {
+                if (key.includes(stateMatchTerm) && (cFilter === "ALL" || globalIndex.states[key].includes("/"+cFilter+"/"))) {
+                    matches.push({ name: key, path: globalIndex.states[key], type: 'State' });
+                    count++;
+                }
+                if (count > 8) break;
+            }
+        }
+        
+        if (globalIndex.pincodes && matches.length < 10) {
+            let count = 0;
+            for (const key in globalIndex.pincodes) {
+                if (key.includes(lowerV) && (cFilter === "ALL" || globalIndex.pincodes[key].includes("/"+cFilter+"/"))) {
+                    matches.push({ name: key, path: globalIndex.pincodes[key], type: 'Code' });
+                    count++;
+                }
+                if (count > 10) break;
+            }
+        }
+        
+        if (matches.length > 0) {
+            suggBox.innerHTML = matches.map(m => 
+                `<div class="suggestion-item" onclick="window.location.href='../${m.path}'">
+                    <span style="text-transform:capitalize">${m.name}</span>
+                    <span class="suggestion-type">${m.type}</span>
+                </div>`
+            ).join('');
+            suggBox.classList.add('show');
+        } else {
+            suggBox.innerHTML = `<div class="suggestion-item" style="cursor:default">No exact matches found</div>`;
+            suggBox.classList.add('show');
+        }
+    } else {
+        suggBox.classList.remove('show');
+    }
+    }, 300);
+});
+
+function showToast(msg,type){
+  const w=document.getElementById('toastWrap');
+  const t=document.createElement('div');
+  t.className='toast '+(type||'info');t.textContent=msg;
+  w.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400);},2500);
+}
+
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40),{passive:true});
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+window.ALL=ALL;
+
+renderPriority();
+renderAll();
+
+
+
+
+// ── MARQUEE INITIALIZATION ──
+function initMarquee() {
+  const t1 = document.getElementById('mqTrack1');
+  const t2 = document.getElementById('mqTrack2');
+  if(!t1 || !t2) return;
+  
+  // Shuffle ALL array so it looks random
+  const flags = [...ALL].sort(() => 0.5 - Math.random());
+  const htmlStr = flags.map(c => `
+    <a href="${pageUrl(c.code)}" class="mq-card">
+      <img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" alt="${c.name} Flag"/>
+      <span>${c.name}</span>
+    </a>
+  `).join('');
+  
+  t1.innerHTML = htmlStr;
+  t2.innerHTML = htmlStr;
+}
+
+// ── HERO FLAGS BACKGROUND ──
+function initHeroFlags() {
+  const container = document.getElementById('heroBgFlags');
+  if(!container) return;
+  // Use 6 rows of larger flags instead of 10 rows of small flags to cover the same area
+  // This drastically reduces DOM elements and network requests without damaging the design.
+  let rowsHtml = '';
+  for(let r = 0; r < 6; r++) {
+    const shift = (r * 15) % ALL.length;
+    const wrappedAll = [...ALL.slice(shift), ...ALL.slice(0, shift)];
+    const rowFlags = wrappedAll.slice(0, 30); // 30 flags per row
+    
+    // Increased size to 90x60 to cover the same visual area with fewer images
+    const flagsHtml = rowFlags.map(c => `<img src="https://flagcdn.com/w80/${c.code.toLowerCase()}.png" loading="lazy" decoding="async" style="width:90px; height:60px; border-radius:8px; object-fit:cover; margin:0 8px; will-change:transform;" alt="Country flag icon"/>`).join('');
+    
+    const duration = 1200 + (r % 3)*100;
+    const dir = r % 2 === 0 ? 'scrollXHero' : 'scrollXHeroRev';
+    
+    rowsHtml += `
+      <div style="display:flex; width:max-content; animation: ${dir} ${duration}s linear infinite; will-change:transform; margin-bottom: 5px;">
+        <div style="display:flex;">${flagsHtml}</div>
+        <div style="display:flex;">${flagsHtml}</div>
+      </div>
+    `;
+  }
+  
+  // Add animation styles dynamically
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @keyframes scrollXHero { 0% { transform: translateX(0) translateZ(0); } 100% { transform: translateX(-50%) translateZ(0); } }
+    @keyframes scrollXHeroRev { 0% { transform: translateX(-50%) translateZ(0); } 100% { transform: translateX(0) translateZ(0); } }
+  `;
+  document.head.appendChild(style);
+  
+  container.innerHTML = rowsHtml;
+}
+
+if(document.readyState==='complete'){
+  initMarquee();
+  setTimeout(initHeroFlags, 500); // Delayed slightly to prioritize main content
+}else{
+  window.addEventListener('load',()=>{
+    initMarquee();
+    setTimeout(initHeroFlags, 500);
+  });
+}
+
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How to find a ZIP code or Postal code online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Finding your postal code online is simple. Follow these 3 easy steps using our tool: 1. Select your country. 2. Pick your state and city. 3. View on the interactive map."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are postal codes important for shipping?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Postal codes are essential for the automated sorting of mail and packages. Without a correct postal code, your delivery might be severely delayed or returned."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ZIP Code vs PIN Code vs Postal Code: What's the difference?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They all serve the same purpose but are used in different countries. ZIP Code is used in the US, PIN Code is used in India, and Postal Code is the internationally recognized term."
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
