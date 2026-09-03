@@ -352,7 +352,7 @@ function getBasePath() {
   }
 
   // Search across all states
-  async function searchAll(query) {
+  async function searchAll(query, shouldScroll=false) {
     if (!query) { showToast('Enter a postal code', 'error'); return; }
 
     $('resultsList').innerHTML = '<div class="spinner"></div>';
@@ -430,7 +430,7 @@ function getBasePath() {
       const transcript = event.results[0][0].transcript;
       $('searchInput').value = transcript;
       btn.classList.remove('listening');
-      searchAll(transcript);
+      searchAll(transcript, true);
     };
     recognition.onerror = () => { btn.classList.remove('listening'); showToast('Voice error — try again', 'error'); };
     recognition.onend = () => { btn.classList.remove('listening'); };
@@ -609,15 +609,15 @@ function getBasePath() {
 
     $('resultsSection').classList.add('visible');
     showMap(results);
-    setTimeout(() => $('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    if(shouldScroll) { setTimeout(() => $('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100); }
   }
 
   // Event listeners
   const searchBtnNode = $('searchBtn');
   const searchInputNode = $('searchInput');
   if (searchBtnNode && searchInputNode) {
-    searchBtnNode.addEventListener('click', () => searchAll(searchInputNode.value.trim()));
-    searchInputNode.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchBtnNode.click(); });
+    searchBtnNode.addEventListener('click', () => searchAll(searchInputNode.value.trim(), true));
+    searchInputNode.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchAll(searchInputNode.value.trim(), true); });
     
     // Auto-search on input
     let searchTimeout = null;
@@ -759,7 +759,7 @@ function getBasePath() {
     }
   }
 
-  function performLocalSearch(q) {
+  function performLocalSearch(q, shouldScroll=false) {
     const toTitleCase = (str) => {
       if (!str) return '';
       return str.replace(/\w\S*/g, t => t.charAt(0).toUpperCase() + t.substr(1).toLowerCase());
@@ -867,8 +867,8 @@ function getBasePath() {
           }
         }, 100);
         
-        $('searchBtn').addEventListener('click', () => performLocalSearch($('searchInput').value.trim()));
-        $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') $('searchBtn').click(); });
+        $('searchBtn').addEventListener('click', () => performLocalSearch($('searchInput').value.trim(), true));
+        $('searchInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') performLocalSearch($('searchInput').value.trim(), true); });
         
         let localSearchTimeout = null;
         $('searchInput').addEventListener('input', (e) => {

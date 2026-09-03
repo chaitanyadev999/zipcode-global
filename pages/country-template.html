@@ -620,6 +620,15 @@ h1, h2, h3, h4, h5, h6 {
   .ad-slot:not(:has(> *)), .ad-slot-container:not(:has(> *)), .ad-slot:empty, .ad-slot-container:empty { 
     display: none !important; margin: 0 !important; min-height: 0 !important; padding: 0 !important; border: none !important; 
   }
+
+  /* Mobile Search Row Fix */
+  @media(max-width:768px){
+    .search-row { flex-direction: column; background: transparent; border: none; padding: 0; }
+    .search-row input { width: 100%; border-radius: var(--r-full); border: 1px solid var(--border); background: var(--bg-card); text-align: center; }
+    .search-btn { width: 100%; border-radius: var(--r-full); }
+    .voice-btn { position: absolute; right: 0.5rem; top: 0.35rem; width: 36px; height: 36px; font-size: 1rem; }
+    .search-row { position: relative; display: flex; }
+  }
 </style>
 
 <!-- Dynamic meta tags will be set by JS -->
