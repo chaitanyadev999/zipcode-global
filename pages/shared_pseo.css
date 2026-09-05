@@ -686,3 +686,14 @@ h1, h2, h3, h4, h5, h6 {
   .nav-links {overflow-x:auto; width:100%; padding-bottom:0.5rem; justify-content:flex-start; -ms-overflow-style:none; scrollbar-width:none;}
   .nav-links::-webkit-scrollbar { display: none; }
 }
+
+@media (max-width: 768px) {
+  .map-badge {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    justify-content: center;
+    text-align: center;
+  }
+}
+

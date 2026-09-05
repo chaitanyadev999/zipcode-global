@@ -514,7 +514,7 @@ function getBasePath() {
   }
 
   // Results
-  function renderResults(results, title, subtitle) {
+  function renderResults(results, title, subtitle, shouldScroll=false) {
     if (results && results.length > 0) {
       results.forEach(r => {
         if (r.latitude === undefined && (r.Latitude !== undefined || r.lat !== undefined)) {

@@ -660,6 +660,7 @@ function googleTranslateElementInit() {
         </select>
       </div>
       <button id="finderBtn" onclick="gotoFinderCity()" style="padding:0.8rem 1.5rem; border-radius:8px; background:var(--grad); border:none; color:#000; font-weight:bold; cursor:pointer; flex:0 1 auto; min-width:140px; transition:all 0.3s var(--ease); box-shadow:0 4px 15px rgba(0,212,255,0.2);">Get Pincodes 🚀</button>
+        <button id="locateBtn" onclick="findMyLocation()" style="padding:0.8rem 1.5rem; border-radius:8px; background:rgba(0,212,255,0.1); border:1px solid var(--p); color:var(--p); font-weight:bold; cursor:pointer; flex:0 1 auto; min-width:140px; transition:all 0.3s var(--ease);">📍 Find My Location</button>
     </div>
     <div id="finderResult" style="display:none; margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(0,212,255,0.2);"></div>
   </div>
@@ -1606,6 +1607,61 @@ if(document.readyState==='complete'){
 }
 </script>
 
+
+<script>
+  async function findMyLocation() {
+    const btn = document.getElementById('locateBtn');
+    if (!btn) return;
+    const origText = btn.innerHTML;
+    btn.innerHTML = '⏳ Locating...';
+    btn.disabled = true;
+
+    try {
+      const ipRes = await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client');
+      const ipData = await ipRes.json();
+      
+      const success = async (pos) => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+        const data = await res.json();
+        const zip = data.address.postcode;
+        const ccode = data.address.country_code;
+        if(zip && ccode) {
+           window.location.href = 'pages/' + ccode.toLowerCase() + '.html?q=' + encodeURIComponent(zip);
+        } else if (ipData && ipData.postcode && ipData.countryCode) {
+           window.location.href = 'pages/' + ipData.countryCode.toLowerCase() + '.html?q=' + encodeURIComponent(ipData.postcode);
+        } else {
+           alert('Could not detect postal code for your location.');
+           btn.innerHTML = origText;
+           btn.disabled = false;
+        }
+      };
+
+      const error = () => {
+        if (ipData && ipData.postcode && ipData.countryCode) {
+           window.location.href = 'pages/' + ipData.countryCode.toLowerCase() + '.html?q=' + encodeURIComponent(ipData.postcode);
+        } else {
+           alert('Location permission denied or failed, and IP fallback failed.');
+           btn.innerHTML = origText;
+           btn.disabled = false;
+        }
+      };
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error, {timeout: 10000});
+      } else {
+        error();
+      }
+    } catch(e) {
+      alert('Network error while locating.');
+      if(btn) {
+        btn.innerHTML = origText;
+        btn.disabled = false;
+      }
+    }
+  }
+</script>
 </body>
 </html>
 
