@@ -944,10 +944,15 @@ window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     try{
       const q = new URLSearchParams(window.location.search).get('q');
-      if(q && document.getElementById('search') && window.doSearch) {
-        document.getElementById('search').value = q;
-        window.doSearch();
-      }
+      if(q) {
+          if (document.getElementById('search') && window.doSearch) {
+            document.getElementById('search').value = q;
+            window.doSearch();
+          } else if (document.getElementById('searchInput') && typeof searchAll === 'function') {
+            document.getElementById('searchInput').value = q;
+            searchAll(q, true);
+          }
+        }
     }catch(e){}
   }, 500);
 });
