@@ -1608,6 +1608,7 @@ if(document.readyState==='complete'){
 </script>
 
 
+
 <script>
   async function findMyLocation() {
     const btn = document.getElementById('locateBtn');
@@ -1627,10 +1628,19 @@ if(document.readyState==='complete'){
         const data = await res.json();
         const zip = data.address.postcode;
         const ccode = data.address.country_code;
-        if(zip && ccode) {
-           window.location.href = 'pages/' + ccode.toLowerCase() + '.html?q=' + encodeURIComponent(zip);
-        } else if (ipData && ipData.postcode && ipData.countryCode) {
-           window.location.href = 'pages/' + ipData.countryCode.toLowerCase() + '.html?q=' + encodeURIComponent(ipData.postcode);
+        
+        let pageCode = ccode ? ccode.toLowerCase() : null;
+        if (!pageCode && ipData && ipData.countryCode) pageCode = ipData.countryCode.toLowerCase();
+        
+        if (pageCode) {
+            if (pageCode === 'in') pageCode = 'india';
+            if (pageCode === 'us') pageCode = 'usa';
+        }
+
+        if(zip && pageCode) {
+           window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(zip);
+        } else if (ipData && ipData.postcode && pageCode) {
+           window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(ipData.postcode);
         } else {
            alert('Could not detect postal code for your location.');
            btn.innerHTML = origText;
@@ -1639,8 +1649,14 @@ if(document.readyState==='complete'){
       };
 
       const error = () => {
-        if (ipData && ipData.postcode && ipData.countryCode) {
-           window.location.href = 'pages/' + ipData.countryCode.toLowerCase() + '.html?q=' + encodeURIComponent(ipData.postcode);
+        let pageCode = ipData && ipData.countryCode ? ipData.countryCode.toLowerCase() : null;
+        if (pageCode) {
+            if (pageCode === 'in') pageCode = 'india';
+            if (pageCode === 'us') pageCode = 'usa';
+        }
+        
+        if (ipData && ipData.postcode && pageCode) {
+           window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(ipData.postcode);
         } else {
            alert('Location permission denied or failed, and IP fallback failed.');
            btn.innerHTML = origText;
