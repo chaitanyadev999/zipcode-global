@@ -1639,10 +1639,15 @@ if(document.readyState==='complete'){
 
         if(zip && pageCode) {
            window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(zip);
-        } else if (ipData && ipData.postcode && pageCode) {
-           window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(ipData.postcode);
+        } else if (ipData && pageCode) {
+           let fallbackQuery = ipData.postcode || ipData.city || ipData.locality;
+           if(fallbackQuery) {
+              window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(fallbackQuery);
+           } else {
+              window.location.href = 'pages/' + pageCode + '.html';
+           }
         } else {
-           alert('Could not detect postal code for your location.');
+           alert('Could not detect location.');
            btn.innerHTML = origText;
            btn.disabled = false;
         }
@@ -1655,8 +1660,13 @@ if(document.readyState==='complete'){
             if (pageCode === 'us') pageCode = 'usa';
         }
         
-        if (ipData && ipData.postcode && pageCode) {
-           window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(ipData.postcode);
+        if (ipData && pageCode) {
+           let fallbackQuery = ipData.postcode || ipData.city || ipData.locality;
+           if(fallbackQuery) {
+              window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(fallbackQuery);
+           } else {
+              window.location.href = 'pages/' + pageCode + '.html'; // just go to country page
+           }
         } else {
            alert('Location permission denied or failed, and IP fallback failed.');
            btn.innerHTML = origText;
