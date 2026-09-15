@@ -901,10 +901,12 @@ function getBasePath() {
   if (window.PSEO_CITY || window.PSEO_IS_STATE) {
     startApp();
   } else {
+    window.searchAll = searchAll;
     // Normal country page
     loadStates();
   }
 
+  window.searchAll = searchAll;
 })();
 
 
@@ -948,9 +950,9 @@ window.addEventListener('DOMContentLoaded', () => {
           if (document.getElementById('search') && window.doSearch) {
             document.getElementById('search').value = q;
             window.doSearch();
-          } else if (document.getElementById('searchInput') && typeof searchAll === 'function') {
+          } else if (document.getElementById('searchInput') && typeof window.searchAll === 'function') {
             document.getElementById('searchInput').value = q;
-            searchAll(q, true);
+            window.searchAll(q, true);
           }
         }
     }catch(e){}
