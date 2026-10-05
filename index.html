@@ -567,7 +567,9 @@ footer{
   </a>
   <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">&#9776;</div>
     <div class="nav-links">
-    <a class="nav-btn" href="/">🏠 Home Page</a>
+    <a class="nav-btn" href="/">🏠 Home</a>
+    <a class="nav-btn" href="/pages/world.html">🌍 All Countries</a>
+    <a class="nav-btn" style="color:var(--cyan); border-color:var(--cyan); font-weight:700;" href="/postal-code-of-my-location.html">📍 Find My Location</a>
     <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="pages/translate.html">Translator</a>
     <a class="nav-btn" href="pages/blog.html">Blog</a>
     <a class="nav-btn" href="pages/about.html">About</a>
@@ -595,7 +597,12 @@ function googleTranslateElementInit() {
   <div class="hero-bg-flags" id="heroBgFlags" style="position:absolute; inset:-50px; z-index:-2; opacity:0.25; overflow:hidden; display:flex; flex-direction:column; gap:10px; transform:rotate(-4deg) scale(1.1); pointer-events:none; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);">
   </div>
 
-  <div class="hero-badge">🌐 Instant Global Postal Directory</div>
+  <div class="hero-badge">
+    <a href="/postal-code-of-my-location.html" style="color:inherit; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+      <span>📍 Instant Live Postal Code of My Location</span>
+      <span style="background:var(--cyan); color:#000; font-size:0.65rem; padding:0.15rem 0.4rem; border-radius:4px; font-weight:800;">LIVE</span>
+    </a>
+  </div>
   <h1>Find <span class="grad-text">Postal & ZIP Codes</span> for 121+ Countries</h1>
 <!-- SEO Hidden Summaries (Screen Reader Only) -->
 <div style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;">
@@ -881,13 +888,14 @@ function googleTranslateElementInit() {
 </main>
 <footer>
   <div class="flinks">
-    <a href="#allSec">🌍 All Countries</a>
+    <a href="/pages/world.html">🌍 All 121 Countries</a>
+    <a href="/postal-code-of-my-location.html">📍 Postal Code of My Location</a>
     <a href="pages/about.html">About</a>
     <a href="pages/privacy.html">Privacy Policy</a>
     <a href="pages/report.html">Report Issue</a>
-    <a href="../sitemap.xml">Sitemap</a>
+    <a href="/sitemap.xml">Sitemap</a>
   </div>
-  <p>&copy; <span id="yr"></span> PO ZipCode Global </p>
+  <p>&copy; <span id="yr"></span> PO ZipCode Global. The World's Premier Postal Code Finder.</p>
 </footer>
 
 <!-- SCRIPT -->
@@ -1467,13 +1475,13 @@ document.getElementById('heroSearch').addEventListener('input', e => {
             }
         }
         
-        if (matches.length > 0) {
-            suggBox.innerHTML = matches.map(m => 
-                `<div class="suggestion-item" onclick="window.location.href='../${m.path}'">
-                    <span style="text-transform:capitalize">${m.name}</span>
-                    <span class="suggestion-type">${m.type}</span>
-                </div>`
-            ).join('');
+            suggBox.innerHTML = matches.map(m => {
+                const target = '/' + m.path.replace(/^\.\.\//, '');
+                return '<div class="suggestion-item" onclick="window.location.href=\'' + target + '\'">' +
+                    '<span style="text-transform:capitalize">' + m.name + '</span>' +
+                    '<span class="suggestion-type">' + m.type + '</span>' +
+                '</div>';
+            }).join('');
             suggBox.classList.add('show');
         } else {
             suggBox.innerHTML = `<div class="suggestion-item" style="cursor:default">No exact matches found</div>`;

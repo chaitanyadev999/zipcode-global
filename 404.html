@@ -1156,12 +1156,13 @@ document.getElementById('heroSearch').addEventListener('input', e => {
         }
         
         if (matches.length > 0) {
-            suggBox.innerHTML = matches.map(m => 
-                `<div class="suggestion-item" onclick="window.location.href='../${m.path}'">
-                    <span style="text-transform:capitalize">${m.name}</span>
-                    <span class="suggestion-type">${m.type}</span>
-                </div>`
-            ).join('');
+            suggBox.innerHTML = matches.map(m => {
+                const target = '/' + m.path.replace(/^\.\.\//, '');
+                return '<div class="suggestion-item" onclick="window.location.href=\'' + target + '\'">' +
+                    '<span style="text-transform:capitalize">' + m.name + '</span>' +
+                    '<span class="suggestion-type">' + m.type + '</span>' +
+                '</div>';
+            }).join('');
             suggBox.classList.add('show');
         } else {
             suggBox.innerHTML = `<div class="suggestion-item" style="cursor:default">No exact matches found</div>`;
