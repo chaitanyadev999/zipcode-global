@@ -562,7 +562,7 @@ footer{
 <!-- NAV -->
 <nav class="nav" id="mainNav">
   <a class="brand" href="/">
-    <div class="brand-icon"><img src="home/assets/logo_nav.png" alt="PO ZipCode Global Logo" loading="lazy" width="36" height="36"></div>
+    <div class="brand-icon"><img src="/home/assets/logo_nav.png" alt="PO ZipCode Global Logo" loading="lazy" width="36" height="36"></div>
     <span>PO ZipCode Global</span>
   </a>
   <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">&#9776;</div>
@@ -570,11 +570,11 @@ footer{
     <a class="nav-btn" href="/">🏠 Home</a>
     <a class="nav-btn" href="/pages/world.html">🌍 All Countries</a>
     <a class="nav-btn" style="color:var(--cyan); border-color:var(--cyan); font-weight:700;" href="/postal-code-of-my-location.html">📍 Find My Location</a>
-    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="pages/translate.html">Translator</a>
-    <a class="nav-btn" href="pages/blog.html">Blog</a>
-    <a class="nav-btn" href="pages/about.html">About</a>
-    <a class="nav-btn" href="pages/privacy.html">Privacy</a>
-    <a class="nav-btn" href="pages/report.html">Report</a>
+    <a class="nav-btn" style="color:var(--p); border-color:var(--p)" href="/pages/translate.html">Translator</a>
+    <a class="nav-btn" href="/pages/blog.html">Blog</a>
+    <a class="nav-btn" href="/pages/about.html">About</a>
+    <a class="nav-btn" href="/pages/privacy.html">Privacy</a>
+    <a class="nav-btn" href="/pages/report.html">Report</a>
     <div id="google_translate_element"></div>
   </div>
 </nav>
@@ -890,9 +890,9 @@ function googleTranslateElementInit() {
   <div class="flinks">
     <a href="/pages/world.html">🌍 All 121 Countries</a>
     <a href="/postal-code-of-my-location.html">📍 Postal Code of My Location</a>
-    <a href="pages/about.html">About</a>
-    <a href="pages/privacy.html">Privacy Policy</a>
-    <a href="pages/report.html">Report Issue</a>
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/privacy.html">Privacy Policy</a>
+    <a href="/pages/report.html">Report Issue</a>
     <a href="/sitemap.xml">Sitemap</a>
   </div>
   <p>&copy; <span id="yr"></span> PO ZipCode Global. The World's Premier Postal Code Finder.</p>
@@ -1033,9 +1033,14 @@ const seen=new Set(), ALL=[];
 COUNTRIES.forEach(c=>{ if(!seen.has(c.code)){seen.add(c.code);ALL.push(c);} });
 
 const PRIORITY=['IN','US','GB','AU','CA','DE','FR','JP','AE','SG','BR','CN','KR','MX','NZ','BD','LK','TH','MY','PH','RU','IT','ES','NL','PT','PL','ZA','TR','AR'];
-const SPECIAL={'IN':'pages/india.html', 'US':'pages/usa.html'};
+const SPECIAL={'IN':'/pages/india.html', 'US':'/pages/usa.html'};
 
-function pageUrl(code){ return SPECIAL[code]||('pages/'+code.toLowerCase()+'.html'); }
+function toAppUrl(path){
+  if (!path) return '/';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  return '/' + path.replace(/^(\.\.\/)+/, '').replace(/^\//, '');
+}
+function pageUrl(code){ return SPECIAL[code]||('/pages/'+code.toLowerCase()+'.html'); }
 function fSrc(code,w){ return 'https://flagcdn.com/w'+(w||80)+'/'+code.toLowerCase()+'.png'; }
 function fImg(code,cls,w){
   return '<img src="'+fSrc(code,w||80)+'" class="'+cls+'" alt="'+code+'" onerror="this.style.display=\'none\'">';
@@ -1214,13 +1219,12 @@ function gotoFinderCity() {
   if(cy) {
     targetUrl = cy;
   } else if(st) {
-    targetUrl = 'pages/' + cSlug + '/' + st + '.html';
+    targetUrl = '/pages/' + cSlug + '/' + st + '.html';
   } else if(c) {
-    targetUrl = 'pages/' + cSlug + '.html';
+    targetUrl = '/pages/' + cSlug + '.html';
   }
   
-  let navUrl = targetUrl.startsWith('pages/') ? '../' + targetUrl : targetUrl;
-  window.location.href = navUrl;
+  window.location.href = toAppUrl(targetUrl);
 }
 
 // ── RENDER CARDS ──
@@ -1299,7 +1303,7 @@ let globalIndex = null;
 async function loadGlobalIndex() {
   if (!globalIndex) {
      try {
-       let indexUrl = 'home/assets/search_index.json?v=12';
+       let indexUrl = '/home/assets/search_index.json?v=12';
        if (window.location.protocol === 'file:') {
            indexUrl = 'https://pozip.me/home/assets/search_index.json?v=12';
        }
@@ -1331,7 +1335,7 @@ window.doSearch = async function() {
               let pageName = ALL[i].code.toLowerCase();
               if (pageName === 'in') pageName = 'india';
               if (pageName === 'us') pageName = 'usa';
-              window.location.href = 'pages/' + pageName + '.html';
+              window.location.href = toAppUrl('pages/' + pageName + '.html');
               return;
           }
       }
@@ -1343,17 +1347,17 @@ window.doSearch = async function() {
 
   if (globalIndex) {
     if (globalIndex.pincodes && globalIndex.pincodes[q] && (cFilter==="ALL" || globalIndex.pincodes[q].includes("/"+cFilter+"/"))) {
-      window.location.href = '../' + globalIndex.pincodes[q];
+      window.location.href = toAppUrl(globalIndex.pincodes[q]);
       return;
     }
     const cKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
     if (globalIndex.cities && globalIndex.cities[cKey] && (cFilter==="ALL" || globalIndex.cities[cKey].includes("/"+cFilter+"/"))) {
-      window.location.href = '../' + globalIndex.cities[cKey];
+      window.location.href = toAppUrl(globalIndex.cities[cKey]);
       return;
     }
     const sKey = q.replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, ' ');
     if (globalIndex.states && globalIndex.states[sKey] && (cFilter==="ALL" || globalIndex.states[sKey].includes("/"+cFilter+"/"))) {
-      window.location.href = '../' + globalIndex.states[sKey];
+      window.location.href = toAppUrl(globalIndex.states[sKey]);
       return;
     }
 
@@ -1367,7 +1371,7 @@ window.doSearch = async function() {
                     let pageName = ALL[i].code.toLowerCase();
                     if (pageName === 'in') pageName = 'india';
                     if (pageName === 'us') pageName = 'usa';
-                    window.location.href = 'pages/' + pageName + '.html';
+                    window.location.href = toAppUrl('pages/' + pageName + '.html');
                     return;
                 }
             }
@@ -1377,7 +1381,7 @@ window.doSearch = async function() {
             const cityMatchTerm = lowerV.replace(/\s+/g, '-');
             for (const key in globalIndex.cities) {
                 if (key.includes(cityMatchTerm) && (cFilter === "ALL" || globalIndex.cities[key].includes("/"+cFilter+"/"))) {
-                    window.location.href = '../' + globalIndex.cities[key];
+                    window.location.href = toAppUrl(globalIndex.cities[key]);
                     return;
                 }
             }
@@ -1386,7 +1390,7 @@ window.doSearch = async function() {
             const stateMatchTerm = lowerV.replace(/\s+/g, ' ');
             for (const key in globalIndex.states) {
                 if (key.includes(stateMatchTerm) && (cFilter === "ALL" || globalIndex.states[key].includes("/"+cFilter+"/"))) {
-                    window.location.href = '../' + globalIndex.states[key];
+                    window.location.href = toAppUrl(globalIndex.states[key]);
                     return;
                 }
             }
@@ -1394,7 +1398,7 @@ window.doSearch = async function() {
         if (globalIndex.pincodes) {
             for (const key in globalIndex.pincodes) {
                 if (key.includes(lowerV) && (cFilter === "ALL" || globalIndex.pincodes[key].includes("/"+cFilter+"/"))) {
-                    window.location.href = '../' + globalIndex.pincodes[key];
+                    window.location.href = toAppUrl(globalIndex.pincodes[key]);
                     return;
                 }
             }
@@ -1619,82 +1623,8 @@ if(document.readyState==='complete'){
 
 
 <script>
-  async function findMyLocation() {
-    const btn = document.getElementById('locateBtn');
-    if (!btn) return;
-    const origText = btn.innerHTML;
-    btn.innerHTML = '⏳ Locating...';
-    btn.disabled = true;
-
-    try {
-      const ipRes = await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client');
-      const ipData = await ipRes.json();
-      
-      const success = async (pos) => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
-        const data = await res.json();
-        const zip = data.address.postcode;
-        const ccode = data.address.country_code;
-        
-        let pageCode = ccode ? ccode.toLowerCase() : null;
-        if (!pageCode && ipData && ipData.countryCode) pageCode = ipData.countryCode.toLowerCase();
-        
-        if (pageCode) {
-            if (pageCode === 'in') pageCode = 'india';
-            if (pageCode === 'us') pageCode = 'usa';
-        }
-
-        if(zip && pageCode) {
-           window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(zip);
-        } else if (ipData && pageCode) {
-           let fallbackQuery = ipData.postcode || ipData.city || ipData.locality;
-           if(fallbackQuery) {
-              window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(fallbackQuery);
-           } else {
-              window.location.href = 'pages/' + pageCode + '.html';
-           }
-        } else {
-           alert('Could not detect location.');
-           btn.innerHTML = origText;
-           btn.disabled = false;
-        }
-      };
-
-      const error = () => {
-        let pageCode = ipData && ipData.countryCode ? ipData.countryCode.toLowerCase() : null;
-        if (pageCode) {
-            if (pageCode === 'in') pageCode = 'india';
-            if (pageCode === 'us') pageCode = 'usa';
-        }
-        
-        if (ipData && pageCode) {
-           let fallbackQuery = ipData.postcode || ipData.city || ipData.locality;
-           if(fallbackQuery) {
-              window.location.href = 'pages/' + pageCode + '.html?q=' + encodeURIComponent(fallbackQuery);
-           } else {
-              window.location.href = 'pages/' + pageCode + '.html'; // just go to country page
-           }
-        } else {
-           alert('Location permission denied or failed, and IP fallback failed.');
-           btn.innerHTML = origText;
-           btn.disabled = false;
-        }
-      };
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, error, {timeout: 10000});
-      } else {
-        error();
-      }
-    } catch(e) {
-      alert('Network error while locating.');
-      if(btn) {
-        btn.innerHTML = origText;
-        btn.disabled = false;
-      }
-    }
+  function findMyLocation() {
+    window.location.href = '/postal-code-of-my-location.html';
   }
 </script>
 </body>
