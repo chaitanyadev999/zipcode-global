@@ -1475,6 +1475,7 @@ document.getElementById('heroSearch').addEventListener('input', e => {
             }
         }
         
+        if (matches.length > 0) {
             suggBox.innerHTML = matches.map(m => {
                 const target = '/' + m.path.replace(/^\.\.\//, '');
                 return '<div class="suggestion-item" onclick="window.location.href=\'' + target + '\'">' +
