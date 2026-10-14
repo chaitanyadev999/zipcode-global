@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /tree.json
+Disallow: /home/assets/search_index.json
+Disallow: /*.json$
 
 Sitemap: https://pozip.me/sitemap.xml
